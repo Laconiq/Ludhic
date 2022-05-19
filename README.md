@@ -1,3 +1,20 @@
+# Comment initialiser le projet
+
+## NodeJS
+
+Télécharger directement la dernière version sur le site https://nodejs.org/fr/download/
+
+## Visual Studio Code
+
+Lancer le terminal de Visual Studio Code et utiliser ces deux commandes dans le dossier où se trouve le projet :
+
+`npm install -g create-react-app`
+`npm install --save react react-dom`
+
+Puis vous pouvez lancer le projet avec la commande suivante :
+
+`npm start `
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
