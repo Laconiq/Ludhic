@@ -1,0 +1,32 @@
+body {
+    background-color: #090909;
+}
+
+h1, h2, p {
+    color: var(--color-white);
+}
+
+.detailjeu_container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+}
+
+img {
+    height: 512px;
+    width: 768px;
+}
+
+.text {
+    background-color: blue;
+    padding: 2rem;
+}
+
+p {
+    padding-top: 0.5rem;
+}
+
+.detailjeu_image {
+    background-color: red;
+    margin: auto;
+}

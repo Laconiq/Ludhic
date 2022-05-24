@@ -1,10 +1,13 @@
-import logo from './logo.svg';
 import './App.css';
 import Nav from './components/nav/Nav';
+import DetailJeu from './components/DetailJeu/DetailJeu';
 
 function App() {
   return (
+    <>
     <Nav/>
+    <DetailJeu/>
+    </>
   );
 }
 
