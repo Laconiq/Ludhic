@@ -7,7 +7,8 @@ const express = require("express");
 const cors = require("cors");
 
 var corsOptions = {
-    origin: "http://localhost:8081"
+    //Origine requêtes acceptées (port sur lequel tourne React)
+    origin: "http://localhost:3000"
 }
 
 const appExpress = express();
