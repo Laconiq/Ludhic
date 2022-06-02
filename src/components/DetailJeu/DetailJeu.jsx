@@ -1,6 +1,7 @@
 import React from 'react'
 import './detailjeu.css'
 import Participant from './Participant/Paticipant'
+import Carrousel from './Carrousel/Carrousel'
 
 const Detail_jeu = () => {
   return (
@@ -23,6 +24,7 @@ const Detail_jeu = () => {
         </div>       
         <div className='detailjeu_image_container'>
           <img className='detailjeu_image' src="https://browsecat.net/sites/default/files/windows-1920x1080-wallpapers-125693-656467-6080285.png" alt="image-lanouvelle" />
+          {/*<Carrousel/>*/}
         </div>
       </div>
     </body>
