@@ -1,0 +1,37 @@
+{
+    "code":"OK",
+    "msg-err":null,
+    "jeu":
+    {
+        "id":1,
+        "titre":"La Nouvelle",
+        "annee":2021,
+        "desc":"La Nouvelle La Nouvelle La Nouvelle La Nouvelle La Nouvelle La Nouvelle La Nouvelle La Nouvelle La Nouvelle La Nouvelle La Nouvelle La Nouvelle La Nouvelle La Nouvelle La Nouvelle La Nouvelle La Nouvelle La Nouvelle La Nouvelle La Nouvelle La Nouvelle La ",
+        "video":"https://www.youtube.com/watch?v=7cUeeTmyWds",
+        "txt-btn":"Le site",
+        "lien-btn":"https://lanouvelle-lejeu.fr/"
+    },
+    "carousel":
+    [
+        "https://via.placeholder.com/1920x1080?text=La+Nouvelle+1",
+        "https://via.placeholder.com/1920x1080?text=La+Nouvelle+2",
+        "https://via.placeholder.com/1920x1080?text=La+Nouvelle+3",
+        "https://via.placeholder.com/1920x1080?text=La+Nouvelle+4",
+        "https://via.placeholder.com/1920x1080?text=La+Nouvelle+5"
+    ],
+    "membres":
+    [
+        {
+            "id":1,
+            "nom":"Lysensoone Bijou",
+            "prenom":"Arnaud",
+            "poste":"Narrative Designer, Game Designer"
+        },
+        {
+            "id":2,
+            "nom":"Où qu'on ski",
+            "prenom":"Sebastien",
+            "poste":"Level Designer"
+        }
+    ]
+}

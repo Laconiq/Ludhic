@@ -1,7 +1,12 @@
 .carrousel {
     margin-top: 1rem;
+    background-color: red;
 }
 
 .image-slider {
     max-width: 800px;
+}
+
+.thumb {
+    background-color: blue;
 }

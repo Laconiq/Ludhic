@@ -3,10 +3,10 @@ import './detailjeu.css'
 import Participant from './Participant/Paticipant'
 import Carrousel from './Carrousel/Carrousel'
 
-const Detail_jeu = () => {
+class Detail_jeu extends React.Component {
+  render (){
   return (
     <>
-    <body>
       <div className='detailjeu_container'>
         <div className='text_container'>
           <div className='text'>
@@ -23,13 +23,12 @@ const Detail_jeu = () => {
           </div>
         </div>       
         <div className='detailjeu_image_container'>
-          <img className='detailjeu_image' src="https://browsecat.net/sites/default/files/windows-1920x1080-wallpapers-125693-656467-6080285.png" alt="image-lanouvelle" />
-          {/*<Carrousel/>*/}
+          <Carrousel/>
         </div>
       </div>
-    </body>
     </>
   )
+}
 }
 
 export default Detail_jeu

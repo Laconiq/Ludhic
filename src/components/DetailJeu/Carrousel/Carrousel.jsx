@@ -3,7 +3,8 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from 'react-responsive-carousel';
 import "./carrousel.css"
 
-function Carrousel() {
+class Carrousel extends React.Component {
+  render(){
   return (
     <Carousel className='carrousel'>
         <div>
@@ -17,6 +18,7 @@ function Carrousel() {
         </div>
     </Carousel>
   )
+}
 }
 
 export default Carrousel
