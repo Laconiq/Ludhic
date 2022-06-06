@@ -3,6 +3,19 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { initializeApp } from "firebase/app";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyATT4vygSK2Pqwk6dMByKnsdCI0e311E5o",
+  authDomain: "ludhic-94c93.firebaseapp.com",
+  databaseURL: "https://ludhic-94c93-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "ludhic-94c93",
+  storageBucket: "ludhic-94c93.appspot.com",
+  messagingSenderId: "38465712269",
+  appId: "1:38465712269:web:ba5258d2a393815a5472c4"
+};
+
+const app = initializeApp(firebaseConfig);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
