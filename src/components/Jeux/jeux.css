@@ -1,0 +1,24 @@
+.jeux-titre {
+    color: white;
+}
+
+.jeux-description {
+    color: white;
+}
+
+.jeux-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    max-width: fit-content;
+    gap: 6rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.jeux-item {
+}
+
+.jeux-image {
+    width: 300px;
+    height: 300px;
+}
