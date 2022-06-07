@@ -4,6 +4,13 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { initializeApp } from "firebase/app";
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyATT4vygSK2Pqwk6dMByKnsdCI0e311E5o",

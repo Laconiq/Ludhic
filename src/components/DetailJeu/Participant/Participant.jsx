@@ -65,6 +65,5 @@ class Participant extends React.Component {
         )
     }
 }
-}
 
 export default Participant
