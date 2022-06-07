@@ -1,12 +1,50 @@
 .carrousel {
     margin-top: 1rem;
+}
+
+.carousel .slide {
+    max-height: 436px;
     background-color: red;
 }
 
-.image-slider {
-    max-width: 800px;
+.carousel.carousel-slider .control-arrow:hover {
+    background: none;
 }
 
-.thumb {
-    background-color: blue;
+.carousel .thumb {
+    border: 2px solid #333;
+    max-height: 48px;
+    display: flex;
+    justify-content: center;
+}
+
+.selected, .previous {
+    display: flex;
+    justify-content: center;
+} 
+
+.thumbs {
+    display: flex;
+    justify-content: center;
+} 
+
+.carousel .thumb.selected, .carousel .thumb:hover {
+    border: 2px solid #fff;
+}
+
+/* =========== MEDIA QUERIES (MEDIUM DEVICES) =========== */
+
+@media screen and (max-width: 1024px) {
+    .carousel .slide {
+        max-height: 420px;
+        background-color: red;
+    }
+}
+
+/* =========== MEDIA QUERIES (SMALL DEVICES) =========== */
+
+@media screen and (max-width: 600px) {
+    .carousel .slide {
+        max-height: 200px;
+    }
 }
