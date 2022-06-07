@@ -6,15 +6,18 @@ import "./carrousel.css"
 class Carrousel extends React.Component {
   render(){
   return (
-    <Carousel className='carrousel'>
+    <Carousel className='carrousel'
+    showIndicators={false} 
+    showStatus={false}
+    >
         <div>
-            <img src="https://image.noelshack.com/fichiers/2019/07/1/1549843154-z9z.png" alt="" className='image-slider'/>
+            <img src="https://image.noelshack.com/fichiers/2019/07/1/1549843154-z9z.png" alt=""/>
         </div>
         <div>
-            <img src="https://www.syfy.com/sites/syfy/files/styles/scale--1200/public/2021/06/shrekfest-shrek-super-slam.png" alt="" className='image-slider'/>
+            <img src="https://via.placeholder.com/800x800" alt=""/>
         </div>
         <div>
-            <img src="https://wallpaper.dog/large/20429709.jpg" alt="" className='image-slider'/>
+            <img src="https://via.placeholder.com/1920x1080" alt=""/>
         </div>
     </Carousel>
   )
