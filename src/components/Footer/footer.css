@@ -36,3 +36,54 @@
     height: 8rem;
     width: max-content;
 }
+
+/* =========== MEDIA QUERIES (MEDIUM DEVICES) =========== */
+
+@media screen and (max-width: 1024px) {
+    .footer-container{
+        display: inline;
+    }
+
+    .footer-text{
+        text-align: center;
+        margin-top: 0.8rem;
+    }
+
+    .bouton-footer{
+        display: flex;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 0.5rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .ligne-top {
+        margin-top: 1rem;
+    }
+}
+
+/* =========== MEDIA QUERIES (SMALL DEVICES) =========== */
+
+@media screen and (max-width: 600px) {
+    .footer-container{
+        display: inline;
+    }
+
+    .footer-text{
+        text-align: center;
+        margin-top: 0.8rem;
+    }
+
+    .bouton-footer{
+        display: flex;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 0.5rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .ligne-top {
+        margin-top: 1rem;
+    }
+
+}

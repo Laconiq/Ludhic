@@ -1,24 +1,57 @@
 .jeux-titre {
-    color: white;
+    color: var(--color-white);
+    margin-top: 0.6rem;
+    margin-bottom: 0.2rem;
 }
 
 .jeux-description {
-    color: white;
+    color: var(--color-white);
 }
 
 .jeux-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     max-width: fit-content;
-    gap: 6rem;
+    gap: 5rem;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 2rem;
 }
 
 .jeux-item {
+    /*height: 23.2rem;
+    background-color: var(--color-primary-variant);*/
 }
 
 .jeux-image {
-    width: 300px;
-    height: 300px;
+    width: 20rem;
+    height: 20rem;
+}
+
+.jeux-text {
+    text-align: center;
+}
+
+/* =========== MEDIA QUERIES (MEDIUM DEVICES) =========== */
+
+@media screen and (max-width: 1024px) {
+    .jeux-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4rem;
+        row-gap: 2rem;
+    }
+}
+
+/* =========== MEDIA QUERIES (SMALL DEVICES) =========== */
+
+@media screen and (max-width: 600px) {
+    .jeux-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+
+    .jeux-image {
+        width: 9rem;
+        height: 9rem;
+    }
 }

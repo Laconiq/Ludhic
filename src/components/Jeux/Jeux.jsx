@@ -45,8 +45,10 @@ function Jeux() {
                 <div>
                   <img src={image} alt={titre} className='jeux-image'/>
                 </div>
-                <h3 className='jeux-titre'>{titre}</h3>
-                <small className='jeux-description'>{description}</small>
+                <div className='jeux-text'>
+                    <h3 className='jeux-titre'>{titre}</h3>
+                    <small className='jeux-description'>{description}</small>
+                </div>
               </article>
             )
           })
