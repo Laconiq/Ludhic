@@ -7,13 +7,12 @@ class Participant extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            membres: [{id:0,nom:"Test",prenom:"Osterone",poste:"Rien"}]
+            membres: []
         };
     }
 
     componentDidMount() {
-        let listeMembres = new Array();
-
+        //TODO Récupérer ID par lien requête
         const jeuId = 1;
         const dbRef = ref(getDatabase());
         get(child(dbRef, `Jeu/${jeuId}/Membre`)).then((snapshot) => {
@@ -28,21 +27,14 @@ class Participant extends React.Component {
                             nom:snapshot.val().Nom,
                             prenom:snapshot.val().Prenom,
                             poste:element.Poste
-                        }
-                        
-                        listeMembres.push(membre);
+                        };
+                        this.setState(prevState => ({membres: [...prevState.membres, membre]}));
                     }
                 });
             });
-            console.log(listeMembres);
-            console.log(this.state.membres);
-            this.setState({membres: listeMembres});
-        } 
-        else 
-        {
-            console.log("No data available");
         }
         }).catch((error) => {
+            //TODO gestion si erreur de requête
             console.error(error);
         });
     }

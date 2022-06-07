@@ -17,8 +17,11 @@ class Detail_jeu extends React.Component {
   }
 
   componentDidMount() {
+    //TODO Récupérer ID par lien requête
     const jeuId = 1;
     const dbRef = ref(getDatabase());
+    //TODO Récupérer que les info que je veux (pas abuser sur la BDD)
+    //Requête info du jeu sur base de donnée grâce à l'ID
     get(child(dbRef, `Jeu/${jeuId}`)).then((snapshot) => {
       if (snapshot.exists()) {
         const jeu = snapshot.val();
@@ -30,9 +33,11 @@ class Detail_jeu extends React.Component {
           lien_bouton: jeu.Lien_Bouton
         });
       } else {
+        //TODO gestion si jeu n'existe pas dans BDD
         console.log("No data available");
       }
     }).catch((error) => {
+      //TODO gestion si erreur de requête
       console.error(error);
     });
   }
@@ -50,7 +55,7 @@ class Detail_jeu extends React.Component {
                 <Participant/>
               </div>
               <div className='bouton'>
-                <a href="#leliendujeu">{this.state.texte_bouton}</a>
+                <a href={this.state.lien_bouton}>{this.state.texte_bouton}</a>
               </div>
             </div>
           </div>       
