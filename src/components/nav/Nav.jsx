@@ -32,7 +32,6 @@ export default class Accueil extends Component {
       <nav>
         <a href="/"><AiOutlineHome/></a>
         <a href="/jeux"><RiGamepadLine/></a>
-        <a href="/jeux/nomdujeu"><RiGamepadLine/></a>
       </nav>
     )
   }

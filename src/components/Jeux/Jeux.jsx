@@ -7,7 +7,7 @@ const data = [
         image: 'https://lanouvelle-lejeu.fr/wp-content/uploads/2022/04/pic.png',
         titre: 'La Nouvelle',
         description: 'Blablabla',
-        lien:'',
+        lien:'jeux/nomdujeu',
     },
 
     {
@@ -39,15 +39,18 @@ function Jeux() {
   return (
     <div className='jeux-container'>
         {
-          data.map(({id, image, titre, description}) => {
+          data.map(({id, image, titre, description, lien}) => {
             return (
               <article key={id} className='jeux-item'>
                 <div>
-                  <img src={image} alt={titre} className='jeux-image'/>
+                  <a href={lien}>
+                    <img src={image} alt={titre} className='jeux-image'/>
+                  </a>
                 </div>
                 <div className='jeux-text'>
                     <h3 className='jeux-titre'>{titre}</h3>
                     <small className='jeux-description'>{description}</small>
+                    <a href={lien} className='jeux-bouton'>Découvrir</a>
                 </div>
               </article>
             )
