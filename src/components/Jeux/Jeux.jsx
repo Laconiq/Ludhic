@@ -33,7 +33,7 @@ function Jeux() {
                   logo: jeu.Logo,
                   titre: jeu.Titre,
                   description: jeu.Description_Courte,
-                  lien:`jeu/${idJeu}`
+                  lien:`jeux/${idJeu}`
                 });
 
                 //TODO Rajouter cette merde dans State... franchement je sais pas

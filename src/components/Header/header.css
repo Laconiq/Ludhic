@@ -6,6 +6,13 @@
     top: 0rem;
 }
 
+.header-titre {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0.8rem;
+}
+
 .header-bottom {
     width: 100%;
     height: 4rem;
@@ -13,18 +20,38 @@
 
 .header-bouton {
     position: fixed;
-    right: 3rem;
+    right: 2rem;
     top: 0.9rem;
     padding: 0.5rem;
-    border-radius: 0%;
-
+    background-color: var(--color-primary);
+    border-radius: 2rem;
+    transition: var(--transition);
 }
 
 .header-bouton > a {
-    color: var(--color-white);
-    /*transition: var(--transition);*/
+    color: var(--color-bg);
+    padding: 0.5rem;
 }
 
-.header-bouton > a:hover {
-    color: var(--color-light);
+.header-bouton:hover {
+    background-color: var(--color-white);
+}
+
+/* =========== MEDIA QUERIES (MEDIUM DEVICES) =========== */
+
+@media screen and (max-width: 1024px) {
+}
+
+/* =========== MEDIA QUERIES (SMALL DEVICES) =========== */
+
+@media screen and (max-width: 600px) {
+    .header-titre {
+        left: 20%;
+    }
+
+    .header-bouton {
+        right: 20%;
+        transform: translateX(+50%);
+    }
+
 }
