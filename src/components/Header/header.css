@@ -1,5 +1,30 @@
 .header {
-    font-size: 4rem;
-    text-align: center;
-    margin: 0.5rem;
+    position: fixed;
+    background-color: var(--color-primary-variant);
+    width: 100%;
+    height: 4rem;
+    top: 0rem;
+}
+
+.header-bottom {
+    width: 100%;
+    height: 4rem;
+}
+
+.header-bouton {
+    position: fixed;
+    right: 3rem;
+    top: 0.9rem;
+    padding: 0.5rem;
+    border-radius: 0%;
+
+}
+
+.header-bouton > a {
+    color: var(--color-white);
+    /*transition: var(--transition);*/
+}
+
+.header-bouton > a:hover {
+    color: var(--color-light);
 }

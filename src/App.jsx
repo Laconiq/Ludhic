@@ -12,8 +12,8 @@ function App() {
     <>
       <Routes>
         <Route path='/jeux/nomdujeu' element={<><Nav/><DetailJeu/><Footer/></>}/>
-        <Route path='/' element={<><Nav/><Accueil/><Footer/></>}/>
-        <Route path='/jeux' element={<><Nav/><Jeux/><Footer/></>}/>
+        <Route path='/' element={<><Nav/><Header/><Accueil/><Footer/></>}/>
+        <Route path='/jeux' element={<><Nav/><Header/><Jeux/><Footer/></>}/>
       </Routes>
     </>
   );

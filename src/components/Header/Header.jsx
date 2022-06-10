@@ -3,7 +3,15 @@ import './header.css'
 
 function Header() {
   return (
-      <h1 className='header'>LUDHIC</h1>
+    <>
+    <div className='header'>
+      <div className='header-bouton'>
+        <a href="">Se connecter</a>
+      </div>
+    </div>
+    <div className='header-bottom'>
+    </div>
+    </>
   )
 }
 
