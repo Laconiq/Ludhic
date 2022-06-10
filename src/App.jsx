@@ -1,5 +1,5 @@
 import './App.css';
-import Nav from './components/nav/Nav';
+import Nav from './components/Nav/Nav'
 import DetailJeu from './components/DetailJeu/DetailJeu';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';

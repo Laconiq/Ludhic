@@ -1,17 +1,19 @@
 .jeux-titre {
     color: var(--color-white);
     margin-top: 0.6rem;
+    margin-bottom: 0.6rem;
 }
 
 .jeux-description {
     color: var(--color-light);
+    margin-bottom: 0.6rem;
 }
 
 .jeux-container {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     max-width: fit-content;
-    gap: 3rem;
+    gap: 2.5rem;
     margin-left: 15rem;
     margin-top: 2rem;
 }
@@ -19,7 +21,7 @@
 .jeux-item {
     /*height: 23.2rem;
     background-color: var(--color-primary-variant);*/
-    display: grid;
+    display: flex;
     grid-template-columns: repeat(2, 1fr);
 }
 
@@ -32,29 +34,42 @@
 }
 
 .jeux-image:hover {
-    padding: 0.5rem;
+    padding: 0.3rem;
 }
 
 .jeux-text {
     margin-left: 1rem;
-    display: grid;
+    display: flex;
+    flex-direction: column;
 }
 
 .jeux-bouton {
-    color: var(--color-white)
+    color: var(--color-white);
 }
 
 .jeux-bouton:hover {
     color: var(--color-primary);
 }
 
+.jeux-ligne {
+    background-color: var(--color-light);
+    height: 1px;
+    width: 100%;
+    margin-top: 1.2rem;
+}
+
 /* =========== MEDIA QUERIES (MEDIUM DEVICES) =========== */
 
 @media screen and (max-width: 1024px) {
     .jeux-container {
-        grid-template-columns: repeat(2, 1fr);
         gap: 4rem;
         row-gap: 2rem;
+        margin-left: 1.5rem;
+        margin-right: 1.5rem;
+    }
+
+    .jeux-ligne {
+        width: 50%;
     }
 }
 
@@ -62,7 +77,6 @@
 
 @media screen and (max-width: 600px) {
     .jeux-container {
-        grid-template-columns: repeat(2, 1fr);
         gap: 2rem;
     }
 

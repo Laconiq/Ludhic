@@ -68,16 +68,20 @@ function Jeux() {
               {
                 jeux.map(({id, logo, titre, description, lien}) => {
                   return (
-                    <article key={id} className='jeux-item'>
-                      <div>
-                        <a href={lien}>
-                          <img src={logo} alt={titre} className='jeux-image'/>
-                        </a>
+                    <article key={id}>
+                      <div className='jeux-item'>
+                        <div>
+                          <a href={lien}>
+                            <img src={logo} alt={titre} className='jeux-image'/>
+                          </a>
+                        </div>
+                        <div className='jeux-text'>
+                            <h3 className='jeux-titre'>{titre}</h3>
+                            <small className='jeux-description'>{description}</small>
+                            <a href={lien} className='jeux-bouton'>Découvrir</a>
+                        </div>
                       </div>
-                      <div className='jeux-text'>
-                          <h3 className='jeux-titre'>{titre}</h3>
-                          <small className='jeux-description'>{description}</small>
-                          <a href={lien} className='jeux-bouton'>Découvrir</a>
+                      <div className='jeux-ligne'>
                       </div>
                     </article>
                   )
