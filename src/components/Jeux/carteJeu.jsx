@@ -16,7 +16,8 @@ function CarteJeu(props) {
                     id: idJeu,
                     titre: jeu.Titre,
                     logo: jeu.Logo,
-                    description: jeu.Description_Courte
+                    description: jeu.Description_Courte,
+                    lien: "/jeux/" + idJeu
                 });
                 setJeux([...jeux]);
             }
@@ -32,7 +33,7 @@ function CarteJeu(props) {
             <article key={jeu.id}>
                 <div className='jeux-item'>
                     <div>
-                        <a href={jeu.id}>
+                        <a href={jeu.lien}>
                         <img src={jeu.logo} alt={jeu.titre} className='jeux-image'/>
                         </a>
                     </div>
