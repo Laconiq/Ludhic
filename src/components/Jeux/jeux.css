@@ -4,6 +4,10 @@
     margin-bottom: 0.6rem;
 }
 
+.jeux-titre:hover {
+    color: var(--color-primary-variant);
+}
+
 .jeux-description {
     color: var(--color-light);
     margin-bottom: 0.6rem;
@@ -43,18 +47,10 @@
     flex-direction: column;
 }
 
-.jeux-bouton {
-    color: var(--color-white);
-}
-
-.jeux-bouton:hover {
-    color: var(--color-primary);
-}
-
 .jeux-ligne {
     background-color: var(--color-light);
     height: 1px;
-    width: 100%;
+    width: 80%;
     margin-top: 1.2rem;
 }
 

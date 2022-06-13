@@ -29,17 +29,21 @@ function CarteJeu(props) {
 
     return jeux.map((jeu) => {
         return (
-            <article key={jeu.id} className='jeux-item'>
-                <div>
-                    <a href={jeu.id}>
-                    <img src={jeu.logo} alt={jeu.titre} className='jeux-image'/>
-                    </a>
+            <article key={jeu.id}>
+                <div className='jeux-item'>
+                    <div>
+                        <a href={jeu.id}>
+                        <img src={jeu.logo} alt={jeu.titre} className='jeux-image'/>
+                        </a>
+                    </div>
+                    <div className='jeux-text'>
+                        <a href={jeu.id}>
+                            <h3 className='jeux-titre'>{jeu.titre}</h3>
+                        </a>
+                        <small className='jeux-description'>{jeu.description}</small>
+                    </div>
                 </div>
-                <div className='jeux-text'>
-                    <h3 className='jeux-titre'>{jeu.titre}</h3>
-                    <small className='jeux-description'>{jeu.description}</small>
-                    <a href={jeu.id} className='jeux-bouton'>Découvrir</a>
-                </div>
+                <div className='jeux-ligne'></div>
             </article>
         )
     })
