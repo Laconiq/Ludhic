@@ -38,7 +38,7 @@ function CarteJeu(props) {
                         </a>
                     </div>
                     <div className='jeux-text'>
-                        <a href={jeu.id}>
+                        <a href={jeu.lien}>
                             <h3 className='jeux-titre'>{jeu.titre}</h3>
                         </a>
                         <small className='jeux-description'>{jeu.description}</small>
