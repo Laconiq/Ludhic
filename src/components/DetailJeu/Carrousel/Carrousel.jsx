@@ -1,10 +1,40 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 import "./carrousel.css"
 import { getDatabase, ref, get, child } from 'firebase/database';
 import { createPortal } from 'react-dom';
 
+function Carrousel (props) {
+  const [images, setImages] = useState(new Array());
+  const dbRef = ref(getDatabase());
+
+  useEffect(()=>{
+    if(props.carrousel)
+    {
+      setImages(props.carrousel.images);
+    }
+  },[props.carrousel]);
+
+  return (
+    <Carousel className='carrousel'
+    showIndicators={false} 
+    showStatus={false}
+    >
+      {
+        images.map((image, id) => {
+          return (
+            <div key={id}>
+              <img src={image}></img>
+            </div>
+          )
+        })
+      }
+    </Carousel>
+  )
+}
+
+/*
 class Carrousel extends React.Component {
   constructor(props) {
     super(props);
@@ -53,5 +83,6 @@ class Carrousel extends React.Component {
     )
   }
 }
+*/
 
 export default Carrousel
