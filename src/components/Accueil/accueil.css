@@ -1,0 +1,17 @@
+.accueil-bannière {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.accueil-bannière > img {
+    border-radius: 1rem;
+}
+
+.accueil-intro {
+    text-align: center;
+}
+
+.accueil-intro > h1 {
+    margin-top: 1rem;
+}
