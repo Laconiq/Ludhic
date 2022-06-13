@@ -6,11 +6,11 @@ export default class Accueil extends Component {
     return (
       <>
         <div className='accueil-bannière'>
-            <img src="https://via.placeholder.com/1500x300" alt="" />
+            <img src="https://via.placeholder.com/1500x400" alt="" />
         </div>
         <div className='accueil-intro'>
-          <h1 className='accueil-intro'>Ludhic</h1>
-          <p className='accueil-intro'>Ludhic c'est bla bla bla bla bla</p>
+          <h1 className='accueil-intro-text'>Ludhic</h1>
+          <p className='accueil-intro-text'>Ludhic c'est bla bla bla bla bla</p>
         </div>
       </>
     )

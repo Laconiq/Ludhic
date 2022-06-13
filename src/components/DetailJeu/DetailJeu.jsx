@@ -34,7 +34,7 @@ function Detail_jeu() {
               <Participant membres={jeu.Membre}/>
             </div>
             <div className='bouton'>
-              <a href={jeu.Lien_Bouton}>{jeu.Texte_Bouton}</a>
+              <a href={jeu.Lien_Bouton} target="_blank">{jeu.Texte_Bouton}</a>
             </div>
           </div>
         </div>       

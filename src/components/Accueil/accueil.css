@@ -2,16 +2,19 @@
     display: flex;
     justify-content: center;
     margin-top: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
 }
 
 .accueil-bannière > img {
-    border-radius: 1rem;
+    max-width : 100%;
+    height: auto;
 }
 
-.accueil-intro {
+.accueil-intro-text {
     text-align: center;
 }
 
-.accueil-intro > h1 {
+.accueil-intro {
     margin-top: 1rem;
 }
