@@ -32,7 +32,7 @@ function Participant(props) {
 
     return (
         <section id='etudiant'>
-        <h2>Étudiant participants au projet :</h2>
+        <h2>Étudiants participants au projet :</h2>
             {
                 membres.map(({id, nom, prenom, poste}) => {
                     return (
