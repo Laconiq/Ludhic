@@ -6,6 +6,7 @@ import Footer from './components/Footer/Footer';
 import Accueil from './components/Accueil/Accueil';
 import Jeux from './components/Jeux/Jeux';
 import {Routes, Route} from "react-router-dom"
+import AdministrationJeu from './components/AdministrationJeu/AdministrationJeu';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path='/jeux/:id' element={<><Nav/><DetailJeu/><Footer/></>}/>
         <Route path='/' element={<><Nav/><Header/><Accueil/><Footer/></>}/>
         <Route path='/jeux' element={<><Nav/><Header/><Jeux/><Footer/></>}/>
+        <Route path='/admin-jeu' element={<><Nav/><Header/><AdministrationJeu/><Footer/></>}/>
       </Routes>
     </>
   );
