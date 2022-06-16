@@ -28,7 +28,11 @@ function Jeux() {
           return (
             <div key={annee}>
               <h2>{annee}</h2>
-              <CarteJeu jeux={listeJeux[annee]}/>
+              {
+                listeJeux[annee].map((idJeu) => {
+                  return (<CarteJeu jeu={idJeu} key={idJeu}/>)
+                })
+              }
             </div>
           )
         })
