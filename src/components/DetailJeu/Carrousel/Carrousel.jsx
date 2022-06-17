@@ -12,7 +12,7 @@ function Carrousel (props) {
   useEffect(()=>{
     if(props.carrousel)
     {
-      setImages(props.carrousel.images);
+      setImages(props.carrousel);
     }
   },[props.carrousel]);
 
