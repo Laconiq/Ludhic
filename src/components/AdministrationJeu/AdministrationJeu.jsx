@@ -4,31 +4,33 @@ import './administrationjeu.css'
 function AdministrationJeu() {
   return (
     <>
-        <h1 className='form-titre'>Administration jeu</h1>
+        <h1 className='form-titre'>Administration jeux</h1>
         <form action="" method='post' className='form'>
             <div className='form-ligne'></div>
 
 {/* INFORMATIONS PRINCIPALES */}
 
+            <p>Vous êtes sur la page d'administration des jeux, vous pourrez modifier, ajouter ou retirer toutes informations plus tard.<br/>
+            Pour tout problème rencontré contacter email@email.fr</p>
             <h2 className='form-titre-h2'>Informations principales</h2>
             <div className='form-component'>
                 <label htmlFor="name">Nom du jeu* : </label>
-                <textarea name="" id="" cols="80" rows="1" type="text" maxLength={20} placeholder='Titre' required='required'></textarea>
+                <textarea name="" id="" cols="80" rows="1" type="text" maxLength={20} required='required'></textarea>
             </div>
             <div className='form-component'>
                 <label htmlFor="name">URL de la page* : </label>
                 <p className='form-texte'>Nom de l'url de la page du jeu (Exemple : ludhic.fr/jeux/monjeu)</p>
-                <textarea name="" id="" cols="80" rows="1" type="text" maxLength={20} placeholder='Monjeu' required='required'></textarea>
+                <textarea name="" id="" cols="80" rows="1" type="text" maxLength={20} required='required'></textarea>
             </div>
             <div className='form-component'>
                 <label htmlFor="name">Description courte* : </label>
                 <p className='form-texte'>Longueur maximale de X caractères</p>
-                <textarea name="" id="" cols="80" rows="3" type="text" maxLength={50} placeholder="C'est est une description courte" required='required'></textarea>
+                <textarea name="" id="" cols="80" rows="3" type="text" maxLength={50} required='required'></textarea>
             </div>
             <div className='form-component'>
                 <label htmlFor="name">Description longue* : </label>
                 <p className='form-texte'>Longueur maximale de X caractères</p>
-                <textarea name="" id="" cols="80" rows="8" type="text" maxLength={50} placeholder="C'est est une description longue" required='required'></textarea>
+                <textarea name="" id="" cols="80" rows="8" type="text" maxLength={50} required='required'></textarea>
             </div>
             <div className='form-component'>
                 <label htmlFor="name">Logo* : </label>

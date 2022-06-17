@@ -4,11 +4,11 @@
 
 Télécharger directement la dernière version sur le site https://nodejs.org/fr/download/
 
-## React Icons
+## Modules
 
-Installer les pack d'icons avec la commande suivante :
+Installer tous les modules avec la commande suivante :
 
-`npm install react-icons --save`
+`npm i`
 
 ## Visual Studio Code
 

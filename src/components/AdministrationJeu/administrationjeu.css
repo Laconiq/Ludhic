@@ -53,6 +53,16 @@ textarea {
     resize: none;
 }
 
+.send-form {
+    background-color: var(--color-primary);
+    padding: 1rem 1rem 1rem 1rem;
+    color: var(--color-bg);
+}
+
+.send-form:hover {
+    background-color: var(--color-primary-variant);
+}
+
 /* =========== MEDIA QUERIES (MEDIUM DEVICES) =========== */
 
 @media screen and (max-width: 1024px) {
