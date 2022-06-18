@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { initializeApp } from "firebase/app";
+import { getStorage } from "firebase/storage";
 import {BrowserRouter} from "react-router-dom";
 
 
@@ -18,6 +19,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const storage = getStorage(app);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
