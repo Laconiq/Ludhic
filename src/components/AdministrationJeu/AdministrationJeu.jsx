@@ -87,7 +87,7 @@ function AdministrationJeu() {
                 </div>
                 <div className='form-component'>
                     <label htmlFor="url">URL de la page* : </label>
-                    <p className='form-texte'>Nom de l'url de la page du jeu (Exemple : ludhic.fr/jeux/monjeu)</p>
+                    <p className='form-texte'>Nom de l'url de la page du jeu (Exemple : MONJEU donnera ludhic.fr/jeux/MONJEU)</p>
                     <input name="url" type="text" maxLength={32} required='required'/>
                 </div>
                 <div className='form-component'>
