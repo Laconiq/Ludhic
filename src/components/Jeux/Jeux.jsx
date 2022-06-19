@@ -29,7 +29,9 @@ function Jeux() {
         Object.keys(listeJeux).reverse().map((annee) => {
           return (
             <div key={annee}>
-              <h2 id={annee}>{annee}</h2>
+              <div className='jeux-annee' id={annee}>
+                <h2 >{annee}</h2>
+              </div>
               {
                 listeJeux[annee].map((idJeu) => {
                   return (<CarteJeu jeu={idJeu} key={idJeu}/>)

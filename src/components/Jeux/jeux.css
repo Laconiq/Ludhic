@@ -53,6 +53,13 @@
     margin: 1.2rem 0 1.2rem 0;
 }
 
+.jeux-annee {
+    height: 100px;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+}
+
 /* =========== MEDIA QUERIES (MEDIUM DEVICES) =========== */
 
 @media screen and (max-width: 1024px) {

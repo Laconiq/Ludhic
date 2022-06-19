@@ -9,6 +9,8 @@
 
 .scrollbar-container > a {
     color: var(--color-light);
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .scrollbar-ligne {
