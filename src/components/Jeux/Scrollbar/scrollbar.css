@@ -1,0 +1,33 @@
+.scrollbar-container {
+    position: fixed;
+    right: 15rem;
+    display: grid;
+    gap: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.scrollbar-container > a {
+    color: var(--color-light);
+}
+
+.scrollbar-ligne {
+    height: 40px;
+    width: 1px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: var(--color-light);
+}
+
+/* =========== MEDIA QUERIES (MEDIUM DEVICES) =========== */
+
+@media screen and (max-width: 1024px) {
+    .scrollbar-container {
+        display: none;
+    }
+}
+
+/* =========== MEDIA QUERIES (SMALL DEVICES) =========== */
+
+@media screen and (max-width: 600px) {
+}

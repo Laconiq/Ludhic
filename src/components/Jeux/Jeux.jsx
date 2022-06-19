@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './jeux.css'
 import { getDatabase, ref, get, child } from 'firebase/database';
 import CarteJeu from './carteJeu';
+import Scrollbar from './Scrollbar/Scrollbar';
 
 function Jeux() {
   const [listeJeux, setListeJeux] = useState(new Object());
@@ -22,12 +23,13 @@ function Jeux() {
   },[]);
 
   return (
+    <>
     <div className='jeux-container'>
       {
         Object.keys(listeJeux).reverse().map((annee) => {
           return (
             <div key={annee}>
-              <h2 className='jeux-année'>{annee}</h2>
+              <h2 id={annee}>{annee}</h2>
               {
                 listeJeux[annee].map((idJeu) => {
                   return (<CarteJeu jeu={idJeu} key={idJeu}/>)
@@ -38,6 +40,8 @@ function Jeux() {
         })
       }
     </div>
+    <Scrollbar/>
+    </>
   )
 }
 
