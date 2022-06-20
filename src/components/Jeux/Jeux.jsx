@@ -7,9 +7,9 @@ import Scrollbar from './Scrollbar/Scrollbar';
 function Jeux() {
   const [listeJeux, setListeJeux] = useState(new Object());
 
-  //équivalant ComponentDidMountain (c'est pas lisible c'est la faute à Bastien)
+  //équivalant didMoutain
   useEffect(()=>{
-    //TODO Récupérer ID par lien requête
+    //TODO Virer références à table Annee, utiliser année dans jeux pour trier, je vais détester ma vie
     const dbRef = ref(getDatabase());
     get(child(dbRef, `Annee`)).then((snapshot) => {
       if (snapshot.exists())

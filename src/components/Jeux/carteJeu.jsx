@@ -5,6 +5,8 @@ import React, { useState, useEffect } from 'react'
 function CarteJeu(props) {
     const [jeu, setJeu] = useState(new Object());
 
+    //Equivalant didMount
+    //Récupère ID du jeu depuis props.jeu, récupère infos dans BDD et verse dans state
     useEffect(()=>{
         const idJeu = props.jeu;
 

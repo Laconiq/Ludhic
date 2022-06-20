@@ -7,7 +7,7 @@ import { initializeApp } from "firebase/app";
 import { getStorage } from "firebase/storage";
 import {BrowserRouter} from "react-router-dom";
 
-
+//Configuration Firebase (permet BDD et Stockage fichiers)
 const firebaseConfig = {
   apiKey: "AIzaSyATT4vygSK2Pqwk6dMByKnsdCI0e311E5o",
   authDomain: "ludhic-94c93.firebaseapp.com",
@@ -17,7 +17,6 @@ const firebaseConfig = {
   messagingSenderId: "38465712269",
   appId: "1:38465712269:web:ba5258d2a393815a5472c4"
 };
-
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
 
