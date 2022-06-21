@@ -47,6 +47,11 @@ function Detail_jeu() {
           <Carrousel carrousel={jeu.Carrousel}/>
         </div>
       </div>
+        <div className='detailjeu_video_container'>
+            {/*ATTENTION pour le lien d'une video "https://www.youtube.com/watch?v=dQw4w9WgXcQ" 
+            il faut récupérer uniquement ce qui est après le "?v=" donc "dQw4w9WgXcQ" qu'il faut coller après "https://www.youtube.com/embed/"*/}
+            <iframe className='detailjeu_video' width="60%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ"></iframe>
+        </div>
     </body>
     </>
   )

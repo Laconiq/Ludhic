@@ -45,6 +45,18 @@ p {
     align-items: center;
 }
 
+.detailjeu_video_container {
+    background-color: var(--color-bg-variant);
+    height: 40rem;
+}
+
+.detailjeu_video {
+    margin: auto;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+}
+
 /* =========== Bouton =========== */
 
 .bouton {
@@ -92,6 +104,11 @@ h2 {
         padding: 2rem;
         grid-template-columns: 1fr;
     }
+
+    .detailjeu_video {
+        width: 85%;
+        height: 60%;
+    }
 }
 
 /* =========== MEDIA QUERIES (SMALL DEVICES) =========== */
@@ -103,5 +120,10 @@ h2 {
     }
     .text_container {
         padding-bottom: 0rem;
+    }
+
+    .detailjeu_video {
+        width: 85%;
+        height: 40%;
     }
 }
