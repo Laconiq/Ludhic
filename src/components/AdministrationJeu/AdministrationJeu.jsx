@@ -85,6 +85,16 @@ function AdministrationJeu() {
                     <label htmlFor="titre">Nom du jeu* : </label>
                     <input name="titre" type="text" maxLength={64} required='required'/>
                 </div>
+                {/*
+
+                J'essaye de trouver un truc mieux pour l'année qu'un champ de texte
+
+                <div className='form-component'>
+                    <label htmlFor="titre">Année* : </label>
+                    <p className='form-texte'>Choisir l'année de la rentrée (Exemple : Si l'année est 2021-2022 alors écrivez 2021)</p>
+                    <input name="titre" type="text" maxLength={64} required='required'/>
+                </div>
+                */}
                 <div className='form-component'>
                     <label htmlFor="url">URL de la page* : </label>
                     <p className='form-texte'>Nom de l'url de la page du jeu (Exemple : MONJEU donnera ludhic.fr/jeux/MONJEU)</p>
@@ -104,6 +114,11 @@ function AdministrationJeu() {
                     <label htmlFor="logo">Logo* : </label>
                     <p className='form-texte'>Image au format 1:1 (Exemple : 500x500) </p>
                     <input name="logo" type="file" accept="image/png, image/jpeg" required='required'/>
+                </div>
+                <div className='form-component'>
+                    <label htmlFor="url">Lien vidéo Youtube : </label>
+                    <p className='form-texte'>Lien vers une vidéo Youtube (Exemple : Gameplay, Trailer etc...)</p>
+                    <input name="url" type="text" maxLength={32}/>
                 </div>
 
     {/* BOUTON */}
