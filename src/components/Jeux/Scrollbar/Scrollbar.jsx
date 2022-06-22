@@ -1,16 +1,21 @@
 import React from 'react'
 import './scrollbar.css'
 
-function Scrollbar() {
+function Scrollbar(props) {
   //TODO Récupérer années depuis Jeux.jsx parce que là c'est dégueulasse
   return (
-    <>
     <div className='scrollbar-container'>
-        <a href="#2022">2022</a>
-        <div className='scrollbar-ligne'></div>
-        <a href="#2021">2021</a>
+      {
+        props.annees.map((annee) => {
+          return (
+              <span key={annee}>
+                <a href={"#" + annee}>{annee}</a>
+                <div className='scrollbar-ligne'></div>
+              </span>
+          )
+        })
+      }
     </div>
-    </>
   )
 }
 

@@ -7,20 +7,27 @@ import Scrollbar from './Scrollbar/Scrollbar';
 function Jeux() {
   const [listeJeux, setListeJeux] = useState(new Object());
 
-  //équivalant didMoutain
-  useEffect(()=>{
-    //TODO Virer références à table Annee, utiliser année dans jeux pour trier, je vais détester ma vie
+  useEffect(() => {
     const dbRef = ref(getDatabase());
-    get(child(dbRef, `Annee`)).then((snapshot) => {
-      if (snapshot.exists())
-      {
-        setListeJeux(snapshot.val());
-      }
-    }).catch((error) => {
-        //TODO gestion si erreur de requête
-        console.error(error);
+    get(child(dbRef, `Jeu`)).then((snapshot) => {
+      const res = snapshot.val();
+      Object.keys(res).forEach((id) => {
+        const anneeJeu = res[id].Annee;
+        if(!anneeJeu) return false;
+        if(!listeJeux[anneeJeu]) listeJeux[anneeJeu] = new Array();
+        listeJeux[anneeJeu].push({
+          jeuId: id, 
+          jeu: {
+            titre: res[id].Titre,
+            logo: res[id].Logo,
+            description: res[id].Description_Courte,
+            lien: "/jeux/" + id
+          }
+        });
+      });
+      setListeJeux({...listeJeux});
     });
-  },[]);
+  },[])
 
   return (
     <>
@@ -33,8 +40,8 @@ function Jeux() {
                 <h2 >{annee}</h2>
               </div>
               {
-                listeJeux[annee].map((idJeu) => {
-                  return (<CarteJeu jeu={idJeu} key={idJeu}/>)
+                listeJeux[annee].map((jeu) => {
+                  return ( <CarteJeu key={jeu.jeuId} jeu={jeu.jeu} /> )
                 })
               }
             </div>
@@ -42,7 +49,7 @@ function Jeux() {
         })
       }
     </div>
-    <Scrollbar/>
+    <Scrollbar annees={Object.keys(listeJeux).reverse()} />
     </>
   )
 }
