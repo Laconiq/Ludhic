@@ -7,7 +7,7 @@
     transform: translateY(-50%);
 }
 
-.scrollbar-container > a {
+.scrollbar-container > span > a {
     color: var(--color-light);
     margin-left: auto;
     margin-right: auto;
@@ -19,6 +19,7 @@
     margin-left: auto;
     margin-right: auto;
     background-color: var(--color-light);
+    margin-top: 1rem;
 }
 
 /* =========== MEDIA QUERIES (MEDIUM DEVICES) =========== */
