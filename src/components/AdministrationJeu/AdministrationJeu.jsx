@@ -85,16 +85,11 @@ function AdministrationJeu() {
                     <label htmlFor="titre">Nom du jeu* : </label>
                     <input name="titre" type="text" maxLength={64} required='required'/>
                 </div>
-                {/*
-
-                J'essaye de trouver un truc mieux pour l'année qu'un champ de texte
-
                 <div className='form-component'>
                     <label htmlFor="titre">Année* : </label>
-                    <p className='form-texte'>Choisir l'année de la rentrée (Exemple : Si l'année est 2021-2022 alors écrivez 2021)</p>
-                    <input name="titre" type="text" maxLength={64} required='required'/>
+                    <p className='form-texte'>Année de la rentrée (Exemple : Si l'année est 2021-2022 alors écriver 2021)</p>
+                    <input type="number" min="2000" max="2100" maxLength={64} required='required'/>
                 </div>
-                */}
                 <div className='form-component'>
                     <label htmlFor="url">URL de la page* : </label>
                     <p className='form-texte'>Nom de l'url de la page du jeu (Exemple : MONJEU donnera ludhic.fr/jeux/MONJEU)</p>
