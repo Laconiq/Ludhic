@@ -155,10 +155,24 @@ function AdministrationJeu() {
                     <p className='form-texte'>Image au format 16:9 (Exemple : 1920x1080)</p>
                     <input name="car_4" type="file" accept="image/png, image/jpeg"/>
                 </div>
+
+    {/* PROPRIÉTAIRE */}
+
+                <div className='form-ligne'></div>
+                <h2 className='form-titre-h2'>Propriétaires</h2>
+                <div className='form-component'>
+                    <label htmlFor="desc_long">Propriétaire de la page : </label>
+                    <p className='form-texte'>Les propriétaires de la page pouront l'éditer en intégralité, renseigner le prénom et le nom de chacun<br/>
+                    Le créateur de la page sera par défaut propriétaire. Si personne n'est renseigné vous serez la seule personne propriétaire de la page</p>
+                    <textarea name="desc_long" cols="80" rows="5" type="text" maxLength={516}></textarea>
+                </div>
+
                 <p className='form-texte'>* : Champ obligatoire</p>
                 <div className='form-component'>
                     <input name="img1" className='send-form' type="submit" value="Envoyer le formulaire" />
-                </div>            
+                </div>
+
+
             </form>
         </>
     )
