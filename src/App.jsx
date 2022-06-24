@@ -16,6 +16,7 @@ function App() {
         <Route path='/' element={<><Nav/><Header/><Accueil/><Footer/></>}/>
         <Route path='/jeux' element={<><Nav/><Header/><Jeux/><Footer/></>}/>
         <Route path='/admin-jeu' element={<><Nav/><Header/><AdministrationJeu/><Footer/></>}/>
+        <Route path='/admin-jeu/:id' element={<><Nav/><Header/><AdministrationJeu/><Footer/></>}/>
       </Routes>
     </>
   );
