@@ -5,11 +5,11 @@ import "./carrousel.css"
 import { getDatabase, ref, get, child } from 'firebase/database';
 import { createPortal } from 'react-dom';
 
+//Composant représentant l'élément affichant les images du jeu
 function Carrousel (props) {
   const [images, setImages] = useState(new Array());
 
-  //Se met à jour quand props.carrousel est disponible
-  //verse props.carrousel dans le state pour être utilisé dans Render une fois disponible
+  //Quand le composant reçoit son props, envoyer la liste des URL dans le state
   useEffect(()=>{
     if(props.carrousel)
     {

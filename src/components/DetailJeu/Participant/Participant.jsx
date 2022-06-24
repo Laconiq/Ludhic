@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import '../../DetailJeu/detailjeu.css';
 import { getDatabase, ref, get, child } from 'firebase/database';
 
+//Composant représentant la liste des étudiants ayant travaillé sur un jeu
 function Participant(props) {
     const [membres, setMembres] = useState(new Array());
 
-    //Se met à jours quand peut utiliser props.membre
-    //Récupère les info à afficher pour chaque membre (nom, prénom, ID, poste) et ajoute objet à state
+    //Quand le composant reçoit son props, récupérer les informations à afficher pour chaque étudiant
     useEffect(()=>{
         //if évite erreurs bloquant le script tant que props.membres pas disponible
         if(props.membres)
@@ -25,6 +25,7 @@ function Participant(props) {
                         });
                         setMembres([...membres]);
                     }
+                    //TODO Gérer si aucun membre à cet ID
                     }).catch((error) => {
                         //TODO gestion si erreur de requête
                         console.error(error);

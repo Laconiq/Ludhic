@@ -5,11 +5,12 @@ import Carrousel from './Carrousel/Carrousel'
 import { getDatabase, ref, get, child } from 'firebase/database';
 import { useParams } from 'react-router-dom';
 
+//Composant représentant la page avec les informations d'un seul jeu
 function Detail_jeu() {
   const [jeu, setJeu] = useState(new Object);
   const idJeu = useParams()["id"];
 
-  //Equivalant onMount, récupère toutes les données du jeu dans la BDD
+  //Au chargement du composant, récupérer les informations du jeu grâce l'ID en URL dans la base de données
   useEffect(()=>{
     const dbRef = ref(getDatabase());
     get(child(dbRef, `Jeu/${idJeu}`)).then((snapshot) => {
@@ -23,7 +24,6 @@ function Detail_jeu() {
         let match = jeu.Lien_Video.match(regExp);
         let idYtb = (match&&match[7].length==11)? "https://www.youtube.com/embed/" + match[7] : false;
 
-        setJeu(snapshot.val());
         setJeu({
           titre: jeu.Titre,
           desc: jeu.Description,
@@ -41,6 +41,7 @@ function Detail_jeu() {
     });
   },[]);
 
+  //Composants à montrer selon une condition
   const RenderBouton = (props) => {
     if(props.lien && props.txt)
     {

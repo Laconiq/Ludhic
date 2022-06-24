@@ -1,5 +1,6 @@
 import './jeux.css'
 
+//Composant affichant les informations d'un jeu dans la page les listant
 function CarteJeu(props) {
     return (
         <article>

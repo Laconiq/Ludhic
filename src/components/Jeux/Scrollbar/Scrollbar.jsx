@@ -1,8 +1,8 @@
 import React from 'react'
 import './scrollbar.css'
 
+//Composant représentant la liste de liens vers les années dans la page listant les jeux
 function Scrollbar(props) {
-  //TODO Récupérer années depuis Jeux.jsx parce que là c'est dégueulasse
   return (
     <div className='scrollbar-container'>
       {
