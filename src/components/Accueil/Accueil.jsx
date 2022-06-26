@@ -10,7 +10,9 @@ export default class Accueil extends Component {
         </div>
         <div className='accueil-intro'>
           <h1 className='accueil-intro-text'>Ludhic</h1>
-          <p className='accueil-intro-text'>Ludhic c'est bla bla bla bla bla</p>
+          <p className='accueil-intro-text'>Ludhic est une association regroupant plusieurs étudiants et anciens étudiants du Master HIC (anciennement MAJE).<br/>
+          Cette association a pour but de mettre de répertorier et de mettre en avant les travaux des étudiants.
+          </p>
         </div>
         <a href="/admin-jeu">Administration jeu</a>
       </>
