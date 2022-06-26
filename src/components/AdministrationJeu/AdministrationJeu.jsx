@@ -183,8 +183,11 @@ function AdministrationJeu() {
 
     {/* INFORMATIONS PRINCIPALES */}
 
-                <p>Vous êtes sur la page d'administration des jeux, vous pourrez modifier, ajouter ou retirer toutes informations plus tard.<br/>
-                Pour tout problème rencontré contacter email@email.fr</p>
+                <div className='form-intro'>
+                    <p>Vous êtes sur la page d'administration des jeux, vous pourrez modifier, ajouter ou retirer toutes informations plus tard.<br/>
+                    Pour tout problème rencontré contacter </p>
+                    <a href="mailto:ludhic.association@gmail.fr">ludhic.association@gmail.com</a>
+                </div>
                 <h2 className='form-titre-h2'>Informations principales</h2>
                 <div className='form-component'>
                     <label htmlFor="titre">Nom du jeu* : </label>
