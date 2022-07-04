@@ -14,7 +14,7 @@ export default class Accueil extends Component {
           Cette association a pour but de mettre de répertorier et de mettre en avant les travaux des étudiants.
           </p>
         </div>
-        <a href="/admin-jeu">Administration jeu</a>
+        <a href="/administration">Administration</a>
       </>
     )
   }
