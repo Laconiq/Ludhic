@@ -10,7 +10,7 @@ import Administration from './components/Administration/Administration';
 import AdministrationJeu from './components/Administration/Jeu/AdministrationJeu'
 import FormulaireInscription from './components/Administration/Inscription/FormulaireInscription'
 import FormulaireRendu from './components/Administration/Rendu/FormulaireRendu';
-import FormulaireCL from './components/Administration/Creative Lab/FormulaireCL';
+import FormulaireCL from './components/Administration/Creative_Lab/FormulaireCL';
 
 function App() {
   return (
