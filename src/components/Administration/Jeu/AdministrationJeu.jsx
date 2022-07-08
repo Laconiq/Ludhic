@@ -271,16 +271,51 @@ function AdministrationJeu() {
                     <AncienneImage url={formulaire.carrousel[3]} alt={"Image du carrousel"}/>
                 </div>
 
-    {/* PROPRIÉTAIRE */}
+    {/* MEMBRES */}
 
                 <div className='form-ligne'></div>
-                <h2 className='form-titre-h2'>Propriétaires</h2>
+                <h2 className='form-titre-h2'>Propriétaire de la page</h2>
                 <div className='form-component'>
                     <label htmlFor="desc_long">Propriétaire de la page : </label>
                     <p className='form-texte'>Les propriétaires de la page pouront l'éditer en intégralité, renseigner le prénom et le nom de chacun<br/>
                     Le créateur de la page sera par défaut propriétaire. Si personne n'est renseigné vous serez la seule personne propriétaire de la page</p>
                     <textarea name="desc_long" cols="80" rows="5" type="text" maxLength={516}></textarea>
                 </div>
+
+    {/* PARTICIPANTS */}
+
+                <div className='form-ligne'></div>
+                <h2 className='form-titre-h2'>Participants</h2>
+
+                <h2>Participant 1</h2>
+                <div className='form-component'>
+                    <label htmlFor="">Prénom* : </label>
+                    <input name="Participants" type="text" maxLength={64} required='required'/>
+                </div>
+                <div className='form-component'>
+                    <label htmlFor="">Nom* : </label>
+                    <input name="Participants" type="text" maxLength={64} required='required'/>
+                </div>
+                <div className='form-component'>
+                    <label htmlFor="">Post* : </label>
+                    <input name="Participants" type="text" maxLength={64} required='required'/>
+                </div>
+
+                <h2>Participant 2</h2>
+                <div className='form-component'>
+                    <label htmlFor="">Prénom* : </label>
+                    <input name="Participants" type="text" maxLength={64} required='required'/>
+                </div>
+                <div className='form-component'>
+                    <label htmlFor="">Nom* : </label>
+                    <input name="Participants" type="text" maxLength={64} required='required'/>
+                </div>
+                <div className='form-component'>
+                    <label htmlFor="">Post* : </label>
+                    <input name="Participants" type="text" maxLength={64} required='required'/>
+                </div>
+
+    {/* BOUTON ENVOIE FORMULAIRE */}
 
                 <p className='form-texte'>* : Champ obligatoire</p>
                 <div className='form-component'>
