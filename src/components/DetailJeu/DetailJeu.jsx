@@ -76,7 +76,24 @@ function Detail_jeu() {
             <p>{jeu.desc}</p>
             <div className='participant_container'>
               {/* Participant récupère array d'objets avec ID du membre et son poste */}
-              <Participant membres={jeu.membres}/>
+              <section id='etudiant'>
+                <h2>Étudiants participants au projet :</h2>
+                {
+                  jeu.membres && (
+                    <>
+                    {
+                      jeu.membres.map(membre => {
+                        return (
+                          <article key={`${membre.prenom}-${membre.nom}`}>
+                            <p className='etudiant'>{membre.prenom} {membre.nom} : {membre.poste}</p>
+                          </article>
+                        )
+                      })
+                    }
+                    </>
+                  )
+                }
+              </section>
             </div>
             <RenderBouton lien={jeu.lien_btn} txt={jeu.txt_btn} />
           </div>

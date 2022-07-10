@@ -12,12 +12,13 @@ function Jeux() {
   * Lister les jeux selon les années :
   *   Récupérer tous les jeux
   *   Pour chaque jeu :
-  *     Récupérer l'année du jeu
-  *     Si le jeu n'as pas d'année (damage control) :
-  *       Passer au jeu suivant
-  *     Si cette année n'est pas listée :
-  *       Ajouter l'année comme clé à la liste
-  *     Ajouter le jeu à la liste, à la clé correspondant à son année
+  *     Si le jeu est visible :
+  *       Récupérer l'année du jeu
+  *       Si le jeu n'as pas d'année (damage control) :
+  *         Passer au jeu suivant
+  *       Si cette année n'est pas listée :
+  *         Ajouter l'année comme clé à la liste
+  *       Ajouter le jeu à la liste, à la clé correspondant à son année
   *   Stocker la liste dans le state
   */
  //TODO Ne récupérer que les Jeux dont Afficher = True
@@ -26,18 +27,21 @@ function Jeux() {
     get(child(dbRef, `Jeu`)).then((snapshot) => {
       const res = snapshot.val();
       Object.keys(res).forEach((id) => {
-        const anneeJeu = res[id].Annee;
-        if(!anneeJeu) return false;
-        if(!listeJeux[anneeJeu]) listeJeux[anneeJeu] = new Array();
-        listeJeux[anneeJeu].push({
-          jeuId: id, 
-          jeu: {
-            titre: res[id].Titre,
-            logo: res[id].Logo,
-            description: res[id].Description_Courte,
-            lien: "/jeux/" + id
-          }
-        });
+        if(res[id].Visible)
+        {
+          const anneeJeu = res[id].Annee;
+          if(!anneeJeu) return false;
+          if(!listeJeux[anneeJeu]) listeJeux[anneeJeu] = new Array();
+          listeJeux[anneeJeu].push({
+            jeuId: id, 
+            jeu: {
+              titre: res[id].Titre,
+              logo: res[id].Logo,
+              description: res[id].Description_Courte,
+              lien: "/jeux/" + id
+            }
+          });
+        }
       });
       setListeJeux({...listeJeux});
     });
