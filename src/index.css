@@ -26,3 +26,28 @@ body {
   --transition: all 400ms ease;
 
 }
+
+/* =========== Bouton =========== */
+
+.bouton {
+  margin: auto;
+  background: var(--color-bg-variant);
+  width: max-content;
+  outline: solid;
+  outline-color: var(--color-primary-variant);
+  margin-top: 2rem;
+  transition: var(--transition);
+}
+
+.bouton a {
+  background: transparent;
+  padding: 0.9rem;
+  display: flex;
+  color: var(--color-white);
+  font-size: 1.5rem;
+}
+
+.bouton:hover {
+  background: var(--color-primary-variant);
+  cursor: default;
+}
