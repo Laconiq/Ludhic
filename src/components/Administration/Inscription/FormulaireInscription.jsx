@@ -58,13 +58,12 @@ function FormulaireInscription() {
     {/* INFORMATIONS PRINCIPALES */}
 
                 <div className='form-intro'>
-                    <p>
-                        Les inscriptions au site internet de l'association Ludhic sont validées par les administrateurs. 
-                        Si vous rencontrez un problème ou souhaitez poser une question :
-                    </p>
+                    <p>Les inscriptions au site internet de l'association Ludhic sont validées par les administrateurs.<br/> 
+                    Si vous rencontrez un problème ou souhaitez poser une question : </p>
                     <a href="mailto:ludhic.association@gmail.fr">ludhic.association@gmail.com</a>
                 </div>
                 <h2 className='form-titre-h2'>Informations principales</h2>
+                
                 <div className='form-component'>
                     <label htmlFor="nom">Nom(s)* :</label>
                     <p className='form-texte'>Cette information peut être affichée sur les pages suivantes : Jeu, Annuaire</p>
