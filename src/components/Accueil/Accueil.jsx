@@ -5,6 +5,9 @@ export default class Accueil extends Component {
   render() {
     return (
       <>
+
+    {/* INTRO */}
+
         <div className='accueil-intro'>
           <h1 className='accueil-intro-titre'>LUDHIC</h1>
           <h2 className='accueil-intro-soustitre'>Qu'est-ce que Ludhic ?</h2>
@@ -16,9 +19,11 @@ export default class Accueil extends Component {
             <img src="https://cdn.discordapp.com/attachments/973168025819824169/990916404486234132/Possible.png" alt="" />
         </div>
 
-        <div className='highlight_game'>
-          <div className='highlight_game_line'></div>
-          <h2>Le jeu le plus  upvoté :</h2>
+    {/* HIGHLIGHT GAME */}
+
+        <div className='accueil_bg'>
+          <div className='accueil_line'></div>
+          <h2>Le jeu le plus  upvoté</h2>
           <div className='highlight_game_content'>
             <div className='highlight_game_image'>
               <img src="https://cdn.discordapp.com/attachments/932763023293177906/995358331424231424/Woa.png" alt="" />
@@ -31,7 +36,16 @@ export default class Accueil extends Component {
               </div>
             </div>
           </div>
-        </div>
+
+
+    {/* QUOI DE NEUF */}        
+
+      <div className='accueil_line'></div>
+      <h2>Quoi de neuf</h2>
+      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam quo doloribus, expedita veniam corporis omnis pariatur beatae dicta deserunt possimus veritatis autem corrupti aut rem officiis laborum rerum voluptatum maiores?</p>
+    </div>
+
+    {/* BOUTON ADMIN */}
         
         <div className='bouton'>
           <a href="/administration">Administration</a>

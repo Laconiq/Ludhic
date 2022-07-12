@@ -32,13 +32,13 @@
 
 /* =========== JEU LE PLUS UPVOTÉ =========== */
 
-.highlight_game {
+.accueil_bg {
     background-color: var(--color-bg-variant);
     margin-top: 4rem;
     padding: 2rem 5rem 2rem 5rem;
 }
 
-.highlight_game > h2 {
+.accueil_bg > h2 {
     font-size: 1.5rem;
     font-weight: 100;
     margin-top: 1.2rem;
@@ -49,6 +49,7 @@
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
     margin-top: 1.2rem;
+    margin-bottom: 2rem;
 }
 
 .highlight_game_titre {
@@ -60,7 +61,7 @@
     margin-top: 1rem;
 }
 
-.highlight_game_line {
+.accueil_line {
     width: 50%;
     background-color: var(--color-primary-variant);
     height: 1px;
@@ -74,6 +75,6 @@
 }
 
 .highlight_game_image {
-    height: auto%;
+    height: auto;
     width: 80%;
 }
