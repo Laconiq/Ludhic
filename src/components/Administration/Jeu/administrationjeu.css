@@ -68,6 +68,33 @@ textarea {
     background-color: var(--color-primary-variant);
 }
 
+.participant > * {
+    margin-top: 0.5rem;
+}
+
+/* =========== BOUTON AJOUT/SUPR PARTICIPANT =========== */
+
+.bouton-ajout-participant {
+    background-color: green;
+    color: var(--color-bg);
+    margin-left: 0.5rem;
+}
+
+.bouton-ajout-participant:hover {
+    background-color: rgb(0, 71, 0);
+}
+
+.bouton-supr-participant {
+    background-color: red;
+    color: white;
+    margin: 2rem 22rem 1rem 22rem;
+    padding: 0.8rem;
+}
+
+.bouton-supr-participant:hover {
+    background-color: rgb(161, 0, 0);
+}
+
 /* =========== MEDIA QUERIES (MEDIUM DEVICES) =========== */
 
 @media screen and (max-width: 1024px) {

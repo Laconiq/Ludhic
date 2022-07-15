@@ -384,18 +384,12 @@ function AdministrationJeu() {
 
                 <div className='form-ligne'></div>
                 <h2 className='form-titre-h2'>Participants</h2>
-                <button type='button' onClick={() => creerChampParticipant()}>Ajouter participant</button>
+                <button type='button' className='bouton-ajout-participant' onClick={() => creerChampParticipant()}>Ajouter participant</button>
 
                 {
                     membres.map((element, index) => (
                         <div key={`participant-${index}`} className="participant form-component">
                             <h2>Participant</h2>
-                            {
-                                index ? 
-                                    <button type="button" onClick={() => supprimerChampParticipant(index)}>Supprimer</button>
-                                : null
-                            }
-
                             <label htmlFor="prenom">Prénom* : </label>
                             <input name="prenom" type="text" required='required' value={element.prenom || ""} onChange={input => modificationMembres(index, input)} />
 
@@ -404,6 +398,11 @@ function AdministrationJeu() {
 
                             <label htmlFor="poste">Poste* : </label>
                             <input name="poste" type="text" required='required' value={element.poste || ""} onChange={input => modificationMembres(index, input)} />
+                            {
+                                index ? 
+                                    <button type="button" className='bouton-supr-participant' onClick={() => supprimerChampParticipant(index)}>Supprimer</button>
+                                : null
+                            }
                         </div>
                     ))
                 }
