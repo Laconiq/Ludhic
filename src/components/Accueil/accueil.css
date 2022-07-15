@@ -12,8 +12,8 @@
 }
 
 .accueil-intro {
-    margin-top: 1rem;
-    margin-left: 12rem;
+    margin: 1rem 3rem 0 8rem;
+    width: fit-content;
 }
 
 .accueil-intro-titre {
@@ -35,7 +35,7 @@
 .accueil_bg {
     background-color: var(--color-bg-variant);
     margin-top: 4rem;
-    padding: 2rem 5rem 2rem 5rem;
+    padding: 2rem 8rem 2rem 8rem;
 }
 
 .accueil_bg > h2 {
@@ -77,4 +77,40 @@
 .highlight_game_image {
     height: auto;
     width: 80%;
+}
+
+/* =========== MEDIA QUERIES (MEDIUM DEVICES) =========== */
+
+@media screen and (max-width: 1024px) {
+    .accueil-intro {
+        margin-left: 3rem;
+    }
+
+    .highlight_game_image {
+        height: auto;
+        width: 300%;
+    }
+
+    .accueil_bg {
+        padding: 2rem 3rem 2rem 3rem;
+    }
+}
+
+/* =========== MEDIA QUERIES (SMALL DEVICES) =========== */
+
+@media screen and (max-width: 600px) {
+    .highlight_game_content {
+        display: inline-block;
+        
+    }
+
+    .highlight_game_image {
+        height: auto;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .bouton {
+        margin-top: 0rem;
+    }
 }
