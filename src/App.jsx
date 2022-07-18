@@ -1,33 +1,33 @@
 import './App.css';
-import Nav from './components/Nav/Nav';
-import DetailJeu from './components/DetailJeu/DetailJeu';
+import NavBar from './components/NavBar/NavBar';
+import PageJeu from './components/Jeu/PageJeu';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
-import Accueil from './components/Accueil/Accueil';
-import Jeux from './components/Jeux/Jeux';
+import PageAccueil from './components/Accueil/PageAccueil';
+import PageListeJeux from './components/ListeJeux/PageListeJeux';
 import {Routes, Route} from "react-router-dom"
 import Administration from './components/Administration/Administration';
-import AdministrationJeu from './components/Administration/Jeu/AdministrationJeu'
+import FormulaireJeu from './components/Administration/Jeu/FormulaireJeu'
 import FormulaireInscription from './components/Administration/Inscription/FormulaireInscription'
 import FormulaireRendu from './components/Administration/Rendu/FormulaireRendu';
-import FormulaireCL from './components/Administration/Creative_Lab/FormulaireCL';
+import FormulaireCreativeLab from './components/Administration/Creative_Lab/FormulaireCreativeLab';
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path='/jeux/:id' element={<><Nav/><DetailJeu/><Footer/></>}/>
-        <Route path='/' element={<><Nav/><Header/><Accueil/><Footer/></>}/>
-        <Route path='/jeux' element={<><Nav/><Header/><Jeux/><Footer/></>}/>
+        <Route path='/jeux/:id' element={<><NavBar/><PageJeu/><Footer/></>}/>
+        <Route path='/' element={<><NavBar/><Header/><PageAccueil/><Footer/></>}/>
+        <Route path='/jeux' element={<><NavBar/><Header/><PageListeJeux/><Footer/></>}/>
         {/* CHEMINS POUR ADMINISTRATION */}
-        <Route path='/administration' element={<><Nav/><Header/><Administration/><Footer/></>}/>
-        <Route path='/administration/inscription' element={<><Nav/><Header/><FormulaireInscription/><Footer/></>}/>
-        <Route path='/administration/jeu' element={<><Nav/><Header/><AdministrationJeu/><Footer/></>}/>
-        <Route path='/administration/jeu/:id' element={<><Nav/><Header/><AdministrationJeu/><Footer/></>}/>
-        <Route path='/administration/rendu' element={<><Nav/><Header/><FormulaireRendu/><Footer/></>}/>
-        <Route path='/administration/rendu/:id' element={<><Nav/><Header/><FormulaireRendu/><Footer/></>}/>
-        <Route path='/administration/materiel-cl' element={<><Nav/><Header/><FormulaireCL/><Footer/></>}/>
-        <Route path='/administration/materiel-cl/:id' element={<><Nav/><Header/><FormulaireCL/><Footer/></>}/>
+        <Route path='/administration' element={<><NavBar/><Header/><Administration/><Footer/></>}/>
+        <Route path='/administration/inscription' element={<><NavBar/><Header/><FormulaireInscription/><Footer/></>}/>
+        <Route path='/administration/jeu' element={<><NavBar/><Header/><FormulaireJeu/><Footer/></>}/>
+        <Route path='/administration/jeu/:id' element={<><NavBar/><Header/><FormulaireJeu/><Footer/></>}/>
+        <Route path='/administration/rendu' element={<><NavBar/><Header/><FormulaireRendu/><Footer/></>}/>
+        <Route path='/administration/rendu/:id' element={<><NavBar/><Header/><FormulaireRendu/><Footer/></>}/>
+        <Route path='/administration/materiel-cl' element={<><NavBar/><Header/><FormulaireCreativeLab/><Footer/></>}/>
+        <Route path='/administration/materiel-cl/:id' element={<><NavBar/><Header/><FormulaireCreativeLab/><Footer/></>}/>
       </Routes>
     </>
   );
