@@ -400,7 +400,7 @@ function FormulaireJeu() {
                             <input name="poste" type="text" required='required' value={element.poste || ""} onChange={input => modificationMembres(index, input)} />
                             {
                                 index ? 
-                                    <button type="button" className='bouton-supr-participant' onClick={() => supprimerChampParticipant(index)}>Supprimer</button>
+                                    <button type="button" className='bouton-supr-participant' onClick={() => supprimerChampParticipant(index)}>Supprimer le participant</button>
                                 : null
                             }
                         </div>
