@@ -1,0 +1,12 @@
+.calendar-majic {
+    display: flex;
+    margin-top: 1rem;
+
+}
+
+.calendar-majic > * {
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%; 
+    height: 40rem;
+}
