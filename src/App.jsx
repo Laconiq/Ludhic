@@ -18,18 +18,18 @@ function App() {
     <>
       <Routes>
         <Route path='/jeux/:id' element={<><NavBar/><PageJeu/><Footer/></>}/>
-        <Route path='/' element={<><NavBar/><Header/><PageAccueil/><Footer/></>}/>
-        <Route path='/jeux' element={<><NavBar/><Header/><PageListeJeux/><Footer/></>}/>
-        <Route path='/calendrier' element={<><NavBar/><Header/><Calendrier/><Footer/></>}/>
+        <Route path='/' element={<><NavBar/><PageAccueil/><Footer/></>}/>
+        <Route path='/jeux' element={<><NavBar/><PageListeJeux/><Footer/></>}/>
+        <Route path='/calendrier' element={<><NavBar/><Calendrier/><Footer/></>}/>
         {/* CHEMINS POUR ADMINISTRATION */}
-        <Route path='/administration' element={<><NavBar/><Header/><Administration/><Footer/></>}/>
-        <Route path='/administration/inscription' element={<><NavBar/><Header/><FormulaireInscription/><Footer/></>}/>
-        <Route path='/administration/jeu' element={<><NavBar/><Header/><FormulaireJeu/><Footer/></>}/>
-        <Route path='/administration/jeu/:id' element={<><NavBar/><Header/><FormulaireJeu/><Footer/></>}/>
-        <Route path='/administration/rendu' element={<><NavBar/><Header/><FormulaireRendu/><Footer/></>}/>
-        <Route path='/administration/rendu/:id' element={<><NavBar/><Header/><FormulaireRendu/><Footer/></>}/>
-        <Route path='/administration/materiel-cl' element={<><NavBar/><Header/><FormulaireCreativeLab/><Footer/></>}/>
-        <Route path='/administration/materiel-cl/:id' element={<><NavBar/><Header/><FormulaireCreativeLab/><Footer/></>}/>
+        <Route path='/administration' element={<><NavBar/><Administration/><Footer/></>}/>
+        <Route path='/administration/inscription' element={<><NavBar/><FormulaireInscription/><Footer/></>}/>
+        <Route path='/administration/jeu' element={<><NavBar/><FormulaireJeu/><Footer/></>}/>
+        <Route path='/administration/jeu/:id' element={<><NavBar/><FormulaireJeu/><Footer/></>}/>
+        <Route path='/administration/rendu' element={<><NavBar/><FormulaireRendu/><Footer/></>}/>
+        <Route path='/administration/rendu/:id' element={<><NavBar/><FormulaireRendu/><Footer/></>}/>
+        <Route path='/administration/materiel-cl' element={<><NavBar/><FormulaireCreativeLab/><Footer/></>}/>
+        <Route path='/administration/materiel-cl/:id' element={<><NavBar/><FormulaireCreativeLab/><Footer/></>}/>
       </Routes>
     </>
   );
