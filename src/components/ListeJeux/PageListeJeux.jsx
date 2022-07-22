@@ -3,6 +3,7 @@ import './jeux.css'
 import { getDatabase, ref, get, child } from 'firebase/database';
 import ListeJeux from './ListeJeux';
 import Scrollbar from './Scrollbar/Scrollbar';
+import HighlightGame from '../HightlightGame/HighlightGame';
 
 //Composant représentant la page listant tous les jeux de la formation
 function PageListeJeux() {
@@ -49,7 +50,7 @@ function PageListeJeux() {
 
   return (
     <>
-      {/* COMPOSANT JEUX FAVORIS */}
+      <HighlightGame/>
       <ListeJeux/>
       <Scrollbar annees={Object.keys(listeJeux).reverse()} />
     </>
