@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './detailjeu.css'
 import Participant from './Participant/Participant'
 import Carrousel from './Carrousel/Carrousel'
+import BoutonVote from './BoutonVote/BoutonVote'
 import { getDatabase, ref, get, child } from 'firebase/database';
 import { useParams } from 'react-router-dom';
 
@@ -73,6 +74,7 @@ function PageJeu() {
         <div className='text_container'>
           <div className='text'>
             <h1>{jeu.titre}</h1>
+            <BoutonVote jeu={idJeu}/>
             <p>{jeu.desc}</p>
             <div className='participant_container'>
               {/* Participant récupère array d'objets avec ID du membre et son poste */}
