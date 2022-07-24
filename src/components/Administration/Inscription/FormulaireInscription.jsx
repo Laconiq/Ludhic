@@ -1,7 +1,9 @@
 import React from 'react'
 import '../formulaire.css'
-import { getDatabase, ref, push } from "firebase/database";
+import { getDatabase, ref, push, set } from "firebase/database";
 import { useState } from 'react';
+import { modificationFormulaire } from '../fonctionsFormulaires';
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 //Composant représentant le formulaire de gestion d'un jeu (création, modification, suppression)
 function FormulaireInscription() {
@@ -13,33 +15,23 @@ function FormulaireInscription() {
         prenom: ""
     });
 
-    //Fonctions de gestion des données du formulaire
-    const modificationFormulaire = (event) => {
-        const target = event.target;
-        const value = target.value;
-        const name = target.name;
-
-        formulaire[name] = value;
-        setFormulaire({...formulaire});
-        console.log(formulaire);
-    }
-
     //TODO Renvoyer vers nouvelle page à la fin de creerDemande
 
     const creerDemande = (event) => {
         event.preventDefault();
 
-        const refDb = ref(getDatabase(), `Compte_En_Attente`);
-
-        push(refDb, {
-            Email: formulaire.mail,
-            Formation: formulaire.formation,
-            Mot_De_Passe: formulaire.mdp,
-            Nom: formulaire.nom,
-            prenom: formulaire.prenom
+        createUserWithEmailAndPassword(getAuth(), formulaire.mail, formulaire.mdp)
+        .then((newUser) => {
+            console.log(newUser.user.uid);
+            set(ref(getDatabase(), `Compte/${newUser.user.uid}`), {
+                Nom: formulaire.nom,
+                Prenom: formulaire.prenom,
+                Formation: formulaire.formation
+            });
+            //TODO Gérer erreur création info compte dans BDD
         });
 
-        //TODO Gérer erreur demande dans BDD
+        //TODO Gérer erreur création compte
         /* 
         *   Si erreur :
         *       - Arrêter création ici
@@ -67,25 +59,25 @@ function FormulaireInscription() {
                 <div className='form-component'>
                     <label htmlFor="nom">Nom(s)* :</label>
                     <p className='form-texte'>Cette information peut être affichée sur les pages suivantes : Jeu, Annuaire</p>
-                    <input name="nom" type="text" maxLength={128} required='required' onChange={modificationFormulaire} value={formulaire.nom}/>
+                    <input name="nom" type="text" maxLength={128} required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.nom}/>
                 </div>
                 <div className='form-component'>
                     <label htmlFor="prenom">Prénom(s)* : </label>
                     <p className='form-texte'>Cette information peut être affichée sur les pages suivantes : Jeu, Annuaire</p>
-                    <input name="prenom" type="text" maxLength={128} required='required' onChange={modificationFormulaire} value={formulaire.prenom}/>
+                    <input name="prenom" type="text" maxLength={128} required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.prenom}/>
                 </div>
                 <div className='form-component'>
                     <label htmlFor="mail">Email* : </label>
-                    <input name="mail" type="email" required='required' onChange={modificationFormulaire} value={formulaire.mail}/>
+                    <input name="mail" type="email" required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.mail}/>
                 </div>
                 <div className='form-component'>
                     <label htmlFor="mdp">Mot de passe* : </label>
                     <p className='form-texte'>Cette information peut être affichée sur les pages suivantes : Jeu, Annuaire</p>
-                    <input name="mdp" type="password" maxLength={128} required='required' onChange={modificationFormulaire} value={formulaire.mdp}/>
+                    <input name="mdp" type="password" maxLength={128} required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.mdp}/>
                 </div>
                 <div className='form-component'>
                     <label htmlFor="mdp">Rôle* : </label>
-                    <select name="formation" value={formulaire.formation} onChange={modificationFormulaire}>
+                    <select name="formation" value={formulaire.formation} onChange={event => modificationFormulaire(event, formulaire, setFormulaire)}>
                         <option value='MAJIC_M1'>MAJIC 1ère année</option>
                         <option value='MAJIC_M2'>MAJIC 2ème année</option>
                         <option value='MAPIC_M1'>MAPIC 1ère année</option>
