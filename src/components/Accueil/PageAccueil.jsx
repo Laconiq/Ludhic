@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './accueil.css'
 import HighlightGame from '../HightlightGame/HighlightGame'
+import FormulaireConnexion from '../Connexion/FormulaireConnexion'
 
 export default class PageAccueil extends Component {
   render() {
@@ -37,6 +38,8 @@ export default class PageAccueil extends Component {
         <div className='bouton'>
           <a href="/administration">Administration</a>
         </div>
+
+      <FormulaireConnexion/>
 
       </>
     )
