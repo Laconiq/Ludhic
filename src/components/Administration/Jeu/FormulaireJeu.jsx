@@ -1,9 +1,10 @@
 import React from 'react'
-import './administrationjeu.css'
+import '../formulaire.css'
 import { getStorage, ref as refST, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 import { child, get, getDatabase, ref as refDB, set, update } from "firebase/database";
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { modificationFormulaire } from '../fonctionsFormulaires';
 
 //Composant représentant le formulaire de gestion d'un jeu (création, modification, suppression)
 function FormulaireJeu() {
@@ -51,16 +52,6 @@ function FormulaireJeu() {
             //TODO Gérer absence jeu à cet ID
         }
     },[]);
-
-    //Fonctions de gestion des données du formulaire
-    const modificationFormulaire = (event) => {
-        const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
-
-        formulaire[name] = value;
-        setFormulaire({...formulaire});
-    }
 
     const creerChampParticipant = () => {
         setMembres([...membres,{nom:"", prenom:"", poste:""}]);
@@ -286,12 +277,12 @@ function FormulaireJeu() {
                 <h2 className='form-titre-h2'>Informations principales</h2>
                 <div className='form-component'>
                     <label htmlFor="titre">Nom du jeu* : </label>
-                    <input name="titre" type="text" maxLength={64} required='required' onChange={modificationFormulaire} value={formulaire.titre}/>
+                    <input name="titre" type="text" maxLength={64} required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.titre}/>
                 </div>
                 <div className='form-component'>
                     <label htmlFor="annee">Année* : </label>
                     <p className='form-texte'>Année de la rentrée (Exemple : Si l'année est 2021-2022 alors écriver 2021)</p>
-                    <input name="annee" type="number" min="2000" max="2100" maxLength={64} required='required' onChange={modificationFormulaire} value={formulaire.annee}/>
+                    <input name="annee" type="number" min="2000" max="2100" maxLength={64} required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.annee}/>
                 </div>
                 {
                     //Afficher le champ URL si création d'un jeu
@@ -299,19 +290,19 @@ function FormulaireJeu() {
                         <div className='form-component'>
                             <label htmlFor="url">URL de la page* : </label>
                             <p className='form-texte'>Nom de l'url de la page du jeu (Exemple : MONJEU donnera ludhic.fr/jeux/MONJEU)</p>
-                            <input name="url" type="text" maxLength={32} required='required' onChange={modificationFormulaire} value={formulaire.url}/>
+                            <input name="url" type="text" maxLength={32} required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.url}/>
                         </div>
                     )
                 }
                 <div className='form-component'>
                     <label htmlFor="desc_court">Description courte* : </label>
                     <p className='form-texte'>Longueur maximale de X caractères</p>
-                    <textarea name="desc_court" cols="80" rows="3" type="text" maxLength={120} required='required' onChange={modificationFormulaire} value={formulaire.desc_court}></textarea>
+                    <textarea name="desc_court" cols="80" rows="3" type="text" maxLength={120} required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.desc_court}></textarea>
                 </div>
                 <div className='form-component'>
                     <label htmlFor="desc_long">Description longue* : </label>
                     <p className='form-texte'>Longueur maximale de X caractères</p>
-                    <textarea name="desc_long" cols="80" rows="8" type="text" maxLength={516} required='required' onChange={modificationFormulaire} value={formulaire.desc_long}></textarea>
+                    <textarea name="desc_long" cols="80" rows="8" type="text" maxLength={516} required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.desc_long}></textarea>
                 </div>
                 <div className='form-component'>
                     <label htmlFor="logo">Logo* : </label>
@@ -322,7 +313,7 @@ function FormulaireJeu() {
                 <div className='form-component'>
                     <label htmlFor="ytb">Lien vidéo Youtube : </label>
                     <p className='form-texte'>Lien vers une vidéo Youtube (Exemple : Gameplay, Trailer etc...)</p>
-                    <input name="ytb" type="text" maxLength={32} onChange={modificationFormulaire} value={formulaire.ytb}/>
+                    <input name="ytb" type="text" maxLength={32} onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.ytb}/>
                 </div>
 
     {/* BOUTON */}
@@ -332,12 +323,12 @@ function FormulaireJeu() {
                 <div className='form-component'>
                     <label htmlFor="txt_btn">Nom du bouton : </label>
                     <p className='form-texte'>Texte affiché sur le bouton</p>
-                    <input name="txt_btn" type="text" maxLength={32} onChange={modificationFormulaire} value={formulaire.txt_btn} />
+                    <input name="txt_btn" type="text" maxLength={32} onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.txt_btn} />
                 </div>
                 <div className='form-component'>
                     <label htmlFor="lien_btn">Lien du bouton : </label>
                     <p className='form-texte'>Lien vers lequel le bouton redirige (Exemple : Itch.io)</p>
-                    <input name="lien_btn" type="text" maxLength={255} onChange={modificationFormulaire} value={formulaire.lien_btn} />
+                    <input name="lien_btn" type="text" maxLength={255} onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.lien_btn} />
                 </div>
                 
     {/* CARROUSEL */}
@@ -377,7 +368,7 @@ function FormulaireJeu() {
                     <label htmlFor="admins">Propriétaire de la page : </label>
                     <p className='form-texte'>Les propriétaires de la page pouront l'éditer en intégralité, renseigner le prénom et le nom de chacun<br/>
                     Le créateur de la page sera par défaut propriétaire. Si personne n'est renseigné vous serez la seule personne propriétaire de la page</p>
-                    <textarea name="admins" cols="80" rows="5" type="text" maxLength={516} onChange={modificationFormulaire} value={formulaire.admins}></textarea>
+                    <textarea name="admins" cols="80" rows="5" type="text" maxLength={516} onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.admins}></textarea>
                 </div>
 
     {/* PARTICIPANTS */}
@@ -414,7 +405,7 @@ function FormulaireJeu() {
                     idJeu && (
                         <div className='form-component'>
                             <label htmlFor="url">Rendre le jeu visible dans la liste : </label>
-                            <input name="visible" type="checkbox" onChange={modificationFormulaire} checked={formulaire.visible}/>
+                            <input name="visible" type="checkbox" onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} checked={formulaire.visible}/>
                         </div>
                     )
                 }

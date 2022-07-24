@@ -3,6 +3,7 @@ import '../formulaire.css'
 import { child, get, getDatabase, ref, push, update } from "firebase/database";
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { modificationFormulaire } from '../fonctionsFormulaires';
 
 //Composant représentant le formulaire de gestion d'un jeu (création, modification, suppression)
 function FormulaireCreativeLab() {
@@ -30,16 +31,6 @@ function FormulaireCreativeLab() {
             //TODO Gérer absence materiel à cet ID
         }
     },[]);
-
-    //Fonctions de gestion des données du formulaire
-    const modificationFormulaire = (event) => {
-        const target = event.target;
-        const value = target.value;
-        const name = target.name;
-
-        formulaire[name] = value;
-        setFormulaire({...formulaire});
-    }
 
     //TODO Renvoyer vers nouvelle page à la fin de creerJeu
     //TODO Renvoyer vers nouvelle page à la fin de modifierJeu
@@ -98,12 +89,12 @@ function FormulaireCreativeLab() {
 
                 <div className='form-component'>
                     <label htmlFor="nom">Nom du matériel* : </label>
-                    <input name="nom" type="text" maxLength={64} required='required' onChange={modificationFormulaire} value={formulaire.nom}/>
+                    <input name="nom" type="text" maxLength={64} required='required' value={formulaire.nom} onChange={event => modificationFormulaire(event, formulaire, setFormulaire)}/>
                 </div>
                 <div className='form-component'>
                     <label htmlFor="categorie">Catégorie* : </label>
                     {/* TODO Récupérer valeurs depuis une table pour gérer de façon plus simple et flexible ? */}
-                    <select name="categorie" value={formulaire.categorie} onChange={modificationFormulaire}>
+                    <select name="categorie" value={formulaire.categorie} onChange={event => modificationFormulaire(event, formulaire, setFormulaire)}>
                         <option value='JEU'>Matériel de jeu</option>
                         <option value='INFORMATIQUE'>Matériel informatique</option>
                         <option value='KAKEMONO'>Un merveilleux Kakemono</option>
@@ -112,7 +103,7 @@ function FormulaireCreativeLab() {
                 <div className='form-component'>
                     <label htmlFor="note">Notes sur l'objet* : </label>
                     <p className='form-texte'>Toute information nécessaire sur son état, sa façon de s'utiliser ou autre.</p>
-                    <textarea name="note" cols="80" rows="3" type="text" maxLength={120} required='required' onChange={modificationFormulaire} value={formulaire.note}></textarea>
+                    <textarea name="note" cols="80" rows="3" type="text" maxLength={120} required='required' value={formulaire.note} onChange={event => modificationFormulaire(event, formulaire, setFormulaire)}></textarea>
                 </div>
 
                 <p className='form-texte'>* : Champ obligatoire</p>

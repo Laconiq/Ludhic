@@ -3,6 +3,7 @@ import '../formulaire.css'
 import { child, get, getDatabase, ref, push, update } from "firebase/database";
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { modificationFormulaire } from '../fonctionsFormulaires';
 
 //Composant représentant le formulaire de gestion d'un jeu (création, modification, suppression)
 function FormulaireRendu() {
@@ -38,16 +39,6 @@ function FormulaireRendu() {
             //TODO Gérer absence jeu à cet ID
         }
     },[]);
-
-    //Fonctions de gestion des données du formulaire
-    const modificationFormulaire = (event) => {
-        const target = event.target;
-        const value = target.value;
-        const name = target.name;
-
-        formulaire[name] = value;
-        setFormulaire({...formulaire});
-    }
 
     //TODO Renvoyer vers nouvelle page à la fin de creerJeu
     //TODO Renvoyer vers nouvelle page à la fin de modifierJeu
@@ -107,7 +98,7 @@ function FormulaireRendu() {
                 <h2 className='form-titre-h2'>Informations principales</h2>
                 <div className='form-component'>
                     <label htmlFor="mdp">Rôle* : </label>
-                    <select name="formation" value={formulaire.formation} onChange={modificationFormulaire}>
+                    <select name="formation" value={formulaire.formation} onChange={event => modificationFormulaire(event, formulaire, setFormulaire)}>
                         <option value='MAJIC_M1'>MAJIC 1ère année</option>
                         <option value='MAJIC_M2'>MAJIC 2ème année</option>
                         <option value='MAPIC_M1'>MAPIC 1ère année</option>
@@ -116,23 +107,23 @@ function FormulaireRendu() {
                 </div>
                 <div className='form-component'>
                     <label htmlFor="matiere">Matière* : </label>
-                    <input name="matiere" type="text" maxLength={64} required='required' onChange={modificationFormulaire} value={formulaire.matiere}/>
+                    <input name="matiere" type="text" maxLength={64} required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.matiere}/>
                 </div>
                 <div className='form-component'>
                     <label htmlFor="objet">Objet du rendu* : </label>
-                    <input name="objet" type="text" maxLength={64} required='required' onChange={modificationFormulaire} value={formulaire.objet}/>
+                    <input name="objet" type="text" maxLength={64} required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.objet}/>
                 </div>
                 <div className='form-component'>
                     <label htmlFor="prof">Enseignant* : </label>
-                    <input name="prof" type="text" maxLength={64} required='required' onChange={modificationFormulaire} value={formulaire.prof}/>
+                    <input name="prof" type="text" maxLength={64} required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.prof}/>
                 </div>
                 <div className='form-component'>
                     <label htmlFor="mail">Email de l'enseignant* : </label>
-                    <input name="mail" type="text" maxLength={64} required='required' onChange={modificationFormulaire} value={formulaire.mail}/>
+                    <input name="mail" type="text" maxLength={64} required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.mail}/>
                 </div>
                 <div className='form-component'>
                     <label htmlFor="date">Date de rendu* : </label>
-                    <input name="date" type="date" maxLength={64} required='required' onChange={modificationFormulaire} value={formulaire.date}/>
+                    <input name="date" type="date" maxLength={64} required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.date}/>
                 </div>
 
                 <p className='form-texte'>* : Champ obligatoire</p>
