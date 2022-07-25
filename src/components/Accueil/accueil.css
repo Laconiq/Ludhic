@@ -1,49 +1,55 @@
 /* =========== TOP =========== */
 
-.accueil-bannière {
-    margin-top: 1rem;
-    display: flex;
-    justify-content: center;
-}
-
-.accueil-bannière > img {
-    max-width : 30%;
-    height: auto;
-}
-
-.accueil-intro {
+.home-intro-container {
     margin: 1rem 3rem 0 8rem;
     width: fit-content;
 }
 
-.accueil-intro-titre {
+.home-intro-title {
     font-size: 4rem;
 }
 
-.accueil-intro-soustitre {
+.home-intro-subtitle {
     margin-top: 0.8rem;
     font-size: 1.4rem;
 }
 
-.accueil-intro-texte {
+.home-intro-text {
     margin-top: 0.8rem;
     font-size: 1.2rem;
 }
 
-/* =========== JEU LE PLUS UPVOTÉ =========== */
-
-.accueil_bg {
+.home-background {
     background-color: var(--color-bg-variant);
     padding: 2rem 8rem 2rem 8rem;
 }
 
-.accueil_bg > h2 {
+.home-background > h2 {
     font-size: 1.5rem;
     font-weight: 100;
     margin-top: 1.2rem;
 }
 
-.highlight_game_content {
+.home-line {
+    width: 50%;
+    background-color: var(--color-primary-variant);
+    height: 1px;
+}
+
+.home-banner {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.home-banner > img {
+    max-width : 30%;
+    height: auto;
+}
+
+/* =========== JEU LE PLUS UPVOTÉ =========== */
+
+.highlight-game-container {
     display: flex;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
@@ -51,29 +57,23 @@
     margin-bottom: 2rem;
 }
 
-.highlight_game_titre {
+.highlight-game-title {
     color: var(--color-white);
     font-size: 1.5rem;
 }
 
-.highlight_game_text {
+.highlight-game-text {
     margin-top: 1rem;
 }
 
-.accueil_line {
-    width: 50%;
-    background-color: var(--color-primary-variant);
-    height: 1px;
-}
-
-.highlight_game_image > img {
+.highlight-game-image > img {
     border: 2px solid;
     border-color: var(--color-primary-variant);
     max-width:100%;
     max-height:100%;
 }
 
-.highlight_game_image {
+.highlight-game-image {
     height: auto;
     width: 80%;
 }

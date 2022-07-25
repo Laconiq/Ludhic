@@ -10,14 +10,14 @@ export default class PageAccueil extends Component {
 
     {/* INTRO */}
 
-        <div className='accueil-intro'>
-          <h1 className='accueil-intro-titre'>LUDHIC</h1>
-          <h2 className='accueil-intro-soustitre'>Qu'est-ce que Ludhic ?</h2>
-          <p className='accueil-intro-texte'>Ludhic est une association regroupant plusieurs étudiants et anciens étudiants du Master HIC (anciennement MAJE).<br/>
+        <div className='home-intro-container'>
+          <h1 className='home-intro-title'>LUDHIC</h1>
+          <h2 className='home-intro-subtitle'>Qu'est-ce que Ludhic ?</h2>
+          <p className='home-intro-text'>Ludhic est une association regroupant plusieurs étudiants et anciens étudiants du Master HIC (anciennement MAJE).<br/>
           Cette association a pour but de mettre de répertorier et de mettre en avant les travaux des étudiants.
           </p>
         </div>
-        <div className='accueil-bannière'>
+        <div className='home-banner'>
             <img src="https://cdn.discordapp.com/attachments/973168025819824169/990916404486234132/Possible.png" alt="" />
         </div>
 
@@ -27,8 +27,8 @@ export default class PageAccueil extends Component {
 
     {/* QUOI DE NEUF */}     
 
-      <div className='accueil_bg'>
-        <div className='accueil_line'></div>
+      <div className='home-background'>
+        <div className='home-line'></div>
         <h2>Quoi de neuf</h2>
         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam quo doloribus, expedita veniam corporis omnis pariatur beatae dicta deserunt possimus veritatis autem corrupti aut rem officiis laborum rerum voluptatum maiores?</p>
       </div>
