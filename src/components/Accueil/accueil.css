@@ -47,35 +47,8 @@
     height: auto;
 }
 
-/* =========== JEU LE PLUS UPVOTÉ =========== */
-
-.highlight-game-container {
-    display: flex;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin-top: 1.2rem;
-    margin-bottom: 2rem;
-}
-
-.highlight-game-title {
-    color: var(--color-white);
-    font-size: 1.5rem;
-}
-
-.highlight-game-text {
-    margin-top: 1rem;
-}
-
-.highlight-game-image > img {
-    border: 2px solid;
-    border-color: var(--color-primary-variant);
-    max-width:100%;
-    max-height:100%;
-}
-
-.highlight-game-image {
-    height: auto;
-    width: 80%;
+.highlight-game-desc {
+    padding-bottom: 0rem;
 }
 
 /* =========== MEDIA QUERIES (MEDIUM DEVICES) =========== */
@@ -83,11 +56,6 @@
 @media screen and (max-width: 1024px) {
     .home-intro-container {
         margin-left: 3rem;
-    }
-
-    .highlight-game-image {
-        height: auto;
-        width: 300%;
     }
 
     .home-background {
@@ -98,17 +66,6 @@
 /* =========== MEDIA QUERIES (SMALL DEVICES) =========== */
 
 @media screen and (max-width: 600px) {
-    .highlight-game-container {
-        display: inline-block;
-        
-    }
-
-    .highlight-game-image {
-        height: auto;
-        width: 100%;
-        margin-bottom: 1rem;
-    }
-
     .bouton {
         margin-top: 0rem;
     }

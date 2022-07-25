@@ -23,24 +23,57 @@ function HighlightGame() {
   *     Même opération sur la liste suivante
   * Stocker liste
   */
+
+  const data = [
+    {
+      id: 1,
+      image: "https://cdn.discordapp.com/attachments/932763023293177906/995358331424231424/Woa.png",
+      title: 'TTU',
+      subtitle: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam quo doloribus, expedita veniam corporis omnis pariatur beatae dicta deserunt possimus veritatis autem corrupti aut rem officiis laborum rerum voluptatum maiores?',
+    },
+
+    {
+      id: 2,
+      image: "https://cdn.discordapp.com/attachments/932763023293177906/995358331424231424/Woa.png",
+      title: 'TTU',
+      subtitle: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam quo doloribus, expedita veniam corporis omnis pariatur beatae dicta deserunt possimus veritatis autem corrupti aut rem officiis laborum rerum voluptatum maiores?',
+    },
+
+    {
+      id: 3,
+      image: "https://cdn.discordapp.com/attachments/932763023293177906/995358331424231424/Woa.png",
+      title: 'TTU',
+      subtitle: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam quo doloribus, expedita veniam corporis omnis pariatur beatae dicta deserunt possimus veritatis autem corrupti aut rem officiis laborum rerum voluptatum maiores?',
+    },
+
+    {
+      id: 4,
+      image: "https://cdn.discordapp.com/attachments/932763023293177906/995358331424231424/Woa.png",
+      title: 'TTU',
+      subtitle: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam quo doloribus, expedita veniam corporis omnis pariatur beatae dicta deserunt possimus veritatis autem corrupti aut rem officiis laborum rerum voluptatum maiores?',
+    },
+  ]
+
   return (
     <>
-    <div className='home-background'>
-        <div className='home-line'></div>
-        <h2>Le jeu le plus  upvoté</h2>
-        <div className='highlight-game-container'>
-          <div className='highlight-game-image'>
-              <img src="https://cdn.discordapp.com/attachments/932763023293177906/995358331424231424/Woa.png" alt="" />
-          </div>
-          <div className='highlight_game_text_content'>
-              <h3 className='highlight-game-title'>Towards the Unknown</h3>
-              <p className='highlight-game-text'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam quo doloribus, expedita veniam corporis omnis pariatur beatae dicta deserunt possimus veritatis autem corrupti aut rem officiis laborum rerum voluptatum maiores?</p>
-              <div className='bouton'>
-              <a href="">Tester le jeu</a>
-              </div>
-          </div>
-        </div>
-    </div>    
+    <div className='highlight-game-container'>
+        {
+          data.map(({id, image, title, subtitle, lien}) => {
+            return (
+              <article key={id} className='highlight-game-one'>
+                <div className='home-line'></div>
+                <h1 className='highlight-game-title'>Nom du jeu</h1>
+                <div className='highlight-game-image'>
+                  <img src={image} alt={title} />
+                </div>
+                <p className='highlight-game-text'>{subtitle}</p>
+                <a className='see-more' href={lien}>En savoir plus</a>
+              </article>
+            )
+          })
+        }
+    </div>
+
     </>
   )
 }
