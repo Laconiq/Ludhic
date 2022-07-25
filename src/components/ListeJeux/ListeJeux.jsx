@@ -7,7 +7,10 @@ import { list } from 'firebase/storage';
 function ListeJeux(props) {
     const [listeJeux, setListeJeux] = useState(new Object());
     
+    //Récupérer tous les jeux affichables et les classer par année de sortie
     useEffect(() => {
+        //TODO Gérer erreur de requête
+        //TODO Gérer si aucun jeu à afficher
         const dbRef = ref(getDatabase());
         get(child(dbRef, `Jeu`)).then((snapshot) => {
             const res = snapshot.val();
@@ -33,6 +36,7 @@ function ListeJeux(props) {
     return (
         <div className='jeux-container'>
             {
+                //Boucler sur chaque année, de la plus récente à la plus ancienne
                 Object.keys(listeJeux).reverse().map((annee) => {
                     return (
                         <div key={annee}>
@@ -40,6 +44,7 @@ function ListeJeux(props) {
                                 <h2>{annee}</h2>
                             </div>
                             {
+                                //Boucler sur les jeux de cette année
                                 listeJeux[annee].map((jeu) => {
                                     return ( 
                                         <article key={jeu.id}>

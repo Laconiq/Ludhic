@@ -8,44 +8,27 @@ function BoutonVote(props) {
     const [userID, setUserID] = useState(false);
 
     useEffect(()=>{
-        //TODO Récupérer votes sur le jeu
-        //Voir pour les fonctions qui gardent en temps réel l'état de la BDD
-
-        console.log(`ID Jeu : ${props.jeu}`);
-
+        //Créé un évènement, à chaque modification sur la liste de vote, elle est récupérée
         onValue(ref(getDatabase(), `Jeu/${props.jeu}/Favoris`), (snapshot) => {
+            //TODO Si liste vide
             const data = snapshot.val();
             if(data) setVotes(data);
-            console.log("Votes récupérés dynamiquement :", data);
         });
 
+        //Récupérer ID utilisateur si connecté
         onAuthStateChanged(getAuth(), (user) => {
-            if(user)
-            {
-                console.log(`Connecté avec l'ID ${user.uid}`);
-                setUserID(user.uid);
-            }
+            if(user) setUserID(user.uid);
         });
-    },[props.membres]);
+    },[]);
 
     const miseAJourVote = (event) => {
-        console.log("Votes avant modification :", votes);
         if(userID)
         {
             let nouveauxVotes = [...votes];
-            if(votes.includes(userID))
-            {   
-                nouveauxVotes.splice(nouveauxVotes.indexOf(userID), 1);
-                console.log("Nouvelle liste votes après delete : ", nouveauxVotes);
-            }
-            else
-            {
-                nouveauxVotes.push(userID);
-                console.log("Nouvelle liste votes après push : ", nouveauxVotes);
-            }
+            if(votes.includes(userID)) nouveauxVotes.splice(nouveauxVotes.indexOf(userID), 1);
+            else nouveauxVotes.push(userID);
             set(ref(getDatabase(), `Jeu/${props.jeu}/Favoris`), nouveauxVotes);
         }
-        else console.log("Erreur : pas d'ID User enregistré");
     }
 
     return (

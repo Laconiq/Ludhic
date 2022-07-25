@@ -4,14 +4,12 @@ import { useState } from 'react';
 import { modificationFormulaire } from '../Administration/fonctionsFormulaires';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
-//Composant représentant le formulaire de gestion d'un jeu (création, modification, suppression)
+//Composant représentant le formulaire de connexion d'un utilisateur
 function FormulaireConnexion() {
     const [formulaire, setFormulaire] = useState({
         mail: "",
         mdp: ""
     });
-
-    //TODO Renvoyer vers nouvelle page à la fin de creerDemande
 
     const tenterConnexion = (event) => {
         event.preventDefault();

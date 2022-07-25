@@ -6,6 +6,7 @@ import { getDatabase, ref, get, child } from 'firebase/database';
 function Scrollbar() {
   const [annees, setAnnees] = useState(new Array());
 
+  //Récupérer uniquement les années, les stocker du plus récent au plus ancien
   useEffect(() => {
     const dbRef = ref(getDatabase());
     get(child(dbRef, `Jeu`)).then((snapshot) => {
