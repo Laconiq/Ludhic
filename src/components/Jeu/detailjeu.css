@@ -13,12 +13,19 @@ p {
     padding-bottom: 1.5rem;
 }
 
-.detailjeu_container {
+.game_container {
     display: grid;
     grid-template-columns: 40% 1fr;
     gap: 2rem;
     background-color: var(--color-bg-variant);
     padding: 3rem;
+}
+
+.game_image_container {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .detailjeu_image {
@@ -38,23 +45,20 @@ p {
     margin-left: 0rem;
 }
 
-.detailjeu_image_container {
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.detailjeu_video_container {
+.game_video_container {
     background-color: var(--color-bg-variant);
     height: 40rem;
 }
 
-.detailjeu_video {
+.game_video {
     margin: auto;
     display: flex;
     align-items: center;
     padding: 1rem;
+}
+
+.game-title {
+    display: flex;
 }
 
 /* =========== Étudiant =========== */

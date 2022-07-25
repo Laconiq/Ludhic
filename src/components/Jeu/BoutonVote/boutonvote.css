@@ -1,0 +1,10 @@
+.button-like {
+    color: red;
+    background-color: var(--color-bg-variant);
+    margin-left: 0.3rem;
+}
+
+.button-like > * {
+    width: 1.8rem;
+    height: auto;
+}

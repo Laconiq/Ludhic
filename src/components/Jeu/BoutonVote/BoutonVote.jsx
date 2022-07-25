@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, onValue, set} from "firebase/database";
 import { getAuth, onAuthStateChanged } from "firebase/auth"
+import './boutonvote.css'
+import {AiOutlineHeart} from 'react-icons/ai'
+import {AiFillHeart} from 'react-icons/ai'
 
 //Composant représentant la liste des étudiants ayant travaillé sur un jeu
 function BoutonVote(props) {
@@ -32,7 +35,7 @@ function BoutonVote(props) {
     }
 
     return (
-        <button type='button' onClick={miseAJourVote} disabled={userID == false}>Voter</button>
+        <button type='button' className='button-like' onClick={miseAJourVote} disabled={userID == false}><AiOutlineHeart/></button>
     )
 }
 
