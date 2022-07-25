@@ -3,6 +3,7 @@ import { getDatabase, ref, push, set } from "firebase/database";
 import { useState } from 'react';
 import { modificationFormulaire } from '../Administration/fonctionsFormulaires';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import './formulaireconnexion.css'
 
 //Composant représentant le formulaire de connexion d'un utilisateur
 function FormulaireConnexion() {
@@ -39,6 +40,10 @@ function FormulaireConnexion() {
                     <input name="img1" className='send-form' type="submit" value="Se connecter" />
                 </div>
             </form>
+            <div className='no-account'>
+                <p>Pas encore de compte ? </p>
+                <a href="/administration/inscription"> Inscris toi</a>
+            </div>
         </>
     )
 }
