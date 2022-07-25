@@ -81,16 +81,16 @@
 /* =========== MEDIA QUERIES (MEDIUM DEVICES) =========== */
 
 @media screen and (max-width: 1024px) {
-    .accueil-intro {
+    .home-intro-container {
         margin-left: 3rem;
     }
 
-    .highlight_game_image {
+    .highlight-game-image {
         height: auto;
         width: 300%;
     }
 
-    .accueil_bg {
+    .home-background {
         padding: 2rem 3rem 2rem 3rem;
     }
 }
@@ -98,12 +98,12 @@
 /* =========== MEDIA QUERIES (SMALL DEVICES) =========== */
 
 @media screen and (max-width: 600px) {
-    .highlight_game_content {
+    .highlight-game-container {
         display: inline-block;
         
     }
 
-    .highlight_game_image {
+    .highlight-game-image {
         height: auto;
         width: 100%;
         margin-bottom: 1rem;
