@@ -12,6 +12,7 @@ import FormulaireInscription from './components/Administration/Inscription/Formu
 import FormulaireRendu from './components/Administration/Rendu/FormulaireRendu';
 import FormulaireCreativeLab from './components/Administration/Creative_Lab/FormulaireCreativeLab';
 import Calendrier from './components/Calendrier/Calendrier';
+import FormulaireConnexion from './components/Connexion/FormulaireConnexion';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path='/' element={<><NavBar/><PageAccueil/><Footer/></>}/>
         <Route path='/jeux' element={<><NavBar/><PageListeJeux/><Footer/></>}/>
         <Route path='/calendrier' element={<><NavBar/><Calendrier/><Footer/></>}/>
+        <Route path='/login' element={<><NavBar/><FormulaireConnexion/><Footer/></>}/>
         {/* CHEMINS POUR ADMINISTRATION */}
         <Route path='/administration' element={<><NavBar/><Administration/><Footer/></>}/>
         <Route path='/administration/inscription' element={<><NavBar/><FormulaireInscription/><Footer/></>}/>

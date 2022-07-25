@@ -38,9 +38,7 @@ export default class PageAccueil extends Component {
         <div className='bouton'>
           <a href="/administration">Administration</a>
         </div>
-
-      <FormulaireConnexion/>
-
+        
       </>
     )
   }
