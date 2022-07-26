@@ -3,7 +3,7 @@ import { getDatabase, ref, push, set } from "firebase/database";
 import { useState } from 'react';
 import { modificationFormulaire } from '../Administration/fonctionsFormulaires';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import './formulaireconnexion.css'
+import '../Administration/formulaire.css'
 
 //Composant représentant le formulaire de connexion d'un utilisateur
 function FormulaireConnexion() {
