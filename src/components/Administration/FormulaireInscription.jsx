@@ -32,6 +32,10 @@ function FormulaireInscription(props) {
                 Formation: formulaire.formation,
                 Niveau: formulaire.niveau,
                 Admin: false
+            })
+            .then(() => {
+                alert(`Inscription complète.`);
+                navigate("/connexion");
             });
             //TODO Gérer erreur création info compte dans BDD
         });
@@ -42,17 +46,10 @@ function FormulaireInscription(props) {
         *       - Arrêter création ici
         *       - Afficher message d'erreur
         */
-
-        alert(`Demande d'inscription envoyée.`);
-    }
-
-    const testRedirect = () => {
-        navigate("/");
     }
 
     return (
         <>
-        <button type='button' onClick={testRedirect}>REDIRECT</button>
         <div className='form-body'>
             <h1 className='form-title'>Demande d'inscription</h1>
             <form onSubmit={creerDemande} className='form'>

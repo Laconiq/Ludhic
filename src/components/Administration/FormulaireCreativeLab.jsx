@@ -4,9 +4,11 @@ import { child, get, getDatabase, ref, push, update } from "firebase/database";
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { modificationFormulaire } from '../../helpers/fonctionsFormulaires';
+import { useNavigate } from 'react-router-dom';
 
 //Composant représentant le formulaire de gestion d'un jeu (création, modification, suppression)
 function FormulaireCreativeLab() {
+    const navigate = useNavigate();
     const database = getDatabase(), idMateriel = useParams()["id"];
     const [formulaire, setFormulaire] = useState({
         categorie: "JEU",
@@ -46,6 +48,10 @@ function FormulaireCreativeLab() {
             Nom: formulaire.nom,
             Note: formulaire.note,
             Compte: false
+        })
+        .then(() => {
+            alert(`Objet créé.`);
+            navigate("/");
         });
 
         //TODO Gérer erreur création jeu dans BDD
@@ -54,8 +60,6 @@ function FormulaireCreativeLab() {
         *       - Arrêter création ici
         *       - Afficher message d'erreur
         */
-
-        alert(`Ajout de l'objet ${formulaire.nom} dans la base de données.`);
     }
 
     const modifierMateriel = (event) => {
@@ -66,11 +70,11 @@ function FormulaireCreativeLab() {
             Categorie: formulaire.categorie,
             Nom: formulaire.nom,
             Note: formulaire.note
+        })
+        .then(() => {
+            alert(`Objet modifié.`);
+            navigate("/");
         });
-
-        //TODO Gestion erreur de mise à jour
-
-        alert(`Modification de l'objet ${formulaire.nom} dans la base de données.`);
     }
 
     return (

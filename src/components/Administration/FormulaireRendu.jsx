@@ -4,9 +4,11 @@ import { child, get, getDatabase, ref, push, update } from "firebase/database";
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { modificationFormulaire } from '../../helpers/fonctionsFormulaires';
+import { useNavigate } from 'react-router-dom';
 
 //Composant représentant le formulaire de gestion d'un jeu (création, modification, suppression)
 function FormulaireRendu() {
+    const navigate = useNavigate();
     const database = getDatabase(), idRendu = useParams()["id"];
     const [formulaire, setFormulaire] = useState({
         //Récupère date du jour même
@@ -56,16 +58,18 @@ function FormulaireRendu() {
             Matiere: formulaire.matiere,
             Objet: formulaire.objet,
             Formation: formulaire.formation
+        })
+        .then(() => {
+            alert(`Rendu créé.`);
+            navigate("/calendrier");
         });
 
-        //TODO Gérer erreur création jeu dans BDD
+        //TODO Gérer erreur création rendu dans BDD
         /* 
         *   Si erreur :
         *       - Arrêter création ici
         *       - Afficher message d'erreur
         */
-
-        alert(`Le rendu ${formulaire.objet} a été créé.`);
     }
 
     const modifierRendu = (event) => {
@@ -79,7 +83,18 @@ function FormulaireRendu() {
             Matiere: formulaire.matiere,
             Objet: formulaire.objet,
             Formation: formulaire.formation
+        })
+        .then(() => {
+            alert(`Rendu modifié.`);
+            navigate("/calendrier");
         });
+
+        //TODO Gérer erreur modification rendu dans BDD
+        /* 
+        *   Si erreur :
+        *       - Arrêter création ici
+        *       - Afficher message d'erreur
+        */
     }
 
     return (

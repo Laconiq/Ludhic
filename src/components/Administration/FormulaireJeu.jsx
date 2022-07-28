@@ -5,9 +5,11 @@ import { child, get, getDatabase, ref as refDB, set, update } from "firebase/dat
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { modificationFormulaire } from '../../helpers/fonctionsFormulaires';
+import { useNavigate } from 'react-router-dom';
 
 //Composant représentant le formulaire de gestion d'un jeu (création, modification, suppression)
 function FormulaireJeu() {
+    const navigate = useNavigate();
     const database = getDatabase(), storage = getStorage(), idJeu = useParams()["id"];
     const [membres, setMembres] = useState([{nom:"", prenom:"", poste:""}]);
     const [formulaire, setFormulaire] = useState({
@@ -141,6 +143,7 @@ function FormulaireJeu() {
         */
 
         alert(`Le jeu ${form.titre.value} a été créé avec succès (normalement, sinon c'est la faute de Lucas).`);
+        navigate("/jeux");
     }
 
     const modifierJeu = (event) => {
@@ -244,6 +247,8 @@ function FormulaireJeu() {
                 })
             }
         }
+
+        navigate("/jeux");
     }
 
     //Fonction upload le logo et met à jour le lien dans le jeu correspondant

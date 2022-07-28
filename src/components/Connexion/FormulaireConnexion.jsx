@@ -4,9 +4,11 @@ import { useState } from 'react';
 import { modificationFormulaire } from '../../helpers/fonctionsFormulaires';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import '../Administration/formulaire.css'
+import { useNavigate } from 'react-router-dom';
 
 //Composant représentant le formulaire de connexion d'un utilisateur
 function FormulaireConnexion() {
+    const navigate = useNavigate();
     const [formulaire, setFormulaire] = useState({
         mail: "",
         mdp: ""
@@ -16,7 +18,7 @@ function FormulaireConnexion() {
         event.preventDefault();
 
         signInWithEmailAndPassword(getAuth(), formulaire.mail, formulaire.mdp)
-        .then(() => alert(`Connexion achevée.`))
+        .then(() => navigate("/"))
         .catch((error) => alert(error.message));
     }
 
