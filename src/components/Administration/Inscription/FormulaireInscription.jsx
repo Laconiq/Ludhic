@@ -52,8 +52,9 @@ function FormulaireInscription(props) {
 
     return (
         <>
-            <button type='button' onClick={testRedirect}>REDIRECT</button>
-            <h1 className='form-titre'>Demande d'inscription</h1>
+        <button type='button' onClick={testRedirect}>REDIRECT</button>
+        <div className='form-body'>
+            <h1 className='form-title'>Demande d'inscription</h1>
             <form onSubmit={creerDemande} className='form'>
                 <div className='form-ligne'></div>
 
@@ -104,6 +105,7 @@ function FormulaireInscription(props) {
                     <input name="img1" className='send-form' type="submit" value="Créer son compte" />
                 </div>
             </form>
+        </div>
         </>
     )
 }

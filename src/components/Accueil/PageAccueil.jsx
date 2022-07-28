@@ -40,7 +40,7 @@ export default class PageAccueil extends Component {
     {/* BOUTON ADMIN */}
         
         <div className='bouton'>
-          <a href="/administration">Administration</a>
+          <a href="/administration/">Administration</a>
         </div>
         
       </>

@@ -263,7 +263,8 @@ function FormulaireJeu() {
 
     return (
         <>
-            <h1 className='form-titre'>Administration jeux</h1>
+        <div className='form-body'>
+            <h1 className='form-title'>Administration jeux</h1>
             <form onSubmit={(idJeu) ? modifierJeu : creerJeu} className='form'>
                 <div className='form-ligne'></div>
 
@@ -417,6 +418,7 @@ function FormulaireJeu() {
 
 
             </form>
+        </div>
         </>
     )
 }

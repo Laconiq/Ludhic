@@ -84,7 +84,8 @@ function FormulaireRendu() {
 
     return (
         <>
-            <h1 className='form-titre'>Administration jeux</h1>
+        <div className='form-body'>
+            <h1 className='form-title'>Administration jeux</h1>
             <form onSubmit={(idRendu) ? modifierRendu : creerRendu} className='form'>
                 <div className='form-ligne'></div>
 
@@ -131,6 +132,7 @@ function FormulaireRendu() {
                     <input name="img1" className='send-form' type="submit" value="Envoyer le formulaire" />
                 </div>
             </form>
+        </div>
         </>
     )
 }

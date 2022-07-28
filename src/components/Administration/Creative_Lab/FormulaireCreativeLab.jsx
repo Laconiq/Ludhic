@@ -75,7 +75,8 @@ function FormulaireCreativeLab() {
 
     return (
         <>
-            <h1 className='form-titre'>Formulaire pour matériel du Creative Lab(tm)</h1>
+        <div className='form-body'>
+            <h1 className='form-title'>Formulaire pour matériel du Creative Lab(tm)</h1>
             <form onSubmit={(idMateriel) ? modifierMateriel : creerMateriel} className='form'>
                 <div className='form-ligne'></div>
 
@@ -110,9 +111,8 @@ function FormulaireCreativeLab() {
                 <div className='form-component'>
                     <input name="img1" className='send-form' type="submit" value="Envoyer le formulaire" />
                 </div>
-
-
             </form>
+        </div>
         </>
     )
 }
