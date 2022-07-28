@@ -104,6 +104,18 @@ textarea {
     color: var(--color-primary);
 }
 
+/* =========== ADMINISTRATION =========== */
+
+.admin-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 1rem;
+    column-gap: 3rem;
+    width: fit-content;
+    margin: 2rem auto 0 auto;
+    padding-bottom: 2rem;
+}
+
 /* =========== MEDIA QUERIES (MEDIUM DEVICES) =========== */
 
 @media screen and (max-width: 1024px) {
