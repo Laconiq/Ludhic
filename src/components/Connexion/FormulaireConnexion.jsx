@@ -1,7 +1,7 @@
 import React from 'react'
 import { getDatabase, ref, push, set } from "firebase/database";
 import { useState } from 'react';
-import { modificationFormulaire } from '../Administration/fonctionsFormulaires';
+import { modificationFormulaire } from '../../helpers/fonctionsFormulaires';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import '../Administration/formulaire.css'
 

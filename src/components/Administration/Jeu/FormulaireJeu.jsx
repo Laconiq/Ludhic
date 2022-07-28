@@ -4,7 +4,7 @@ import { getStorage, ref as refST, uploadBytes, getDownloadURL, deleteObject } f
 import { child, get, getDatabase, ref as refDB, set, update } from "firebase/database";
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { modificationFormulaire } from '../fonctionsFormulaires';
+import { modificationFormulaire } from '../../../helpers/fonctionsFormulaires';
 
 //Composant représentant le formulaire de gestion d'un jeu (création, modification, suppression)
 function FormulaireJeu() {

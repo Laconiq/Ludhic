@@ -1,15 +1,18 @@
 import React from 'react'
 import '../formulaire.css'
-import { getDatabase, ref, push, set } from "firebase/database";
+import { getDatabase, ref, set } from "firebase/database";
 import { useState } from 'react';
-import { modificationFormulaire } from '../fonctionsFormulaires';
+import { modificationFormulaire } from '../../../helpers/fonctionsFormulaires';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
 
 //Composant représentant le formulaire de gestion d'un jeu (création, modification, suppression)
-function FormulaireInscription() {
+function FormulaireInscription(props) {
+    const navigate = useNavigate();
     const [formulaire, setFormulaire] = useState({
         mail: "",
-        formation: "MAJIC_M1",
+        formation: "MAJIC",
+        niveau: "1",
         mdp: "",
         nom: "",
         prenom: ""
@@ -26,7 +29,9 @@ function FormulaireInscription() {
             set(ref(getDatabase(), `Compte/${newUser.user.uid}`), {
                 Nom: formulaire.nom,
                 Prenom: formulaire.prenom,
-                Formation: formulaire.formation
+                Formation: formulaire.formation,
+                Niveau: formulaire.niveau,
+                Admin: false
             });
             //TODO Gérer erreur création info compte dans BDD
         });
@@ -41,8 +46,13 @@ function FormulaireInscription() {
         alert(`Demande d'inscription envoyée.`);
     }
 
+    const testRedirect = () => {
+        navigate("/");
+    }
+
     return (
         <>
+            <button type='button' onClick={testRedirect}>REDIRECT</button>
             <h1 className='form-titre'>Demande d'inscription</h1>
             <form onSubmit={creerDemande} className='form'>
                 <div className='form-ligne'></div>
@@ -58,12 +68,10 @@ function FormulaireInscription() {
                 
                 <div className='form-component'>
                     <label htmlFor="nom">Nom(s)* :</label>
-                    <p className='form-texte'>Cette information peut être affichée sur les pages suivantes : Jeu, Annuaire</p>
                     <input name="nom" type="text" maxLength={128} required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.nom}/>
                 </div>
                 <div className='form-component'>
                     <label htmlFor="prenom">Prénom(s)* : </label>
-                    <p className='form-texte'>Cette information peut être affichée sur les pages suivantes : Jeu, Annuaire</p>
                     <input name="prenom" type="text" maxLength={128} required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.prenom}/>
                 </div>
                 <div className='form-component'>
@@ -72,25 +80,28 @@ function FormulaireInscription() {
                 </div>
                 <div className='form-component'>
                     <label htmlFor="mdp">Mot de passe* : </label>
-                    <p className='form-texte'>Cette information peut être affichée sur les pages suivantes : Jeu, Annuaire</p>
                     <input name="mdp" type="password" maxLength={128} required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.mdp}/>
                 </div>
                 <div className='form-component'>
-                    <label htmlFor="mdp">Rôle* : </label>
+                    <label htmlFor="formation">Rôle* : </label>
                     <select name="formation" value={formulaire.formation} onChange={event => modificationFormulaire(event, formulaire, setFormulaire)}>
-                        <option value='MAJIC_M1'>MAJIC 1ère année</option>
-                        <option value='MAJIC_M2'>MAJIC 2ème année</option>
-                        <option value='MAPIC_M1'>MAPIC 1ère année</option>
-                        <option value='MAPIC_M2'>MAPIC 2ème année</option>
-                        <option value='MAJIC_ANCIEN'>Ancien MAJIC</option>
-                        <option value='MAPIC_ANCIEN'>Ancien MAPIC</option>
-                        <option value='PROF'>Enseignant ? Vraiment ?</option>
+                        <option value='MAJIC'>MAJIC</option>
+                        <option value='MAPIC'>MAPIC</option>
+                        <option value='AUTRE'>Autre</option>
+                    </select>
+                </div>
+                <div className='form-component'>
+                    <label htmlFor="niveau">Année* : </label>
+                    <select name="niveau" value={formulaire.niveau} onChange={event => modificationFormulaire(event, formulaire, setFormulaire)}>
+                        <option value='1'>1ère année</option>
+                        <option value='2'>2ème année</option>
+                        <option value='ANCIEN'>Ancien</option>
                     </select>
                 </div>
 
                 <p className='form-texte'>* : Champ obligatoire</p>
                 <div className='form-component'>
-                    <input name="img1" className='send-form' type="submit" value="Envoyer le formulaire" />
+                    <input name="img1" className='send-form' type="submit" value="Créer son compte" />
                 </div>
             </form>
         </>
