@@ -3,7 +3,8 @@
 .highlight-game-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+    gap: 5rem;
+    row-gap: 2rem;
     margin-top: 1.2rem;
     margin-bottom: 2rem;
 }
@@ -29,12 +30,8 @@
 
 .highlight-game-image {
     height: auto;
-    width: 80%;
+    width: 100%;
     margin-top: 0.6rem;
-}
-
-.highlight-game-one {
-    padding: 1rem;
 }
 
 .see-more {

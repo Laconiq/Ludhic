@@ -61,7 +61,6 @@ function HighlightGame() {
           data.map(({id, image, title, subtitle, lien}) => {
             return (
               <article key={id} className='highlight-game-one'>
-                <div className='home-line'></div>
                 <h1 className='highlight-game-title'>Nom du jeu</h1>
                 <div className='highlight-game-image'>
                   <img src={image} alt={title} />
