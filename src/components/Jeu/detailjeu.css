@@ -1,5 +1,5 @@
 body {
-    background-color: var(--color-bg)
+    background-color: var(--color-bg);
 }
 
 h1 {
@@ -62,12 +62,6 @@ p {
 }
 
 /* =========== Étudiant =========== */
-
-h2 {
-    color: var(--color-white);
-    font-size: 1rem;
-    padding-bottom: 0.5rem;
-}
 
 .student {
     padding-top: 0.3rem;
