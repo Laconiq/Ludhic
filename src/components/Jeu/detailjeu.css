@@ -13,7 +13,7 @@ p {
     padding-bottom: 1.5rem;
 }
 
-.game_container {
+.game-container {
     display: grid;
     grid-template-columns: 40% 1fr;
     gap: 2rem;
@@ -21,20 +21,20 @@ p {
     padding: 3rem;
 }
 
-.game_image_container {
+.game-image-container {
     margin: auto;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.detailjeu_image {
+.game-image {
     width: 100%;
     border-radius: 0rem;
     padding: 1rem;
 }
 
-.text_container {
+.text-container {
     padding: 2rem 2rem 0rem 2rem;
     display: flex;
     justify-content: center;
@@ -45,12 +45,12 @@ p {
     margin-left: 0rem;
 }
 
-.game_video_container {
+.game-video-container {
     background-color: var(--color-bg-variant);
     height: 40rem;
 }
 
-.game_video {
+.game-video {
     margin: auto;
     display: flex;
     align-items: center;
@@ -69,40 +69,48 @@ h2 {
     padding-bottom: 0.5rem;
 }
 
-.etudiant {
+.student {
     padding-top: 0.3rem;
     padding-bottom: 0.3rem;
     font-size: 90%;
     text-align: left;
+    margin-bottom: 2rem;
 }
 
 /* =========== MEDIA QUERIES (MEDIUM DEVICES) =========== */
 
 @media screen and (max-width: 1024px) {
-    .detailjeu_container {
+    .game-container {
         padding: 2rem;
         grid-template-columns: 1fr;
     }
 
-    .detailjeu_video {
+    .game-video {
         width: 85%;
         height: 60%;
+    }
+
+    .game-image-container {
+        margin: 0 2.5rem 0 2.5rem;
     }
 }
 
 /* =========== MEDIA QUERIES (SMALL DEVICES) =========== */
 
 @media screen and (max-width: 600px) {
-    .detailjeu_container {
-        grid-template-columns: 1fr;
+    .game-container {
         padding: 1rem;
     }
-    .text_container {
+    .text-container {
         padding-bottom: 0rem;
     }
 
-    .detailjeu_video {
+    .game-video {
         width: 85%;
         height: 40%;
+    }
+
+    .game-image-container {
+        margin: 0 2rem 0 2rem;
     }
 }

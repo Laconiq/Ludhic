@@ -58,10 +58,10 @@ function PageJeu() {
     if(props.video)
     {
       return (
-        <div className='game_video_container'>
+        <div className='game-video-container'>
             {/*ATTENTION pour le lien d'une video "https://www.youtube.com/watch?v=dQw4w9WgXcQ" 
             il faut récupérer uniquement ce qui est après le "?v=" donc "dQw4w9WgXcQ" qu'il faut coller après "https://www.youtube.com/embed/"*/}
-            <iframe className='game_video' width="60%" height="100%" src={props.video}></iframe>
+            <iframe className='game-video' width="60%" height="100%" src={props.video}></iframe>
         </div>
       )
     }
@@ -70,15 +70,15 @@ function PageJeu() {
   return (
     <>
     <body>
-      <div className='game_container'>
-        <div className='text_container'>
+      <div className='game-container'>
+        <div className='text-container'>
           <div className='text'>
             <div className='game-title'>
               <h1>{jeu.titre}</h1>
               <BoutonVote jeu={idJeu}/>
             </div>
             <p>{jeu.desc}</p>
-            <div className='participant_container'>
+            <div className='participant-container'>
               {/* Participant récupère array d'objets avec ID du membre et son poste */}
               <section id='etudiant'>
                 <h2>Étudiants participants au projet :</h2>
@@ -89,7 +89,7 @@ function PageJeu() {
                       jeu.membres.map(membre => {
                         return (
                           <article key={`${membre.prenom}-${membre.nom}`}>
-                            <p className='etudiant'>{membre.prenom} {membre.nom} : {membre.poste}</p>
+                            <p className='student'>{membre.prenom} {membre.nom} : {membre.poste}</p>
                           </article>
                         )
                       })
@@ -102,7 +102,7 @@ function PageJeu() {
             <RenderBouton lien={jeu.lien_btn} txt={jeu.txt_btn} />
           </div>
         </div>       
-        <div className='game_image_container'>
+        <div className='game-image-container'>
           {/* Carrousel récupère un array avec les URL des images */}
           <Carrousel carrousel={jeu.carrousel}/>
         </div>
