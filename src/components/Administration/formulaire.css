@@ -37,6 +37,11 @@
     margin-right: auto;  
 }
 
+.form-image-edition {
+    max-width : 50%;
+    height: auto;
+}
+
 .form-ligne {
     width: 80%;
     height: 1px;

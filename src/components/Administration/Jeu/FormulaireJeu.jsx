@@ -258,7 +258,7 @@ function FormulaireJeu() {
 
     //Composants avec condition d'affichage
     const AncienneImage = (props) => {
-        if(props.url) return ( <img src={props.url} alt={props.alt}/> )
+        if(props.url) return (<img className="form-image-edition" src={props.url} alt={props.alt}/>)
     }
 
     return (
