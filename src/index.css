@@ -27,6 +27,24 @@ body {
 
 }
 
+h2 {
+  color: var(--color-white);
+  font-size: 1rem;
+}
+
+body {
+  background-color: var(--color-bg);
+}
+
+h1 {
+  color: var(--color-white);
+}
+
+p {
+  color: var(--color-light);
+  text-align: justify;
+}
+
 /* =========== Bouton =========== */
 
 .bouton {

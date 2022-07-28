@@ -3,16 +3,17 @@
 .highlight-game-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 5rem;
+    gap: 8rem;
     row-gap: 2rem;
-    margin-top: 1.2rem;
-    margin-bottom: 2rem;
+    margin-top: 1.2rem 0 2rem 0;
 }
 
 .highlight-game-title {
     color: var(--color-white);
     font-size: 1.5rem;
-    margin-top: 1rem;
+    margin: 1.2rem 0 1.2rem 0;
+    display: flex;
+    justify-content: center;
 }
 
 .highlight-game-text {
@@ -37,10 +38,13 @@
 .see-more {
     color: var(--color-primary);
     transition: var(--transition);
+    display: flex;
+    justify-content: center;
 }
 
 .see-more:hover {
     color: var(--color-primary-variant);
+    cursor: pointer;
 }
 
 /* =========== MEDIA QUERIES (MEDIUM DEVICES) =========== */
