@@ -7,10 +7,10 @@ import PageAccueil from './components/Accueil/PageAccueil';
 import PageListeJeux from './components/ListeJeux/PageListeJeux';
 import {Routes, Route} from "react-router-dom"
 import Administration from './components/Administration/Administration';
-import FormulaireJeu from './components/Administration/Jeu/FormulaireJeu'
-import FormulaireInscription from './components/Administration/Inscription/FormulaireInscription'
-import FormulaireRendu from './components/Administration/Rendu/FormulaireRendu';
-import FormulaireCreativeLab from './components/Administration/Creative_Lab/FormulaireCreativeLab';
+import FormulaireJeu from './components/Administration/FormulaireJeu'
+import FormulaireInscription from './components/Administration/FormulaireInscription'
+import FormulaireRendu from './components/Administration/FormulaireRendu';
+import FormulaireCreativeLab from './components/Administration/FormulaireCreativeLab';
 import Calendrier from './components/Calendrier/Calendrier';
 import FormulaireConnexion from './components/Connexion/FormulaireConnexion';
 

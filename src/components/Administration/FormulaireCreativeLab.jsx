@@ -1,9 +1,9 @@
 import React from 'react'
-import '../formulaire.css'
+import './formulaire.css'
 import { child, get, getDatabase, ref, push, update } from "firebase/database";
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { modificationFormulaire } from '../../../helpers/fonctionsFormulaires';
+import { modificationFormulaire } from '../../helpers/fonctionsFormulaires';
 
 //Composant représentant le formulaire de gestion d'un jeu (création, modification, suppression)
 function FormulaireCreativeLab() {

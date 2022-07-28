@@ -1,8 +1,8 @@
 import React from 'react'
-import '../formulaire.css'
+import './formulaire.css'
 import { getDatabase, ref, set } from "firebase/database";
 import { useState } from 'react';
-import { modificationFormulaire } from '../../../helpers/fonctionsFormulaires';
+import { modificationFormulaire } from '../../helpers/fonctionsFormulaires';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 
