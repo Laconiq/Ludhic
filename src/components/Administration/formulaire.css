@@ -75,6 +75,14 @@ textarea {
     resize: none;
 }
 
+.checkbox-atc {
+    margin-bottom: 1.2rem;
+}
+
+.checkbox-atc > label {
+    margin-left: 0.5rem;
+}
+
 .send-form {
     background-color: var(--color-primary);
     padding: 1rem 1rem 1rem 1rem;
@@ -102,6 +110,32 @@ textarea {
 
 .no-account > a {
     color: var(--color-primary);
+}
+
+/* =========== JEU>PARTICIPANT =========== */
+
+.participant > input {
+    margin-bottom: 1rem;
+}
+
+.add-student {
+    background-color: green;
+}
+
+.add-student:hover {
+    cursor: pointer;
+}
+
+.rm-student {
+    background-color: red;
+    color: white;
+    padding: 1rem;
+    width: fit-content;
+    margin: auto;
+}
+
+.rm-student {
+    cursor: pointer;
 }
 
 /* =========== ADMINISTRATION =========== */

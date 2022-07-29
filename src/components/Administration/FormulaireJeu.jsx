@@ -381,12 +381,12 @@ function FormulaireJeu() {
 
                 <div className='form-ligne'></div>
                 <h2 className='form-titre-h2'>Participants</h2>
-                <button type='button' className='bouton-ajout-participant' onClick={() => creerChampParticipant()}>Ajouter participant</button>
+                <button type='button' className='add-student' onClick={() => creerChampParticipant()}>Ajouter participant</button>
 
                 {
                     membres.map((element, index) => (
                         <div key={`participant-${index}`} className="participant form-component">
-                            <h2>Participant</h2>
+
                             <label htmlFor="prenom">Prénom* : </label>
                             <input name="prenom" type="text" required='required' value={element.prenom || ""} onChange={input => modificationMembres(index, input)} />
 
@@ -397,12 +397,18 @@ function FormulaireJeu() {
                             <input name="poste" type="text" required='required' value={element.poste || ""} onChange={input => modificationMembres(index, input)} />
                             {
                                 index ? 
-                                    <button type="button" className='bouton-supr-participant' onClick={() => supprimerChampParticipant(index)}>Supprimer le participant</button>
+                                    <button type='button' className='rm-student' onClick={() => supprimerChampParticipant(index)}>Supprimer le participant</button>
                                 : null
                             }
                         </div>
                     ))
                 }
+
+    {/* CHECKBOX */}
+                <div className='checkbox-atc'>
+                    <input type="checkbox" required='required'/>
+                    <label htmlFor="checkbox-atc">Je certifie avoir toutes les autorisations à la création de cette page.*</label>
+                </div>
 
     {/* BOUTON ENVOIE FORMULAIRE */}
 
