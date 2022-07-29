@@ -13,6 +13,7 @@ import FormulaireRendu from './components/Administration/FormulaireRendu';
 import FormulaireCreativeLab from './components/Administration/FormulaireCreativeLab';
 import Calendrier from './components/Calendrier/Calendrier';
 import FormulaireConnexion from './components/Connexion/FormulaireConnexion';
+import CreativeLab from './components/CreativeLab/CreativeLab';
 
 function App() {
   return (
@@ -23,7 +24,8 @@ function App() {
         <Route path='/' element={<PageAccueil/>}/>
         <Route path='/jeux' element={<PageListeJeux/>}/>
         <Route path='/calendrier' element={<Calendrier/>}/>
-        <Route path='/login' element={<FormulaireConnexion/>}/>
+        <Route path='/connexion' element={<FormulaireConnexion/>}/>
+        <Route path='/creative-lab' element={<CreativeLab/>}/>
         {/* CHEMINS POUR ADMINISTRATION */}
         <Route path='/administration' element={<Administration/>}/>
         <Route path='/administration/inscription' element={<FormulaireInscription/>}/>
