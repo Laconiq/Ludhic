@@ -2,7 +2,6 @@
     display: grid;
     grid-template-columns: 40% 1fr;
     gap: 2rem;
-    background-color: var(--color-bg-variant);
     padding: 3rem;
 }
 
@@ -26,12 +25,15 @@
     align-items: center;
 }
 
-.text {
-    margin-left: 0rem;
+.text > * {
+    margin-bottom: 1rem;
+}
+
+.student-container > section > h2 {
+    margin-bottom: 0.4rem;
 }
 
 .game-video-container {
-    background-color: var(--color-bg-variant);
     height: 40rem;
 }
 

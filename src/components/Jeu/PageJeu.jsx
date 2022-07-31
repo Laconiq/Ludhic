@@ -78,7 +78,7 @@ function PageJeu() {
               <BoutonVote jeu={idJeu}/>
             </div>
             <p>{jeu.desc}</p>
-            <div className='participant-container'>
+            <div className='student-container'>
               {/* Participant récupère array d'objets avec ID du membre et son poste */}
               <section id='etudiant'>
                 <h2>Étudiants participants au projet :</h2>
