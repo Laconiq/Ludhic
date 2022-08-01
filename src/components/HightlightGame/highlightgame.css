@@ -47,6 +47,14 @@
     cursor: pointer;
 }
 
+.highlight-game-container > article > div > img {
+    transition: var(--transition);
+}
+
+.highlight-game-container > article:hover > div > img {
+    filter: blur(3px);
+}
+
 /* =========== MEDIA QUERIES (MEDIUM DEVICES) =========== */
 
 @media screen and (max-width: 1024px) {
