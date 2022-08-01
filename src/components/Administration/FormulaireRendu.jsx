@@ -5,9 +5,11 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { modificationFormulaire } from '../../helpers/fonctionsFormulaires';
 import { useNavigate } from 'react-router-dom';
+import { estConnecte } from '../../helpers/compte';
 
 //Composant représentant le formulaire de gestion d'un jeu (création, modification, suppression)
-function FormulaireRendu() {
+function FormulaireRendu(props) {
+    const [compte, setCompte] = useState(false);
     const navigate = useNavigate();
     const database = getDatabase(), idRendu = useParams()["id"];
     const [formulaire, setFormulaire] = useState({
@@ -20,6 +22,15 @@ function FormulaireRendu() {
         formation: "MAJIC_M1"
         //TODO Rajouter l'année et la formation
     }); 
+
+    useEffect(() => {
+    setCompte(props.utilisateur);
+    },[props]);
+
+    useEffect(() => {
+    //Si non connecté, renvoie à l'accueil automatiquement
+    estConnecte(compte, true, navigate);
+    },[compte]);
 
     //Au chargement du composant, si demande de modification d'un jeu (ID en URL), charger les informations du jeu
     useEffect(() => {

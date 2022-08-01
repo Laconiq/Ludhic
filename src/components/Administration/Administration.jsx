@@ -1,6 +1,20 @@
 import React from 'react'
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { estConnecte } from '../../helpers/compte';
 
-function Administration() {
+function Administration(props) {
+    const [compte, setCompte] = useState(false);
+    const navigate = useNavigate();
+    useEffect(() => {
+        setCompte(props.utilisateur);
+      },[props]);
+    
+      useEffect(() => {
+        //Si non connecté, renvoie à l'accueil automatiquement
+        estConnecte(compte, true, navigate);
+      },[compte]);
+
     return (
         <>
             <ul className='admin-container'>

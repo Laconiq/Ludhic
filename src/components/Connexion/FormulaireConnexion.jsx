@@ -2,7 +2,7 @@ import React from 'react'
 import { getDatabase, ref, push, set } from "firebase/database";
 import { useState } from 'react';
 import { modificationFormulaire } from '../../helpers/fonctionsFormulaires';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import '../Administration/formulaire.css'
 import { useNavigate } from 'react-router-dom';
 
@@ -42,6 +42,7 @@ function FormulaireConnexion() {
                     <input name="img1" className='send-form' type="submit" value="Se connecter" />
                 </div>
             </form>
+            <button type='button' onClick={() => signOut(getAuth()).then(console.log("Déconnecté"))}>Déconnecter</button>
             <div className='no-account'>
                 <p>Pas encore de compte ? </p>
                 <a href="/administration/inscription"> Inscris toi</a>
