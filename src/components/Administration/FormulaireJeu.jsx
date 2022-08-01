@@ -6,26 +6,52 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { modificationFormulaire } from '../../helpers/fonctionsFormulaires';
 import { useNavigate } from 'react-router-dom';
+import { estConnecte } from '../../helpers/compte';
 
 //Composant représentant le formulaire de gestion d'un jeu (création, modification, suppression)
-function FormulaireJeu() {
-    const navigate = useNavigate();
-    const database = getDatabase(), storage = getStorage(), idJeu = useParams()["id"];
-    const [membres, setMembres] = useState([{nom:"", prenom:"", poste:""}]);
-    const [formulaire, setFormulaire] = useState({
-        titre: "",
-        url: "",
-        annee: "",
-        desc_court: "",
-        desc_long: "",
-        ytb: "",
-        txt_btn: "",
-        lien_btn: "",
-        logo: "",
-        carrousel: [],
-        visible: false,
-        admins: ""
-    }); 
+function FormulaireJeu(props) {
+    const navigate = useNavigate(), 
+        database = getDatabase(), 
+        storage = getStorage(), 
+        idJeu = useParams()["id"];
+    
+    const [compte, setCompte] = useState(false),
+        [membres, setMembres] = useState([{nom:"", prenom:"", poste:""}]),
+        [admins, setAdmins] = useState(new Array(false)),
+        [utilisateurs, setUtilisateurs] = useState(new Array()),
+        [formulaire, setFormulaire] = useState({
+            titre: "",
+            url: "",
+            annee: "",
+            desc_court: "",
+            desc_long: "",
+            ytb: "",
+            txt_btn: "",
+            lien_btn: "",
+            logo: "",
+            carrousel: [],
+            visible: false,
+            admins: ""
+        }); 
+
+    useEffect(() => {
+        setCompte(props.utilisateur);
+    },[props]);
+
+    useEffect(() => {
+        //Si non connecté, renvoie à l'accueil automatiquement
+        if(estConnecte(compte, true, navigate) && idJeu && admins.length)
+        {
+            if(compte.admin) console.log("Utilisateur est administrateur du site");
+            else
+            {
+                let estAdmin = false;
+                for(let adm of admins) { if(adm == compte.id) { estAdmin = true; break; } }
+                if(estAdmin) console.log("Utilisateur est administrateur du jeu");
+                else { console.log("Utilisateur n'est admin ni du site, ni du jeu"); navigate("/"); }
+            }
+        }
+    },[compte,admins]);
 
     //Au chargement du composant, si demande de modification d'un jeu (ID en URL), charger les informations du jeu
     useEffect(() => {
@@ -49,12 +75,23 @@ function FormulaireJeu() {
                     admins: jeu.Demandes_Administrateurs
                 });
                 setMembres(jeu.Membre);
+                setAdmins(jeu.Administrateur);
             });
             //TODO Gérer erreur requête
             //TODO Gérer absence jeu à cet ID
         }
+
+        //Récupérer utilisateurs pour sélecteur admins
+        get(child(refDB(database),`Compte`))
+        .then((snapshot) => {
+            const ut = snapshot.val();
+            let listeUtilisateurs = new Array();
+            Object.keys(ut).map((idUt) => listeUtilisateurs.push({id:idUt, nom:ut[idUt].Nom, prenom:ut[idUt].Prenom}));
+            setUtilisateurs(listeUtilisateurs);
+        });
     },[]);
 
+    //Gestion des participants
     const creerChampParticipant = () => {
         setMembres([...membres,{nom:"", prenom:"", poste:""}]);
     }
@@ -69,6 +106,24 @@ function FormulaireJeu() {
         let nouveauxMembres = [...membres];
         nouveauxMembres[index][input.target.name] = input.target.value;
         setMembres(nouveauxMembres);
+        console.log(nouveauxMembres);
+    }
+
+    //Gestion des administrateurs
+    const creerChampAdministrateurs = () => {
+        setAdmins([...admins,false]);
+    }
+
+    const supprimerChampAdministrateurs = (index) => {
+        let nouveauFormulaire = [...admins];
+        nouveauFormulaire.splice(index, 1);
+        setAdmins(nouveauFormulaire);
+    }
+
+    const modificationAdministrateurs = (index, input) => {
+        let nouveauxAdmins = [...admins];
+        nouveauxAdmins[index] = input.target.value;
+        setAdmins(nouveauxAdmins);
     }
 
     //TODO Renvoyer vers nouvelle page à la fin de creerJeu
@@ -84,7 +139,7 @@ function FormulaireJeu() {
         //Les valeurs FALSE sont des placeholders pour créer les champs "vides"
         //TODO Récupérer les valeurs des champs absents (admin)
         set(refDB(database,`Jeu/${form.url.value}`), {
-            Administrateur: false, //TODO Donner premier admin quand connexion ok
+            Administrateur: admins, //TODO Donner premier admin quand connexion ok
             Annee: formulaire.annee,
             Carrousel: false,
             Description: formulaire.desc_long,
@@ -143,7 +198,7 @@ function FormulaireJeu() {
         */
 
         alert(`Le jeu ${form.titre.value} a été créé avec succès (normalement, sinon c'est la faute de Lucas).`);
-        navigate("/jeux");
+        //navigate("/jeux");
     }
 
     const modifierJeu = (event) => {
@@ -165,7 +220,8 @@ function FormulaireJeu() {
             Titre: formulaire.titre,
             Visible: formulaire.visible,
             Demandes_Administrateurs: formulaire.admins,
-            Membre: membres
+            Membre: membres,
+            Administrateur: admins
         });
 
         //Modification logo si demandé
@@ -248,7 +304,7 @@ function FormulaireJeu() {
             }
         }
 
-        navigate("/jeux");
+        //navigate("/jeux");
     }
 
     //Fonction upload le logo et met à jour le lien dans le jeu correspondant
@@ -398,6 +454,32 @@ function FormulaireJeu() {
                             {
                                 index ? 
                                     <button type='button' className='rm-student' onClick={() => supprimerChampParticipant(index)}>Supprimer le participant</button>
+                                : null
+                            }
+                        </div>
+                    ))
+                }
+
+    {/* ADMINISTRATEURS */}
+
+                <div className='form-ligne'></div>
+                <h2 className='form-titre-h2'>Administrateurs du jeu</h2>
+                <button type='button' className='add-admin' onClick={() => creerChampAdministrateurs()}>Ajouter administrateur</button>
+
+                {
+                    admins.map((element, index) => (
+                        <div key={`adm-${index}`} className="participant form-component">
+
+                            <select name="adm" value={element || compte.id} onChange={input => modificationAdministrateurs(index, input)}>
+                                {
+                                    utilisateurs.map((element) => (
+                                        <option key={element.id+element.nom} value={element.id}>{element.nom} {element.prenom}</option>
+                                    ))
+                                }
+                            </select>
+                            {
+                                index ? 
+                                    <button type='button' className='rm-adm' onClick={() => supprimerChampAdministrateurs(index)}>Supprimer l'administrateur</button>
                                 : null
                             }
                         </div>
