@@ -45,7 +45,7 @@ function FormulaireConnexion() {
             <button className='button-logout' type='button' onClick={() => signOut(getAuth()).then(console.log("Déconnecté"))}>Déconnecter</button>
             <div className='no-account'>
                 <p>Pas encore de compte ? </p>
-                <a href="/administration/inscription"> Inscris toi</a>
+                <a href="/inscription"> Inscris toi</a>
             </div>
         </>
     )
