@@ -24,7 +24,7 @@ function FormulaireConnexion() {
 
     return (
         <>
-            <h1 className='form-titre'>Connexion</h1>
+            <h1 className='form-title'>Connexion</h1>
             <form onSubmit={tenterConnexion} className='form'>
                 <div className='form-ligne'></div>
 
@@ -42,7 +42,7 @@ function FormulaireConnexion() {
                     <input name="img1" className='send-form' type="submit" value="Se connecter" />
                 </div>
             </form>
-            <button type='button' onClick={() => signOut(getAuth()).then(console.log("Déconnecté"))}>Déconnecter</button>
+            <button className='button-logout' type='button' onClick={() => signOut(getAuth()).then(console.log("Déconnecté"))}>Déconnecter</button>
             <div className='no-account'>
                 <p>Pas encore de compte ? </p>
                 <a href="/administration/inscription"> Inscris toi</a>

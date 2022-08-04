@@ -76,5 +76,5 @@ a:hover {
 
 .bouton:hover {
   background: var(--color-primary-variant);
-  cursor: default;
+  cursor: pointer;
 }

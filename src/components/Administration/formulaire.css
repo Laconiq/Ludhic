@@ -94,6 +94,7 @@ textarea {
 
 .send-form:hover {
     background-color: var(--color-primary-variant);
+    cursor: pointer;
 }
 
 .no-account {
@@ -109,6 +110,16 @@ textarea {
     margin: 0;
     padding: 0;
     margin-right: 0.5rem;
+}
+
+.button-logout {
+    display: flex;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.button-logout:hover {
+    cursor: pointer;
 }
 
 /* =========== JEU>PARTICIPANT =========== */
