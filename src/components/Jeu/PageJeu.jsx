@@ -58,10 +58,10 @@ function PageJeu() {
     if(props.video)
     {
       return (
-        <div className='game-video-container'>
+        <div className='one-game-video-container'>
             {/*ATTENTION pour le lien d'une video "https://www.youtube.com/watch?v=dQw4w9WgXcQ" 
             il faut récupérer uniquement ce qui est après le "?v=" donc "dQw4w9WgXcQ" qu'il faut coller après "https://www.youtube.com/embed/"*/}
-            <iframe className='game-video' width="60%" height="100%" src={props.video}></iframe>
+            <iframe className='one-game-video' width="60%" height="100%" src={props.video}></iframe>
         </div>
       )
     }
@@ -70,10 +70,10 @@ function PageJeu() {
   return (
     <>
     <body>
-      <div className='game-container'>
-        <div className='text-container'>
-          <div className='text'>
-            <div className='game-title'>
+      <div className='one-game-container'>
+        <div className='one-game-text-container'>
+          <div className='one-game-text'>
+            <div className='one-game-title'>
               <h1>{jeu.titre}</h1>
               <BoutonVote jeu={idJeu}/>
             </div>
@@ -102,7 +102,7 @@ function PageJeu() {
             <RenderBouton lien={jeu.lien_btn} txt={jeu.txt_btn} />
           </div>
         </div>       
-        <div className='game-image-container'>
+        <div className='one-game-image-container'>
           {/* Carrousel récupère un array avec les URL des images */}
           <Carrousel carrousel={jeu.carrousel}/>
         </div>
