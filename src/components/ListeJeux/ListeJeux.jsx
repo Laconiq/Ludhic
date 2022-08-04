@@ -34,13 +34,13 @@ function ListeJeux(props) {
     },[]);
 
     return (
-        <div className='jeux-container'>
+        <div className='game-container'>
             {
                 //Boucler sur chaque année, de la plus récente à la plus ancienne
                 Object.keys(listeJeux).reverse().map((annee) => {
                     return (
                         <div key={annee}>
-                            <div className='jeux-annee' id={annee}>
+                            <div className='game-year' id={annee}>
                                 <h2>{annee}</h2>
                             </div>
                             {
@@ -48,20 +48,20 @@ function ListeJeux(props) {
                                 listeJeux[annee].map((jeu) => {
                                     return ( 
                                         <article key={jeu.id}>
-                                            <div className='jeux-item'>
+                                            <div className='game-item'>
                                                 <div>
                                                     <a href={jeu.lien}>
-                                                    <img src={jeu.logo} alt={jeu.titre} className='jeux-image'/>
+                                                    <img src={jeu.logo} alt={jeu.titre} className='game-image'/>
                                                     </a>
                                                 </div>
-                                                <div className='jeux-text'>
+                                                <div className='game-text'>
                                                     <a href={jeu.lien}>
-                                                        <h3 className='jeux-titre'>{jeu.titre}</h3>
+                                                        <h3 className='game-title'>{jeu.titre}</h3>
                                                     </a>
-                                                    <small className='jeux-description'>{jeu.description}</small>
+                                                    <small className='game-desc'>{jeu.description}</small>
                                                 </div>
                                             </div>
-                                            <div className='jeux-ligne'></div>
+                                            <div className='game-line'></div>
                                         </article>
                                     )
                                 })
