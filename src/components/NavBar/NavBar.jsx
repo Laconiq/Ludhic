@@ -34,8 +34,7 @@ export default class NavBar extends Component {
       <nav>
         <a href="/"><AiOutlineHome/></a>
         <a href="/jeux"><RiGamepadLine/></a>
-        <a href="/calendrier"><AiOutlineCalendar/></a>
-        <a href="/creative-lab"><ImLab/></a>
+        
         <a href="/connexion"><AiOutlineUser/></a>
         <a href="/administration"><BsGear/></a>
       </nav>

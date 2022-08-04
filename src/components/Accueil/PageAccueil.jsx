@@ -22,12 +22,17 @@ export default class PageAccueil extends Component {
         </div>
 
     {/* HIGHLIGHT GAME */}
-    <div className='home-background'>
-      <div className='home-line'></div>
-      <h2>Les jeux les plus populaires</h2>
-      <p className='highlight-game-desc'>Ceci est une selection des 4 jeux les plus populaires parmis les étudiants du Master.</p>
-      <HighlightGame/>
-    </div>
+    {
+      /* 
+        <div className='home-background'>
+          <div className='home-line'></div>
+          <h2>Les jeux les plus populaires</h2>
+          <p className='highlight-game-desc'>Ceci est une selection des 4 jeux les plus populaires parmis les étudiants du Master.</p>
+          <HighlightGame/>
+        </div>
+      */
+    }
+    
 
     {/* QUOI DE NEUF */}     
 
