@@ -14,6 +14,9 @@ function FormulaireConnexion() {
         mdp: ""
     });
 
+    //TODO Modifier bouton "déconnexion"
+    //TODO bloquer un truc si déjà connecté..?
+
     const tenterConnexion = (event) => {
         event.preventDefault();
 

@@ -4,6 +4,9 @@ import HighlightGame from '../HightlightGame/HighlightGame'
 import FormulaireConnexion from '../Connexion/FormulaireConnexion'
 
 export default class PageAccueil extends Component {
+  //TODO Remplir "Quoi de neuf"
+  //TODO Utiliser logo final
+  //TODO Modifier accès à l'administration
   render() {
     return (
       <>

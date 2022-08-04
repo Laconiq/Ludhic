@@ -34,6 +34,20 @@ function FormulaireJeu(props) {
             admins: ""
         }); 
 
+    //TODO Update les texte de chaque champs
+
+    //TODO Création : Afficher texte "jeu sera invisible à la création, à set dans modification"
+    //TODO Création : gérer erreur mise à jour dans la BDD
+    //TODO Création : empêcher création si URL déjà prise
+    //TODO Création : Renvoyer à administration une fois jeu créé
+
+    //TODO Modification : gérer erreur download données BDD
+    //TODO Modification : gérer erreur aucun jeu à cet ID
+    //TODO Modification : Renvoyer à l'administration une fois jeu créé
+
+    //TODO Logo/Carrousel : Gérer erreur upload
+    //TODO Logo/Carrousel : Gérer erreur récupération de l'URL
+
     useEffect(() => {
         setCompte(props.utilisateur);
     },[props]);
@@ -77,8 +91,6 @@ function FormulaireJeu(props) {
                 setMembres(jeu.Membre);
                 setAdmins(jeu.Administrateur);
             });
-            //TODO Gérer erreur requête
-            //TODO Gérer absence jeu à cet ID
         }
 
         //Récupérer utilisateurs pour sélecteur admins
@@ -126,9 +138,6 @@ function FormulaireJeu(props) {
         setAdmins(nouveauxAdmins);
     }
 
-    //TODO Renvoyer vers nouvelle page à la fin de creerJeu
-    //TODO Renvoyer vers nouvelle page à la fin de modifierJeu
-
     const creerJeu = (event) => {
         event.preventDefault();
 
@@ -137,9 +146,8 @@ function FormulaireJeu(props) {
 
         //Créer jeu dans BDD avant de tenter uploads
         //Les valeurs FALSE sont des placeholders pour créer les champs "vides"
-        //TODO Récupérer les valeurs des champs absents (admin)
         set(refDB(database,`Jeu/${form.url.value}`), {
-            Administrateur: admins, //TODO Donner premier admin quand connexion ok
+            Administrateur: admins,
             Annee: formulaire.annee,
             Carrousel: false,
             Description: formulaire.desc_long,
@@ -152,16 +160,9 @@ function FormulaireJeu(props) {
             Texte_Bouton: formulaire.txt_btn,
             Titre: formulaire.titre,
             Visible: false,
-            Demandes_Administrateurs: formulaire.admins,
+            //Demandes_Administrateurs: formulaire.admins,
             Membre: membres
         });
-
-        //TODO Gérer erreur création jeu dans BDD
-        /* 
-        *   Si erreur :
-        *       - Arrêter création ici
-        *       - Afficher message d'erreur
-        */
 
         //Upload des images (Logo & Carrousel)
         uploadLogo(formulaire.url, form.logo.files[0]);
@@ -206,9 +207,6 @@ function FormulaireJeu(props) {
 
         const form = event.target;
 
-        //TODO Modification du Logo
-        //TODO Modification du Carrousel
-
         //Modification valeurs depuis champs texte
         update(refDB(database, `Jeu/${formulaire.url}`), {
             Annee: formulaire.annee,
@@ -230,30 +228,6 @@ function FormulaireJeu(props) {
             deleteObject(refST(storage, formulaire.logo))
             .then(uploadLogo(formulaire.url,form.logo.files[0]));
         }
-
-        //TODO Modification du carrousel
-        /*
-        *   Modification du Carrousel :
-        *   Le Carrousel possède au minimum 1 image
-        *   Si un Input correspondant à une image déjà présente, remplacer l'image
-        *   Si input n'as pas d'image qui va avec, rajouter l'image à la bonne place dans la liste
-        */
-
-        /* 
-            taille = carrousel.length
-            inputs = liste des input files, dans l'ordre
-            si taille < 4
-                faire un for sur les inputs à partir de 1ere place vide
-                    ajouter fichier dans liste qui sera uploadée
-                si liste non vide
-                    uploader images
-                    rajouter URL en fin de liste
-            quoi qu'il en soit
-                for sur les inputs de 0 à taille
-                    si input a une image
-                        Uploader
-                        remplacer URL à l'ID correspondant
-        */
 
         const tailleCarrousel = formulaire.carrousel.length;
         const listeInputs = document.querySelectorAll(".input-carrousel");
@@ -312,9 +286,8 @@ function FormulaireJeu(props) {
         uploadBytes(refST(storage, `Jeux/Logo/${jeu}.${image.name.split('.').pop()}`), image)
         .then((snapshot) => { getDownloadURL(snapshot.ref)
             .then((localURL) => { update(refDB(database, `Jeu/${jeu}`), {Logo: localURL}); })
-            //TODO gérer impossibilité récupérer URL
         })
-        .catch(() => {console.log("Erreur lors de l'upload du logo.")}); //TODO gérer erreur upload Logo
+        .catch(() => {console.log("Erreur lors de l'upload du logo.")});
     }
 
     //Composants avec condition d'affichage

@@ -6,6 +6,10 @@ import { estConnecte } from '../../helpers/compte';
 function Administration(props) {
     const [compte, setCompte] = useState(false);
     const navigate = useNavigate();
+
+    //TODO Faire une jolie mise en page lol
+    //TODO Masquer boutons à pages non-accessibles
+
     useEffect(() => {
         setCompte(props.utilisateur);
       },[props]);

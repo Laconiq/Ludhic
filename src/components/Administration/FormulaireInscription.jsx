@@ -18,7 +18,11 @@ function FormulaireInscription(props) {
         prenom: ""
     });
 
-    //TODO Renvoyer vers nouvelle page à la fin de creerDemande
+    //TODO Modifier champ MDP pour permettre que 6 ou + caractères
+    //TODO Modifier ou supprimer message confirmant l'inscription
+    //TODO Connecter utilisateur une fois le tout créé ?
+    //TODO gérer cas d'erreur à la création d'un compte
+    //TODO gérer cas d'erreur à l'ajout de données dans la BDD
 
     const creerDemande = (event) => {
         event.preventDefault();
@@ -37,15 +41,7 @@ function FormulaireInscription(props) {
                 alert(`Inscription complète.`);
                 navigate("/connexion");
             });
-            //TODO Gérer erreur création info compte dans BDD
         });
-
-        //TODO Gérer erreur création compte
-        /* 
-        *   Si erreur :
-        *       - Arrêter création ici
-        *       - Afficher message d'erreur
-        */
     }
 
     return (

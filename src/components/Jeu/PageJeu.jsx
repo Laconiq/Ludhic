@@ -11,6 +11,9 @@ function PageJeu() {
   const [jeu, setJeu] = useState(new Object);
   const idJeu = useParams()["id"];
 
+  //TODO Gérer erreur aucun jeu à cet ID
+  //TODO Gérer erreur récupération des données
+
   //Au chargement du composant, récupérer les informations du jeu grâce l'ID en URL dans la base de données
   useEffect(()=>{
     const dbRef = ref(getDatabase());
@@ -35,9 +38,7 @@ function PageJeu() {
           carrousel: jeu.Carrousel
         });
       }
-      //TODO Gestion si aucun jeu avec cet ID
     }).catch((error) => {
-        //TODO gestion si erreur de requête
         console.error(error);
     });
   },[]);
@@ -75,7 +76,7 @@ function PageJeu() {
           <div className='one-game-text'>
             <div className='one-game-title'>
               <h1>{jeu.titre}</h1>
-              <BoutonVote jeu={idJeu}/>
+              {/* <BoutonVote jeu={idJeu}/> */}
             </div>
             <p>{jeu.desc}</p>
             <div className='student-container'>

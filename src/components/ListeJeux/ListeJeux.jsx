@@ -6,11 +6,12 @@ import { list } from 'firebase/storage';
 //Composant affichant les informations d'un jeu dans la page les listant
 function ListeJeux(props) {
     const [listeJeux, setListeJeux] = useState(new Object());
+
+    //TODO Gérer erreur requête sur la BDD
+    //TODO Gérer si aucun jeu n'est disponible
     
     //Récupérer tous les jeux affichables et les classer par année de sortie
     useEffect(() => {
-        //TODO Gérer erreur de requête
-        //TODO Gérer si aucun jeu à afficher
         const dbRef = ref(getDatabase());
         get(child(dbRef, `Jeu`)).then((snapshot) => {
             const res = snapshot.val();
