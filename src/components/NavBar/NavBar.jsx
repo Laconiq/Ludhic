@@ -6,7 +6,6 @@ import {RiGamepadLine} from 'react-icons/ri'
 import {AiOutlineCalendar} from 'react-icons/ai'
 import {ImLab} from 'react-icons/im'
 import {useState} from 'react'
-import {BsGear} from 'react-icons/bs'
 
 
 {/*
@@ -36,7 +35,12 @@ export default class NavBar extends Component {
         <a href="/jeux"><RiGamepadLine/></a>
         
         <a href="/connexion"><AiOutlineUser/></a>
-        <a href="/administration"><BsGear/></a>
+        {
+          /* 
+            <a href="/calendrier"><AiOutlineCalendar/></a>
+            <a href="/creative-lab"><ImLab/></a>
+          */
+        }
       </nav>
     )
   }

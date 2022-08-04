@@ -23,12 +23,14 @@ export default class PageAccueil extends Component {
 
     {/* HIGHLIGHT GAME */}
     {
+      /* 
         <div className='home-background'>
           <div className='home-line'></div>
           <h2>Les jeux les plus populaires</h2>
           <p className='highlight-game-desc'>Ceci est une selection des 4 jeux les plus populaires parmis les étudiants du Master.</p>
           <HighlightGame/>
         </div>
+      */
     }
     
 
@@ -36,11 +38,15 @@ export default class PageAccueil extends Component {
 
       <div className='home-background'>
         <div className='home-line'></div>
-        <h2>Quoi de neuf ?</h2>
-        <p>Ludhic rentre officiellement dans sa phase de bêta fermé !
-          <br/>Pour toutes questions ou informations supplémentaires contactez nous sur <a href="mailto:ludhic.association@gmail.com">ludhic.association@gmail.com</a> ou sur Discord à <a href="https://discord.ludhic.fr">discord.ludhic.fr</a>
-        </p>
+        <h2>Quoi de neuf</h2>
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam quo doloribus, expedita veniam corporis omnis pariatur beatae dicta deserunt possimus veritatis autem corrupti aut rem officiis laborum rerum voluptatum maiores?</p>
       </div>
+
+    {/* BOUTON ADMIN */}
+        
+        <div className='bouton'>
+          <a href="/administration/">Administration</a>
+        </div>
         
       </>
     )
