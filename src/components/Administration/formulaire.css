@@ -20,8 +20,11 @@
 }
 
 .form-intro > * {
-    color: var(--color-white);
     display: inline;
+}
+
+.form-intro > p {
+    color: var(--color-white);
 }
 
 .form-title {
@@ -106,10 +109,6 @@ textarea {
     margin: 0;
     padding: 0;
     margin-right: 0.5rem;
-}
-
-.no-account > a {
-    color: var(--color-primary);
 }
 
 /* =========== JEU>PARTICIPANT =========== */

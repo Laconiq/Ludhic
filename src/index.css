@@ -45,6 +45,15 @@ p {
   text-align: justify;
 }
 
+a {
+  color: var(--color-primary);
+}
+
+a:hover {
+  color: var(--color-primary-variant);
+  cursor: pointer;
+}
+
 /* =========== Bouton =========== */
 
 .bouton {
