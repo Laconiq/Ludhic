@@ -3,9 +3,12 @@ import './jeux.css'
 import ListeJeux from './ListeJeux';
 import Scrollbar from './Scrollbar/Scrollbar';
 import HighlightGame from '../HightlightGame/HighlightGame';
+import { TabTitle } from '../../GeneralFunctions';
 
 //Composant représentant la page listant tous les jeux de la formation
 function PageListeJeux() {
+  TabTitle('Jeux - Ludhic');
+
   return (
     <>
     {/*

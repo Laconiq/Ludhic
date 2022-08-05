@@ -5,11 +5,13 @@ import Carrousel from './Carrousel/Carrousel'
 import BoutonVote from './BoutonVote/BoutonVote'
 import { getDatabase, ref, get, child } from 'firebase/database';
 import { useParams } from 'react-router-dom';
+import { TabTitle } from '../../GeneralFunctions';
 
 //Composant représentant la page avec les informations d'un seul jeu
 function PageJeu() {
   const [jeu, setJeu] = useState(new Object);
   const idJeu = useParams()["id"];
+  TabTitle('Jeux - Ludhic')
 
   //TODO Gérer erreur aucun jeu à cet ID
   //TODO Gérer erreur récupération des données

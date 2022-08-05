@@ -5,9 +5,12 @@ import { useState } from 'react';
 import { modificationFormulaire } from '../../helpers/fonctionsFormulaires';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
+import { TabTitle } from '../../GeneralFunctions';
 
 //Composant représentant le formulaire de gestion d'un jeu (création, modification, suppression)
 function FormulaireInscription(props) {
+    TabTitle("Inscription - Ludhic")
+
     const navigate = useNavigate();
     const [formulaire, setFormulaire] = useState({
         mail: "",

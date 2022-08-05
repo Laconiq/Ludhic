@@ -1,9 +1,11 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { TabTitle } from '../../GeneralFunctions';
 import { estConnecte } from '../../helpers/compte';
 
 function Administration(props) {
+    TabTitle('Administration - Ludhic')
     const [compte, setCompte] = useState(false);
     const navigate = useNavigate();
 
