@@ -1,7 +1,7 @@
 import './App.css';
 import { useState, useEffect } from 'react';
-import { getAuth, onAuthStateChanged  } from 'firebase/auth';
-import { child, get, getDatabase, ref, push, update } from "firebase/database";
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+import { child, get, getDatabase, ref } from "firebase/database";
 import NavBar from './components/NavBar/NavBar';
 import PageJeu from './components/Jeu/PageJeu';
 //import Header from './components/Header/Header';
@@ -26,21 +26,49 @@ function App() {
       if(user)
       {
         get(child(ref(getDatabase()),`Compte/${user.uid}`))
-        .then((snapshot) => {
-          const tmp = snapshot.val();
-          setCompte({
-            id: user.uid,
-            admin: tmp.Admin,
-            nom: tmp.Nom,
-            prenom: tmp.Prenom,
-            formation: tmp.Formation,
-            niveau: tmp.Niveau
-          });
-        })
-        .catch(
-          //TODO gérer si erreur de requête
-        );
-        //TODO gérer si aucune info dans BDD
+        .then(
+          (snapshot) => 
+          {
+            if(snapshot.exists)
+            {
+              const tmp = snapshot.val();
+              setCompte({
+                id: user.uid,
+                admin: tmp.Admin,
+                nom: tmp.Nom,
+                prenom: tmp.Prenom,
+                formation: tmp.Formation,
+                niveau: tmp.Niveau
+              });
+            }
+            else
+            {
+              alert(`Le compte ${user.uid} est incomplet. Aucune information dans la base de données. Vous serez déconnecté par sécurité. Veuillez contacter l'administration du site.`);
+              setCompte({
+                id: false,
+                admin: false,
+                nom: false,
+                prenom: false,
+                formation: false,
+                niveau: false
+              });
+              signOut(getAuth());
+            }
+          },
+          (error) =>
+          {
+            alert('Erreur lors de la récupération des données du compte.');
+            setCompte({
+              id: false,
+              admin: false,
+              nom: false,
+              prenom: false,
+              formation: false,
+              niveau: false
+            });
+          }
+        )
+        .catch((error) => {alert(error);});
       }
       else
       {
@@ -59,13 +87,6 @@ function App() {
   useEffect(() => {
     if(compte) console.log("Compte :", compte);
   },[compte])
-
-  //TODO Vérification connexion de l'utilisateur
-  /*
-  * Utilisateur conservé dans State ici
-  * Passe l'utilisateur en props dans les components qui en auraient besoin
-  * (exemple : Navbar, pages qui ont besoin d'être connecté, pages réservées aux admins...)
-  */
 
   return (
     <>
