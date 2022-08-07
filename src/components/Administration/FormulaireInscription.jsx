@@ -5,12 +5,9 @@ import { useState } from 'react';
 import { modificationFormulaire } from '../../helpers/fonctionsFormulaires';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
-import { TabTitle } from '../../GeneralFunctions';
 
 //Composant représentant le formulaire de gestion d'un jeu (création, modification, suppression)
 function FormulaireInscription(props) {
-    TabTitle("Inscription - Ludhic")
-
     const navigate = useNavigate();
     const [formulaire, setFormulaire] = useState({
         mail: "",
@@ -21,34 +18,46 @@ function FormulaireInscription(props) {
         prenom: ""
     });
 
-    //TODO Modifier champ MDP pour permettre que 6 ou + caractères
     //TODO Modifier ou supprimer message confirmant l'inscription
     //TODO Connecter utilisateur une fois le tout créé ?
-    //TODO gérer cas d'erreur à la création d'un compte
-    //TODO gérer cas d'erreur à l'ajout de données dans la BDD
 
     const creerDemande = (event) => {
         event.preventDefault();
 
         createUserWithEmailAndPassword(getAuth(), formulaire.mail, formulaire.mdp)
-        .then((newUser) => {
-            console.log(newUser.user.uid);
-            set(ref(getDatabase(), `Compte/${newUser.user.uid}`), {
-                Nom: formulaire.nom,
-                Prenom: formulaire.prenom,
-                Formation: formulaire.formation,
-                Niveau: formulaire.niveau,
-                Admin: false
-            })
-            .then(() => {
-                alert(`Inscription complète.`);
-                navigate("/connexion");
-            });
-        });
+        .then(
+            (newUser) => 
+            {
+                console.log(newUser.user.uid);
+                set(ref(getDatabase(), `Compte/${newUser.user.uid}`), {
+                    Nom: formulaire.nom,
+                    Prenom: formulaire.prenom,
+                    Formation: formulaire.formation,
+                    Niveau: formulaire.niveau,
+                    Admin: false
+                })
+                .then(
+                    () => 
+                    {
+                        alert(`Inscription complète.`);
+                        navigate("/connexion");
+                    },
+                    () =>
+                    {
+                        alert('Un problème est survenu lors de l\'enregistrement de certaines données dans la base de données. Le nécessaire du compte a été créé (pair mail/mot de passe), mais n\'est pas utilisable. Veuillez contacter un administrateur du site.');
+                    }
+                );
+            },
+            (error) => 
+            {
+                alert(error);
+            }
+        );
     }
 
     return (
         <>
+        { document.title = "Inscription - Ludhic" }
         <div className='form-body'>
             <h1 className='form-title'>Demande d'inscription</h1>
             <form onSubmit={creerDemande} className='form'>
@@ -77,7 +86,7 @@ function FormulaireInscription(props) {
                 </div>
                 <div className='form-component'>
                     <label htmlFor="mdp">Mot de passe* : </label>
-                    <input name="mdp" type="password" maxLength={128} required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.mdp}/>
+                    <input name="mdp" type="password" minLength={6} maxLength={128} required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.mdp}/>
                 </div>
                 <div className='form-component'>
                     <label htmlFor="formation">Rôle* : </label>

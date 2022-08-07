@@ -1,11 +1,9 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { TabTitle } from '../../GeneralFunctions';
 import { estConnecte } from '../../helpers/compte';
 
 function Administration(props) {
-    TabTitle('Administration - Ludhic')
     const [compte, setCompte] = useState(false);
     const navigate = useNavigate();
 
@@ -14,15 +12,16 @@ function Administration(props) {
 
     useEffect(() => {
         setCompte(props.utilisateur);
-      },[props]);
+    },[props]);
     
-      useEffect(() => {
+    useEffect(() => {
         //Si non connecté, renvoie à l'accueil automatiquement
         estConnecte(compte, true, navigate);
-      },[compte]);
+    },[compte]);
 
     return (
         <>
+            { document.title = "Administration - Ludhic" }
             <ul className='admin-container'>
                 <li><div className='bouton'><a href='./jeu'>Jeu</a></div></li>
                 <li><div className='bouton'><a href='./rendu'>Rendu</a></div></li>

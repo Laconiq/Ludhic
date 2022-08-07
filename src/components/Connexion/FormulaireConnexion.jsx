@@ -5,12 +5,9 @@ import { modificationFormulaire } from '../../helpers/fonctionsFormulaires';
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import '../Administration/formulaire.css'
 import { useNavigate } from 'react-router-dom';
-import { TabTitle } from '../../GeneralFunctions';
 
 //Composant représentant le formulaire de connexion d'un utilisateur
 function FormulaireConnexion() { 
-    TabTitle('Connexion - Ludhic');
-
     const navigate = useNavigate();
     const [formulaire, setFormulaire] = useState({
         mail: "",
@@ -30,6 +27,7 @@ function FormulaireConnexion() {
 
     return (
         <>
+            { document.title = "Connexion - Ludhic"}
             <h1 className='form-title'>Connexion</h1>
             <form onSubmit={tenterConnexion} className='form'>
                 <div className='form-ligne'></div>
