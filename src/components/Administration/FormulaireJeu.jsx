@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import { modificationFormulaire } from '../../helpers/fonctionsFormulaires';
 import { useNavigate } from 'react-router-dom';
 import { estConnecte } from '../../helpers/compte';
+import { compresserImage } from '../../helpers/images';
 
 //Composant représentant le formulaire de gestion d'un jeu (création, modification, suppression)
 function FormulaireJeu(props) {
@@ -17,7 +18,7 @@ function FormulaireJeu(props) {
     
     const [compte, setCompte] = useState(false),
         [membres, setMembres] = useState([{nom:"", prenom:"", poste:""}]),
-        [admins, setAdmins] = useState(new Array(false)),
+        [admins, setAdmins] = useState(new Array()),
         [utilisateurs, setUtilisateurs] = useState(new Array()),
         [formulaire, setFormulaire] = useState({
             titre: "",
@@ -36,14 +37,7 @@ function FormulaireJeu(props) {
 
     //TODO Update les texte de chaque champs
 
-    //TODO Création : Afficher texte "jeu sera invisible à la création, à set dans modification"
-    //TODO Création : gérer erreur mise à jour dans la BDD
     //TODO Création : empêcher création si URL déjà prise
-    //TODO Création : Renvoyer à administration une fois jeu créé
-
-    //TODO Modification : gérer erreur download données BDD
-    //TODO Modification : gérer erreur aucun jeu à cet ID
-    //TODO Modification : Renvoyer à l'administration une fois jeu créé
 
     //TODO Logo/Carrousel : Gérer erreur upload
     //TODO Logo/Carrousel : Gérer erreur récupération de l'URL
@@ -73,25 +67,36 @@ function FormulaireJeu(props) {
         {
             get(child(refDB(database),`Jeu/${idJeu}`))
             .then((snapshot) => {
-                const jeu = snapshot.val();
-                setFormulaire({
-                    titre: jeu.Titre,
-                    url: idJeu,
-                    annee: jeu.Annee,
-                    desc_court: jeu.Description_Courte,
-                    desc_long: jeu.Description,
-                    ytb: jeu.Lien_Video,
-                    txt_btn: jeu.Texte_Bouton,
-                    lien_btn: jeu.Lien_Bouton,
-                    logo: jeu.Logo,
-                    carrousel: jeu.Carrousel,
-                    visible: jeu.Visible,
-                    admins: jeu.Demandes_Administrateurs
-                });
-                setMembres(jeu.Membre);
-                setAdmins(jeu.Administrateur);
-            });
+                if(snapshot.exists())
+                {
+                    const jeu = snapshot.val();
+                    setFormulaire({
+                        titre: jeu.Titre,
+                        url: idJeu,
+                        annee: jeu.Annee,
+                        desc_court: jeu.Description_Courte,
+                        desc_long: jeu.Description,
+                        ytb: jeu.Lien_Video,
+                        txt_btn: jeu.Texte_Bouton,
+                        lien_btn: jeu.Lien_Bouton,
+                        logo: jeu.Logo,
+                        carrousel: jeu.Carrousel,
+                        visible: jeu.Visible,
+                        admins: jeu.Demandes_Administrateurs
+                    });
+                    setMembres(jeu.Membre);
+                    setAdmins(jeu.Administrateur);
+                    document.title = `Modification de ${jeu.titre} - Ludhic`;
+                }
+                else
+                {
+                    alert(`Aucune donnée trouvée pour un jeu ayant l'URL ${idJeu} dans la base de données.`);
+                    navigate("/administration/");
+                }
+            })
+            .catch((error) => alert(error));
         }
+        else document.title = "Création de jeu - Ludhic";
 
         //Récupérer utilisateurs pour sélecteur admins
         get(child(refDB(database),`Compte`))
@@ -123,7 +128,7 @@ function FormulaireJeu(props) {
 
     //Gestion des administrateurs
     const creerChampAdministrateurs = () => {
-        setAdmins([...admins,false]);
+        setAdmins([...admins,compte.id]);
     }
 
     const supprimerChampAdministrateurs = (index) => {
@@ -136,6 +141,31 @@ function FormulaireJeu(props) {
         let nouveauxAdmins = [...admins];
         nouveauxAdmins[index] = input.target.value;
         setAdmins(nouveauxAdmins);
+    }
+
+    //Fonction upload le logo et met à jour le lien dans le jeu correspondant
+    const uploadLogo = (jeu, image) => {
+        compresserImage(image, "PNG")
+        .then((imgCompresse) => 
+            uploadBytes(refST(storage, `Jeux/Logo/${jeu}.${imgCompresse.name.split('.').pop()}`), imgCompresse)
+            .then((snapshot) => 
+                getDownloadURL(snapshot.ref)
+                .then((localURL) => 
+                    update(refDB(database, `Jeu/${jeu}`), {Logo: localURL})
+                )
+            )
+        );
+    }
+
+    const uploadCarrousel = async (jeu, listeImages) => {
+        const listeImagesCompresse = await Promise.all(listeImages.map(image => { return compresserImage(image, "JPEG", 80); }));
+        const SnapshotsUploadImages = await Promise.all(listeImagesCompresse.map(imageCompresse => { return uploadBytes(refST(storage, `Jeux/Carrousel/${jeu}/${imageCompresse.name}`), imageCompresse);}));
+        return Promise.all(SnapshotsUploadImages.map(snap => { return getDownloadURL(snap.ref); }));
+    }
+
+    //Composants avec condition d'affichage
+    const AncienneImage = (props) => {
+        if(props.url) return (<img className="form-image-edition" src={props.url} alt={props.alt}/>)
     }
 
     const creerJeu = (event) => {
@@ -160,46 +190,28 @@ function FormulaireJeu(props) {
             Texte_Bouton: formulaire.txt_btn,
             Titre: formulaire.titre,
             Visible: false,
-            //Demandes_Administrateurs: formulaire.admins,
             Membre: membres
-        });
+        })
+        .then(
+            () => {
+                //Upload des images (Logo & Carrousel)
+                uploadLogo(formulaire.url, form.logo.files[0]);
 
-        //Upload des images (Logo & Carrousel)
-        uploadLogo(formulaire.url, form.logo.files[0]);
+                let imagesCarrousel = new Array(form.car_1.files[0]);
+                if(form.car_2.files.length !== 0) imagesCarrousel.push(form.car_2.files[0]);
+                if(form.car_3.files.length !== 0) imagesCarrousel.push(form.car_3.files[0]);
+                if(form.car_4.files.length !== 0) imagesCarrousel.push(form.car_4.files[0]);
+                uploadCarrousel(formulaire.url, imagesCarrousel)
+                .then((listeUrlImages) => { update(refDB(database, `Jeu/${formulaire.url}`), {Carrousel: listeUrlImages}); });
 
-        let imagesCarrousel = new Array(form.car_1.files[0]);
-        if(form.car_2.files.length !== 0) imagesCarrousel.push(form.car_2.files[0]);
-        if(form.car_3.files.length !== 0) imagesCarrousel.push(form.car_3.files[0]);
-        if(form.car_4.files.length !== 0) imagesCarrousel.push(form.car_4.files[0]);
-
-        // Upload les images dans l'ordre et récupère les URL pour Carrousel
-        // Code volé ici : https://stackoverflow.com/questions/41673499/how-to-upload-multiple-files-to-firebase/67513322#67513322
-        Promise.all(
-            imagesCarrousel.map(image => {
-                return uploadBytes(refST(storage, `Jeux/Carrousel/${formulaire.url}/${image.name}`), image);
-            })
+                alert(`Le jeu ${formulaire.titre} a été créé avec l'url ${formulaire.url}.`);
+                navigate("/administration/");
+            },
+            () => {
+                alert('La mise en ligne des données dans la base de données a subis une erreur.');
+            }
         )
-        .then((snapshots) => {
-            Promise.all(
-                snapshots.map(snapshot => {
-                    return getDownloadURL(snapshot.ref);
-                })
-            )
-            .then((listeUrl) => {
-                update(refDB(database, `Jeu/${formulaire.url}`), {Carrousel: listeUrl});
-            })
-        });
-
-        /*
-        *   Possibilité remplacement upload carrousel :
-        *   Séparer upload dans une fonction que je réutilise dans la boucle
-        *   La fonction renvoie l'URL de l'image
-        *   Dans la boucle, je récupère l'URL et je push dans un array
-        *   à la fin, upload l'array dans la BDD
-        */
-
-        alert(`Le jeu ${form.titre.value} a été créé avec succès (normalement, sinon c'est la faute de Lucas).`);
-        //navigate("/jeux");
+        .catch((error) => alert(error));
     }
 
     const modifierJeu = (event) => {
@@ -217,83 +229,71 @@ function FormulaireJeu(props) {
             Texte_Bouton: formulaire.txt_btn,
             Titre: formulaire.titre,
             Visible: formulaire.visible,
-            Demandes_Administrateurs: formulaire.admins,
             Membre: membres,
             Administrateur: admins
-        });
-
-        //Modification logo si demandé
-        if(form.logo.files.length !== 0)
-        {
-            deleteObject(refST(storage, formulaire.logo))
-            .then(uploadLogo(formulaire.url,form.logo.files[0]));
-        }
-
-        const tailleCarrousel = formulaire.carrousel.length;
-        const listeInputs = document.querySelectorAll(".input-carrousel");
-        
-        if(tailleCarrousel < 4)
-        {
-            let listeImages = new Array();
-            for(let i = tailleCarrousel; i < 4; i++)
-            {
-                if(listeInputs[i].files.length !== 0) listeImages.push(listeInputs[i].files[0]);
-            }
-            if(listeImages.length !== 0)
-            {
-                Promise.all(
-                    listeImages.map(image => {
-                        return uploadBytes(refST(storage, `Jeux/Carrousel/${formulaire.url}/${image.name}`), image);
-                    })
-                )
-                .then((snapshots) => {
-                    Promise.all(
-                        snapshots.map(snapshot => {
-                            return getDownloadURL(snapshot.ref);
-                        })
-                    )
-                    .then((listeUrl) => {
-                        let compteId = tailleCarrousel;
-                        listeUrl.forEach(url => {
-                            update(refDB(database, `Jeu/${formulaire.url}/Carrousel`), {[compteId]: url});
-                            compteId++;
-                        });
-                    })
-                });
-            }
-        }
-
-        for(let i = 0; i < tailleCarrousel; i++)
-        {
-            if(listeInputs[i].files.length !== 0)
-            {
-                const image = listeInputs[i].files[0];
-                uploadBytes(refST(storage, `Jeux/Carrousel/${formulaire.url}/${image.name}`), image)
-                .then(snapshot => {
-                    getDownloadURL(snapshot.ref)
-                    .then(url => {
-                        update(refDB(database, `Jeu/${formulaire.url}/Carrousel`), {[i]: url});
-                    })
-                })
-            }
-        }
-
-        //navigate("/jeux");
-    }
-
-    //Fonction upload le logo et met à jour le lien dans le jeu correspondant
-    const uploadLogo = (jeu, image) => {
-        uploadBytes(refST(storage, `Jeux/Logo/${jeu}.${image.name.split('.').pop()}`), image)
-        .then((snapshot) => { getDownloadURL(snapshot.ref)
-            .then((localURL) => { update(refDB(database, `Jeu/${jeu}`), {Logo: localURL}); })
         })
-        .catch(() => {console.log("Erreur lors de l'upload du logo.")});
-    }
+        .then(
+            () => {
+                //Modification logo si demandé
+                if(form.logo.files.length !== 0)
+                {
+                    deleteObject(refST(storage, formulaire.logo))
+                    .then(uploadLogo(formulaire.url,form.logo.files[0]));
+                }
 
-    //Composants avec condition d'affichage
-    const AncienneImage = (props) => {
-        if(props.url) return (<img className="form-image-edition" src={props.url} alt={props.alt}/>)
-    }
+                const tailleCarrousel = formulaire.carrousel.length;
+                const listeInputs = document.querySelectorAll(".input-carrousel");
+
+                /* 
+                *   Si le carrousel avant modification n'a pas 4 images, alors possibilité d'en rajouter
+                *   Récupère les images à rajouter
+                *   S'il y en a :
+                *       Upload les images
+                *       Récupérer les URL
+                *       Les rajouter à la liste existante dans la BDD
+                */
+                if(tailleCarrousel < 4)
+                {
+                    let listeImages = new Array();
+                    for(let i = tailleCarrousel; i < 4; i++)
+                    {
+                        if(listeInputs[i].files.length !== 0) listeImages.push(listeInputs[i].files[0]);
+                    }
+                    if(listeImages.length !== 0)
+                    {
+                       uploadCarrousel(formulaire.url, listeImages)
+                       .then((listeUrlUpload) => {
+                            let compteId = tailleCarrousel;
+                            listeUrlUpload.forEach(url => {
+                                update(refDB(database, `Jeu/${formulaire.url}/Carrousel`), {[compteId]: url});
+                                compteId++;
+                            })
+                       });
+                    }
+                }
+
+                for(let i = 0; i < tailleCarrousel; i++)
+                {
+                    if(listeInputs[i].files.length !== 0)
+                    {
+                        const image = listeInputs[i].files[0];
+                        uploadBytes(refST(storage, `Jeux/Carrousel/${formulaire.url}/${image.name}`), image)
+                        .then(snapshot => {
+                            getDownloadURL(snapshot.ref)
+                            .then(url => {
+                                update(refDB(database, `Jeu/${formulaire.url}/Carrousel`), {[i]: url});
+                            })
+                        })
+                    }
+                }
+
+                alert('Mise à jours du jeu terminée.');
+                navigate("/administration/");
+            }
+            ,
+            () => alert('Erreur lors de la mise à jour des données dans la base de données.'))
+        .catch((error) => alert(error));
+    }    
 
     return (
         <>
@@ -316,7 +316,7 @@ function FormulaireJeu(props) {
                 </div>
                 <div className='form-component'>
                     <label htmlFor="annee">Année* : </label>
-                    <p className='form-texte'>Année de la rentrée (Exemple : Si l'année est 2021-2022 alors écriver 2021)</p>
+                    <p className='form-texte'>Année de fin du projet (pour l'année scolaire 2021-2022, écrire 2022)</p>
                     <input name="annee" type="number" min="2000" max="2100" maxLength={64} required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.annee}/>
                 </div>
                 {
@@ -324,19 +324,19 @@ function FormulaireJeu(props) {
                     !idJeu && (
                         <div className='form-component'>
                             <label htmlFor="url">URL de la page* : </label>
-                            <p className='form-texte'>Nom de l'url de la page du jeu (Exemple : MONJEU donnera ludhic.fr/jeux/MONJEU)</p>
+                            <p className='form-texte'>Nom de l'url de la page du jeu (Exemple : MONJEU donnera ludhic.fr/jeux/MONJEU). Il n'est plus modifiable après la création.</p>
                             <input name="url" type="text" maxLength={32} required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.url}/>
                         </div>
                     )
                 }
                 <div className='form-component'>
                     <label htmlFor="desc_court">Description courte* : </label>
-                    <p className='form-texte'>Longueur maximale de X caractères</p>
+                    <p className='form-texte'>Utilisée dans la liste de tous les jeux. Longueur maximale de 120 caractères</p>
                     <textarea name="desc_court" cols="80" rows="3" type="text" maxLength={120} required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.desc_court}></textarea>
                 </div>
                 <div className='form-component'>
                     <label htmlFor="desc_long">Description longue* : </label>
-                    <p className='form-texte'>Longueur maximale de X caractères</p>
+                    <p className='form-texte'>Utilisée dans la page du jeu. Longueur maximale de 516 caractères</p>
                     <textarea name="desc_long" cols="80" rows="8" type="text" maxLength={516} required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.desc_long}></textarea>
                 </div>
                 <div className='form-component'>
@@ -347,7 +347,7 @@ function FormulaireJeu(props) {
                 </div>
                 <div className='form-component'>
                     <label htmlFor="ytb">Lien vidéo Youtube : </label>
-                    <p className='form-texte'>Lien vers une vidéo Youtube (Exemple : Gameplay, Trailer etc...)</p>
+                    <p className='form-texte'>Lien vers une vidéo Youtube (Exemple : Gameplay, Trailer, etc...)</p>
                     <input name="ytb" type="text" maxLength={32} onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.ytb}/>
                 </div>
 
@@ -362,7 +362,7 @@ function FormulaireJeu(props) {
                 </div>
                 <div className='form-component'>
                     <label htmlFor="lien_btn">Lien du bouton : </label>
-                    <p className='form-texte'>Lien vers lequel le bouton redirige (Exemple : Itch.io)</p>
+                    <p className='form-texte'>Lien vers lequel le bouton redirige (Exemple : Itch.io, site du jeu, etc.)</p>
                     <input name="lien_btn" type="text" maxLength={255} onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.lien_btn} />
                 </div>
                 
@@ -370,40 +370,26 @@ function FormulaireJeu(props) {
                 
                 <div className='form-ligne'></div>
                 <h2 className='form-titre-h2'>Carrousel</h2>
+                <p className='form-texte'>Priviliégiez les images au format 16:9 (Exemple : 1920x1080). La présence d'au moins une image est obligatoire.</p>
                 <div className='form-component'>
-                    <label htmlFor="car_1">Image 1* : </label>
-                    <p className='form-texte'>Image au format 16:9 (Exemple : 1920x1080)</p>
+                    <label htmlFor="car_1">Image 1{!idJeu && ("*")} : </label>
                     <input className="input-carrousel" name="car_1" type="file" accept="image/png, image/jpeg" required={(!idJeu)}/>
                     <AncienneImage url={formulaire.carrousel[0]} alt={"Image du carrousel"}/>
                 </div>
                 <div className='form-component'>
                     <label htmlFor="car_2">Image 2 : </label>
-                    <p className='form-texte'>Image au format 16:9 (Exemple : 1920x1080)</p>
                     <input className="input-carrousel" name="car_2" type="file" accept="image/png, image/jpeg"/>
                     <AncienneImage url={formulaire.carrousel[1]} alt={"Image du carrousel"}/>
                 </div>
                 <div className='form-component'>
                     <label htmlFor="car_3">Image 3 : </label>
-                    <p className='form-texte'>Image au format 16:9 (Exemple : 1920x1080)</p>
                     <input className="input-carrousel" name="car_3" type="file" accept="image/png, image/jpeg"/>
                     <AncienneImage url={formulaire.carrousel[2]} alt={"Image du carrousel"}/>
                 </div>
                 <div className='form-component'>
                     <label htmlFor="car_4">Image 4 : </label>
-                    <p className='form-texte'>Image au format 16:9 (Exemple : 1920x1080)</p>
                     <input className="input-carrousel" name="car_4" type="file" accept="image/png, image/jpeg"/>
                     <AncienneImage url={formulaire.carrousel[3]} alt={"Image du carrousel"}/>
-                </div>
-
-    {/* MEMBRES */}
-
-                <div className='form-ligne'></div>
-                <h2 className='form-titre-h2'>Propriétaire de la page</h2>
-                <div className='form-component'>
-                    <label htmlFor="admins">Propriétaire de la page : </label>
-                    <p className='form-texte'>Les propriétaires de la page pouront l'éditer en intégralité, renseigner le prénom et le nom de chacun<br/>
-                    Le créateur de la page sera par défaut propriétaire. Si personne n'est renseigné vous serez la seule personne propriétaire de la page</p>
-                    <textarea name="admins" cols="80" rows="5" type="text" maxLength={516} onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.admins}></textarea>
                 </div>
 
     {/* PARTICIPANTS */}
@@ -422,7 +408,7 @@ function FormulaireJeu(props) {
                             <label htmlFor="nom">Nom* : </label>
                             <input name="nom" type="text" required='required' value={element.nom || ""} onChange={input => modificationMembres(index, input)} />
 
-                            <label htmlFor="poste">Poste* : </label>
+                            <label htmlFor="poste">Poste(s)* : </label>
                             <input name="poste" type="text" required='required' value={element.poste || ""} onChange={input => modificationMembres(index, input)} />
                             {
                                 index ? 
@@ -437,13 +423,14 @@ function FormulaireJeu(props) {
 
                 <div className='form-ligne'></div>
                 <h2 className='form-titre-h2'>Administrateurs du jeu</h2>
+                <p className='form-texte'>Liste de toutes les personnes (hors administrateurs du site) pouvant éditer la page du jeu.</p>
                 <button type='button' className='add-admin' onClick={() => creerChampAdministrateurs()}>Ajouter administrateur</button>
 
                 {
                     admins.map((element, index) => (
                         <div key={`adm-${index}`} className="participant form-component">
 
-                            <select name="adm" value={element || compte.id} onChange={input => modificationAdministrateurs(index, input)}>
+                            <select name="adm" value={element} onChange={input => modificationAdministrateurs(index, input)}>
                                 {
                                     utilisateurs.map((element) => (
                                         <option key={element.id+element.nom} value={element.id}>{element.nom} {element.prenom}</option>
@@ -459,30 +446,25 @@ function FormulaireJeu(props) {
                     ))
                 }
 
+    {/* BOUTON JEU VISIBLE */}
+
+                <div className='form-component'>
+                    <label htmlFor="url">Jeu visible</label>
+                    <p className='form-texte'>Rendre le jeu visible dans la liste des jeux. Disponible uniquement à la modification du jeu.</p>
+                    <input name="visible" type="checkbox" onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} checked={formulaire.visible} disabled={!idJeu}/>
+                </div>
+
     {/* CHECKBOX */}
                 <div className='checkbox-atc'>
                     <input type="checkbox" required='required'/>
-                    <label htmlFor="checkbox-atc">Je certifie avoir toutes les autorisations à la création de cette page.*</label>
+                    <label htmlFor="checkbox-atc">Je certifie avoir toutes les autorisations à la création et/ou modification de cette page.*</label>
                 </div>
 
     {/* BOUTON ENVOIE FORMULAIRE */}
-
-                {
-                    //Afficher la checkbox d'affichage du jeu si existe
-                    idJeu && (
-                        <div className='form-component'>
-                            <label htmlFor="url">Rendre le jeu visible dans la liste : </label>
-                            <input name="visible" type="checkbox" onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} checked={formulaire.visible}/>
-                        </div>
-                    )
-                }
-
                 <p className='form-texte'>* : Champ obligatoire</p>
                 <div className='form-component'>
                     <input name="img1" className='send-form' type="submit" value="Envoyer le formulaire" />
                 </div>
-
-
             </form>
         </div>
         </>
