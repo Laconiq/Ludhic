@@ -37,20 +37,90 @@ function FormulaireJeu(props) {
 
     //TODO Update les texte de chaque champs
 
-    //TODO Création : empêcher création si URL déjà prise
-
     //TODO Logo/Carrousel : Gérer erreur upload
     //TODO Logo/Carrousel : Gérer erreur récupération de l'URL
 
+    //UseEffects nécessaires à la vérification du compte
     useEffect(() => {
         setCompte(props.utilisateur);
     },[props]);
 
+    /*
+    *   Vérification du compte, récupération des informations dans la BDD, mise à jour du titre de l'onglet
+    *   Si l'utilisateur est connecté :
+    *       Si un jeu est demandé :
+    *           Récupérer les informations du jeu
+    *           Stocker jeu, membres, administrateurs
+    *       Récupérer la liste des membres du site (pour liste administrateurs)
+    */
     useEffect(() => {
         //Si non connecté, renvoie à l'accueil automatiquement
-        if(estConnecte(compte, true, navigate) && idJeu && admins.length)
+        if(estConnecte(compte, true, navigate))
         {
-            if(compte.admin) console.log("Utilisateur est administrateur du site");
+            if(idJeu)
+            {
+                get(child(refDB(database),`Jeu/${idJeu}`))
+                .then(
+                    (snapshot) => 
+                    {
+                        if(snapshot.exists())
+                        {
+                            const jeu = snapshot.val();
+                            setFormulaire({
+                                titre: jeu.Titre,
+                                url: idJeu,
+                                annee: jeu.Annee,
+                                desc_court: jeu.Description_Courte,
+                                desc_long: jeu.Description,
+                                ytb: jeu.Lien_Video,
+                                txt_btn: jeu.Texte_Bouton,
+                                lien_btn: jeu.Lien_Bouton,
+                                logo: jeu.Logo,
+                                carrousel: jeu.Carrousel,
+                                visible: jeu.Visible,
+                                admins: jeu.Demandes_Administrateurs
+                            });
+                            setMembres(jeu.Membre);
+                            setAdmins(jeu.Administrateur);
+                            document.title = `Modification de ${jeu.titre} - Ludhic`;
+                        }
+                        else
+                        {
+                            alert(`Aucune donnée trouvée pour un jeu ayant l'URL ${idJeu} dans la base de données.`);
+                            navigate("/administration/");
+                        }
+                    },
+                    (error) => 
+                    {
+                        alert(error);
+                        navigate("/administration/");
+                    }
+                )
+                .catch((error) => alert(error));
+            }
+            else document.title = "Création de jeu - Ludhic";
+
+            //Récupérer utilisateurs pour sélecteur admins
+            get(child(refDB(database),`Compte`))
+            .then((snapshot) => {
+                const ut = snapshot.val();
+                let listeUtilisateurs = new Array();
+                Object.keys(ut).map((idUt) => listeUtilisateurs.push({id:idUt, nom:ut[idUt].Nom, prenom:ut[idUt].Prenom}));
+                setUtilisateurs(listeUtilisateurs);
+            });
+        }
+    },[compte]);
+
+    /*
+    *   Vérification de l'accès au jeu si modification
+    *   Récupérer liste administrateurs
+    *   Si utilisateur n'est admin ni du jeu ni du site : revenir à l'administration
+    */
+    useEffect(() => {
+        console.log("Admins:",admins);
+        if(admins.length > 0)
+        {
+            if(compte.admin) console.log("Utilisateur est administrateur du site.");
             else
             {
                 let estAdmin = false;
@@ -59,56 +129,18 @@ function FormulaireJeu(props) {
                 else { console.log("Utilisateur n'est admin ni du site, ni du jeu"); navigate("/"); }
             }
         }
-    },[compte,admins]);
+    },[admins]);
 
-    //Au chargement du composant, si demande de modification d'un jeu (ID en URL), charger les informations du jeu
-    useEffect(() => {
-        if(idJeu)
-        {
-            get(child(refDB(database),`Jeu/${idJeu}`))
-            .then((snapshot) => {
-                if(snapshot.exists())
-                {
-                    const jeu = snapshot.val();
-                    setFormulaire({
-                        titre: jeu.Titre,
-                        url: idJeu,
-                        annee: jeu.Annee,
-                        desc_court: jeu.Description_Courte,
-                        desc_long: jeu.Description,
-                        ytb: jeu.Lien_Video,
-                        txt_btn: jeu.Texte_Bouton,
-                        lien_btn: jeu.Lien_Bouton,
-                        logo: jeu.Logo,
-                        carrousel: jeu.Carrousel,
-                        visible: jeu.Visible,
-                        admins: jeu.Demandes_Administrateurs
-                    });
-                    setMembres(jeu.Membre);
-                    setAdmins(jeu.Administrateur);
-                    document.title = `Modification de ${jeu.titre} - Ludhic`;
-                }
-                else
-                {
-                    alert(`Aucune donnée trouvée pour un jeu ayant l'URL ${idJeu} dans la base de données.`);
-                    navigate("/administration/");
-                }
-            })
-            .catch((error) => alert(error));
-        }
-        else document.title = "Création de jeu - Ludhic";
+    /*
+    *   Fonctions de gestion des Participants et Administrateurs :
+    *   Les deux sont des listes de champs qui peuvent être créés ou détruits.
+    *   Chacunes sont gérées par 3 fonctions :
+    *       - creerChamp : Rajoute un champ à la liste en ajoutant une donnée dans l'array correspondant
+    *       - supprimerChamp : Supprime un champ précis grâce à son emplacement dans la liste
+    *       - modification : Equivalant à modificationFormulaire, met à jours les données dans l'array correspondant
+    */
 
-        //Récupérer utilisateurs pour sélecteur admins
-        get(child(refDB(database),`Compte`))
-        .then((snapshot) => {
-            const ut = snapshot.val();
-            let listeUtilisateurs = new Array();
-            Object.keys(ut).map((idUt) => listeUtilisateurs.push({id:idUt, nom:ut[idUt].Nom, prenom:ut[idUt].Prenom}));
-            setUtilisateurs(listeUtilisateurs);
-        });
-    },[]);
-
-    //Gestion des participants
+    //PARTICIPANTS
     const creerChampParticipant = () => {
         setMembres([...membres,{nom:"", prenom:"", poste:""}]);
     }
@@ -125,8 +157,8 @@ function FormulaireJeu(props) {
         setMembres(nouveauxMembres);
         console.log(nouveauxMembres);
     }
-
-    //Gestion des administrateurs
+    
+    //ADMINISTRATEURS
     const creerChampAdministrateurs = () => {
         setAdmins([...admins,compte.id]);
     }
@@ -143,9 +175,14 @@ function FormulaireJeu(props) {
         setAdmins(nouveauxAdmins);
     }
 
-    //Fonction upload le logo et met à jour le lien dans le jeu correspondant
+    /*
+    *   Fonctions de mise en ligne des images
+    *   uploadLogo : Met en ligne le logo et met à jour l'URL de l'image dans la base de données.
+    *   uploadCarrousel : Met en ligne la/les image(s) donnée(s) dans leur ordre d'origine, et renvoie une liste des URL.
+    */
     const uploadLogo = (jeu, image) => {
-        compresserImage(image, "PNG")
+        //Compresse l'image, puis la met en ligne, puis envoie l'URL dans la base de données
+        compresserImage(image, 500, 500, "PNG")
         .then((imgCompresse) => 
             uploadBytes(refST(storage, `Jeux/Logo/${jeu}.${imgCompresse.name.split('.').pop()}`), imgCompresse)
             .then((snapshot) => 
@@ -158,7 +195,8 @@ function FormulaireJeu(props) {
     }
 
     const uploadCarrousel = async (jeu, listeImages) => {
-        const listeImagesCompresse = await Promise.all(listeImages.map(image => { return compresserImage(image, "JPEG", 80); }));
+        //Compresse chaque image, puis les met en ligne dans l'ordre, puis renvoie la liste des URL
+        const listeImagesCompresse = await Promise.all(listeImages.map(image => { return compresserImage(image, 1920, 1080, "JPEG", 80); }));
         const SnapshotsUploadImages = await Promise.all(listeImagesCompresse.map(imageCompresse => { return uploadBytes(refST(storage, `Jeux/Carrousel/${jeu}/${imageCompresse.name}`), imageCompresse);}));
         return Promise.all(SnapshotsUploadImages.map(snap => { return getDownloadURL(snap.ref); }));
     }
@@ -168,50 +206,71 @@ function FormulaireJeu(props) {
         if(props.url) return (<img className="form-image-edition" src={props.url} alt={props.alt}/>)
     }
 
+    /*
+    *   CreerJeu :
+    *   Vérifie si l'url n'est pas déjà pris (évite overwrite de données)
+    *   Créé le jeu dans la BDD avec toutes les info
+    *   Uploade le Logo et le Carrousel
+    *   Met à jour la BDD avec les url des images
+    */
     const creerJeu = (event) => {
         event.preventDefault();
 
         //Utilisé uniquement pour les Input=File
         const form = event.target;
 
-        //Créer jeu dans BDD avant de tenter uploads
-        //Les valeurs FALSE sont des placeholders pour créer les champs "vides"
-        set(refDB(database,`Jeu/${form.url.value}`), {
-            Administrateur: admins,
-            Annee: formulaire.annee,
-            Carrousel: false,
-            Description: formulaire.desc_long,
-            Description_Courte: formulaire.desc_court,
-            Favoris: false,
-            Lien_Bouton: formulaire.lien_btn,
-            Lien_Video: formulaire.ytb,
-            Logo: false,
-            Membre: false,
-            Texte_Bouton: formulaire.txt_btn,
-            Titre: formulaire.titre,
-            Visible: false,
-            Membre: membres
-        })
+        get(child(refDB(database),`Jeu`))
         .then(
-            () => {
-                //Upload des images (Logo & Carrousel)
-                uploadLogo(formulaire.url, form.logo.files[0]);
+            (snapshot) =>
+            {
+                if(snapshot.exists)
+                {
+                    const listeUrlJeux = Object.keys(snapshot.val());
+                    if(listeUrlJeux.includes(formulaire.url)) alert("Attention : cet URL est déjà pris. Veuillez en changer.");
+                    else
+                    {
+                        //Créer jeu dans BDD avant de tenter uploads
+                        //Les valeurs FALSE sont des placeholders pour créer les champs "vides"
+                        set(refDB(database,`Jeu/${form.url.value}`), {
+                            Administrateur: admins,
+                            Annee: formulaire.annee,
+                            Carrousel: false,
+                            Description: formulaire.desc_long,
+                            Description_Courte: formulaire.desc_court,
+                            Favoris: false,
+                            Lien_Bouton: formulaire.lien_btn,
+                            Lien_Video: formulaire.ytb,
+                            Logo: false,
+                            Membre: false,
+                            Texte_Bouton: formulaire.txt_btn,
+                            Titre: formulaire.titre,
+                            Visible: false,
+                            Membre: membres
+                        })
+                        .then(
+                            () => {
+                                //Upload des images (Logo & Carrousel)
+                                uploadLogo(formulaire.url, form.logo.files[0]);
 
-                let imagesCarrousel = new Array(form.car_1.files[0]);
-                if(form.car_2.files.length !== 0) imagesCarrousel.push(form.car_2.files[0]);
-                if(form.car_3.files.length !== 0) imagesCarrousel.push(form.car_3.files[0]);
-                if(form.car_4.files.length !== 0) imagesCarrousel.push(form.car_4.files[0]);
-                uploadCarrousel(formulaire.url, imagesCarrousel)
-                .then((listeUrlImages) => { update(refDB(database, `Jeu/${formulaire.url}`), {Carrousel: listeUrlImages}); });
+                                let imagesCarrousel = new Array(form.car_1.files[0]);
+                                if(form.car_2.files.length !== 0) imagesCarrousel.push(form.car_2.files[0]);
+                                if(form.car_3.files.length !== 0) imagesCarrousel.push(form.car_3.files[0]);
+                                if(form.car_4.files.length !== 0) imagesCarrousel.push(form.car_4.files[0]);
+                                uploadCarrousel(formulaire.url, imagesCarrousel)
+                                .then((listeUrlImages) => { update(refDB(database, `Jeu/${formulaire.url}`), {Carrousel: listeUrlImages}); });
 
-                alert(`Le jeu ${formulaire.titre} a été créé avec l'url ${formulaire.url}.`);
-                navigate("/administration/");
-            },
-            () => {
-                alert('La mise en ligne des données dans la base de données a subis une erreur.');
+                                alert(`Le jeu ${formulaire.titre} a été créé avec l'url ${formulaire.url}.`);
+                                navigate("/administration/");
+                            },
+                            () => {
+                                alert('La mise en ligne des données dans la base de données a subis une erreur.');
+                            }
+                        )
+                        .catch((error) => alert(error));
+                    }
+                }
             }
-        )
-        .catch((error) => alert(error));
+        );
     }
 
     const modifierJeu = (event) => {
