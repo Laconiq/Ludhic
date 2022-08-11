@@ -6,32 +6,49 @@ import { list } from 'firebase/storage';
 //Composant affichant les informations d'un jeu dans la page les listant
 function ListeJeux(props) {
     const [listeJeux, setListeJeux] = useState(new Object());
-
-    //TODO Gérer erreur requête sur la BDD
-    //TODO Gérer si aucun jeu n'est disponible
     
     //Récupérer tous les jeux affichables et les classer par année de sortie
     useEffect(() => {
         const dbRef = ref(getDatabase());
-        get(child(dbRef, `Jeu`)).then((snapshot) => {
-            const res = snapshot.val();
-            Object.keys(res).forEach((id) => {
-            if(res[id].Visible)
+        get(child(dbRef, `Jeu`))
+        .then(
+            (snapshot) => 
             {
-                const anneeJeu = res[id].Annee;
-                if(!anneeJeu) return false;
-                if(!listeJeux[anneeJeu]) listeJeux[anneeJeu] = new Array();
-                listeJeux[anneeJeu].push({
-                    id: id,
-                    titre: res[id].Titre,
-                    logo: res[id].Logo,
-                    description: res[id].Description_Courte,
-                    lien: "/jeux/" + id
-                });
+                if(snapshot.exists())
+                {
+                    const res = snapshot.val();
+                    Object.keys(res).forEach((id) => {
+                        if(res[id].Visible)
+                        {
+                            const anneeJeu = res[id].Annee;
+                            if(!anneeJeu) return false;
+                            if(!listeJeux[anneeJeu]) listeJeux[anneeJeu] = new Array();
+                            listeJeux[anneeJeu].push({
+                                id: id,
+                                titre: res[id].Titre,
+                                logo: res[id].Logo,
+                                description: res[id].Description_Courte,
+                                lien: "/jeux/" + id
+                            });
+                        }
+                    });
+                    setListeJeux({...listeJeux});
+                }
+                else
+                {
+                    console.log("Aucun jeu trouvé dans la base de données");
+                    const year = new Date().getFullYear();
+                    listeJeux[year] = new Array();
+                    listeJeux[year].push({id:"void",titre:"Aucun jeu ?",logo:"https://via.placeholder.com/500?text=Aucun+Jeu",description:"Félicitation ! Nous n'avons trouvé aucun jeu ! C'est probablement pas normal ...", lien:"/"});
+                    setListeJeux({...listeJeux});
+                }   
+            },
+            (error) =>
+            {
+                alert("Erreur de connexion à la base de données. Veuillez réessayer ultérieurement.");
+                setListeJeux({...[{id:"void",titre:"Aucun jeu ?",logo:"https://via.placeholder.com/500?text=Aucun+Jeu",description:"Félicitation ! Nous n'avons trouvé aucun jeu ! C'est probablement pas normal ...", lien:"/"}]});
             }
-            });
-            setListeJeux({...listeJeux});
-        });
+        );
     },[]);
 
     return (

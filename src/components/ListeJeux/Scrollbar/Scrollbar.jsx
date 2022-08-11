@@ -9,18 +9,34 @@ function Scrollbar() {
   //Récupérer uniquement les années, les stocker du plus récent au plus ancien
   useEffect(() => {
     const dbRef = ref(getDatabase());
-    get(child(dbRef, `Jeu`)).then((snapshot) => {
-        const res = snapshot.val();
-        Object.keys(res).forEach((id) => {
-          if(res[id].Visible)
-          {
-              const anneeJeu = res[id].Annee;
-              if(!anneeJeu) return false;
-              if(!annees.includes(anneeJeu)) annees.push(anneeJeu);
-          }
-        });
-        setAnnees([...annees.sort().reverse()]);
-    });
+    get(child(dbRef, `Jeu`))
+    .then(
+      (snapshot) => 
+      {
+        if(snapshot.exists())
+        {
+          const res = snapshot.val();
+          Object.keys(res).forEach((id) => {
+            if(res[id].Visible)
+            {
+                const anneeJeu = res[id].Annee;
+                if(!anneeJeu) return false;
+                if(!annees.includes(anneeJeu)) annees.push(anneeJeu);
+            }
+          });
+          setAnnees([...annees.sort().reverse()]);
+        }
+        else
+        {
+          setAnnees([...[new Date().getFullYear()]]);
+        }
+      },
+      (error) =>
+      {
+        console.log(error);
+        setAnnees([...[new Date().getFullYear()]]);
+      }
+    );
   },[]);
 
   return (
