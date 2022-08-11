@@ -18,9 +18,15 @@ function FormulaireInscription(props) {
         prenom: ""
     });
 
-    //TODO Modifier ou supprimer message confirmant l'inscription
-    //TODO Connecter utilisateur une fois le tout créé ?
+    //TODO Améliorer messages d'erreur, notament à création dans Auth
 
+    /*
+    *   La création de compte se fait en 2 parties :
+    *       - Créer le compte dans Firebase Auth (mail, mot de passe)
+    *       - Créer le compte dans Realtime Database (nom, prenom, formation, niveau, administrateur)
+    *   Une parte des informations est stockée dans la base de données parce qu'elles ne peuvent pas être ajoutés directement dans Auth.
+    *   L'utilisateur est connecté automatiquement à la création du compte.
+    */
     const creerDemande = (event) => {
         event.preventDefault();
 
@@ -28,7 +34,6 @@ function FormulaireInscription(props) {
         .then(
             (newUser) => 
             {
-                console.log(newUser.user.uid);
                 set(ref(getDatabase(), `Compte/${newUser.user.uid}`), {
                     Nom: formulaire.nom,
                     Prenom: formulaire.prenom,
@@ -39,8 +44,8 @@ function FormulaireInscription(props) {
                 .then(
                     () => 
                     {
-                        alert(`Inscription complète.`);
-                        navigate("/connexion");
+                        alert(`Inscription complète. Vous êtes bien connecté. Bienvenue ${formulaire.prenom}.`);
+                        navigate("/");
                     },
                     () =>
                     {
