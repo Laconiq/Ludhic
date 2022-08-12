@@ -225,7 +225,7 @@ function FormulaireJeu(props) {
             {
                 if(snapshot.exists)
                 {
-                    const listeUrlJeux = Object.keys(snapshot.val());
+                    const listeUrlJeux = Object.keys(snapshot.val() || {});
                     if(listeUrlJeux.includes(formulaire.url)) alert("Attention : cet URL est déjà pris. Veuillez en changer.");
                     else
                     {
@@ -244,7 +244,7 @@ function FormulaireJeu(props) {
                             Membre: false,
                             Texte_Bouton: formulaire.txt_btn,
                             Titre: formulaire.titre,
-                            Visible: false,
+                            Visible: formulaire.visible,
                             Membre: membres
                         })
                         .then(
@@ -509,8 +509,8 @@ function FormulaireJeu(props) {
 
                 <div className='form-component'>
                     <label htmlFor="url">Jeu visible</label>
-                    <p className='form-texte'>Rendre le jeu visible dans la liste des jeux. Disponible uniquement à la modification du jeu.</p>
-                    <input name="visible" type="checkbox" onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} checked={formulaire.visible} disabled={!idJeu}/>
+                    <p className='form-texte'>Rendre le jeu visible dans la liste des jeux. Il sera toujours visible en utilisant directement son url manuelement.</p>
+                    <input name="visible" type="checkbox" onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} checked={formulaire.visible}/>
                 </div>
 
     {/* CHECKBOX */}
