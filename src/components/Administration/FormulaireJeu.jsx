@@ -55,7 +55,7 @@ function FormulaireJeu(props) {
     */
     useEffect(() => {
         //Si non connecté, renvoie à l'accueil automatiquement
-    //    if(estConnecte(compte, true, navigate))
+        if(estConnecte(compte, true, navigate))
         {
             if(idJeu)
             {
@@ -508,10 +508,9 @@ function FormulaireJeu(props) {
 
     {/* BOUTON JEU VISIBLE */}
 
-                <div className='form-component'>
-                    <label htmlFor="url">Jeu visible</label>
-                    <p className='form-text'>Rendre le jeu visible dans la liste des jeux. Il sera toujours visible en utilisant directement son url manuelement.</p>
-                    <input name="visible" type="checkbox" onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} checked={formulaire.visible}/>
+                <div className='checkbox-atc'>
+                    <input name="visible" type="checkbox" required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} checked={formulaire.visible}/>
+                    <label htmlFor="url">Rendre la page de mon jeu visible.*</label>                        
                 </div>
 
     {/* CHECKBOX */}
