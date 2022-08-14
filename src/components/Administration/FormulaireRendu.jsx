@@ -113,7 +113,7 @@ function FormulaireRendu(props) {
         <div className='form-body'>
             <h1 className='form-title'>Administration jeux</h1>
             <form onSubmit={(idRendu) ? modifierRendu : creerRendu} className='form'>
-                <div className='form-ligne'></div>
+                <div className='form-line'></div>
 
     {/* INFORMATIONS PRINCIPALES */}
 
@@ -122,7 +122,7 @@ function FormulaireRendu(props) {
                     Pour tout problème rencontré contacter </p>
                     <a href="mailto:ludhic.association@gmail.fr">ludhic.association@gmail.com</a>
                 </div>
-                <h2 className='form-titre-h2'>Informations principales</h2>
+                <h2 className='form-title-h2'>Informations principales</h2>
                 <div className='form-component'>
                     <label htmlFor="mdp">Rôle* : </label>
                     <select name="formation" value={formulaire.formation} onChange={event => modificationFormulaire(event, formulaire, setFormulaire)}>
@@ -153,7 +153,7 @@ function FormulaireRendu(props) {
                     <input name="date" type="date" maxLength={64} required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.date}/>
                 </div>
 
-                <p className='form-texte'>* : Champ obligatoire</p>
+                <p className='form-text'>* : Champ obligatoire</p>
                 <div className='form-component'>
                     <input name="img1" className='send-form' type="submit" value="Envoyer le formulaire" />
                 </div>

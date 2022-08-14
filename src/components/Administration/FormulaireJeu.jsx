@@ -55,7 +55,7 @@ function FormulaireJeu(props) {
     */
     useEffect(() => {
         //Si non connecté, renvoie à l'accueil automatiquement
-        if(estConnecte(compte, true, navigate))
+    //    if(estConnecte(compte, true, navigate))
         {
             if(idJeu)
             {
@@ -359,7 +359,7 @@ function FormulaireJeu(props) {
         <div className='form-body'>
             <h1 className='form-title'>Administration jeux</h1>
             <form onSubmit={(idJeu) ? modifierJeu : creerJeu} className='form'>
-                <div className='form-ligne'></div>
+                <div className='form-line'></div>
 
     {/* INFORMATIONS PRINCIPALES */}
 
@@ -368,14 +368,14 @@ function FormulaireJeu(props) {
                     Pour tout problème rencontré contacter </p>
                     <a href="mailto:ludhic.association@gmail.fr">ludhic.association@gmail.com</a>
                 </div>
-                <h2 className='form-titre-h2'>Informations principales</h2>
+                <h2 className='form-title-h2'>Informations principales</h2>
                 <div className='form-component'>
                     <label htmlFor="titre">Nom du jeu* : </label>
                     <input name="titre" type="text" maxLength={64} required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.titre}/>
                 </div>
                 <div className='form-component'>
                     <label htmlFor="annee">Année* : </label>
-                    <p className='form-texte'>Année de fin du projet (pour l'année scolaire 2021-2022, écrire 2022)</p>
+                    <p className='form-text'>Année de fin du projet (pour l'année scolaire 2021-2022, écrire 2022)</p>
                     <input name="annee" type="number" min="2000" max="2100" maxLength={64} required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.annee}/>
                 </div>
                 {
@@ -383,55 +383,55 @@ function FormulaireJeu(props) {
                     !idJeu && (
                         <div className='form-component'>
                             <label htmlFor="url">URL de la page* : </label>
-                            <p className='form-texte'>Nom de l'url de la page du jeu (Exemple : MONJEU donnera ludhic.fr/jeux/MONJEU). Il n'est plus modifiable après la création.</p>
+                            <p className='form-text'>Nom de l'url de la page du jeu (Exemple : MONJEU donnera ludhic.fr/jeux/MONJEU). Il n'est plus modifiable après la création.</p>
                             <input name="url" type="text" maxLength={32} required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.url}/>
                         </div>
                     )
                 }
                 <div className='form-component'>
                     <label htmlFor="desc_court">Description courte* : </label>
-                    <p className='form-texte'>Utilisée dans la liste de tous les jeux. Longueur maximale de 120 caractères</p>
+                    <p className='form-text'>Utilisée dans la liste de tous les jeux. Longueur maximale de 120 caractères</p>
                     <textarea name="desc_court" cols="80" rows="3" type="text" maxLength={120} required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.desc_court}></textarea>
                 </div>
                 <div className='form-component'>
                     <label htmlFor="desc_long">Description longue* : </label>
-                    <p className='form-texte'>Utilisée dans la page du jeu. Longueur maximale de 516 caractères</p>
+                    <p className='form-text'>Utilisée dans la page du jeu. Longueur maximale de 516 caractères</p>
                     <textarea name="desc_long" cols="80" rows="8" type="text" maxLength={516} required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.desc_long}></textarea>
                 </div>
                 <div className='form-component'>
                     <label htmlFor="logo">Logo* : </label>
-                    <p className='form-texte'>Image au format 1:1 (Exemple : 500x500) </p>
+                    <p className='form-text'>Image au format 1:1 (Exemple : 500x500) </p>
                     <input name="logo" type="file" accept="image/png, image/jpeg" required={(!idJeu)}/>
                     <AncienneImage url={formulaire.logo} alt={"Logo du jeu"}/>
                 </div>
                 <div className='form-component'>
                     <label htmlFor="ytb">Lien vidéo Youtube : </label>
-                    <p className='form-texte'>Lien vers une vidéo Youtube (Exemple : Gameplay, Trailer, etc...)</p>
+                    <p className='form-text'>Lien vers une vidéo Youtube (Exemple : Gameplay, Trailer, etc...)</p>
                     <input name="ytb" type="text" maxLength={32} onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.ytb}/>
                 </div>
 
     {/* BOUTON */}
 
-                <div className='form-ligne'></div>
-                <h2 className='form-titre-h2'>Bouton</h2>
+                <div className='form-line'></div>
+                <h2 className='form-title-h2'>Bouton</h2>
                 <div className='form-component'>
                     <label htmlFor="txt_btn">Nom du bouton : </label>
-                    <p className='form-texte'>Texte affiché sur le bouton</p>
+                    <p className='form-text'>Texte affiché sur le bouton</p>
                     <input name="txt_btn" type="text" maxLength={32} onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.txt_btn} />
                 </div>
                 <div className='form-component'>
                     <label htmlFor="lien_btn">Lien du bouton : </label>
-                    <p className='form-texte'>Lien vers lequel le bouton redirige (Exemple : Itch.io, site du jeu, etc.)</p>
+                    <p className='form-text'>Lien vers lequel le bouton redirige (Exemple : Itch.io, site du jeu, etc.)</p>
                     <input name="lien_btn" type="text" maxLength={255} onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.lien_btn} />
                 </div>
                 
     {/* CARROUSEL */}
                 
-                <div className='form-ligne'></div>
-                <h2 className='form-titre-h2'>Carrousel</h2>
-                <p className='form-texte'>Priviliégiez les images au format 16:9 (Exemple : 1920x1080). La présence d'au moins une image est obligatoire.</p>
+                <div className='form-line'></div>
+                <h2 className='form-title-h2'>Carrousel</h2>
                 <div className='form-component'>
                     <label htmlFor="car_1">Image 1{!idJeu && ("*")} : </label>
+                    <p className='form-text'>Priviliégiez les images au format 16:9 (Exemple : 1920x1080). La présence d'au moins une image est obligatoire.</p>
                     <input className="input-carrousel" name="car_1" type="file" accept="image/png, image/jpeg" required={(!idJeu)}/>
                     <AncienneImage url={formulaire.carrousel[0]} alt={"Image du carrousel"}/>
                 </div>
@@ -453,10 +453,10 @@ function FormulaireJeu(props) {
 
     {/* PARTICIPANTS */}
 
-                <div className='form-ligne'></div>
-                <h2 className='form-titre-h2'>Participants</h2>
+                <div className='form-line'></div>
+                <h2 className='form-title-h2'>Participants</h2>
                 <button type='button' className='add-student' onClick={() => creerChampParticipant()}>Ajouter participant</button>
-
+                <div className='participant-container'>
                 {
                     membres.map((element, index) => (
                         <div key={`participant-${index}`} className="participant form-component">
@@ -477,12 +477,13 @@ function FormulaireJeu(props) {
                         </div>
                     ))
                 }
+                </div>
 
     {/* ADMINISTRATEURS */}
 
-                <div className='form-ligne'></div>
-                <h2 className='form-titre-h2'>Administrateurs du jeu</h2>
-                <p className='form-texte'>Liste de toutes les personnes (hors administrateurs du site) pouvant éditer la page du jeu.</p>
+                <div className='form-line'></div>
+                <h2 className='form-title-h2'>Administrateurs du jeu</h2>
+                <p className=''>Liste de toutes les personnes (hors administrateurs du site) pouvant éditer la page du jeu.</p>
                 <button type='button' className='add-admin' onClick={() => creerChampAdministrateurs()}>Ajouter administrateur</button>
 
                 {
@@ -498,7 +499,7 @@ function FormulaireJeu(props) {
                             </select>
                             {
                                 index ? 
-                                    <button type='button' className='rm-adm' onClick={() => supprimerChampAdministrateurs(index)}>Supprimer l'administrateur</button>
+                                    <button type='button' className='rm-admin' onClick={() => supprimerChampAdministrateurs(index)}>Supprimer l'administrateur</button>
                                 : null
                             }
                         </div>
@@ -509,7 +510,7 @@ function FormulaireJeu(props) {
 
                 <div className='form-component'>
                     <label htmlFor="url">Jeu visible</label>
-                    <p className='form-texte'>Rendre le jeu visible dans la liste des jeux. Il sera toujours visible en utilisant directement son url manuelement.</p>
+                    <p className='form-text'>Rendre le jeu visible dans la liste des jeux. Il sera toujours visible en utilisant directement son url manuelement.</p>
                     <input name="visible" type="checkbox" onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} checked={formulaire.visible}/>
                 </div>
 
@@ -520,7 +521,7 @@ function FormulaireJeu(props) {
                 </div>
 
     {/* BOUTON ENVOIE FORMULAIRE */}
-                <p className='form-texte'>* : Champ obligatoire</p>
+                <p className='form-text'>* : Champ obligatoire</p>
                 <div className='form-component'>
                     <input name="img1" className='send-form' type="submit" value="Envoyer le formulaire" />
                 </div>

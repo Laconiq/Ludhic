@@ -22,11 +22,13 @@ function Administration(props) {
     return (
         <>
             { document.title = "Administration - Ludhic" }
+            <h1 className='form-title'>Administration</h1>
+            <div className='form-line'></div>
             <ul className='admin-container'>
-                <li><div className='bouton'><a href='./jeu'>Jeu</a></div></li>
-                <li><div className='bouton'><a href='./rendu'>Rendu</a></div></li>
-                <li><div className='bouton'><a href='./materiel-cl'>Creative Lab</a></div></li>
-                <li><div className='bouton'><a href='./inscription'>Inscription</a></div></li>
+                <li><a href='./jeu'>Jeu</a></li>
+                <li><a href='./rendu'>Rendu</a></li>
+                <li><a href='./materiel-cl'>Creative Lab</a></li>
+                <li><a href='../inscription'>Inscription</a></li>
             </ul>
         </>
     )

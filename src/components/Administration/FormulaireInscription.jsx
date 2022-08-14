@@ -66,7 +66,7 @@ function FormulaireInscription(props) {
         <div className='form-body'>
             <h1 className='form-title'>Demande d'inscription</h1>
             <form onSubmit={creerDemande} className='form'>
-                <div className='form-ligne'></div>
+                <div className='form-line'></div>
 
     {/* INFORMATIONS PRINCIPALES */}
 
@@ -75,7 +75,7 @@ function FormulaireInscription(props) {
                     Si vous rencontrez un problème ou souhaitez poser une question : </p>
                     <a href="mailto:ludhic.association@gmail.fr">ludhic.association@gmail.com</a>
                 </div>
-                <h2 className='form-titre-h2'>Informations principales</h2>
+                <h2 className='form-title-h2'>Informations principales</h2>
                 
                 <div className='form-component'>
                     <label htmlFor="nom">Nom(s)* :</label>
@@ -110,7 +110,7 @@ function FormulaireInscription(props) {
                     </select>
                 </div>
 
-                <p className='form-texte'>* : Champ obligatoire</p>
+                <p className='form-text'>* : Champ obligatoire</p>
                 <div className='form-component'>
                     <input name="img1" className='send-form' type="submit" value="Créer son compte" />
                 </div>
