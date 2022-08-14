@@ -97,6 +97,8 @@ textarea {
     cursor: pointer;
 }
 
+/* =========== LOGIN =========== */
+
 .no-account {
     display: flex;
     width: fit-content;
@@ -112,10 +114,33 @@ textarea {
     margin-right: 0.5rem;
 }
 
-.button-logout {
-    display: flex;
+.button-login {
+    display: grid;
+    align-content: center;
     margin-right: auto;
     margin-left: auto;
+    color: var(--color-primary-variant);
+    background-color: var(--color-primary);
+    width: 10rem;
+    height: 2rem;
+
+}
+
+.button-login:hover {
+    background-color: var(--color-primary-variant);
+    color: var(--color-primary);
+    cursor: pointer;
+}
+
+.button-logout {
+    display: grid;
+    align-content: center;
+    margin-right: auto;
+    margin-left: auto;
+    color: var(--color-primary);
+    background-color: var(--color-primary-variant);
+    width: 7rem;
+    height: 2rem;
 }
 
 .button-logout:hover {
@@ -169,8 +194,6 @@ textarea {
     margin: 2rem auto 0 auto;
     padding-bottom: 2rem;
 }
-
-
 
 /* =========== MEDIA QUERIES (MEDIUM DEVICES) =========== */
 

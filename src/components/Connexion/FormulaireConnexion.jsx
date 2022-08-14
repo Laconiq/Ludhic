@@ -43,10 +43,10 @@ function FormulaireConnexion() {
                 </div>
 
                 <div className='form-component'>
-                    <input name="img1" className='send-form' type="submit" value="Se connecter" />
+                    <input name="img1" className='button-login' type="submit" value="Se connecter" />
                 </div>
             </form>
-            <button className='button-logout' type='button' onClick={() => signOut(getAuth()).then(console.log("Déconnecté"))}>Déconnecter</button>
+            <button className='button-logout' type='button' onClick={() => signOut(getAuth()).then(console.log("Déconnecté"))}>Se déconnecter</button>
             <div className='no-account'>
                 <p>Pas encore de compte ? </p>
                 <a href="/inscription"> Inscris toi</a>
