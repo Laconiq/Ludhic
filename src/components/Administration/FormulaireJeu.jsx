@@ -509,8 +509,8 @@ function FormulaireJeu(props) {
     {/* BOUTON JEU VISIBLE */}
 
                 <div className='checkbox-atc'>
-                    <input name="visible" type="checkbox" required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} checked={formulaire.visible}/>
-                    <label htmlFor="url">Rendre la page de mon jeu visible.*</label>                        
+                    <input name="visible" type="checkbox" onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} checked={formulaire.visible}/>
+                    <label htmlFor="url">Rendre la page de mon jeu visible.</label>                        
                 </div>
 
     {/* CHECKBOX */}
