@@ -57,14 +57,16 @@ function AdministrationListeJeux(props) {
             { document.title = "Jeux modifiables - Ludhic" }
             <h1 className='form-title'>Administration</h1>
             <div className='form-line'></div>
+            
+            <div className='admin-add-game' >
+                <a href="/administration/jeu"><button type='button'>Créer un jeu</button></a>
+            </div>
 
-            <a href="/administration/jeu"><button type='button'>Créer un jeu</button></a>
-
-            <div>
+            <div className='admin-game-container'>
                 {
                     listeJeux.map((jeu) => (
                         <article key={jeu.id}>
-                            <div className='game-item'>
+                            <div className='admin-game-item'>
                                 <div>
                                     <a href={jeu.lien}>
                                     <img src={jeu.logo} alt={jeu.titre} className='game-image'/>
@@ -77,7 +79,6 @@ function AdministrationListeJeux(props) {
                                     <small className='game-desc'>{jeu.description}</small>
                                 </div>
                             </div>
-                            <div className='game-line'></div>
                         </article>
                     ))
                 }

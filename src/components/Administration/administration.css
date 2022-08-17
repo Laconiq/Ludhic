@@ -24,6 +24,38 @@
     margin-top: 1.2rem;
 }
 
+.admin-game-item {
+    margin: auto;
+    width: fit-content;
+    display: flex;
+}
+
+.admin-game-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 30%;
+    margin: auto;
+    gap: 1.2rem;
+    row-gap: 2.6rem;
+}
+
+.admin-add-game {
+    width: fit-content;
+    margin: auto;
+    margin-bottom: 2.4rem;
+}
+
+.admin-add-game > a > button {
+    width: 100px;
+    height: 30px;
+    transition: var(--transition);
+}
+
+.admin-add-game > a > button:hover {
+    cursor: pointer;
+    background-color: grey;
+}
+
 /* =========== MEDIA QUERIES (MEDIUM DEVICES) =========== */
 
 @media screen and (max-width: 1024px) {
