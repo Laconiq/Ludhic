@@ -33,7 +33,7 @@
 .admin-game-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    width: 30%;
+    width: fit-content;
     margin: auto;
     gap: 1.2rem;
     row-gap: 2.6rem;
@@ -66,5 +66,9 @@
 @media screen and (max-width: 600px) {
     .administration-container > div > img {
         width: 180px;
+    }
+
+    .admin-game-container {
+        grid-template-columns: 1fr;
     }
 }
