@@ -17,6 +17,7 @@ import FormulaireInscription from './components/Administration/FormulaireInscrip
 //import Calendrier from './components/Calendrier/Calendrier';
 import FormulaireConnexion from './components/Connexion/FormulaireConnexion';
 //import CreativeLab from './components/CreativeLab/CreativeLab';
+import AdministrationListeJeux from './components/Administration/AdministrationListeJeux';
 
 function App() {
   const [compte, setCompte] = useState(false);
@@ -102,6 +103,7 @@ function App() {
         <Route path='/administration' element={<Administration utilisateur={compte}/>}/>
         <Route path='/administration/jeu' element={<FormulaireJeu utilisateur={compte}/>}/>
         <Route path='/administration/jeu/:id' element={<FormulaireJeu utilisateur={compte}/>}/>
+        <Route path='/administration/listeJeux' element={<AdministrationListeJeux utilisateur={compte}/>}/>
         
         {
           /*

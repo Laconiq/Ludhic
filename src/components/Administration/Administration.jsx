@@ -10,7 +10,7 @@ const data = [
         image: 'https://cdn.discordapp.com/attachments/973168025819824169/1009141920854978630/Kakemono_qui_pense.png',
         title: 'Jeux',
         subtitle: 'soustitre',
-        lien: '/administration/jeu',
+        lien: '/administration/listeJeux',
     },
 
     {
