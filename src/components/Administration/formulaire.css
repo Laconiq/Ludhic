@@ -138,13 +138,15 @@ textarea {
     margin-right: auto;
     margin-left: auto;
     color: var(--color-primary);
-    background-color: var(--color-primary-variant);
+    background-color: var(--color-bg);
     width: 7rem;
     height: 2rem;
+    margin-bottom: 2rem;
 }
 
 .button-logout:hover {
     cursor: pointer;
+    color: var(--color-primary-variant);
 }
 
 /* =========== JEU>PARTICIPANT =========== */

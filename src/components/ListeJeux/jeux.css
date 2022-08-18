@@ -53,11 +53,11 @@
     margin: 1.2rem 0 1.2rem 0;
 }
 
-.jeux-annee {
-    height: 100px;
+.game-year {
     display: flex;
     justify-content: flex-end;
     flex-direction: column;
+    margin-bottom: 0.6rem;
 }
 
 /* =========== MEDIA QUERIES (MEDIUM DEVICES) =========== */
