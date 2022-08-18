@@ -13,21 +13,21 @@ const data = [
         lien: '/administration/listeJeux',
     },
 
-    {
-        id: 2,
-        image: 'https://cdn.discordapp.com/attachments/973168025819824169/1009141921400225872/Monsieur_qui_pense.png',
-        title: 'Rendu',
-        subtitle: 'soustitre',
-        lien: '/rendu',
-    },
+//    {
+//        id: 2,
+//        image: 'https://cdn.discordapp.com/attachments/973168025819824169/1009141921400225872/Monsieur_qui_pense.png',
+//        title: 'Rendu',
+//        subtitle: 'soustitre',
+//        lien: '/rendu',
+//    },
 
-    {
-        id: 3,
-        image: 'https://cdn.discordapp.com/attachments/973168025819824169/1009141920502644896/Creative_lab_qui_pense.png',
-        title: 'Creative Lab',
-        subtitle: 'soustitre',
-        lien: '/cl',
-    }
+//    {
+//        id: 3,
+//        image: 'https://cdn.discordapp.com/attachments/973168025819824169/1009141920502644896/Creative_lab_qui_pense.png',
+//        title: 'Creative Lab',
+//        subtitle: 'soustitre',
+//        lien: '/cl',
+//    }
 ]
 
 function Administration(props) {
