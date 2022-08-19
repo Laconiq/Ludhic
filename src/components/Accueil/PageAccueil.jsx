@@ -17,7 +17,7 @@ export default class PageAccueil extends Component {
           <h1 className='home-intro-title'>LUDHIC</h1>
           <h2 className='home-intro-subtitle'>Qu'est-ce que Ludhic ?</h2>
           <p className='home-intro-text'>Ludhic est une association regroupant plusieurs étudiants et anciens étudiants du Master HIC (anciennement MAJE).<br/>
-          Cette association a pour but de mettre de répertorier et de mettre en avant les travaux des étudiants.
+          Cette association a pour but de répertorier et de mettre en avant les travaux des étudiants.
           </p>
         </div>
         <div className='home-banner'>
@@ -42,7 +42,7 @@ export default class PageAccueil extends Component {
       <div className='home-background'>
         <div className='home-line'></div>
         <h2>Quoi de neuf</h2>
-        <p>Ludhic rentre officiellement dans sa phase de bêta fermé !
+        <p>Ludhic rentre officiellement dans sa phase de bêta fermée !
           <br/>Pour toutes questions ou informations supplémentaires contactez nous sur <a href="mailto:ludhic.association@gmail.com">ludhic.association@gmail.com</a> ou sur Discord à <a href="https://discord.ludhic.fr">discord.ludhic.fr</a>
         </p>
       </div>
