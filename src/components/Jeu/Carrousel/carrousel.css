@@ -4,7 +4,6 @@
 
 .carousel .slide {
     max-height: 600px;
-    background-color: red;
 }
 
 .carousel.carousel-slider .control-arrow:hover {
@@ -37,7 +36,6 @@
 @media screen and (max-width: 1024px) {
     .carousel .slide {
         max-height: 420px;
-        background-color: red;
     }
 }
 
