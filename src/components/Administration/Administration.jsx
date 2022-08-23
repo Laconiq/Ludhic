@@ -3,31 +3,34 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { estConnecte } from '../../helpers/compte';
 import './administration.css';
+import IMG1 from '../../assets/administration_jeux.jpg';
+import IMG2 from '../../assets/administration_rendu.jpg';
+import IMG3 from '../../assets/administration_creativelab.jpg';
 
 const data = [
     {
         id: 1,
-        image: 'https://cdn.discordapp.com/attachments/973168025819824169/1009141920854978630/Kakemono_qui_pense.png',
+        image: IMG1,
         title: 'Jeux',
-        subtitle: 'soustitre',
+        subtitle: 'Liste des jeux que vous pouvez modifier',
         lien: '/administration/listeJeux',
     },
 
-//    {
-//        id: 2,
-//        image: 'https://cdn.discordapp.com/attachments/973168025819824169/1009141921400225872/Monsieur_qui_pense.png',
-//        title: 'Rendu',
-//        subtitle: 'soustitre',
-//        lien: '/rendu',
-//    },
+    {
+        id: 2,
+        image: IMG2,
+        title: 'Rendu',
+        subtitle: 'Bientôt disponnible...',
+        lien: '',
+    },
 
-//    {
-//        id: 3,
-//        image: 'https://cdn.discordapp.com/attachments/973168025819824169/1009141920502644896/Creative_lab_qui_pense.png',
-//        title: 'Creative Lab',
-//        subtitle: 'soustitre',
-//        lien: '/cl',
-//    }
+    {
+        id: 3,
+        image: IMG3,
+        title: 'Creative Lab',
+        subtitle: 'Bientôt disponnible...',
+        lien: '',
+    }
 ]
 
 function Administration(props) {
