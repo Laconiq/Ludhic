@@ -43,7 +43,7 @@ export default class PageAccueil extends Component {
         <div className='home-line'></div>
         <h2>Quoi de neuf</h2>
         <p>Ludhic rentre officiellement dans sa phase de bêta fermée !
-          <br/>Pour toutes questions ou informations supplémentaires contactez nous sur <a href="mailto:ludhic.association@gmail.com">ludhic.association@gmail.com</a> ou sur Discord à <a href="https://discord.ludhic.fr">discord.ludhic.fr</a>
+          <br/>Pour toute question ou information supplémentaire, contactez-nous sur <a href="mailto:ludhic.association@gmail.com">ludhic.association@gmail.com</a> ou sur Discord à <a href="https://discord.ludhic.fr">discord.ludhic.fr</a>
         </p>
       </div>
       
