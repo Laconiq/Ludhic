@@ -364,7 +364,7 @@ function FormulaireJeu(props) {
     {/* INFORMATIONS PRINCIPALES */}
 
                 <div className='form-intro'>
-                    <p>Vous êtes sur la page d'administration des jeux, vous pourrez modifier, ajouter ou retirer toutes informations plus tard.<br/>
+                    <p>Vous êtes sur la page d'administration des jeux, vous pourrez modifier, ajouter ou retirer toute information plus tard.<br/>
                     Pour tout problème rencontré contacter </p>
                     <a href="mailto:ludhic.association@gmail.fr">ludhic.association@gmail.com</a>
                 </div>
@@ -407,7 +407,7 @@ function FormulaireJeu(props) {
                 <div className='form-component'>
                     <label htmlFor="ytb">Lien vidéo Youtube : </label>
                     <p className='form-text'>Lien vers une vidéo Youtube (Exemple : Gameplay, Trailer, etc...)</p>
-                    <input name="ytb" type="text" maxLength={32} onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.ytb}/>
+                    <input name="ytb" type="text" maxLength={255} onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.ytb}/>
                 </div>
 
     {/* BOUTON */}
