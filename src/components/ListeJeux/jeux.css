@@ -10,7 +10,7 @@
     background-color: var(--color-primary-variant);*/
     display: flex;
     grid-template-columns: repeat(2, 1fr);
-    max-width: 95%;
+    max-width: 90%;
 }
 
 .game-item > * {
@@ -22,7 +22,6 @@
     margin-top: 0.6rem;
     margin-bottom: 0.6rem;
     word-wrap: break-word;
-    max-width: 80%;
 }
 
 .game-title:hover {
@@ -32,6 +31,7 @@
 .game-desc {
     color: var(--color-light);
     margin-bottom: 0.6rem;
+    word-wrap: break-word;
 }
 
 .game-image {
@@ -91,5 +91,13 @@
     .jeux-image {
         width: 9rem;
         height: 9rem;
+    }
+
+    .game-title {
+        max-width: 80%;
+    }
+
+    .game-desc {
+        max-width: 80%;
     }
 }
