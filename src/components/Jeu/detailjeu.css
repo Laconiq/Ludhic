@@ -25,6 +25,11 @@
     align-items: center;
 }
 
+.one-game-text-container > * {
+    width: 100%;
+    word-wrap:break-word;
+}
+
 .one-game-text > * {
     margin-bottom: 1rem;
 }
