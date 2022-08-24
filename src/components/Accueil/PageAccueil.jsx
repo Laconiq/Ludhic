@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './accueil.css'
 import HighlightGame from '../HightlightGame/HighlightGame'
 import FormulaireConnexion from '../Connexion/FormulaireConnexion'
+import LudhicLogo from '../../assets/ludhic_logo.svg'
 
 export default class PageAccueil extends Component {
   //TODO Remplir "Quoi de neuf"
@@ -21,7 +22,7 @@ export default class PageAccueil extends Component {
           </p>
         </div>
         <div className='home-banner'>
-            <img src="https://cdn.discordapp.com/attachments/973168025819824169/990916404486234132/Possible.png" alt="" />
+            <img src={LudhicLogo} alt="Logo Ludhic" />
         </div>
 
     {/* HIGHLIGHT GAME */}
