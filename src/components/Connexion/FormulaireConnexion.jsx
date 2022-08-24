@@ -22,7 +22,28 @@ function FormulaireConnexion() {
 
         signInWithEmailAndPassword(getAuth(), formulaire.mail, formulaire.mdp)
         .then(() => navigate("/"))
-        .catch((error) => alert(error.message));
+        .catch((error) => {
+            let msg;
+            switch(error.code)
+            {
+                case "auth/user-not-found":
+                    msg = "Aucun utilisateur ne correspond à ces informations.";
+                    break;
+                case "auth/too-many-requests":
+                    msg = "Trop de tentatives. Veuillez réessayer ultérieurement.";
+                    break;
+                case "auth/wrong-password":
+                    msg = "Le mot de passe est incorrect.";
+                    break;
+                case "auth/internal-error":
+                    msg = "Erreur interne au système de connexion.";
+                    break;
+                default:
+                    msg = "Une erreur inconnue est survenue.";
+                    break;
+            }
+            alert(msg);
+        });
     }
 
     return (

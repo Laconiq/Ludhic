@@ -52,12 +52,33 @@ function FormulaireInscription(props) {
                         alert('Un problème est survenu lors de l\'enregistrement de certaines données dans la base de données. Le nécessaire du compte a été créé (pair mail/mot de passe), mais n\'est pas utilisable. Veuillez contacter un administrateur du site.');
                     }
                 );
-            },
-            (error) => 
-            {
-                alert(error);
             }
-        );
+        )
+        .catch((error) => {
+            let msg;
+            switch(error.code)
+            {
+                case "auth/invalid-email":
+                    msg = "Cet email n'est pas valide.";
+                    break;
+                case "auth/invalid-recipient-email":
+                    msg = "Cet email n'est pas valide.";
+                    break;
+                case "auth/email-already-in-use":
+                    msg = "Ce mail est déjà lié à un compte.";
+                    break;
+                case "auth/wrong-password":
+                    msg = "Le mot de passe n'est pas valide.";
+                    break;
+                case "auth/internal-error":
+                    msg = "Erreur interne au système de connexion.";
+                    break;
+                default:
+                    msg = "Une erreur inconnue est survenue.";
+                    break;
+            }
+            alert(msg);
+        });
     }
 
     return (
