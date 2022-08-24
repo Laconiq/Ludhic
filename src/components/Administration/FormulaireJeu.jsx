@@ -98,15 +98,20 @@ function FormulaireJeu(props) {
                 )
                 .catch((error) => alert(error));
             }
-            else document.title = "Création de jeu - Ludhic";
+            else
+            {
+                setAdmins([...[compte.id]]);
+                document.title = "Création de jeu - Ludhic";
+            } 
 
             //Récupérer utilisateurs pour sélecteur admins
             get(child(refDB(database),`Compte`))
             .then((snapshot) => {
                 const ut = snapshot.val();
                 let listeUtilisateurs = new Array();
-                Object.keys(ut).map((idUt) => listeUtilisateurs.push({id:idUt, nom:ut[idUt].Nom, prenom:ut[idUt].Prenom}));
+                Object.keys(ut).map((idUt) => listeUtilisateurs.push({id:idUt, nom:ut[idUt].Nom.toUpperCase(), prenom:ut[idUt].Prenom}));
                 setUtilisateurs(listeUtilisateurs);
+                setAdmins([...[compte.id]]);
             });
         }
     },[compte]);
@@ -384,7 +389,7 @@ function FormulaireJeu(props) {
                         <div className='form-component'>
                             <label htmlFor="url">URL de la page* : </label>
                             <p className='form-text'>Nom de l'url de la page du jeu (Exemple : MONJEU donnera ludhic.fr/jeux/MONJEU). Il n'est plus modifiable après la création.</p>
-                            <input name="url" type="text" maxLength={32} required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.url}/>
+                            <input name="url" type="text" pattern='[a-zA-Z0-9]+' maxLength={32} required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.url}/>
                         </div>
                     )
                 }
