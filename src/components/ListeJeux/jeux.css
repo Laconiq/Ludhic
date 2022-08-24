@@ -2,8 +2,7 @@
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     max-width: fit-content;
-    margin-left: 15rem;
-    margin-top: 1.6rem;
+    margin: 1.6rem 0 0 18rem;
 }
 
 .game-item {
@@ -11,12 +10,19 @@
     background-color: var(--color-primary-variant);*/
     display: flex;
     grid-template-columns: repeat(2, 1fr);
+    max-width: 95%;
+}
+
+.game-item > * {
+    word-wrap:break-word;
 }
 
 .game-title {
     color: var(--color-primary);
     margin-top: 0.6rem;
     margin-bottom: 0.6rem;
+    word-wrap: break-word;
+    max-width: 80%;
 }
 
 .game-title:hover {
@@ -29,8 +35,8 @@
 }
 
 .game-image {
-    width: 146px;
-    height: 146px;
+    width: 200px;
+    height: 200px;
     /*border: solid 3px;*/
     border-color: var(--color-primary);
     transition: var(--transition);
