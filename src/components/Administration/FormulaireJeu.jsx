@@ -194,15 +194,41 @@ function FormulaireJeu(props) {
                 getDownloadURL(snapshot.ref)
                 .then((localURL) => 
                     update(refDB(database, `Jeu/${jeu}`), {Logo: localURL})
+                    .catch((error) => 
+                        {
+                            update(refDB(database, `Jeu/${jeu}`), {Logo: "https://via.placeholder.com/500?text=Temporaire"});
+                            alert("Erreur lors de l'enregistrement du lien vers le logo dans la base de données. Celui-ci est bien en ligne, un administrateur du site peut le récupérer pour vous. Une image temporaire sera donnée au jeu.");
+                        }
+                    )
+                )
+                .catch((error) =>
+                    {
+                        update(refDB(database, `Jeu/${jeu}`), {Logo: "https://via.placeholder.com/500?text=Temporaire"});
+                        alert("Erreur lors de la récupération du lien menant au logo sur notre serveur. Celui-ci est bien en ligne, un administrateur du site peut le récupérer pour vous. Une image temporaire sera donnée au jeu.");
+                    }
                 )
             )
+            .catch((error) => 
+                {
+                    update(refDB(database, `Jeu/${jeu}`), {Logo: "https://via.placeholder.com/500?text=Temporaire"});
+                    alert("Erreur lors de la mise en ligne du logo sur notre serveur. Une image temporaire sera donnée au jeu.");
+                }
+            )
+        )
+        .catch((error) => 
+            {
+                update(refDB(database, `Jeu/${jeu}`), {Logo: "https://via.placeholder.com/500?text=Temporaire"});
+                alert("Erreur lors de la compression du logo. Une image temporaire sera donnée au jeu.");
+            }
         );
     }
 
     const uploadCarrousel = async (jeu, listeImages) => {
         //Compresse chaque image, puis les met en ligne dans l'ordre, puis renvoie la liste des URL
         const listeImagesCompresse = await Promise.all(listeImages.map(image => { return compresserImage(image, 1920, 1080, "JPEG", 80); }));
+        listeImagesCompresse.catch((error) => alert("Une des images du carrousel a subis une erreur lors de sa compression. Leur mise en ligne a été interrompu."));
         const SnapshotsUploadImages = await Promise.all(listeImagesCompresse.map(imageCompresse => { return uploadBytes(refST(storage, `Jeux/Carrousel/${jeu}/${imageCompresse.name}`), imageCompresse);}));
+        SnapshotsUploadImages.catch((error) => alert("Une des images du carrousel a subis une erreur lors de sa mise en ligne sur notre serveur. Toutes les mises en ligne ont été interrompus."));
         return Promise.all(SnapshotsUploadImages.map(snap => { return getDownloadURL(snap.ref); }));
     }
 
