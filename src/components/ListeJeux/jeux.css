@@ -43,7 +43,7 @@
 }
 
 .game-image:hover {
-    padding: 0.3rem;
+    transform: scale(95%);
 }
 
 .game-text {

@@ -13,7 +13,7 @@
 }
 
 .administration-container:hover > div > img {
-    padding: 0.6rem;
+    transform: scale(95%);
 }
 
 .administration-text {
