@@ -18,6 +18,7 @@ import FormulaireInscription from './components/Administration/FormulaireInscrip
 import FormulaireConnexion from './components/Connexion/FormulaireConnexion';
 //import CreativeLab from './components/CreativeLab/CreativeLab';
 import AdministrationListeJeux from './components/Administration/AdministrationListeJeux';
+import Compte from './components/Administration/Compte';
 
 function App() {
   const [compte, setCompte] = useState(false);
@@ -91,7 +92,7 @@ function App() {
 
   return (
     <>
-      <NavBar/>
+      <NavBar utilisateur={compte}/>
       <Routes>
         <Route path='/jeux/:id' element={<PageJeu/>}/>
         <Route path='/' element={<PageAccueil/>}/>
@@ -100,6 +101,7 @@ function App() {
         <Route path='/connexion' element={<FormulaireConnexion/>}/>
         
         {/* CHEMINS POUR ADMINISTRATION */}
+        <Route path='/compte' element={<Compte utilisateur={compte}/>}/>
         <Route path='/administration' element={<Administration utilisateur={compte}/>}/>
         <Route path='/administration/jeu' element={<FormulaireJeu utilisateur={compte}/>}/>
         <Route path='/administration/jeu/:id' element={<FormulaireJeu utilisateur={compte}/>}/>
