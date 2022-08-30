@@ -12,8 +12,11 @@ export function estConnecte(utilisateur, changerPage = false, navigate, redirect
         if(utilisateur.id) return true;
         else
         {
-            alert("L'accès à cette page demande d'être connecté.");
-            if(changerPage) navigate(redirection);
+            if(changerPage) 
+            {
+                alert("L'accès à cette page demande d'être connecté.");
+                navigate(redirection);
+            }
             return false;
         }
     }
