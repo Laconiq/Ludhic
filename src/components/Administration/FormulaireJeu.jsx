@@ -186,50 +186,52 @@ function FormulaireJeu(props) {
     *   uploadCarrousel : Met en ligne la/les image(s) donnée(s) dans leur ordre d'origine, et renvoie une liste des URL.
     */
     const uploadLogo = (jeu, image) => {
-        //Compresse l'image, puis la met en ligne, puis envoie l'URL dans la base de données
-        compresserImage(image, 500, 500, "PNG")
-        .then((imgCompresse) => 
-            uploadBytes(refST(storage, `Jeux/Logo/${jeu}.${imgCompresse.name.split('.').pop()}`), imgCompresse)
-            .then((snapshot) => 
-                getDownloadURL(snapshot.ref)
-                .then((localURL) => 
-                    update(refDB(database, `Jeu/${jeu}`), {Logo: localURL})
-                    .catch((error) => 
-                        {
-                            update(refDB(database, `Jeu/${jeu}`), {Logo: "https://via.placeholder.com/500?text=Temporaire"});
-                            alert("Erreur lors de l'enregistrement du lien vers le logo dans la base de données. Celui-ci est bien en ligne, un administrateur du site peut le récupérer pour vous. Une image temporaire sera donnée au jeu.");
-                        }
-                    )
-                )
-                .catch((error) =>
-                    {
-                        update(refDB(database, `Jeu/${jeu}`), {Logo: "https://via.placeholder.com/500?text=Temporaire"});
-                        alert("Erreur lors de la récupération du lien menant au logo sur notre serveur. Celui-ci est bien en ligne, un administrateur du site peut le récupérer pour vous. Une image temporaire sera donnée au jeu.");
-                    }
-                )
+        return new Promise((resolve, reject) => {
+            //Compresse l'image, puis la met en ligne, puis envoie l'URL dans la base de données
+            compresserImage(image, 500, 500, "PNG")
+            .then(
+                (imgCompresse) => 
+                uploadBytes(refST(storage, `Jeux/Logo/${jeu}.png`), imgCompresse)
+                .then(
+                    (snapshot) => 
+                    getDownloadURL(snapshot.ref)
+                    .then(
+                        (localURL) => update(refDB(database, `Jeu/${jeu}`), {Logo: localURL})
+                            .then(
+                                () => resolve(),
+                                () => reject("Erreur de stockage de l'URL du logo dans la base de données. Celui-ci est en ligne, un administrateur peut terminer le processus manuellement.")
+                            ),
+                        () => reject("Erreur de récupération de l'URL du logo sur le serveur. Il a été mis en ligne, un administrateur peut terminer le processus manuellement.")
+                    ),
+                    () => reject("Erreur de mise en ligne du logo.")
+                ),
+                () => reject("Erreur de compression du logo. Celui-ci n'as pas été mis en ligne.")
             )
-            .catch((error) => 
-                {
-                    update(refDB(database, `Jeu/${jeu}`), {Logo: "https://via.placeholder.com/500?text=Temporaire"});
-                    alert("Erreur lors de la mise en ligne du logo sur notre serveur. Une image temporaire sera donnée au jeu.");
-                }
-            )
-        )
-        .catch((error) => 
-            {
-                update(refDB(database, `Jeu/${jeu}`), {Logo: "https://via.placeholder.com/500?text=Temporaire"});
-                alert("Erreur lors de la compression du logo. Une image temporaire sera donnée au jeu.");
-            }
-        );
+        });
     }
 
-    const uploadCarrousel = async (jeu, listeImages) => {
-        //Compresse chaque image, puis les met en ligne dans l'ordre, puis renvoie la liste des URL
-        const listeImagesCompresse = await Promise.all(listeImages.map(image => { return compresserImage(image, 1920, 1080, "JPEG", 80); }));
-        listeImagesCompresse.catch((error) => alert("Une des images du carrousel a subis une erreur lors de sa compression. Leur mise en ligne a été interrompu."));
-        const SnapshotsUploadImages = await Promise.all(listeImagesCompresse.map(imageCompresse => { return uploadBytes(refST(storage, `Jeux/Carrousel/${jeu}/${imageCompresse.name}`), imageCompresse);}));
-        SnapshotsUploadImages.catch((error) => alert("Une des images du carrousel a subis une erreur lors de sa mise en ligne sur notre serveur. Toutes les mises en ligne ont été interrompus."));
-        return Promise.all(SnapshotsUploadImages.map(snap => { return getDownloadURL(snap.ref); }));
+    const uploadCarrousel = (jeu, listeImages) => {
+        return new Promise((resolve, reject) => {
+            //Compression des images
+            Promise.all(listeImages.map(image => { return compresserImage(image, 1920, 1080, "JPEG", 80); }))
+            .then(
+                //Mise en ligne des images
+                (listeImagesCompresse) => {
+                    Promise.all(listeImagesCompresse.map(imageCompresse => { return uploadBytes(refST(storage, `Jeux/Carrousel/${jeu}/${imageCompresse.name}`), imageCompresse);}))
+                    .then(
+                        (SnapshotsUploadImages) => {
+                            Promise.all(SnapshotsUploadImages.map(snap => { return getDownloadURL(snap.ref); }))
+                            .then(
+                                (listeUrls) => resolve(listeUrls),
+                                () => reject("Erreur de récupération des URLs des images du carrousel mises en ligne. Un administrateur peut les récupérer et insérer manuellement.")
+                            );
+                        },
+                        () => reject("Erreur de mise en ligne des images du carrousel. Elles n'ont pas été enregistrées.")
+                    )
+                },
+                () => reject("Erreur de compression des images du carrousel. Elles n'ont pas été enregistrées.")
+            );
+        });
     }
 
     //Composants avec condition d'affichage
@@ -281,23 +283,46 @@ function FormulaireJeu(props) {
                         .then(
                             () => {
                                 //Upload des images (Logo & Carrousel)
-                                uploadLogo(formulaire.url, form.logo.files[0]);
+                                const promiseLogo = uploadLogo(formulaire.url, form.logo.files[0]);
+                                promiseLogo.catch(
+                                    (error) => {
+                                        update(refDB(database, `Jeu/${formulaire.url}`), {Logo: "https://via.placeholder.com/150?text=" + formulaire.url})
+                                        .then(
+                                            () => alert(error + " Une image temporaire a été associée au jeu."),
+                                            () => alert(error + " Aucune image de logo n'a pu être associée au jeu. Veuillez contacter un administrateur.")
+                                        )
+                                    }
+                                );
 
                                 let imagesCarrousel = new Array(form.car_1.files[0]);
                                 if(form.car_2.files.length !== 0) imagesCarrousel.push(form.car_2.files[0]);
                                 if(form.car_3.files.length !== 0) imagesCarrousel.push(form.car_3.files[0]);
                                 if(form.car_4.files.length !== 0) imagesCarrousel.push(form.car_4.files[0]);
-                                uploadCarrousel(formulaire.url, imagesCarrousel)
-                                .then((listeUrlImages) => { update(refDB(database, `Jeu/${formulaire.url}`), {Carrousel: listeUrlImages}); });
 
-                                alert(`Le jeu ${formulaire.titre} a été créé avec l'url ${formulaire.url}.`);
-                                navigate("/administration/");
+                                const promiseCarrousel = uploadCarrousel(formulaire.url, imagesCarrousel)
+                                promiseCarrousel.then(
+                                    (listeUrlImages) => {
+                                        update(refDB(database, `Jeu/${formulaire.url}`), {Carrousel: listeUrlImages})
+                                        .catch((error) => alert("Erreur de stockage des URLs des images. Celles-ci sont en ligne, un administrateur peut finir le processus manuellement."));
+                                    }
+                                );
+
+                                Promise.all([promiseLogo, promiseCarrousel])
+                                .then(
+                                    () => {
+                                        alert(`Le jeu ${formulaire.titre} a été créé avec l'url ${formulaire.url} sans erreurs.`);
+                                        navigate("/administration/");
+                                    },
+                                    (error) => {
+                                        alert(`Le jeu ${formulaire.titre} a été créé avec l'url ${formulaire.url} avec les erreurs suivantes : ${error}.`);
+                                        navigate("/administration/");
+                                    }
+                                );
                             },
                             () => {
-                                alert('La mise en ligne des données dans la base de données a subis une erreur.');
+                                alert('La mise en ligne des données dans la base de données a subis une erreur. Le jeu n\'a pas été créé.');
                             }
                         )
-                        .catch((error) => alert(error));
                     }
                 }
             }
@@ -324,12 +349,10 @@ function FormulaireJeu(props) {
         })
         .then(
             () => {
+                let arrayPromiseImages = new Array();
+
                 //Modification logo si demandé
-                if(form.logo.files.length !== 0)
-                {
-                    deleteObject(refST(storage, formulaire.logo))
-                    .then(uploadLogo(formulaire.url,form.logo.files[0]));
-                }
+                if(form.logo.files.length !== 0) arrayPromiseImages.push(uploadLogo(formulaire.url,form.logo.files[0]));
 
                 const tailleCarrousel = formulaire.carrousel.length;
                 const listeInputs = document.querySelectorAll(".input-carrousel");
@@ -351,14 +374,18 @@ function FormulaireJeu(props) {
                     }
                     if(listeImages.length !== 0)
                     {
-                       uploadCarrousel(formulaire.url, listeImages)
-                       .then((listeUrlUpload) => {
-                            let compteId = tailleCarrousel;
-                            listeUrlUpload.forEach(url => {
-                                update(refDB(database, `Jeu/${formulaire.url}/Carrousel`), {[compteId]: url});
-                                compteId++;
-                            })
-                       });
+                        const promiseNewCarrousel = uploadCarrousel(formulaire.url, listeImages);
+                        arrayPromiseImages.push(promiseNewCarrousel);
+                        promiseNewCarrousel.then(
+                            (listeUrlImages) => {
+                                let compteId = tailleCarrousel;
+                                listeUrlImages.forEach(url => {
+                                    update(refDB(database, `Jeu/${formulaire.url}/Carrousel`), {[compteId]: url});
+                                    compteId++;
+                                })
+                            },
+                            (error) => alert(error + " Les images à rajouter au carrousel n'ont pas été prises en compte.")
+                        );
                     }
                 }
 
@@ -367,22 +394,33 @@ function FormulaireJeu(props) {
                     if(listeInputs[i].files.length !== 0)
                     {
                         const image = listeInputs[i].files[0];
-                        uploadBytes(refST(storage, `Jeux/Carrousel/${formulaire.url}/${image.name}`), image)
-                        .then(snapshot => {
-                            getDownloadURL(snapshot.ref)
-                            .then(url => {
-                                update(refDB(database, `Jeu/${formulaire.url}/Carrousel`), {[i]: url});
-                            })
-                        })
+                        const promiseRemplacerCarrousel = uploadCarrousel(formulaire.url, [image]);
+                        arrayPromiseImages.push(promiseRemplacerCarrousel);
+                        promiseRemplacerCarrousel.then(
+                            (url) => {
+                                const newUrl = (Array.isArray(url)) ? url[0] : url;
+                                update(refDB(database, `Jeu/${formulaire.url}/Carrousel`), {[i]: url})
+                                .catch(() => alert("Erreur de mise à jour d'une image du carrousel à remplacer. La nouvelle image est en ligne, un administrateur peut terminer le processus manuellement."));
+                            },
+                            (error) => alert(error + " L'image n'a pas été remplacée.")
+                        );
                     }
                 }
 
-                alert('Mise à jours du jeu terminée.');
-                navigate("/administration/");
+                Promise.all(arrayPromiseImages)
+                .then(
+                    () => {
+                        alert('Mise à jours du jeu terminée sans erreurs.');
+                        navigate("/administration/");
+                    },
+                    (error) => {
+                        alert('Mise à jours du jeu terminée avec les erreurs suivantes : ' + error);
+                        navigate("/administration/");
+                    }
+                );
             }
             ,
             () => alert('Erreur lors de la mise à jour des données dans la base de données.'))
-        .catch((error) => alert(error));
     }    
 
     return (
