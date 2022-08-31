@@ -14,9 +14,9 @@ import FormulaireJeu from './components/Administration/FormulaireJeu'
 import FormulaireInscription from './components/Administration/FormulaireInscription'
 //import FormulaireRendu from './components/Administration/FormulaireRendu';
 //import FormulaireCreativeLab from './components/Administration/FormulaireCreativeLab';
-//import Calendrier from './components/Calendrier/Calendrier';
+import Calendrier from './components/Calendrier/Calendrier';
 import FormulaireConnexion from './components/Connexion/FormulaireConnexion';
-//import CreativeLab from './components/CreativeLab/CreativeLab';
+import CreativeLab from './components/CreativeLab/CreativeLab';
 import AdministrationListeJeux from './components/Administration/AdministrationListeJeux';
 import Compte from './components/Administration/Compte';
 
@@ -99,6 +99,8 @@ function App() {
         <Route path='/jeux' element={<PageListeJeux/>}/>
         <Route path='/inscription' element={<FormulaireInscription/>}/>
         <Route path='/connexion' element={<FormulaireConnexion/>}/>
+        <Route path='/creative-lab' element={<CreativeLab/>}/>
+        <Route path='/calendrier' element={<Calendrier/>}/>
         
         {/* CHEMINS POUR ADMINISTRATION */}
         <Route path='/compte' element={<Compte utilisateur={compte}/>}/>

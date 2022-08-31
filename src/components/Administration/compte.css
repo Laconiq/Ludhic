@@ -1,0 +1,20 @@
+.account-container {
+    width: fit-content;
+    margin: auto;
+    padding-left: 10rem;
+}
+
+.account-container > * {
+    margin-bottom: 0.6rem;
+}
+
+.account-container > input {
+    background-color: var(--color-bg);
+    color: white;
+    font-size: 110%;
+}
+
+.account-container > label {
+    background-color: var(--color-bg);
+    color: var(--color-light)
+}

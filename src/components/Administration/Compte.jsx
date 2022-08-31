@@ -1,4 +1,5 @@
 import React from 'react'
+import './compte.css'
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { estConnecte } from '../../helpers/compte';
@@ -27,18 +28,22 @@ export default function Compte(props) {
             <h1 className='form-title'>Compte</h1>
             <div className='form-line'></div>
 
-            <div>
+            <div className='account-container'>
+                <label htmlFor="">Nom : </label>
                 <input name='nom' id='nom' type="text" value={compte.nom}/>
                 <br/>
+                <label htmlFor="">Prénom : </label>
                 <input name='prenom' id='prenom' type="text" value={compte.prenom}/>
                 <br/>
+                <label htmlFor="">Formation : </label>
                 <input name='formation' id='formation' type="text" value={compte.formation}/>
                 <br/>
+                <label htmlFor="">Niveau : </label>
                 <input name='niveau' id='niveau' type='text' value={compte.niveau}/>
                 <br/>
-
-                <button className='button-logout' type='button' onClick={() => signOut(getAuth()).then(() => {console.log("Déconnecté."); navigate("/");})}>Se déconnecter</button>
             </div>
+            
+            <button className='button-logout' type='button' onClick={() => signOut(getAuth()).then(() => {console.log("Déconnecté."); navigate("/");})}>Se déconnecter</button>
 
         </>
     )

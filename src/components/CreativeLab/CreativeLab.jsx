@@ -1,4 +1,5 @@
 import React from 'react'
+import './creativelab.css'
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { estConnecte } from '../../helpers/compte';
@@ -18,7 +19,7 @@ function CreativeLab(props) {
 
   return (
     <>
-    <h1>Creative Lab</h1>
+    <h1 className='creativelab-title'>La page Créative Lab est en cours de construction</h1>
     </>
   )
 }
