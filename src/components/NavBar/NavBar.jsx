@@ -60,9 +60,9 @@ export default function Navbar(props) {
         {
           statusConnexion && (
             <>
-              <a href="/administration"><BsGear/></a>
               <a href="/calendrier"><AiOutlineCalendar/></a>
               <a href="/creative-lab"><ImLab/></a>
+              <a href="/administration"><BsGear/></a>
             </>
           )
         }
