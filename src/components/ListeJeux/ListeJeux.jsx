@@ -69,7 +69,7 @@ function ListeJeux(props) {
                                             <div className='game-item'>
                                                 <div>
                                                     <a href={jeu.lien}>
-                                                    <img src={jeu.logo} alt={jeu.titre} className='game-image'/>
+                                                    <div className='game-image-container'><img src={jeu.logo} alt={jeu.titre} className='game-image'/></div>
                                                     </a>
                                                 </div>
                                                 <div className='game-text'>

@@ -1,47 +1,27 @@
 /* =========== TOP =========== */
 
-.home-intro-container {
-    margin: 1rem 3rem 0 8rem;
-    width: fit-content;
-}
-
 .home-intro-title {
     font-size: 4rem;
 }
 
 .home-intro-subtitle {
-    margin-top: 0.8rem;
-    font-size: 1.4rem;
-}
-
-.home-intro-text {
-    margin-top: 0.8rem;
+    margin-top: 0.6rem;
     font-size: 1.2rem;
 }
 
-.home-background {
-    background-color: var(--color-bg-variant);
-    padding: 2rem 8rem 2rem 8rem;
+.home-intro-text {
+    margin-top: 0.6rem;
+    font-size: 1.2rem;
 }
 
-.home-background > h2 {
+.card > h2 {
     font-size: 1.5rem;
     font-weight: 100;
     margin-top: 1.2rem;
 }
 
-.home-line {
-    width: 50%;
-    background-color: var(--color-primary-variant);
-    height: 1px;
-}
-
-.home-line + h2 {
-    margin-bottom: 0.6rem;
-}
-
 .home-banner {
-    margin: 1rem 0 1rem 0;
+    margin: 1.2rem 0 1.2rem 0;
     display: flex;
     justify-content: center;
 }
@@ -59,19 +39,12 @@
 /* =========== MEDIA QUERIES (MEDIUM DEVICES) =========== */
 
 @media screen and (max-width: 1024px) {
-    .home-intro-container {
-        margin-left: 3rem;
-    }
-
-    .home-background {
-        padding: 2rem 3rem 2rem 3rem;
-    }
 }
 
 /* =========== MEDIA QUERIES (SMALL DEVICES) =========== */
 
 @media screen and (max-width: 600px) {
-    .bouton {
-        margin-top: 0rem;
+    .home-banner > img {
+        max-width: 80%;
     }
 }

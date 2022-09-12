@@ -1,16 +1,10 @@
 .game-container {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
-    max-width: fit-content;
-    margin: 1.6rem 0 0 18rem;
 }
 
 .game-item {
-    /*height: 23.2rem;
-    background-color: var(--color-primary-variant);*/
     display: flex;
-    grid-template-columns: repeat(2, 1fr);
-    max-width: 90%;
 }
 
 .game-item > * {
@@ -22,6 +16,7 @@
     margin-top: 0.6rem;
     margin-bottom: 0.6rem;
     word-wrap: break-word;
+    transition: var(--transition);
 }
 
 .game-title:hover {
@@ -37,7 +32,6 @@
 .game-image {
     width: 200px;
     height: 200px;
-    /*border: solid 3px;*/
     border-color: var(--color-primary);
     transition: var(--transition);
 }
@@ -47,7 +41,7 @@
 }
 
 .game-text {
-    margin-left: 1rem;
+    margin-left: 1.2rem;
     display: flex;
     flex-direction: column;
 }
@@ -72,8 +66,6 @@
     .game-container {
         gap: 4rem;
         row-gap: 2rem;
-        margin-left: 1.5rem;
-        margin-right: 1.5rem;
     }
 
     .game-line {
@@ -88,16 +80,18 @@
         gap: 2rem;
     }
 
-    .jeux-image {
-        width: 9rem;
-        height: 9rem;
+    .game-item {
+        display: inline;
     }
 
-    .game-title {
-        max-width: 80%;
+    .game-year {
+        width: fit-content;
+        margin: auto;
     }
 
-    .game-desc {
-        max-width: 80%;
+    .game-image-container {
+        margin: auto;
+        width: fit-content;
+
     }
 }
