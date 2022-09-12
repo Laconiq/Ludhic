@@ -3,6 +3,11 @@
 
 body {
   font-family: 'Raleway', sans-serif;
+  background-color: red;
+  padding-left: 12rem;
+  padding-right: 12rem;
+  background-color: var(--color-bg);
+  padding-top: 1.2rem;
 }
 
 * {
@@ -32,10 +37,6 @@ h2 {
   font-size: 1rem;
 }
 
-body {
-  background-color: var(--color-bg);
-}
-
 h1 {
   color: var(--color-white);
 }
@@ -52,6 +53,17 @@ a {
 a:hover {
   color: var(--color-primary-variant);
   cursor: pointer;
+}
+
+.card {
+  background-color: var(--color-bg-variant);
+  padding: 3rem;
+}
+
+.line {
+  width: 50%;
+  background-color: var(--color-primary-variant);
+  height: 1px;
 }
 
 /* =========== Bouton =========== */
@@ -77,4 +89,18 @@ a:hover {
 .bouton:hover {
   background: var(--color-primary-variant);
   cursor: pointer;
+}
+
+/* =========== MEDIA QUERIES (MEDIUM DEVICES) =========== */
+
+@media screen and (max-width: 1024px) {
+}
+
+/* =========== MEDIA QUERIES (SMALL DEVICES) =========== */
+
+@media screen and (max-width: 600px) {
+  body {
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+  }
 }

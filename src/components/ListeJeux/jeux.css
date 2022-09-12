@@ -1,22 +1,22 @@
 .game-container {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
-    max-width: fit-content;
-    margin-left: 15rem;
-    margin-top: 1.6rem;
 }
 
 .game-item {
-    /*height: 23.2rem;
-    background-color: var(--color-primary-variant);*/
     display: flex;
-    grid-template-columns: repeat(2, 1fr);
+}
+
+.game-item > * {
+    word-wrap:break-word;
 }
 
 .game-title {
     color: var(--color-primary);
     margin-top: 0.6rem;
     margin-bottom: 0.6rem;
+    word-wrap: break-word;
+    transition: var(--transition);
 }
 
 .game-title:hover {
@@ -26,22 +26,22 @@
 .game-desc {
     color: var(--color-light);
     margin-bottom: 0.6rem;
+    word-wrap: break-word;
 }
 
 .game-image {
-    width: 146px;
-    height: 146px;
-    /*border: solid 3px;*/
+    width: 200px;
+    height: 200px;
     border-color: var(--color-primary);
     transition: var(--transition);
 }
 
 .game-image:hover {
-    padding: 0.3rem;
+    transform: scale(95%);
 }
 
 .game-text {
-    margin-left: 1rem;
+    margin-left: 1.2rem;
     display: flex;
     flex-direction: column;
 }
@@ -53,11 +53,11 @@
     margin: 1.2rem 0 1.2rem 0;
 }
 
-.jeux-annee {
-    height: 100px;
+.game-year {
     display: flex;
     justify-content: flex-end;
     flex-direction: column;
+    margin-bottom: 0.6rem;
 }
 
 /* =========== MEDIA QUERIES (MEDIUM DEVICES) =========== */
@@ -66,8 +66,6 @@
     .game-container {
         gap: 4rem;
         row-gap: 2rem;
-        margin-left: 1.5rem;
-        margin-right: 1.5rem;
     }
 
     .game-line {
@@ -82,8 +80,18 @@
         gap: 2rem;
     }
 
-    .jeux-image {
-        width: 9rem;
-        height: 9rem;
+    .game-item {
+        display: inline;
+    }
+
+    .game-year {
+        width: fit-content;
+        margin: auto;
+    }
+
+    .game-image-container {
+        margin: auto;
+        width: fit-content;
+
     }
 }

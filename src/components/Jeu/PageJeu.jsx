@@ -4,41 +4,57 @@ import Participant from './Participant/Participant'
 import Carrousel from './Carrousel/Carrousel'
 import BoutonVote from './BoutonVote/BoutonVote'
 import { getDatabase, ref, get, child } from 'firebase/database';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 //Composant représentant la page avec les informations d'un seul jeu
 function PageJeu() {
   const [jeu, setJeu] = useState(new Object);
   const idJeu = useParams()["id"];
+  const navigate = useNavigate();
 
   //Au chargement du composant, récupérer les informations du jeu grâce l'ID en URL dans la base de données
   useEffect(()=>{
     const dbRef = ref(getDatabase());
-    get(child(dbRef, `Jeu/${idJeu}`)).then((snapshot) => {
-      if (snapshot.exists())
+    get(child(dbRef, `Jeu/${idJeu}`))
+    .then(
+      (snapshot) => 
       {
-        let jeu = snapshot.val();
+        if (snapshot.exists())
+        {
+          let jeu = snapshot.val();
 
-        //Récupérer ID vidéo depuis URL youtube
-        //Code volé ici : https://stackoverflow.com/questions/3452546/how-do-i-get-the-youtube-video-id-from-a-url
-        let regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
-        let match = jeu.Lien_Video.match(regExp);
-        let idYtb = (match&&match[7].length==11)? "https://www.youtube.com/embed/" + match[7] : false;
+          //Récupérer ID vidéo depuis URL youtube
+          //Code volé ici : https://stackoverflow.com/questions/3452546/how-do-i-get-the-youtube-video-id-from-a-url
+          let regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+          let match = jeu.Lien_Video.match(regExp);
+          let idYtb = (match&&match[7].length==11)? "https://www.youtube.com/embed/" + match[7] : false;
 
-        setJeu({
-          titre: jeu.Titre,
-          desc: jeu.Description,
-          txt_btn: jeu.Texte_Bouton,
-          lien_btn: jeu.Lien_Bouton,
-          video: idYtb,
-          membres: jeu.Membre,
-          carrousel: jeu.Carrousel
-        });
+          setJeu({
+            titre: jeu.Titre,
+            desc: jeu.Description,
+            txt_btn: jeu.Texte_Bouton,
+            lien_btn: jeu.Lien_Bouton,
+            video: idYtb,
+            membres: jeu.Membre,
+            carrousel: jeu.Carrousel
+          });
+
+          document.title = `${jeu.Titre} - Ludhic`;
+        }
+        else
+        {
+          alert("Aucun jeu n'a été trouvé à cet URL. C'est pas de bol.");
+          navigate("/jeux/");
+        }
+      },
+      () => 
+      {
+        alert("Erreur de récupération des données dans la base de données.");
+        navigate("/jeux/");
       }
-      //TODO Gestion si aucun jeu avec cet ID
-    }).catch((error) => {
-        //TODO gestion si erreur de requête
-        console.error(error);
+    ).catch(() => {
+      alert("Erreur de communication avec la base de données.");
+      navigate("/jeux/");
     });
   },[]);
 
@@ -75,7 +91,7 @@ function PageJeu() {
           <div className='one-game-text'>
             <div className='one-game-title'>
               <h1>{jeu.titre}</h1>
-              <BoutonVote jeu={idJeu}/>
+              {/* <BoutonVote jeu={idJeu}/> */}
             </div>
             <p>{jeu.desc}</p>
             <div className='student-container'>

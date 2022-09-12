@@ -45,7 +45,7 @@
     height: auto;
 }
 
-.form-ligne {
+.form-line {
     width: 80%;
     height: 1px;
     padding: 0rem;
@@ -55,12 +55,12 @@
     margin-right: auto;
 }
 
-.form-titre-h2 {
+.form-title-h2 {
     color: var(--color-primary);
     font-size: 120%;
 }
 
-.form-texte {
+.form-text {
     font-size: 80%;
     margin: 0.6rem 0 0 0;
     padding: 0 0 0 0;
@@ -97,6 +97,8 @@ textarea {
     cursor: pointer;
 }
 
+/* =========== LOGIN =========== */
+
 .no-account {
     display: flex;
     width: fit-content;
@@ -112,31 +114,66 @@ textarea {
     margin-right: 0.5rem;
 }
 
-.button-logout {
-    display: flex;
+.button-login {
+    display: grid;
+    align-content: center;
     margin-right: auto;
     margin-left: auto;
+    color: var(--color-primary-variant);
+    background-color: var(--color-primary);
+    width: 10rem;
+    height: 2rem;
+
+}
+
+.button-login:hover {
+    background-color: var(--color-primary-variant);
+    color: var(--color-primary);
+    cursor: pointer;
+}
+
+.button-logout {
+    display: grid;
+    align-content: center;
+    margin-right: auto;
+    margin-left: auto;
+    color: var(--color-primary);
+    background-color: var(--color-bg);
+    width: 7rem;
+    height: 2rem;
+    margin-bottom: 2rem;
 }
 
 .button-logout:hover {
     cursor: pointer;
+    color: var(--color-primary-variant);
 }
 
 /* =========== JEU>PARTICIPANT =========== */
+
+.participant {
+    width: 50%;
+}
+
+.participant-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
 
 .participant > input {
     margin-bottom: 1rem;
 }
 
-.add-student {
+.add-admin, .add-student, .rm-admin, .rm-student {
+    margin-left: 0.8rem;
+}
+
+.add-student, .add-admin{
     background-color: green;
 }
 
-.add-student:hover {
-    cursor: pointer;
-}
-
-.rm-student {
+.rm-student, .rm-admin {
     background-color: red;
     color: white;
     padding: 1rem;
@@ -144,7 +181,7 @@ textarea {
     margin: auto;
 }
 
-.rm-student {
+.add-student:hover, .add-admin:hover, .rm-student:hover, .rm-admin:hover {
     cursor: pointer;
 }
 
@@ -152,7 +189,7 @@ textarea {
 
 .admin-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     row-gap: 1rem;
     column-gap: 3rem;
     width: fit-content;

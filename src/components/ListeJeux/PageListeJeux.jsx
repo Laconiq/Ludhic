@@ -8,11 +8,17 @@ import HighlightGame from '../HightlightGame/HighlightGame';
 function PageListeJeux() {
   return (
     <>
+    {
+      document.title = "Jeux - Ludhic"
+    /*
     <div className='home-background'>
       <h2>Les jeux en avant</h2>
       <p className='highlight-game-desc'>Salut c'est la description des jeux en avant</p>
       <HighlightGame/>
     </div>
+    */
+    }
+
       <ListeJeux/>
       <Scrollbar/>
     </>

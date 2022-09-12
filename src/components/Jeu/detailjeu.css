@@ -19,10 +19,16 @@
 }
 
 .one-game-text-container {
-    padding: 2rem 2rem 0rem 2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.one-game-text-container > * {
+    width: 100%;
+    word-wrap:break-word;
 }
 
 .one-game-text > * {
@@ -55,7 +61,6 @@
     padding-bottom: 0.3rem;
     font-size: 90%;
     text-align: left;
-    margin-bottom: 2rem;
 }
 
 /* =========== MEDIA QUERIES (MEDIUM DEVICES) =========== */

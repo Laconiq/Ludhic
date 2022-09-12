@@ -18,42 +18,76 @@ function FormulaireInscription(props) {
         prenom: ""
     });
 
-    //TODO Renvoyer vers nouvelle page à la fin de creerDemande
+    //TODO Améliorer messages d'erreur, notament à création dans Auth
 
+    /*
+    *   La création de compte se fait en 2 parties :
+    *       - Créer le compte dans Firebase Auth (mail, mot de passe)
+    *       - Créer le compte dans Realtime Database (nom, prenom, formation, niveau, administrateur)
+    *   Une parte des informations est stockée dans la base de données parce qu'elles ne peuvent pas être ajoutés directement dans Auth.
+    *   L'utilisateur est connecté automatiquement à la création du compte.
+    */
     const creerDemande = (event) => {
         event.preventDefault();
 
         createUserWithEmailAndPassword(getAuth(), formulaire.mail, formulaire.mdp)
-        .then((newUser) => {
-            console.log(newUser.user.uid);
-            set(ref(getDatabase(), `Compte/${newUser.user.uid}`), {
-                Nom: formulaire.nom,
-                Prenom: formulaire.prenom,
-                Formation: formulaire.formation,
-                Niveau: formulaire.niveau,
-                Admin: false
-            })
-            .then(() => {
-                alert(`Inscription complète.`);
-                navigate("/connexion");
-            });
-            //TODO Gérer erreur création info compte dans BDD
+        .then(
+            (newUser) => 
+            {
+                set(ref(getDatabase(), `Compte/${newUser.user.uid}`), {
+                    Nom: formulaire.nom,
+                    Prenom: formulaire.prenom,
+                    Formation: formulaire.formation,
+                    Niveau: formulaire.niveau,
+                    Admin: false
+                })
+                .then(
+                    () => 
+                    {
+                        alert(`Inscription complète. Vous êtes bien connecté. Bienvenue ${formulaire.prenom}.`);
+                        navigate("/");
+                    },
+                    () =>
+                    {
+                        alert('Un problème est survenu lors de l\'enregistrement de certaines données dans la base de données. Le nécessaire du compte a été créé (pair mail/mot de passe), mais n\'est pas utilisable. Veuillez contacter un administrateur du site.');
+                    }
+                );
+            }
+        )
+        .catch((error) => {
+            let msg;
+            switch(error.code)
+            {
+                case "auth/invalid-email":
+                    msg = "Cet email n'est pas valide.";
+                    break;
+                case "auth/invalid-recipient-email":
+                    msg = "Cet email n'est pas valide.";
+                    break;
+                case "auth/email-already-in-use":
+                    msg = "Ce mail est déjà lié à un compte.";
+                    break;
+                case "auth/wrong-password":
+                    msg = "Le mot de passe n'est pas valide.";
+                    break;
+                case "auth/internal-error":
+                    msg = "Erreur interne au système de connexion.";
+                    break;
+                default:
+                    msg = "Une erreur inconnue est survenue.";
+                    break;
+            }
+            alert(msg);
         });
-
-        //TODO Gérer erreur création compte
-        /* 
-        *   Si erreur :
-        *       - Arrêter création ici
-        *       - Afficher message d'erreur
-        */
     }
 
     return (
         <>
+        { document.title = "Inscription - Ludhic" }
         <div className='form-body'>
             <h1 className='form-title'>Demande d'inscription</h1>
             <form onSubmit={creerDemande} className='form'>
-                <div className='form-ligne'></div>
+                <div className='form-line'></div>
 
     {/* INFORMATIONS PRINCIPALES */}
 
@@ -62,7 +96,7 @@ function FormulaireInscription(props) {
                     Si vous rencontrez un problème ou souhaitez poser une question : </p>
                     <a href="mailto:ludhic.association@gmail.fr">ludhic.association@gmail.com</a>
                 </div>
-                <h2 className='form-titre-h2'>Informations principales</h2>
+                <h2 className='form-title-h2'>Informations principales</h2>
                 
                 <div className='form-component'>
                     <label htmlFor="nom">Nom(s)* :</label>
@@ -78,7 +112,7 @@ function FormulaireInscription(props) {
                 </div>
                 <div className='form-component'>
                     <label htmlFor="mdp">Mot de passe* : </label>
-                    <input name="mdp" type="password" maxLength={128} required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.mdp}/>
+                    <input name="mdp" type="password" minLength={6} maxLength={128} required='required' onChange={event => modificationFormulaire(event, formulaire, setFormulaire)} value={formulaire.mdp}/>
                 </div>
                 <div className='form-component'>
                     <label htmlFor="formation">Rôle* : </label>
@@ -97,7 +131,7 @@ function FormulaireInscription(props) {
                     </select>
                 </div>
 
-                <p className='form-texte'>* : Champ obligatoire</p>
+                <p className='form-text'>* : Champ obligatoire</p>
                 <div className='form-component'>
                     <input name="img1" className='send-form' type="submit" value="Créer son compte" />
                 </div>

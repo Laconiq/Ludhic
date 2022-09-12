@@ -1,7 +1,7 @@
 import './App.css';
 import { useState, useEffect } from 'react';
-import { getAuth, onAuthStateChanged  } from 'firebase/auth';
-import { child, get, getDatabase, ref, push, update } from "firebase/database";
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+import { child, get, getDatabase, ref } from "firebase/database";
 import NavBar from './components/NavBar/NavBar';
 import PageJeu from './components/Jeu/PageJeu';
 //import Header from './components/Header/Header';
@@ -14,9 +14,11 @@ import FormulaireJeu from './components/Administration/FormulaireJeu'
 import FormulaireInscription from './components/Administration/FormulaireInscription'
 //import FormulaireRendu from './components/Administration/FormulaireRendu';
 //import FormulaireCreativeLab from './components/Administration/FormulaireCreativeLab';
-//import Calendrier from './components/Calendrier/Calendrier';
+import Calendrier from './components/Calendrier/Calendrier';
 import FormulaireConnexion from './components/Connexion/FormulaireConnexion';
-//import CreativeLab from './components/CreativeLab/CreativeLab';
+import CreativeLab from './components/CreativeLab/CreativeLab';
+import AdministrationListeJeux from './components/Administration/AdministrationListeJeux';
+import Compte from './components/Administration/Compte';
 
 function App() {
   const [compte, setCompte] = useState(false);
@@ -26,21 +28,49 @@ function App() {
       if(user)
       {
         get(child(ref(getDatabase()),`Compte/${user.uid}`))
-        .then((snapshot) => {
-          const tmp = snapshot.val();
-          setCompte({
-            id: user.uid,
-            admin: tmp.Admin,
-            nom: tmp.Nom,
-            prenom: tmp.Prenom,
-            formation: tmp.Formation,
-            niveau: tmp.Niveau
-          });
-        })
-        .catch(
-          //TODO gérer si erreur de requête
-        );
-        //TODO gérer si aucune info dans BDD
+        .then(
+          (snapshot) => 
+          {
+            if(snapshot.exists)
+            {
+              const tmp = snapshot.val();
+              setCompte({
+                id: user.uid,
+                admin: tmp.Admin,
+                nom: tmp.Nom,
+                prenom: tmp.Prenom,
+                formation: tmp.Formation,
+                niveau: tmp.Niveau
+              });
+            }
+            else
+            {
+              alert(`Le compte ${user.uid} est incomplet. Aucune information dans la base de données. Vous serez déconnecté par sécurité. Veuillez contacter l'administration du site.`);
+              setCompte({
+                id: false,
+                admin: false,
+                nom: false,
+                prenom: false,
+                formation: false,
+                niveau: false
+              });
+              signOut(getAuth());
+            }
+          },
+          (error) =>
+          {
+            alert('Erreur lors de la récupération des données du compte.');
+            setCompte({
+              id: false,
+              admin: false,
+              nom: false,
+              prenom: false,
+              formation: false,
+              niveau: false
+            });
+          }
+        )
+        .catch((error) => {alert(error);});
       }
       else
       {
@@ -60,27 +90,24 @@ function App() {
     if(compte) console.log("Compte :", compte);
   },[compte])
 
-  //TODO Vérification connexion de l'utilisateur
-  /*
-  * Utilisateur conservé dans State ici
-  * Passe l'utilisateur en props dans les components qui en auraient besoin
-  * (exemple : Navbar, pages qui ont besoin d'être connecté, pages réservées aux admins...)
-  */
-
   return (
     <>
-      <NavBar/>
+      <NavBar utilisateur={compte}/>
       <Routes>
         <Route path='/jeux/:id' element={<PageJeu/>}/>
         <Route path='/' element={<PageAccueil/>}/>
         <Route path='/jeux' element={<PageListeJeux/>}/>
         <Route path='/inscription' element={<FormulaireInscription/>}/>
         <Route path='/connexion' element={<FormulaireConnexion/>}/>
+        <Route path='/creative-lab' element={<CreativeLab/>}/>
+        <Route path='/calendrier' element={<Calendrier/>}/>
         
         {/* CHEMINS POUR ADMINISTRATION */}
+        <Route path='/compte' element={<Compte utilisateur={compte}/>}/>
         <Route path='/administration' element={<Administration utilisateur={compte}/>}/>
         <Route path='/administration/jeu' element={<FormulaireJeu utilisateur={compte}/>}/>
         <Route path='/administration/jeu/:id' element={<FormulaireJeu utilisateur={compte}/>}/>
+        <Route path='/administration/listeJeux' element={<AdministrationListeJeux utilisateur={compte}/>}/>
         
         {
           /*

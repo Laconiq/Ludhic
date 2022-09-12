@@ -10,3 +10,9 @@
     width: 70%; 
     height: 40rem;
 }
+
+.calendar-title {
+    margin: auto;
+    width: fit-content;
+    margin-top: 1.8rem;
+}

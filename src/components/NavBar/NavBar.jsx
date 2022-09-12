@@ -3,11 +3,12 @@ import './nav.css'
 import {AiOutlineHome} from 'react-icons/ai'
 import {AiOutlineUser} from 'react-icons/ai'
 import {RiGamepadLine} from 'react-icons/ri'
+import {BsGear} from 'react-icons/bs'
 import {AiOutlineCalendar} from 'react-icons/ai'
 import {ImLab} from 'react-icons/im'
-import {useState} from 'react'
-import {BsGear} from 'react-icons/bs'
-
+import { useState, useEffect } from 'react';
+import { estConnecte } from '../../helpers/compte'
+import { useNavigate } from 'react-router-dom'
 
 {/*
 
@@ -27,18 +28,45 @@ export default Nav
 
 */}
 
-export default class NavBar extends Component {
-  
-  render() {
-    return (
-      <nav>
+export default function Navbar(props) {
+  const [compte, setCompte] = useState(false),
+        [statusConnexion, setStatus] = useState(false),
+        [lienBoutonProfil, setLienBouton] = useState("/connexion");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setCompte(props.utilisateur);
+  },[props]);
+
+  useEffect(() => {
+    if(estConnecte(compte, false, navigate)) 
+    {
+      setStatus(true);
+      setLienBouton("/compte");
+    }
+    else
+    {
+      setStatus(false);
+      setLienBouton("/connexion");
+    }
+  },[compte]);
+
+  return (
+    <nav>
         <a href="/"><AiOutlineHome/></a>
         <a href="/jeux"><RiGamepadLine/></a>
+        <a href={lienBoutonProfil}><AiOutlineUser/></a>
         
-        <a href="/connexion"><AiOutlineUser/></a>
-        <a href="/administration"><BsGear/></a>
-      </nav>
-    )
-  }
+        {
+          statusConnexion && (
+            <>
+              <a href="/calendrier"><AiOutlineCalendar/></a>
+              <a href="/creative-lab"><ImLab/></a>
+              <a href="/administration"><BsGear/></a>
+            </>
+          )
+        }
+    </nav>
+  )
 }
 
