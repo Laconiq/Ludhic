@@ -99,7 +99,7 @@ function App() {
         <Route path='/jeux' element={<PageListeJeux/>}/>
         <Route path='/inscription' element={<FormulaireInscription/>}/>
         <Route path='/connexion' element={<FormulaireConnexion/>}/>
-        <Route path='/creative-lab' element={<CreativeLab/>}/>
+        <Route path='/creative-lab' element={<CreativeLab utilisateur={compte}/>}/>
         <Route path='/calendrier' element={<Calendrier/>}/>
         
         {/* CHEMINS POUR ADMINISTRATION */}
