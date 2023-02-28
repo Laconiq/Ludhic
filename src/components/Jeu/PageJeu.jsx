@@ -97,7 +97,7 @@ function PageJeu() {
             <div className='student-container'>
               {/* Participant récupère array d'objets avec ID du membre et son poste */}
               <section id='etudiant'>
-                <h2>Étudiants participants au projet :</h2>
+                <h2>Crédits :</h2>
                 {
                   jeu.membres && (
                     <>
