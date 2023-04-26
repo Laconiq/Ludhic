@@ -11,6 +11,4 @@ export function modificationFormulaire(event, stateVar, stateSetterFunction) {
 
     stateVar[name] = value;
     stateSetterFunction({...stateVar});
-
-    console.log(stateVar);
 }

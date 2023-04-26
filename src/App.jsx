@@ -18,6 +18,7 @@ import FormulaireConnexion from './components/Connexion/FormulaireConnexion';
 import CreativeLab from './components/CreativeLab/CreativeLab';
 import AdministrationListeJeux from './components/Administration/AdministrationListeJeux';
 import Compte from './components/Administration/Compte';
+import Bingodir from './components/Bingodir/Bingodir';
 
 function App() {
   const [compte, setCompte] = useState(false);
@@ -84,10 +85,6 @@ function App() {
       }
     });
   },[])
-
-  useEffect(() => {
-    if(compte) console.log("Compte :", compte);
-  },[compte])
 
   return (
     <> 
