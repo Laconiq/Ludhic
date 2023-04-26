@@ -4,10 +4,13 @@
 body {
   font-family: 'Raleway', sans-serif;
   background-color: red;
-  padding-left: 12rem;
-  padding-right: 12rem;
   background-color: var(--color-bg);
   padding-top: 1.2rem;
+}
+
+.body-container {
+  margin-left: 12rem;
+  margin-right: 12rem;
 }
 
 * {
@@ -99,8 +102,8 @@ a:hover {
 /* =========== MEDIA QUERIES (SMALL DEVICES) =========== */
 
 @media screen and (max-width: 600px) {
-  body {
-    padding-left: 1.2rem;
-    padding-right: 1.2rem;
+  .body-container {
+    margin-left: 1.2rem;
+    margin-right: 1.2rem;
   }
 }

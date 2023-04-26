@@ -1,4 +1,3 @@
-import './App.css';
 import { useState, useEffect } from 'react';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import { child, get, getDatabase, ref } from "firebase/database";
@@ -91,7 +90,8 @@ function App() {
   },[compte])
 
   return (
-    <>
+    <> 
+    <div className='body-container'>
       <NavBar utilisateur={compte}/>
       <Routes>
         <Route path='/jeux/:id' element={<PageJeu/>}/>
@@ -121,6 +121,7 @@ function App() {
         }
       </Routes>
       <Footer/>
+      </div>
     </>
   );
 }
