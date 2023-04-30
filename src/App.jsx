@@ -98,6 +98,7 @@ function App() {
         <Route path='/connexion' element={<FormulaireConnexion/>}/>
         <Route path='/creative-lab' element={<CreativeLab utilisateur={compte}/>}/>
         <Route path='/calendrier' element={<Calendrier/>}/>
+        <Route path='/bingodir' element={<Bingodir utilisateur={compte}/>}/>
         
         {/* CHEMINS POUR ADMINISTRATION */}
         <Route path='/compte' element={<Compte utilisateur={compte}/>}/>
