@@ -1,0 +1,29 @@
+User-agent: *
+Allow: /
+
+# Optimisations spécifiques pour Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+# Optimisations pour Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Interdire l'accès aux fichiers système
+Disallow: /_next/static/
+Disallow: /api/
+Disallow: *.json$
+
+# Autoriser explicitement les pages importantes
+Allow: /games/
+Allow: /bingodir/
+Allow: /images/
+
+# Sitemap
+Sitemap: https://ludhic.fr/sitemap.xml
+
+# Informations additionnelles
+# Site: https://ludhic.fr
+# Contact: ludhic.association@gmail.com 

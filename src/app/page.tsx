@@ -6,6 +6,7 @@ import AllGames from './components/AllGames';
 import FAQ from './components/FAQ';
 import Footer from './components/Footer';
 import Navigation from './components/Navigation';
+import SEOSchema from './components/SEOSchema';
 import gamesData from '../data/games.json';
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
 
   return (
     <>
+      <SEOSchema games={gamesData} />
       <Navigation isModalOpen={isModalOpen} />
       <main>
         <Hero />
