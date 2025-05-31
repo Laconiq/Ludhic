@@ -1,0 +1,625 @@
+[
+  {
+    "id": 1,
+    "title": "Anthares",
+    "longDescription": "Affrontez vous dans un 1vs1 en local sur un terrain piégé et dynamique. Gagnez, afin de devenir une légende du Showbiz. Anthares est un jeu de combat en 1 contre 1 en local qui met l'accent sur l'action et la stratégie. Les joueurs s'affrontent sur des terrains dynamiques remplis de pièges et d'obstacles qui changent constamment.",
+    "genres": ["Action", "3D"],
+    "year": 2024,
+    "contentFolder": "/games/anthares",
+    "imageCount": 5,
+    "hasVideo": true,
+    "customButton": {
+      "enabled": true,
+      "name": "Page Itch.io",
+      "link": "https://ludhic.fr/anthares/"
+    },
+    "credits": [
+      { "firstName": "Léa", "lastName": "JOURDET", "roles": ["Coordinator", "2D Artist", "3D Artist"] },
+      { "firstName": "Killian", "lastName": "GABAUT", "roles": ["Coordinator", "2D Artist", "3D Artist"] },
+      { "firstName": "Thomas", "lastName": "DA PRATO", "roles": ["Coordinator", "Developer", "UI Designer"] },
+      { "firstName": "Anton", "lastName": "RASTORGUEV", "roles": ["UI Designer", "VFX Artist"] },
+      { "firstName": "Nicolas", "lastName": "BIMA", "roles": ["Animator"] },
+      { "firstName": "Rayane", "lastName": "RAHAL", "roles": ["Developer"] },
+      { "firstName": "Robin", "lastName": "LEFEBVRE", "roles": ["Animator", "Game Designer", "Level Designer", "QA Tester"] },
+      { "firstName": "Léo", "lastName": "MAUREL", "roles": ["3D Artist", "VFX Artist"] },
+      { "firstName": "Naja", "lastName": "DALMAGNE", "roles": ["Game Designer", "Level Designer", "QA Tester", "VFX Artist"] },
+      { "firstName": "Shichen", "lastName": "AN", "roles": ["Sound Designer"] },
+      { "firstName": "Pierre", "lastName": "BAILEY", "roles": ["Sound Designer"] },
+      { "firstName": "Jules", "lastName": "WERLI", "roles": ["Sound Designer"] },
+      { "firstName": "Zoé", "lastName": "BLANC", "roles": ["Sound Designer"] },
+      { "firstName": "Clément", "lastName": "JOUBERT", "roles": [] },
+      { "firstName": "Adrien", "lastName": "CHADEFAUD", "roles": ["Narrative Designer"] }
+    ],
+    "featured": true
+  },
+  {
+    "id": 2,
+    "title": "Cosmostasia: a Trial of Hope",
+    "longDescription": "L'ultime épreuve pour la salvation de votre monde. Dans l'arène de la Cosmostasie, des représentants de chaque univers en déclin s'affrontent pour que le Juge leur octroie un vœu. Mais la défaite n'est jamais loin, et tous redoutent de finir leur vie sur Ceteras avec le poids de leur échec. Formez votre équipe parmi les meilleurs combattants, combinez leurs cartes et capacités pour former votre deck, et décrochez la victoire.",
+    "genres": ["Deckbuilding", "Tactique", "2D"],
+    "year": 2024,
+    "contentFolder": "/games/cosmostasia",
+    "imageCount": 5,
+    "hasVideo": true,
+    "customButton": {
+      "enabled": true,
+      "name": "Page Itch.io",
+      "link": "https://ludhic.fr/cosmostasia-a-trial-of-hope/"
+    },
+    "credits": [
+      { "firstName": "Chloé", "lastName": "BIGOT", "roles": ["Artistic Director", "Coordinator", "Game Designer", "UI Designer", "2D Artist", "VFX Artist"] },
+      { "firstName": "Raphaël", "lastName": "LESBROS", "roles": ["Coordinator", "Developer", "Game Designer", "Narrative Designer"] },
+      { "firstName": "Eleque", "lastName": "GIOAN", "roles": ["Coordinator", "Developer", "Game Designer", "Narrative Designer", "3D Artist"] },
+      { "firstName": "Chloé", "lastName": "MARIN", "roles": ["2D Artist"] },
+      { "firstName": "Clara", "lastName": "MOCERINO", "roles": ["Game Designer", "UI Designer", "2D Artist"] },
+      { "firstName": "Eliott", "lastName": "BOUCHONNET", "roles": ["Game Designer", "UI Designer", "2D Artist"] },
+      { "firstName": "Simon", "lastName": "GOSSE", "roles": ["Developer", "UX Designer"] },
+      { "firstName": "Clara", "lastName": "ARCELON", "roles": ["Sound Designer"] },
+      { "firstName": "Bastien", "lastName": "OKONSKI", "roles": ["Sound Designer"] },
+      { "firstName": "Feathers", "lastName": "CROW", "roles": ["Sound Designer"] }
+    ],
+    "featured": true
+  },
+  {
+    "id": 3,
+    "title": "Genesis",
+    "longDescription": "Au fin fond du cosmos, vous incarnez une jeune femme nommée « Bang ». À l'aide de votre bonne étoile, \"Sol\", parcourez cet univers à la recherche de vos souvenirs perdus. Des entités mystérieuses sont déterminées à stopper votre quête. Pour surmonter ces armées galactiques, libérez votre puissance et regagnez vos armes cosmiques. Par votre détermination et votre potentiel, retrouvez votre identité et votre rôle dans cet univers. Au paroxysme de votre périple, votre choix déterminera le sort du monde.",
+    "genres": ["Action", "Plateforme", "Narratif", "2D"],
+    "year": 2024,
+    "contentFolder": "/games/genesis",
+    "imageCount": 3,
+    "hasVideo": false,
+    "customButton": {
+      "enabled": true,
+      "name": "Page Itch.io",
+      "link": "https://ludhic.fr/genesis/"
+    },
+    "credits": [
+      { "firstName": "Julia", "lastName": "CORDEL", "roles": ["Artistic Director", "Game Designer", "Narrative Designer", "Product Owner", "2D Artist"] },
+      { "firstName": "Sarah", "lastName": "TREILLE", "roles": ["Narrative Designer", "Scrum Master", "2D Artist"] },
+      { "firstName": "Aurore", "lastName": "TAVERNIER", "roles": ["Artistic Director", "2D Artist"] },
+      { "firstName": "Maëva", "lastName": "SANTONI", "roles": ["Coordinator", "Narrative Designer", "2D Artist"] },
+      { "firstName": "Corentin", "lastName": "PACARD", "roles": ["Sound Designer"] },
+      { "firstName": "Zoé", "lastName": "BLANC", "roles": ["Sound Designer"] },
+      { "firstName": "Nasah", "lastName": "PETRIC", "roles": ["Sound Designer"] },
+      { "firstName": "Cody", "lastName": "NAILOR", "roles": ["Sound Designer"] },
+      { "firstName": "Lucas", "lastName": "BARREAU", "roles": ["Sound Designer"] },
+      { "firstName": "Celine", "lastName": "WANG", "roles": ["Game Designer", "Level Designer"] },
+      { "firstName": "Yiran", "lastName": "TANG", "roles": ["2D Artist"] },
+      { "firstName": "Dylan", "lastName": "LERAY", "roles": ["Game Designer", "Narrative Designer", "2D Artist"] },
+      { "firstName": "Vincent", "lastName": "PAZIOP", "roles": ["Developer"] },
+      { "firstName": "Greg", "lastName": "", "roles": ["Developer"] }
+    ],
+    "featured": true
+  },
+  {
+    "id": 4,
+    "title": "Hebald Forest",
+    "longDescription": "Hebald Forest est un jeu narratif dans lequel on incarne Yuri, un jeune enfant vivant dans une maisonnette près d'une forêt. Un soir alors qu'il fouinait dans la bibliothèque de sa défunte mère, Yuri aperçoit un esprit fait de lumière à la silhouette d'un renard par la fenêtre. Intrigué, l'enfant le poursuit et se lance dans une aventure qui va le mener à la découverte de la légende d'Hebald. Avec l'aide du carnet de sa mère, Yuri en apprendra d'avantage sur cette légende.",
+    "genres": ["Action", "Aventure", "Narratif", "3D"],
+    "year": 2024,
+    "contentFolder": "/games/hebald-forest",
+    "imageCount": 5,
+    "hasVideo": false,
+    "customButton": {
+      "enabled": false,
+      "name": "",
+      "link": ""
+    },
+    "credits": [
+      { "firstName": "Donia", "lastName": "Amimi", "roles": ["Artistic Director", "Coordinator", "Game Designer", "Level Designer", "Narrative Designer", "3D Artist"] },
+      { "firstName": "Vinícius", "lastName": "Mattei", "roles": ["Coordinator", "Developer", "Game Designer", "Level Designer", "3D Artist"] },
+      { "firstName": "Nadir", "lastName": "Kara", "roles": ["Coordinator", "Developer", "Game Designer", "Narrative Designer", "UI Designer", "UX Designer", "2D Artist"] },
+      { "firstName": "Amir", "lastName": "Snouci", "roles": ["Developer", "Game Designer"] },
+      { "firstName": "Kalliopi", "lastName": "Chatzipanagioti", "roles": ["Level Designer", "VFX Artist"] },
+      { "firstName": "Hassane", "lastName": "Messaoudi", "roles": ["UI Designer", "UX Designer", "2D Artist", "3D Artist"] },
+      { "firstName": "Laurie", "lastName": "Herve-Desmas", "roles": ["Level Designer", "3D Artist"] },
+      { "firstName": "Sirine", "lastName": "Bouaziz", "roles": ["3D Artist"] },
+      { "firstName": "Corentin", "lastName": "Maris", "roles": ["Developer", "Game Designer", "Level Designer"] },
+      { "firstName": "Jessy", "lastName": "Monrocq", "roles": ["Game Designer", "Level Designer"] },
+      { "firstName": "Amina", "lastName": "Achour", "roles": ["2D Artist"] },
+      { "firstName": "Hamadi", "lastName": "Daghar", "roles": ["Developer"] },
+      { "firstName": "Mohamed", "lastName": "Bouchengour", "roles": ["Developer"] },
+      { "firstName": "Nedjmi", "lastName": "Barkat", "roles": [] },
+      { "firstName": "Jordan", "lastName": "Sintes", "roles": ["Sound Designer"] },
+      { "firstName": "Bassel", "lastName": "Hamadeh", "roles": ["Sound Designer"] },
+      { "firstName": "Jules", "lastName": "Nedel", "roles": ["Sound Designer"] },
+      { "firstName": "Fanny", "lastName": "Weber", "roles": ["Sound Designer"] },
+      { "firstName": "Yann", "lastName": "Plançon", "roles": ["Sound Designer"] }
+    ],
+    "featured": true
+  },
+  {
+    "id": 5,
+    "title": "Somnia",
+    "longDescription": "Au cœur de l'esprit de l'enfant dont vous incarnez l'ami imaginaire, Hope, luttez contre les cauchemars et les ténèbres qui se répandent afin de restaurer ses rêves et de libérer son monde intérieur de ses traumatismes. Dans cette démo, frayez-vous un chemin à travers la tour de sa mémoire pour amorcer l'aventure de Hope et lutter contre les machinations du Croquemitaine.",
+    "genres": ["Aventure", "Plateforme", "Metroidvania", "Narratif", "2D"],
+    "year": 2024,
+    "contentFolder": "/games/somnia",
+    "imageCount": 5,
+    "hasVideo": false,
+    "customButton": {
+      "enabled": true,
+      "name": "Page Itch.io",
+      "link": "https://chaoticdreams.itch.io/somnia"
+    },
+    "credits": [
+      { "firstName": "Dam", "lastName": "Fremy/Serac", "roles": ["Artistic Director", "Executive Producer", "Game Designer", "Level Designer", "Narrative Designer"] },
+      { "firstName": "Adil", "lastName": "Chaouch", "roles": ["Developer", "Executive Producer", "Game Designer", "Technical Director"] },
+      { "firstName": "Clem", "lastName": "Hartmann", "roles": ["Artistic Director", "Executive Producer", "Narrative Designer", "2D Artist"] },
+      { "firstName": "Mickaël", "lastName": "Bienaime", "roles": ["Level Designer", "2D Artist"] },
+      { "firstName": "Audrina", "lastName": "Malet", "roles": ["Community Manager"] },
+      { "firstName": "Raphaël", "lastName": "Ykhlef", "roles": ["Developer", "UI Designer", "UX Designer", "VFX Artist"] },
+      { "firstName": "Nelia", "lastName": "Salah", "roles": ["UI Designer", "2D Artist"] },
+      { "firstName": "Hocine", "lastName": "Mammasse", "roles": ["2D Artist"] },
+      { "firstName": "Alan", "lastName": "Siviniant", "roles": ["Game Designer", "Level Designer", "Narrative Designer", "QA Tester"] },
+      { "firstName": "Victor", "lastName": "Archimede", "roles": ["Developer", "Game Designer", "Level Designer", "UI Designer", "UX Designer"] },
+      { "firstName": "Louis", "lastName": "Vitteaud", "roles": ["Sound Designer"] },
+      { "firstName": "Lucas", "lastName": "Benevaut", "roles": ["Sound Designer"] },
+      { "firstName": "Noah", "lastName": "J. Morris", "roles": ["Sound Designer"] },
+      { "firstName": "Raphaël", "lastName": "Chimene", "roles": ["Sound Designer"] },
+      { "firstName": "Stefany", "lastName": "Rodriguez", "roles": ["Sound Designer"] }
+    ],
+    "featured": false
+  },
+  {
+    "id": 6,
+    "title": "Aeon",
+    "longDescription": "Aeon est un jeu d'action-aventure en 3D, vue à la 3e personne, prenant place dans un monde de dark fantasy en pleine Apocalypse. Vous incarnez Lily, une jeune fille dont le frère est enfermé dans un Temple divin hors du temps. Afin de le délivrer, elle va devoir franchir plusieurs épreuves, résoudre des énigmes et se battre, tout en étant guidée par une voix mystérieuse. Au terme de son périple, elle devra faire un choix douloureux mais crucial entre l'avenir du monde et le sien.",
+    "genres": ["Action", "Aventure", "Narratif", "3D"],
+    "year": 2023,
+    "contentFolder": "/games/aeon",
+    "imageCount": 4,
+    "hasVideo": true,
+    "customButton": {
+      "enabled": true,
+      "name": "Site Web",
+      "link": "https://aeonmajic.github.io/AeonWebsite/"
+    },
+    "credits": [
+      { "firstName": "Quentin", "lastName": "GARNIER", "roles": ["Game Designer", "Level Designer", "Narrative Designer", "Product Owner"] },
+      { "firstName": "Brice", "lastName": "GRAULIER", "roles": ["Developer", "Game Designer", "Level Designer", "Scrum Master"] },
+      { "firstName": "Arnaud", "lastName": "LYSENSOONE BIJOU", "roles": ["Game Designer", "Narrative Designer"] },
+      { "firstName": "Mélanie", "lastName": "GALLARDO", "roles": ["3D Artist"] },
+      { "firstName": "Thomas", "lastName": "SARROCHE", "roles": ["3D Artist"] },
+      { "firstName": "Adil", "lastName": "CHAOUCH", "roles": ["Developer"] },
+      { "firstName": "Clem", "lastName": "HARTMANN", "roles": ["UI Designer", "2D Artist"] },
+      { "firstName": "Mickaël", "lastName": "BIENAIMÉ", "roles": ["2D Artist", "3D Artist"] },
+      { "firstName": "Syphax", "lastName": "HADRI", "roles": ["Sound Designer"] },
+      { "firstName": "Louis", "lastName": "VITTEAUD", "roles": ["Sound Designer"] },
+      { "firstName": "Noah", "lastName": "MORRIS", "roles": ["Sound Designer"] },
+      { "firstName": "Oscar", "lastName": "VILLETTE", "roles": ["Developer"] }
+    ],
+    "featured": false
+  },
+  {
+    "id": 7,
+    "title": "Anamnesis",
+    "longDescription": "Anamnesis est un conte interactif en réalité virtuelle qui visite les thèmes de l'oubli et de la transmission dans lequel vous incarnerez un personnage isolé qui entamera un voyage métaphorique en lui-même.",
+    "genres": ["VR", "3D", "Narratif"],
+    "year": 2023,
+    "contentFolder": "/games/anamnesis",
+    "imageCount": 4,
+    "hasVideo": true,
+    "customButton": {
+      "enabled": false,
+      "name": "",
+      "link": ""
+    },
+    "credits": [
+      { "firstName": "Nicolas", "lastName": "DORE", "roles": ["Coordinator"] },
+      { "firstName": "Alexandre", "lastName": "BEN SOUSSAN", "roles": ["Coordinator", "Developer", "Game Designer"] },
+      { "firstName": "Donia", "lastName": "AMINI", "roles": ["Level Designer", "3D Artist"] },
+      { "firstName": "Vinicius", "lastName": "MATTEI", "roles": ["Developer", "Level Designer"] },
+      { "firstName": "Audrina", "lastName": "MALET", "roles": ["Level Designer", "Narrative Designer"] },
+      { "firstName": "Kalliopi", "lastName": "CHATZIPANAGIOTI", "roles": ["3D Artist"] },
+      { "firstName": "Nasha", "lastName": "PETRIC", "roles": ["Sound Designer"] },
+      { "firstName": "Jordan", "lastName": "SINTES", "roles": ["Sound Designer"] },
+      { "firstName": "Shiho", "lastName": "YAMADA", "roles": ["Sound Designer"] }
+    ],
+    "featured": false
+  },
+  {
+    "id": 8,
+    "title": "Atone",
+    "longDescription": "Atone est un jeu de rythme en vue à la première personne avec une composante narrative. Vous allez devoir répondre à une série d'obstacles vous barrant la route et envoyés par les Sages, des entités divines ayant la main mise sur le Diapason, simulation dont ils vous ont fait prisonnier. La musique qui était votre fardeau devient votre arme. Ne vous arrêtez pas, Dissonant, car la liberté se cache au bout du tunnel.",
+    "genres": ["Action", "Narratif", "Rythme", "3D"],
+    "year": 2023,
+    "contentFolder": "/games/atone",
+    "imageCount": 4,
+    "hasVideo": true,
+    "customButton": {
+      "enabled": true,
+      "name": "Page Itch.io",
+      "link": "https://atone-master-hic.itch.io/atone"
+    },
+    "credits": [
+      { "firstName": "Matis", "lastName": "ALEXANDRE", "roles": ["Sound Designer"] },
+      { "firstName": "Victor", "lastName": "BASIER", "roles": ["Sound Designer"] },
+      { "firstName": "Lucas", "lastName": "BENEVAUT", "roles": ["Sound Designer"] },
+      { "firstName": "Chloé", "lastName": "BIGOT", "roles": ["2D Artist", "3D Artist"] },
+      { "firstName": "Héba", "lastName": "BOUZIDI", "roles": [] },
+      { "firstName": "Tristan", "lastName": "CHARIAL", "roles": ["Developer", "Game Designer"] },
+      { "firstName": "Thomas", "lastName": "DA-PRATO", "roles": ["Developer", "Sound Designer"] },
+      { "firstName": "Théo", "lastName": "GUILLONNEAU", "roles": [] },
+      { "firstName": "Bassel", "lastName": "HAMADEH", "roles": ["Sound Designer"] },
+      { "firstName": "Joan", "lastName": "IARIA", "roles": ["Narrative Designer", "Sound Designer"] },
+      { "firstName": "Anton", "lastName": "RASTORGUEV", "roles": ["Game Designer", "Level Designer", "Narrative Designer"] },
+      { "firstName": "Loïc", "lastName": "THIBAUT", "roles": ["Coordinator", "Narrative Designer", "UI Designer", "UX Designer", "2D Artist", "3D Artist"] },
+      { "firstName": "Martin", "lastName": "VALLEIX", "roles": ["Coordinator", "Game Designer", "Level Designer"] },
+      { "firstName": "Julien", "lastName": "ZAHND", "roles": ["Developer", "Narrative Designer"] }
+    ],
+    "featured": false
+  },
+  {
+    "id": 9,
+    "title": "Nora's Mansion",
+    "longDescription": "Aidez Nora à retrouver la mémoire en la guidant vers des indices à travers l'orphelinat. Mais attention la directrice rôde dans les parages, cachez vous pour lui échapper et ne vous faites surtout pas attraper car elle n'a pas l'intention de vous laisser découvrir la vérité.",
+    "genres": ["Horreur", "Puzzle", "3D", "Narratif"],
+    "year": 2023,
+    "contentFolder": "/games/noras-mansion",
+    "imageCount": 2,
+    "hasVideo": false,
+    "customButton": {
+      "enabled": false,
+      "name": "",
+      "link": ""
+    },
+    "credits": [
+      { "firstName": "Nicolas", "lastName": "BIMA", "roles": ["Developer", "Level Designer", "Narrative Designer"] },
+      { "firstName": "Zoé", "lastName": "BLANC", "roles": ["Sound Designer"] },
+      { "firstName": "Julia", "lastName": "CORDEL", "roles": ["Level Designer", "Narrative Designer", "UI Designer", "2D Artist", "3D Artist"] },
+      { "firstName": "Eleque", "lastName": "GIOAN", "roles": ["Developer", "Level Designer", "Narrative Designer"] },
+      { "firstName": "Léa", "lastName": "JOURDET", "roles": ["Narrative Designer", "2D Artist", "3D Artist"] },
+      { "firstName": "Nadir", "lastName": "KARA", "roles": ["Developer", "Level Designer", "Narrative Designer"] },
+      { "firstName": "Louis", "lastName": "KIEGER", "roles": ["Sound Designer"] },
+      { "firstName": "Ludivine", "lastName": "MARTIN", "roles": ["Game Designer", "Level Designer", "Product Owner", "2D Artist", "3D Artist"] },
+      { "firstName": "François", "lastName": "MARTIN", "roles": ["Developer"] },
+      { "firstName": "Corentin", "lastName": "PACARD", "roles": ["Sound Designer"] },
+      { "firstName": "Cloé", "lastName": "RICHARD", "roles": ["Game Designer", "Level Designer", "Scrum Master", "2D Artist", "3D Artist"] },
+      { "firstName": "Raphaël", "lastName": "YKHLEF", "roles": ["Developer", "Level Designer", "Narrative Designer"] },
+      { "firstName": "Feathers", "lastName": "CROW", "roles": ["Sound Designer"] }
+    ],
+    "featured": false
+  },
+  {
+    "id": 10,
+    "title": "Towards the Unknown",
+    "longDescription": "Dans Towards The Unknown, plongez dans la Faille et partez à la découverte des différents mystères qu'elle abrite. Mais attention, quelque chose d'étrange émane des profondeurs. Entre créatures mystiques et artefacts légendaires, vous allez devoir faire preuve de courage et de stratégie au cours de cette expédition. Mourez, passez le flambeau à un autre explorateur en direction de l'inconnu.",
+    "genres": ["Rogue Like", "Tactique", "3D", "Isométrique"],
+    "year": 2023,
+    "contentFolder": "/games/towards-the-unknown",
+    "imageCount": 4,
+    "hasVideo": true,
+    "customButton": {
+      "enabled": true,
+      "name": "Jouer gratuitement sur Steam",
+      "link": "https://store.steampowered.com/app/2232100/Towards_the_Unknown/"
+    },
+    "credits": [
+      { "firstName": "Jorick", "lastName": "REGOTTAZ", "roles": ["Artistic Director", "Level Designer", "Narrative Designer", "UI Designer", "UX Designer", "2D Artist"] },
+      { "firstName": "Bastien", "lastName": "OKONSKI", "roles": ["Developer", "Game Designer", "Level Designer", "Sound Designer"] },
+      { "firstName": "Lucas", "lastName": "DANSAC", "roles": ["UI Designer", "UX Designer", "VFX Artist"] },
+      { "firstName": "Kilian", "lastName": "GABAUT", "roles": ["Level Designer", "2D Artist", "3D Artist"] },
+      { "firstName": "Raphaël", "lastName": "LESBROS", "roles": ["Developer", "Game Designer", "Narrative Designer"] },
+      { "firstName": "Pierre", "lastName": "BIGAUD", "roles": ["Game Designer", "Level Designer"] },
+      { "firstName": "Hlafira", "lastName": "BOSOVA", "roles": ["2D Artist", "3D Artist"] },
+      { "firstName": "Feathers", "lastName": "CROW", "roles": ["Sound Designer"] },
+      { "firstName": "Loïs", "lastName": "DUPLAIN", "roles": ["Developer"] },
+      { "firstName": "Pierre", "lastName": "HEBINGER", "roles": ["Developer"] }
+    ],
+    "featured": false
+  },
+  {
+    "id": 11,
+    "title": "Dernière Lueur",
+    "longDescription": "Dernière Lueur s'inscrit à mi-chemin entre science fiction et fantasy. Votre but ? Sortir d'une ancienne portion de la ville devenue alors une décharge et atteindre la gare pour découvrir les étages supérieurs. Pour cela vous devrez explorer et résoudre des énigmes en utilisant votre lumière. La direction artistique est grandement inspiré d'un courant d'architecture nommé le brutalisme se caractérisant par un design froid, minimaliste et par l'utilisation de matériaux dit « brut » tel que le béton.",
+    "genres": ["Puzzle", "Narratif", "3D"],
+    "year": 2022,
+    "contentFolder": "/games/derniere-lueur",
+    "imageCount": 4,
+    "hasVideo": true,
+    "customButton": {
+      "enabled": false,
+      "name": "",
+      "link": ""
+    },
+    "credits": [
+      { "firstName": "Léo", "lastName": "RIBA", "roles": ["Artistic Director", "Product Owner", "Sound Designer"] },
+      { "firstName": "Yann", "lastName": "GREIVELDINGER", "roles": ["Game Designer", "Level Designer"] },
+      { "firstName": "Tristan", "lastName": "CHARIAL", "roles": ["Game Designer", "Level Designer"] },
+      { "firstName": "Jorick", "lastName": "REGOTTAZ", "roles": ["Game Designer", "Level Designer"] },
+      { "firstName": "Théo", "lastName": "BENAZET", "roles": ["Artistic Director", "2D Artist", "3D Artist"] },
+      { "firstName": "Benoît", "lastName": "RIVIÈRE", "roles": ["3D Artist"] },
+      { "firstName": "Mélanie", "lastName": "GALLARDO", "roles": ["3D Artist"] },
+      { "firstName": "Clémence", "lastName": "GILLET", "roles": ["Narrative Designer"] },
+      { "firstName": "Alexandre", "lastName": "BEN SOUSSAN", "roles": ["Narrative Designer"] },
+      { "firstName": "Joan", "lastName": "IARIA", "roles": ["Narrative Designer"] },
+      { "firstName": "Anthony", "lastName": "HUREZ", "roles": ["Developer"] },
+      { "firstName": "Jean", "lastName": "DECK", "roles": ["Developer"] }
+    ],
+    "featured": false
+  },
+  {
+    "id": 12,
+    "title": "La Nouvelle",
+    "longDescription": "La Nouvelle est un jeu de plateforme narratif, 2D sur PC où le joueur incarne Enola une jeune collégienne harcelée qui, avec l'aide de Lucie, une fille de son âge partageant son corps, va lutter contre ses angoisses et ses peurs et va tenter de réaliser son rêve : se présenter aux auditions du club de théâtre.",
+    "genres": ["Plateforme", "Narratif", "2D"],
+    "year": 2022,
+    "contentFolder": "/games/la-nouvelle",
+    "imageCount": 4,
+    "hasVideo": true,
+    "customButton": {
+      "enabled": true,
+      "name": "Accédez au site de La Nouvelle",
+      "link": "https://lanouvelle-lejeu.fr/"
+    },
+    "credits": [
+      { "firstName": "Vivien", "lastName": "TAUPIN", "roles": ["Game Designer", "Narrative Designer", "Product Owner"] },
+      { "firstName": "Linh", "lastName": "TRAN", "roles": ["Game Designer", "Sound Designer", "Scrum Master"] },
+      { "firstName": "Thibault", "lastName": "MANSIER", "roles": ["Developer", "2D Artist"] },
+      { "firstName": "Arnaud", "lastName": "LYSENSOONE BIJOU", "roles": ["Game Designer", "Narrative Designer"] },
+      { "firstName": "Martin", "lastName": "VALLEIX", "roles": ["Developer", "Game Designer", "2D Artist"] },
+      { "firstName": "Nicolas", "lastName": "DORE", "roles": ["UI Designer", "2D Artist"] },
+      { "firstName": "Victor", "lastName": "PRADAL", "roles": ["2D Artist"] },
+      { "firstName": "Emma", "lastName": "LEMONNIER", "roles": ["2D Artist"] },
+      { "firstName": "Bastien", "lastName": "OKONSKI", "roles": ["Level Designer"] },
+      { "firstName": "Julien", "lastName": "ZAHND", "roles": ["Developer", "Level Designer"] },
+      { "firstName": "Brice", "lastName": "GRAULIER", "roles": ["Developer", "Game Designer"] },
+      { "firstName": "Mehdi", "lastName": "MOUSSA", "roles": ["Developer"] },
+      { "firstName": "Valdino", "lastName": "AMOESI", "roles": ["Sound Designer"] },
+      { "firstName": "Angela", "lastName": "PICATRE", "roles": ["2D Artist"] },
+      { "firstName": "Célia", "lastName": "FAUROUX", "roles": [] }
+    ],
+    "featured": false
+  },
+  {
+    "id": 13,
+    "title": "Sefar",
+    "longDescription": "L'histoire prend place à Abalessa, un monde dominé par les méga-corporations. Au coeur de la capitale Cirta, le joueur incarne Mastinas, un développeur informatique qui enquête sur la disparition mysterieuse de sa femme Sirine. Lors de ses recherches, il découvre que AXXAM, l'entreprise qui l'emploie, manipule les comportements de la population en altérant leurs émotions, via des puces implantées dans leurs corps. Intrigué par cette révélation et surtout par l'opportunité qu'elle lui offre, Mastinas est tenté de s'en servir pour retrouver son épouse, mais quelles seront les conséquences ?",
+    "genres": ["Narratif", "3D"],
+    "year": 2022,
+    "contentFolder": "/games/sefar",
+    "imageCount": 3,
+    "hasVideo": false,
+    "customButton": {
+      "enabled": false,
+      "name": "",
+      "link": ""
+    },
+    "credits": [
+      { "firstName": "Hachemi", "lastName": "ZERARI", "roles": ["Artistic Director", "2D Artist"] },
+      { "firstName": "Mehenni", "lastName": "AYOUAZ", "roles": ["Developer", "Level Designer", "Narrative Designer"] },
+      { "firstName": "Yacine", "lastName": "IKHLEF", "roles": ["Developer", "Level Designer", "Narrative Designer"] },
+      { "firstName": "Song", "lastName": "XUE", "roles": ["3D Artist"] },
+      { "firstName": "Cloé", "lastName": "RICHARD", "roles": ["3D Artist"] },
+      { "firstName": "Ludivine", "lastName": "MARTIN", "roles": ["3D Artist"] },
+      { "firstName": "Quentin", "lastName": "GARNIER", "roles": ["Developer", "Narrative Designer"] },
+      { "firstName": "Théo", "lastName": "GUILLONNEAU", "roles": [] },
+      { "firstName": "Syphax", "lastName": "HADRI", "roles": ["Sound Designer"] },
+      { "firstName": "Clémence", "lastName": "GILLET", "roles": ["Narrative Designer"] }
+    ],
+    "featured": false
+  },
+  {
+    "id": 14,
+    "title": "The Morrígan",
+    "longDescription": "Répondant à l'Appel de la déesse Morrígan, une Jeune Celte s'aventure dans la Forêt de Danann pour faire face à sa corruption et sauver son peuple. Lors de son aventure, la Jeune Celte affrontera les Abominations de la Forêt, révélant alors ses secrets ainsi que les véritables intentions de la Morrígan.",
+    "genres": ["Action", "3D"],
+    "year": 2022,
+    "contentFolder": "/games/the-morrigan",
+    "imageCount": 4,
+    "hasVideo": false,
+    "customButton": {
+      "enabled": true,
+      "name": "Télécharger le jeu sur Itch.io",
+      "link": "https://eddyboreal.itch.io/the-morrigan"
+    },
+    "credits": [
+      { "firstName": "Eddy", "lastName": "ABADA", "roles": ["Narrative Designer", "Product Owner"] },
+      { "firstName": "Matis", "lastName": "ALEXANDRE", "roles": ["Sound Designer"] },
+      { "firstName": "Manon", "lastName": "BERTA", "roles": ["2D Artist", "3D Artist"] },
+      { "firstName": "Florian", "lastName": "BOIREAU", "roles": ["Developer", "VFX Artist"] },
+      { "firstName": "Lucas", "lastName": "DANSAC", "roles": ["UI Designer", "VFX Artist"] },
+      { "firstName": "Mikael", "lastName": "FRUCTUOSO", "roles": ["Developer", "Scrum Master"] },
+      { "firstName": "Guillaume", "lastName": "LAURENT", "roles": ["Level Designer"] },
+      { "firstName": "Lilian", "lastName": "ROCHOTTE", "roles": ["Game Designer", "Level Designer"] },
+      { "firstName": "Thomas", "lastName": "SARROCHE", "roles": ["3D Artist"] },
+      { "firstName": "Loïc", "lastName": "THIBAUT", "roles": ["Level Designer", "2D Artist", "3D Artist"] }
+    ],
+    "featured": false
+  },
+  {
+    "id": 15,
+    "title": "Anirya et le monde inversé",
+    "longDescription": "Anirya est un metroidvania en 2D mettant l'emphase sur la narration et son ancrage dans la mythologie berbère. Dans notre monde tout est à sa place, mais ce n'est guère le cas dans le monde inversé. Des arbres y prennent racines dans les nuages, des poissons y nagent dans des océans de sable, et des créatures invraisemblables y demeurent. Une jeune fille du nom d'Anirya vivait paisiblement dans un village berbère, jusqu'au jour où elle fit la rencontre d'Alim. Un feu follet qui éveilla en elle des pouvoirs insoupçonnés.",
+    "genres": ["Action", "Plateforme", "Narratif", "2D"],
+    "year": 2021,
+    "contentFolder": "/games/anirya",
+    "imageCount": 3,
+    "hasVideo": true,
+    "customButton": {
+      "enabled": true,
+      "name": "Jouer sur Itch.io",
+      "link": "https://eddyboreal.itch.io/anirya"
+    },
+    "credits": [
+      { "firstName": "Yanis", "lastName": "OUAGLAL", "roles": ["Product Owner", "2D Artist"] },
+      { "firstName": "Cedric", "lastName": "LARROSA", "roles": ["Developer", "Scrum Master"] },
+      { "firstName": "Hachemi", "lastName": "ZERRARI", "roles": ["2D Artist"] },
+      { "firstName": "Théo", "lastName": "BENAZET", "roles": ["2D Artist"] },
+      { "firstName": "Syndia", "lastName": "RICHARD", "roles": ["UI Designer", "UX Designer"] },
+      { "firstName": "Eddy", "lastName": "ABADA", "roles": ["Developer", "Game Designer", "Level Designer"] },
+      { "firstName": "Mikael", "lastName": "FRUCTUOSO", "roles": ["Developer", "Game Designer", "Level Designer"] },
+      { "firstName": "Mehenni", "lastName": "AYOUAZ", "roles": ["Narrative Designer"] },
+      { "firstName": "Yacine", "lastName": "IKHLEF", "roles": ["Narrative Designer"] },
+      { "firstName": "Valentin", "lastName": "MARSHAL", "roles": ["Sound Designer"] }
+    ],
+    "featured": false
+  },
+  {
+    "id": 16,
+    "title": "God.S",
+    "longDescription": "Un jeu à mi-chemin entre Point&Click et Visual Novel se déroulant dans un univers divinement absurde. Dans un univers divin à l'aspect paisible et où cohabitent de nombreuses mythologies, le meurtre d'un dieu immortel au sein de la plus haute sphère politique suscite mystères et curiosités. Vous incarnez Ilana, une jeune déesse propulsée au cœur de l'enquête et, armée de votre pouvoir de changeforme, vous devrez rencontrer et interroger des divinités plus loufoques les unes que les autres, afin de découvrir la vérité sur la mort de votre père adoptif.",
+    "genres": ["Puzzle", "Narratif", "2D", "Isométrique"],
+    "year": 2021,
+    "contentFolder": "/games/god-s",
+    "imageCount": 4,
+    "hasVideo": true,
+    "customButton": {
+      "enabled": false,
+      "name": "",
+      "link": ""
+    },
+    "credits": [
+      { "firstName": "Charlotte", "lastName": "DEVILLE-CAVELLIN", "roles": ["Narrative Designer", "Product Owner"] },
+      { "firstName": "Benjamin", "lastName": "CICERON", "roles": ["Sound Designer", "Scrum Master"] },
+      { "firstName": "A.", "lastName": "R.", "roles": ["Developer"] },
+      { "firstName": "Jean", "lastName": "DECK", "roles": ["Developer"] },
+      { "firstName": "Benoît", "lastName": "RIVIÈRE", "roles": ["2D Artist"] },
+      { "firstName": "Léo", "lastName": "RIBA", "roles": ["2D Artist"] },
+      { "firstName": "Clémence", "lastName": "GILLET", "roles": ["Narrative Designer"] },
+      { "firstName": "Vivien", "lastName": "TAUPIN", "roles": ["Narrative Designer"] },
+      { "firstName": "Alix", "lastName": "CHUVIN", "roles": [] }
+    ],
+    "featured": false
+  },
+  {
+    "id": 17,
+    "title": "Snap",
+    "longDescription": "SNAP est un projet étudiant proposant un concept unique où le joueur peut \"snapper\" à sa guise et voyager entre trois différentes dimensions. Chacune d'entre elle est une version différente de la société et présente la ville de Watchtown sous trois différents angles. Poursuivi par des forces obscures, le joueur doit s'échapper de la ville de Watchtown en s'aidant de ses pouvoirs dimensionnels et en franchissant des obstacles. Mr. X, pouvoirs dimensionnels et policiers assassins… What the hell is going on here!?",
+    "genres": ["Puzzle", "Plateforme", "2D"],
+    "year": 2021,
+    "contentFolder": "/games/snap",
+    "imageCount": 4,
+    "hasVideo": true,
+    "customButton": {
+      "enabled": true,
+      "name": "Jouer sur Itch.io",
+      "link": "https://raion-eru.itch.io/snap"
+    },
+    "credits": [
+      { "firstName": "Théo", "lastName": "CAILLET", "roles": ["Product Owner"] },
+      { "firstName": "Lionel", "lastName": "BEZAMANIFARY", "roles": ["Developer", "Scrum Master", "2D Artist"] },
+      { "firstName": "Yann", "lastName": "GREIVELDINGER", "roles": ["Narrative Designer"] },
+      { "firstName": "Anthony", "lastName": "HUREZ", "roles": ["Developer"] },
+      { "firstName": "Lilian", "lastName": "ROCHOTTE", "roles": ["Game Designer"] },
+      { "firstName": "Manon", "lastName": "BERTA", "roles": ["2D Artist"] },
+      { "firstName": "Thibault", "lastName": "MANSIER", "roles": ["2D Artist"] },
+      { "firstName": "Liamine", "lastName": "DJELALI", "roles": ["Sound Designer"] },
+      { "firstName": "Valdino", "lastName": "AMOESI", "roles": ["Sound Designer"] },
+      { "firstName": "Sabine", "lastName": "HAMAI", "roles": ["Developer"] }
+    ],
+    "featured": false
+  },
+  {
+    "id": 18,
+    "title": "Cafardage Arena",
+    "longDescription": "Bienvenue dans l'arène des cafards ! Cafardage Arena est un jeu de survie coopératif mettant en scène 3 combattants de cafards coincés dans une arène. Cette zone de combat présente des cafards qui semblent vouloir s'attaquer aux héros pour divertir leur public. Les héros devront se battre pour leur survie et seront équipés de divers couteaux et pistolets pour repousser l'invasion. Pouvez-vous survivre à l'invasion des cafards?",
+    "genres": ["Action", "2D"],
+    "year": 2020,
+    "contentFolder": "/games/cafardage-arena",
+    "imageCount": 4,
+    "hasVideo": true,
+    "customButton": {
+      "enabled": true,
+      "name": "Jouer sur Itch.io",
+      "link": "https://raion-eru.itch.io/cafardage-arena"
+    },
+    "credits": [
+      { "firstName": "Lionel", "lastName": "BEZAMANIFARY", "roles": ["Developer"] },
+      { "firstName": "Théo", "lastName": "CAILLET", "roles": ["2D Artist"] },
+      { "firstName": "Liamine", "lastName": "DJELALI", "roles": ["2D Artist"] }
+    ],
+    "featured": false
+  },
+  {
+    "id": 19,
+    "title": "Light Before Birth",
+    "longDescription": "Light Before Birth est un jeu vidéo innovant, à la fois jeu de plateformes et film interactif, ayant pour ambition de délivrer un message simple : la vie intra-utérine est influencée constamment par ce qu'il se passe à l'extérieur du ventre de la mère, et les conséquences de cela se mesurent encore bien après la naissance.",
+    "genres": ["Plateforme", "Narratif", "2D"],
+    "year": 2017,
+    "contentFolder": "/games/light-before-birth",
+    "imageCount": 2,
+    "hasVideo": false,
+    "customButton": {
+      "enabled": false,
+      "name": "",
+      "link": ""
+    },
+    "credits": [
+      { "firstName": "Baptiste", "lastName": "ELLEQUAIN", "roles": ["Creative Director", "Producer"] },
+      { "firstName": "Marvin", "lastName": "AUBIN", "roles": ["Manager"] },
+      { "firstName": "Jean-Baptiste", "lastName": "DUMONT", "roles": ["2D Artist"] },
+      { "firstName": "Julian", "lastName": "TEILLEUX", "roles": ["Game Designer", "Level Designer"] },
+      { "firstName": "Axel", "lastName": "LE COAT", "roles": ["Developer"] },
+      { "firstName": "Regis", "lastName": "PARPEX", "roles": ["Developer"] },
+      { "firstName": "Damien", "lastName": "CLEMENCEAU", "roles": ["Developer"] },
+      { "firstName": "Gregory", "lastName": "MEYNAUD", "roles": ["Community Manager"] }
+    ],
+    "featured": false
+  },
+  {
+    "id": 20,
+    "title": "Project Astra: Chronos Terminal",
+    "longDescription": "En 2052, la planète est ravagée par la pollution. L'agence ASTRA part à la conquête de l'espace pour trouver un nouveau refuge. C'est alors qu'elle perd tout contact avec la station spatiale de chronos. Vous devez vous y rendre pour rétablir les communications, réparer la station et découvrir le mystère de la disparition de l'équipage.",
+    "genres": ["Puzzle", "Narratif", "VR", "3D"],
+    "year": 2025,
+    "contentFolder": "/games/astra",
+    "imageCount": 5,
+    "hasVideo": false,
+    "customButton": {
+      "enabled": false,
+      "name": "",
+      "link": ""
+    },
+    "credits": [
+      { "firstName": "Jessy", "lastName": "MONROCQ", "roles": ["Chef de Projet", "Technical Game Designer"] },
+      { "firstName": "Corentin", "lastName": "MARIS", "roles": ["Lead Développeur"] },
+      { "firstName": "Laurie", "lastName": "HERVÉ-DESMAS", "roles": ["Lead Graphiste 3D", "VFX Artiste"] },
+      { "firstName": "Maëva", "lastName": "SANTONI", "roles": ["Lead Narrative Designer", "Project Manager", "Doubleuse"] },
+      { "firstName": "Aurore", "lastName": "TAVERNIER", "roles": ["Lead Project Manager", "Narrative Designer", "Artiste 2D"] },
+      { "firstName": "Adrien", "lastName": "CHATEAU", "roles": ["Level Designer", "Game Designer", "Narrative Designer", "Doubleur"] },
+      { "firstName": "Amina", "lastName": "ACHOUR", "roles": ["Artiste 2D", "Graphiste 3D"] },
+      { "firstName": "Yann", "lastName": "PLANÇON", "roles": ["Lead Compositeur"] },
+      { "firstName": "Cody", "lastName": "NAILOR", "roles": ["Lead Sound Designer"] },
+      { "firstName": "Hugo", "lastName": "DOURY", "roles": ["Compositeur"] },
+      { "firstName": "Zuzanna", "lastName": "WIACEK", "roles": ["Sound Designer"] },
+      { "firstName": "Jhon", "lastName": "BALLESTER", "roles": ["Narrative Designer", "Doubleur"] },
+      { "firstName": "Alex", "lastName": "ALAPHILIPPE", "roles": ["Narrative Designer", "Doubleur"] },
+      { "firstName": "Gaétan", "lastName": "PERBET", "roles": ["Doubleur"] },
+      { "firstName": "Ariane", "lastName": "LESTRADE", "roles": ["Doubleuse"] }
+    ],
+    "featured": true
+  },
+  {
+    "id": 21,
+    "title": "QBT",
+    "longDescription": "Un laboratoire fait des expériences sur des sujets de test aux capacités hors normes. La vôtre : manipuler la gravité. Surmontez les salles de test en espérant sortir de cet endroit guidé.e par la voix d'un inconnu. Allez-vous lui faire confiance ? Dans ce jeu d'énigmes à la première personne, incarnez un sujet de test qui cherche à retrouver sa liberté. Utilisez la gravité pour retourner votre environnement à votre avantage et vous enfuir de cet étrange laboratoire privé de couleur.",
+    "genres": ["Puzzle", "3D"],
+    "year": 2025,
+    "contentFolder": "/games/qbt",
+    "imageCount": 5,
+    "hasVideo": true,
+    "customButton": {
+      "enabled": false,
+      "name": "",
+      "link": ""
+    },
+    "credits": [
+      { "firstName": "Céline", "lastName": "WANG", "roles": ["Game Designer", "Level Designer", "3D Artist", "QA Tester"] },
+      { "firstName": "Robin", "lastName": "LEFEBVRE", "roles": ["Technical Director", "Technical Artist", "Level Designer", "Level Artist", "Lead Developer"] },
+      { "firstName": "Alan", "lastName": "SIVINIANT", "roles": ["Game Designer", "Level Designer", "Level Artist", "Developer"] },
+      { "firstName": "Sarah", "lastName": "TREILLE", "roles": ["Project Manager", "Narrative Designer"] },
+      { "firstName": "Léo", "lastName": "MAUREL", "roles": ["3D Artist", "Narrative Designer", "Level Artist"] },
+      { "firstName": "Dam", "lastName": "FRÉMY", "roles": ["Narrative Designer", "Voice Actor"] },
+      { "firstName": "Owen", "lastName": "DONNARS", "roles": ["Developer"] },
+      { "firstName": "Ethan", "lastName": "REVERTEGAT", "roles": ["UI / UX Designer", "2D Artist"] },
+      { "firstName": "Jules", "lastName": "WERLI", "roles": ["Lead Sound Designer", "Lead Composer"] },
+      { "firstName": "Clara", "lastName": "ARCELON--ANDRE", "roles": ["Lead Sound Designer", "Lead Composer"] },
+      { "firstName": "James", "lastName": "CRUZALEGUI", "roles": ["Sound Designer", "Composer"] },
+      { "firstName": "Lucas", "lastName": "KLEFFERT", "roles": ["Sound Designer", "Composer"] }
+    ],
+    "featured": true
+  }
+] 
