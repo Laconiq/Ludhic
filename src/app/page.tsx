@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Hero from './components/Hero';
 import AllGames from './components/AllGames';
@@ -33,7 +33,7 @@ interface GameData {
   featured: boolean;
 }
 
-export default function Home() {
+function HomeContent() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedGame, setSelectedGame] = useState<GameData | null>(null);
   const searchParams = useSearchParams();
@@ -59,7 +59,6 @@ export default function Home() {
 
   return (
     <>
-      <SEOSchema games={gamesData} />
       <Navigation isModalOpen={isModalOpen} />
       <main>
         <Hero />
@@ -79,6 +78,17 @@ export default function Home() {
           onClose={handleCloseModal}
         />
       )}
+    </>
+  );
+}
+
+export default function Home() {
+  return (
+    <>
+      <SEOSchema games={gamesData} />
+      <Suspense fallback={<div>Chargement...</div>}>
+        <HomeContent />
+      </Suspense>
     </>
   );
 }

@@ -5,7 +5,7 @@ import GamePageWrapper from '../components/GamePageWrapper';
 import gamesData from '../../data/games.json';
 
 interface SlugPageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 // Générer toutes les routes de jeux
@@ -20,7 +20,7 @@ export async function generateStaticParams() {
 
 // Générer les métadonnées pour chaque jeu
 export async function generateMetadata({ params }: SlugPageProps): Promise<Metadata> {
-  const { slug } = params;
+  const { slug } = await params;
   
   const game = gamesData.find(g => {
     const folderName = g.contentFolder.split('/').pop();
@@ -71,8 +71,8 @@ export async function generateMetadata({ params }: SlugPageProps): Promise<Metad
   };
 }
 
-export default function SlugPage({ params }: SlugPageProps) {
-  const { slug } = params;
+export default async function SlugPage({ params }: SlugPageProps) {
+  const { slug } = await params;
 
   // Éviter les conflits avec les routes existantes
   const reservedRoutes = ['bingodir', 'games', 'api'];

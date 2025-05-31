@@ -5,12 +5,13 @@ import gamesData from '../../../data/games.json';
 import Image from 'next/image';
 
 interface GamePageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 // Générer les métadonnées pour chaque jeu
 export async function generateMetadata({ params }: GamePageProps): Promise<Metadata> {
-  const game = gamesData.find(g => g.id === parseInt(params.id));
+  const { id } = await params;
+  const game = gamesData.find(g => g.id === parseInt(id));
   
   if (!game) {
     return {
@@ -63,8 +64,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function GamePage({ params }: GamePageProps) {
-  const game = gamesData.find(g => g.id === parseInt(params.id));
+export default async function GamePage({ params }: GamePageProps) {
+  const { id } = await params;
+  const game = gamesData.find(g => g.id === parseInt(id));
   
   if (!game) {
     notFound();
