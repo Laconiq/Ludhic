@@ -11,7 +11,7 @@
     "customButton": {
       "enabled": true,
       "name": "Page Itch.io",
-      "link": "https://ludhic.fr/anthares/"
+      "link": "https://robin-lefebvre.itch.io/anthares"
     },
     "credits": [
       { "firstName": "Léa", "lastName": "JOURDET", "roles": ["Coordinator", "2D Artist", "3D Artist"] },
@@ -44,7 +44,7 @@
     "customButton": {
       "enabled": true,
       "name": "Page Itch.io",
-      "link": "https://ludhic.fr/cosmostasia-a-trial-of-hope/"
+      "link": "https://cosmostasia.itch.io/cosmostasia"
     },
     "credits": [
       { "firstName": "Chloé", "lastName": "BIGOT", "roles": ["Artistic Director", "Coordinator", "Game Designer", "UI Designer", "2D Artist", "VFX Artist"] },
@@ -72,7 +72,7 @@
     "customButton": {
       "enabled": true,
       "name": "Page Itch.io",
-      "link": "https://ludhic.fr/genesis/"
+      "link": "https://athenarc.itch.io/genesis"
     },
     "credits": [
       { "firstName": "Julia", "lastName": "CORDEL", "roles": ["Artistic Director", "Game Designer", "Narrative Designer", "Product Owner", "2D Artist"] },
