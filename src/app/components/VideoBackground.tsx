@@ -14,16 +14,19 @@ export default function VideoBackground() {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [countdown, setCountdown] = useState(0);
+  const [error, setError] = useState<string | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const countdownRef = useRef<NodeJS.Timeout | null>(null);
+  const retryCountRef = useRef<number>(0);
+  const MAX_RETRIES = 3;
 
   // Configuration du timer (en millisecondes)
   const TIMER_DURATION = 5000; // 5 secondes
 
   // Fonction pour démarrer le décompte
   const startCountdown = useCallback(() => {
-    setCountdown(TIMER_DURATION / 1000); // Commencer à 5 secondes
+    setCountdown(TIMER_DURATION / 1000);
     
     if (countdownRef.current) {
       clearInterval(countdownRef.current);
@@ -32,11 +35,11 @@ export default function VideoBackground() {
     countdownRef.current = setInterval(() => {
       setCountdown(prev => {
         if (prev <= 1) {
-          return TIMER_DURATION / 1000; // Redémarrer le cycle
+          return TIMER_DURATION / 1000;
         }
         return prev - 1;
       });
-    }, 1000); // Décrémenter chaque seconde
+    }, 1000);
   }, [TIMER_DURATION]);
 
   // Fonction pour arrêter le décompte
@@ -47,15 +50,24 @@ export default function VideoBackground() {
     }
   }, []);
 
-  // Fonction pour détecter le format vidéo disponible
+  // Fonction pour détecter le format vidéo disponible avec retry
   const checkVideoFormat = async (basePath: string): Promise<string | null> => {
     try {
-      const response = await fetch(`${basePath}/video.webm`, { method: 'HEAD' });
+      const response = await fetch(`${basePath}/video.webm`, { 
+        method: 'HEAD',
+        cache: 'no-cache'
+      });
       if (response.ok) {
         return `${basePath}/video.webm`;
       }
-    } catch {
-      // Vidéo WebM non disponible
+    } catch (error) {
+      console.error(`Erreur lors de la vérification de la vidéo ${basePath}:`, error);
+      if (retryCountRef.current < MAX_RETRIES) {
+        retryCountRef.current++;
+        console.log(`Tentative ${retryCountRef.current} de ${MAX_RETRIES}`);
+        await new Promise(resolve => setTimeout(resolve, 1000 * retryCountRef.current));
+        return checkVideoFormat(basePath);
+      }
     }
     return null;
   };
@@ -63,37 +75,47 @@ export default function VideoBackground() {
   // Récupérer toutes les vidéos disponibles depuis games.json
   useEffect(() => {
     const loadAvailableVideos = async () => {
-      console.log('🔍 Recherche des vidéos disponibles...');
-      const gamesWithVideo = gamesData.filter(game => game.hasVideo);
-      console.log(`📋 Jeux avec hasVideo=true: ${gamesWithVideo.length}`, gamesWithVideo.map(g => g.title));
-      
-      const availableVideos: GameVideo[] = [];
+      try {
+        console.log('🔍 Recherche des vidéos disponibles...');
+        const gamesWithVideo = gamesData.filter(game => game.hasVideo);
+        console.log(`📋 Jeux avec hasVideo=true: ${gamesWithVideo.length}`, gamesWithVideo.map(g => g.title));
+        
+        const availableVideos: GameVideo[] = [];
 
-      for (const game of gamesWithVideo) {
-        console.log(`🎬 Vérification vidéo pour: ${game.title} -> ${game.contentFolder}`);
-        const videoPath = await checkVideoFormat(game.contentFolder);
-        if (videoPath) {
-          console.log(`✅ Vidéo trouvée: ${videoPath}`);
-          availableVideos.push({
-            title: game.title,
-            videoPath: videoPath,
-            year: game.year
-          });
-        } else {
-          console.log(`❌ Aucune vidéo trouvée pour: ${game.title}`);
+        for (const game of gamesWithVideo) {
+          console.log(`🎬 Vérification vidéo pour: ${game.title} -> ${game.contentFolder}`);
+          const videoPath = await checkVideoFormat(game.contentFolder);
+          if (videoPath) {
+            console.log(`✅ Vidéo trouvée: ${videoPath}`);
+            availableVideos.push({
+              title: game.title,
+              videoPath: videoPath,
+              year: game.year
+            });
+          } else {
+            console.log(`❌ Aucune vidéo trouvée pour: ${game.title}`);
+          }
         }
-      }
 
-      console.log(`🎯 Total vidéos disponibles: ${availableVideos.length}`, availableVideos);
-      availableVideos.sort((a, b) => b.year - a.year); // Trier par année décroissante
-      setVideos(availableVideos);
-      setIsLoading(false);
+        console.log(`🎯 Total vidéos disponibles: ${availableVideos.length}`, availableVideos);
+        if (availableVideos.length === 0) {
+          setError('Aucune vidéo n\'a pu être chargée');
+        } else {
+          availableVideos.sort((a, b) => b.year - a.year);
+          setVideos(availableVideos);
+        }
+      } catch (error) {
+        console.error('Erreur lors du chargement des vidéos:', error);
+        setError('Une erreur est survenue lors du chargement des vidéos');
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     loadAvailableVideos();
   }, []);
 
-  // Fonction simplifiée pour changer de vidéo
+  // Fonction simplifiée pour changer de vidéo avec gestion d'erreur
   const changeVideo = useCallback((newIndex: number) => {
     if (!videos.length || !videoRef.current) return;
     
@@ -102,18 +124,24 @@ export default function VideoBackground() {
     
     setCurrentVideoIndex(newIndex);
     
-    // Forcer le rechargement de la vidéo
     const video = videoRef.current;
     video.pause();
-    video.src = videos[newIndex].videoPath;
-    video.load(); // Force le rechargement
     
-    // Redémarrer la lecture avec temps aléatoire
+    // Gestion des erreurs de chargement
+    const handleError = () => {
+      console.error('Erreur lors du chargement de la vidéo');
+      video.style.display = 'none';
+      nextVideo(); // Passer à la vidéo suivante en cas d'erreur
+    };
+
+    video.onerror = handleError;
+    video.src = videos[newIndex].videoPath;
+    video.load();
+    
     video.addEventListener('loadedmetadata', function onLoadedMetadata() {
-      // Calculer temps aléatoire entre 0 et (durée - 20 secondes)
       const duration = video.duration;
-      const maxTime = Math.max(0, duration - 20); // Au moins 20 secondes avant la fin
-      const randomTime = Math.random() * maxTime; // Entre 0 et maxTime
+      const maxTime = Math.max(0, duration - 20);
+      const randomTime = Math.random() * maxTime;
       
       console.log(`⏰ Durée vidéo: ${duration.toFixed(1)}s, démarrage à: ${randomTime.toFixed(1)}s`);
       
@@ -122,7 +150,10 @@ export default function VideoBackground() {
     });
     
     video.addEventListener('canplay', function onCanPlay() {
-      video.play().catch(console.error);
+      video.play().catch(error => {
+        console.error('Erreur lors de la lecture:', error);
+        handleError();
+      });
       video.removeEventListener('canplay', onCanPlay);
     });
     
@@ -206,7 +237,27 @@ export default function VideoBackground() {
     startCountdown();
   };
 
-  if (isLoading || videos.length === 0) {
+  if (isLoading) {
+    return null;
+  }
+
+  if (error) {
+    return (
+      <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+        <div className="text-white/80 text-center p-4">
+          <p className="mb-2">⚠️ {error}</p>
+          <button 
+            onClick={() => window.location.reload()}
+            className="px-4 py-2 bg-cyan-400/20 hover:bg-cyan-400/30 rounded-lg text-cyan-400 transition-colors"
+          >
+            Réessayer
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (videos.length === 0) {
     return null;
   }
 
@@ -232,7 +283,7 @@ export default function VideoBackground() {
         Votre navigateur ne supporte pas la lecture vidéo.
       </video>
 
-      {/* Indicateur de la vidéo courante - Caché sur mobile */}
+      {/* Indicateur de la vidéo courante - En bas à droite */}
       <div className="absolute bottom-4 right-4 z-20 hidden md:block">
         <div className="bg-black/60 backdrop-blur-sm rounded-lg px-3 py-2 text-white/80 text-xs font-gaming border border-cyan-400/30">
           <div className="flex items-center gap-2">

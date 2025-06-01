@@ -306,15 +306,39 @@ export default function GameModal({ game, isOpen, onClose }: GameModalProps) {
                     🎬 VIDÉO DU JEU
                   </h3>
                   <div className="relative w-full rounded-xl overflow-hidden shadow-lg" style={{ aspectRatio: '16/9' }}>
-                    <video
-                      className="w-full h-full object-cover"
-                      controls
-                      preload="metadata"
-                      poster={getMainImageUrl(game.contentFolder)}
-                    >
-                      <source src={`${game.contentFolder}/video.webm`} type="video/webm" />
-                      Votre navigateur ne supporte pas la lecture vidéo.
-                    </video>
+                    <div className="relative w-full h-full bg-black/20">
+                      <video
+                        className="w-full h-full object-cover"
+                        controls
+                        preload="metadata"
+                        poster={getMainImageUrl(game.contentFolder)}
+                        onError={(e) => {
+                          console.error('Erreur de chargement de la vidéo:', e);
+                          const videoElement = e.target as HTMLVideoElement;
+                          videoElement.style.display = 'none';
+                          const container = videoElement.parentElement;
+                          if (container) {
+                            container.innerHTML = `
+                              <div class="flex items-center justify-center h-full bg-black/40 text-white/80">
+                                <p class="text-center p-4">
+                                  La vidéo n'a pas pu être chargée.<br>
+                                  Veuillez réessayer plus tard.
+                                </p>
+                              </div>
+                            `;
+                          }
+                        }}
+                      >
+                        <source 
+                          src={`${game.contentFolder}/video.webm`} 
+                          type="video/webm"
+                          onError={(e) => {
+                            console.error('Erreur de chargement de la source vidéo:', e);
+                          }}
+                        />
+                        Votre navigateur ne supporte pas la lecture vidéo.
+                      </video>
+                    </div>
                   </div>
                 </div>
               )}
