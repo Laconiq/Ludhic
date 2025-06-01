@@ -621,5 +621,37 @@
       { "firstName": "Lucas", "lastName": "KLEFFERT", "roles": ["Sound Designer", "Composer"] }
     ],
     "featured": true
+  },
+  {
+    "id": 22,
+    "title": "La Bergère de Nuages",
+    "longDescription": "A travers ce jeu court d'une dizaine de minutes, découvrez le petit quotidien de la bergère de nuages, protagoniste de notre histoire. Aidez-la à résoudre des énigmes qui l'aideront à s'occuper de ses moutons-nuage à travers des animations drôles et qui vous décrocheront certainement un sourire.\n\nPlongez dans une aventure contemplative et laissez-vous guider par la magie de cet univers onirique et cartoonesque !",
+    "genres": ["Puzzle", "Narratif", "2D", "Point & Click"],
+    "year": 2025,
+    "contentFolder": "/games/la-bergere-de-nuages",
+    "imageCount": 4,
+    "hasVideo": false,
+    "customButton": {
+      "enabled": true,
+      "name": "Jouer sur Itch.io",
+      "link": "https://rukoy.itch.io/la-bergre-de-nuages"
+    },
+    "credits": [
+      { "firstName": "Nelia", "lastName": "SALAH", "roles": ["Creative Director", "Game director", "Lead narrative designer", "Lead worldbuilder", "Concept artist", "2D animator", "Environment artist", "Game designer", "Graphic designer"] },
+      { "firstName": "Simon", "lastName": "GOSSE", "roles": ["Technical Director", "Lead Programmer", "Lead Integrator"] },
+      { "firstName": "Chloé", "lastName": "MARIN", "roles": ["Environment Artist", "Concept Artist"] },
+      { "firstName": "Clara", "lastName": "MOCERINO", "roles": ["Concept Artist", "Color animation artist", "Community Management"] },
+      { "firstName": "Evan", "lastName": "HUMEAU", "roles": ["Game Designer", "Level designer", "Developer Assistant", "Support Narrative Designer"] },
+      { "firstName": "Abdesslam", "lastName": "ELMOUIDINI", "roles": ["Game Designer", "Level designer", "Support Concept Artist", "Support color animation artist", "Support Narrative Design"] },
+      { "firstName": "Carola", "lastName": "DE SANTIS", "roles": ["Concept Artist", "2D Animation Artist", "Color animation artist", "Clean up artist", "Graphic designer"] },
+      { "firstName": "Robyn", "lastName": "DROUIN", "roles": ["Programmer Assistant", "support narrative designer"] },
+      { "firstName": "Zoé", "lastName": "COÏA", "roles": ["Narrative Designer", "Support game designer", "Communication"] },
+      { "firstName": "Hocine", "lastName": "MAMMASSE", "roles": ["Concept artist", "Narrative designer"] },
+      { "firstName": "Alvise", "lastName": "OSTI", "roles": ["Sound designer", "sound integrator"] },
+      { "firstName": "Nicolas", "lastName": "PESTY", "roles": ["Sound designer"] },
+      { "firstName": "Iman", "lastName": "MBILI", "roles": ["Musical composer"] },
+      { "firstName": "Raphaël", "lastName": "CHIMÈNE", "roles": ["Musical composer"] }
+    ],
+    "featured": false
   }
 ] 

@@ -10,6 +10,7 @@ export const GAME_GENRES = {
   PUZZLE: 'Puzzle',
   TACTIQUE: 'Tactique',
   RYTHME: 'Rythme',
+  POINT_AND_CLICK: 'Point & Click',
   
   // Styles de jeu
   DECKBUILDING: 'Deckbuilding',
@@ -43,7 +44,8 @@ export const GENRES_BY_CATEGORY = {
     GAME_GENRES.PLATEFORME,
     GAME_GENRES.PUZZLE,
     GAME_GENRES.TACTIQUE,
-    GAME_GENRES.RYTHME
+    GAME_GENRES.RYTHME,
+    GAME_GENRES.POINT_AND_CLICK
   ],
   'Styles de jeu': [
     GAME_GENRES.DECKBUILDING,
