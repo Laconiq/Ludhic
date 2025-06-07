@@ -10,7 +10,7 @@
     "hasVideo": true,
     "customButton": {
       "enabled": true,
-      "name": "Page Itch.io",
+      "name": "Télécharger sur Itch.io",
       "link": "https://robin-lefebvre.itch.io/anthares"
     },
     "credits": [
@@ -43,7 +43,7 @@
     "hasVideo": true,
     "customButton": {
       "enabled": true,
-      "name": "Page Itch.io",
+      "name": "Télécharger sur Itch.io",
       "link": "https://cosmostasia.itch.io/cosmostasia"
     },
     "credits": [
@@ -71,7 +71,7 @@
     "hasVideo": false,
     "customButton": {
       "enabled": true,
-      "name": "Page Itch.io",
+      "name": "Télécharger sur Itch.io",
       "link": "https://athenarc.itch.io/genesis"
     },
     "credits": [
@@ -140,7 +140,7 @@
     "hasVideo": false,
     "customButton": {
       "enabled": true,
-      "name": "Page Itch.io",
+      "name": "Télécharger sur Itch.io",
       "link": "https://chaoticdreams.itch.io/somnia"
     },
     "credits": [
@@ -230,7 +230,7 @@
     "hasVideo": true,
     "customButton": {
       "enabled": true,
-      "name": "Page Itch.io",
+      "name": "Télécharger sur Itch.io",
       "link": "https://atone-master-hic.itch.io/atone"
     },
     "credits": [
@@ -412,7 +412,7 @@
     "hasVideo": false,
     "customButton": {
       "enabled": true,
-      "name": "Télécharger le jeu sur Itch.io",
+      "name": "Télécharger sur Itch.io",
       "link": "https://eddyboreal.itch.io/the-morrigan"
     },
     "credits": [
@@ -440,7 +440,7 @@
     "hasVideo": true,
     "customButton": {
       "enabled": true,
-      "name": "Jouer sur Itch.io",
+      "name": "Télécharger sur Itch.io",
       "link": "https://eddyboreal.itch.io/anirya"
     },
     "credits": [
@@ -495,7 +495,7 @@
     "hasVideo": true,
     "customButton": {
       "enabled": true,
-      "name": "Jouer sur Itch.io",
+      "name": "Télécharger sur Itch.io",
       "link": "https://raion-eru.itch.io/snap"
     },
     "credits": [
@@ -523,7 +523,7 @@
     "hasVideo": true,
     "customButton": {
       "enabled": true,
-      "name": "Jouer sur Itch.io",
+      "name": "Télécharger sur Itch.io",
       "link": "https://raion-eru.itch.io/cafardage-arena"
     },
     "credits": [
@@ -633,7 +633,7 @@
     "hasVideo": false,
     "customButton": {
       "enabled": true,
-      "name": "Jouer sur Itch.io",
+      "name": "Télécharger sur Itch.io",
       "link": "https://rukoy.itch.io/la-bergre-de-nuages"
     },
     "credits": [
@@ -651,6 +651,35 @@
       { "firstName": "Nicolas", "lastName": "PESTY", "roles": ["Sound designer"] },
       { "firstName": "Iman", "lastName": "MBILI", "roles": ["Musical composer"] },
       { "firstName": "Raphaël", "lastName": "CHIMÈNE", "roles": ["Musical composer"] }
+    ],
+    "featured": false
+  },
+  {
+    "id": 23,
+    "title": "Seacret",
+    "longDescription": "Seacret est un jeu d'aventure side-scroller en 2,5D dans lequel vous incarnez un plongeur explorant un lieux mystérieux.\n\nPour percer le mystère de ce lieu lugubre, une seule solution : résoudre des énigmes pour dévoiler les secrets de ces eaux troubles, révélant un chemin bien plus surprenant qu'il n'y paraît depuis la surface.",
+    "genres": ["Aventure", "Puzzle", "Plateforme"],
+    "year": 2025,
+    "contentFolder": "/games/seacret",
+    "imageCount": 5,
+    "hasVideo": false,
+    "customButton": {
+      "enabled": true,
+      "name": "Télécharger sur Itch.io",
+      "link": "https://team-seacret.itch.io/seacret"
+    },
+    "credits": [
+      { "firstName": "Naja", "lastName": "DALMAGNE", "roles": ["Coordinator", "Lead Game designer", "Level designer"] },
+      { "firstName": "Victor", "lastName": "ARCHIMEDE", "roles": ["Coordinator", "Lead 3D Artist"] },
+      { "firstName": "Hassane", "lastName": "MESSAOUDI", "roles": ["3D Artist"] },
+      { "firstName": "Sirine", "lastName": "BOUAZIZ", "roles": ["3D Artist"] },
+      { "firstName": "Jules", "lastName": "WERLI", "roles": ["Sound designer", "compositeur"] },
+      { "firstName": "Shichen", "lastName": "AN", "roles": ["Sound designer", "compositeur"] },
+      { "firstName": "Nicolas", "lastName": "GIRY", "roles": ["Developer"] },
+      { "firstName": "Kieran", "lastName": "MIGNON", "roles": ["Narrative designer", "Game designer", "Level designer"] },
+      { "firstName": "Rita", "lastName": "GARCAOVEIGA", "roles": ["Sound designer", "compositeur"] },
+      { "firstName": "Paul", "lastName": "ALEXANDRE", "roles": ["Sound designer", "compositeur"] },
+      { "firstName": "Lory", "lastName": "RAVILY", "roles": ["Project manager"] }
     ],
     "featured": false
   }
