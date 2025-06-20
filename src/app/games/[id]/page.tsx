@@ -22,6 +22,14 @@ export async function generateMetadata({ params }: GamePageProps): Promise<Metad
   return {
     title: `${game.title} | Ludhic - Master HIC`,
     description: `${game.longDescription.slice(0, 160)}...`,
+    robots: {
+      index: false,
+      follow: false,
+      googleBot: {
+        index: false,
+        follow: false,
+      },
+    },
     keywords: [
       game.title,
       ...game.genres,

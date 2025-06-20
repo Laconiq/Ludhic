@@ -16,6 +16,9 @@ Disallow: /_next/static/
 Disallow: /api/
 Disallow: *.json$
 
+# Interdire l'indexation des pages de jeux par ID
+Disallow: /games/[0-9]+/
+
 # Autoriser explicitement les pages importantes
 Allow: /games/
 Allow: /bingodir/

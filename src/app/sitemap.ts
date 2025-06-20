@@ -20,14 +20,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ]
 
-  // Pages dynamiques des jeux
-  const gamePages: MetadataRoute.Sitemap = gamesData.map((game) => ({
-    url: `${baseUrl}/games/${game.id}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.7,
-  }))
-
   // Pages par année (pour le SEO)
   const yearPages: MetadataRoute.Sitemap = []
   const years = [...new Set(gamesData.map(game => game.year))]
@@ -40,5 +32,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })
   })
 
-  return [...staticPages, ...gamePages, ...yearPages]
+  return [...staticPages, ...yearPages]
 } 
