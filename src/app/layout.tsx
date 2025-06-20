@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import ServiceWorker from "./components/ServiceWorker";
+import PerformanceMeta from "./components/PerformanceMeta";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -81,8 +83,6 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/images/logo.png" },
-      { url: "/images/logo-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/images/logo-32x32.png", sizes: "32x32", type: "image/png" },
     ],
     shortcut: "/images/logo.png",
     apple: [
@@ -94,14 +94,16 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="fr">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="fr" className={`${geistSans.variable} ${geistMono.variable}`}>
+      <head>
+        <PerformanceMeta />
+      </head>
+      <body className="bg-gray-900 text-white antialiased">
+        <ServiceWorker />
         {children}
       </body>
     </html>

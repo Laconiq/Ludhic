@@ -34,6 +34,8 @@ export default function Game({
           fill
           className="object-cover transition-transform duration-300 hover:scale-105"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          loading="lazy"
+          quality={80}
         />
         
         {/* Badge année */}
@@ -50,6 +52,8 @@ export default function Game({
             height={32}
             className="max-h-full w-auto object-contain drop-shadow-md"
             sizes="64px"
+            loading="lazy"
+            quality={90}
           />
         </div>
       </div>

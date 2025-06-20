@@ -59,7 +59,22 @@ export default function GameModal({ game, isOpen, onClose }: GameModalProps) {
   // Reset image index when game changes
   useEffect(() => {
     setCurrentImageIndex(0);
-  }, [game?.id]);
+  }, [game?.id, game]);
+
+  const changeImage = (direction: 'next' | 'prev') => {
+    if (!game || game.imageCount <= 1 || isTransitioning) return;
+    
+    setIsTransitioning(true);
+    
+    if (direction === 'next') {
+      setCurrentImageIndex((prev) => (prev + 1) % game.imageCount);
+    } else {
+      setCurrentImageIndex((prev) => (prev - 1 + game.imageCount) % game.imageCount);
+    }
+    
+    // Reset transition state after animation (500ms CSS + 50ms buffer)
+    setTimeout(() => setIsTransitioning(false), 550);
+  };
 
   // Auto-play logic for carousel
   useEffect(() => {
@@ -81,22 +96,7 @@ export default function GameModal({ game, isOpen, onClose }: GameModalProps) {
         autoPlayRef.current = null;
       }
     };
-  }, [game?.imageCount, isCarouselHovered]);
-
-  const changeImage = (direction: 'next' | 'prev') => {
-    if (!game || game.imageCount <= 1 || isTransitioning) return;
-    
-    setIsTransitioning(true);
-    
-    if (direction === 'next') {
-      setCurrentImageIndex((prev) => (prev + 1) % game.imageCount);
-    } else {
-      setCurrentImageIndex((prev) => (prev - 1 + game.imageCount) % game.imageCount);
-    }
-    
-    // Reset transition state after animation (500ms CSS + 50ms buffer)
-    setTimeout(() => setIsTransitioning(false), 550);
-  };
+  }, [game?.imageCount, isCarouselHovered, changeImage]);
 
   const goToImage = (index: number) => {
     if (!game || isTransitioning || index === currentImageIndex) return;
@@ -142,6 +142,9 @@ export default function GameModal({ game, isOpen, onClose }: GameModalProps) {
                 className="object-cover blur-sm"
                 sizes="(max-width: 768px) 100vw, 1200px"
                 priority
+                quality={90}
+                placeholder="blur"
+                blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
               />
               
               {/* Filtre noir à 40% */}
@@ -163,6 +166,8 @@ export default function GameModal({ game, isOpen, onClose }: GameModalProps) {
                   className="h-[200px] w-auto max-w-lg object-contain drop-shadow-2xl"
                   style={{ height: '200px', width: 'auto' }}
                   sizes="(max-width: 768px) 400px, 800px"
+                  priority
+                  quality={95}
                 />
               </div>
             </div>
@@ -248,6 +253,9 @@ export default function GameModal({ game, isOpen, onClose }: GameModalProps) {
                             fill
                             className="object-cover"
                             sizes="(max-width: 768px) 100vw, 1200px"
+                            loading={index === 0 ? "eager" : "lazy"}
+                            priority={index === 0}
+                            quality={85}
                           />
                         </div>
                       ))}

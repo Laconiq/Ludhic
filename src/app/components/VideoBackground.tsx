@@ -51,7 +51,7 @@ export default function VideoBackground() {
   }, []);
 
   // Fonction pour détecter le format vidéo disponible avec retry
-  const checkVideoFormat = async (basePath: string): Promise<string | null> => {
+  const checkVideoFormat = useCallback(async (basePath: string): Promise<string | null> => {
     try {
       const response = await fetch(`${basePath}/video.webm`, { 
         method: 'HEAD',
@@ -70,7 +70,7 @@ export default function VideoBackground() {
       }
     }
     return null;
-  };
+  }, []);
 
   // Récupérer toutes les vidéos disponibles depuis games.json
   useEffect(() => {
@@ -113,7 +113,35 @@ export default function VideoBackground() {
     };
 
     loadAvailableVideos();
-  }, []);
+  }, [checkVideoFormat]);
+
+  // Fonction pour passer à la vidéo suivante
+  const nextVideo = useCallback(() => {
+    if (videos.length > 0) {
+      const nextIndex = (currentVideoIndex + 1) % videos.length;
+      setCurrentVideoIndex(nextIndex);
+      
+      if (videoRef.current) {
+        const video = videoRef.current;
+        video.pause();
+        video.src = videos[nextIndex].videoPath;
+        video.load();
+        
+        video.addEventListener('loadedmetadata', function onLoadedMetadata() {
+          const duration = video.duration;
+          const maxTime = Math.max(0, duration - 20);
+          const randomTime = Math.random() * maxTime;
+          video.currentTime = randomTime;
+          video.removeEventListener('loadedmetadata', onLoadedMetadata);
+        });
+        
+        video.addEventListener('canplay', function onCanPlay() {
+          video.play().catch(console.error);
+          video.removeEventListener('canplay', onCanPlay);
+        });
+      }
+    }
+  }, [videos, currentVideoIndex]);
 
   // Fonction simplifiée pour changer de vidéo avec gestion d'erreur
   const changeVideo = useCallback((newIndex: number) => {
@@ -131,7 +159,9 @@ export default function VideoBackground() {
     const handleError = () => {
       console.error('Erreur lors du chargement de la vidéo');
       video.style.display = 'none';
-      nextVideo(); // Passer à la vidéo suivante en cas d'erreur
+      // Passer à la vidéo suivante en cas d'erreur
+      const nextIndex = (newIndex + 1) % videos.length;
+      setCurrentVideoIndex(nextIndex);
     };
 
     video.onerror = handleError;
@@ -158,14 +188,6 @@ export default function VideoBackground() {
     });
     
   }, [videos, currentVideoIndex]);
-
-  // Fonction pour passer à la vidéo suivante
-  const nextVideo = useCallback(() => {
-    if (videos.length > 0) {
-      const nextIndex = (currentVideoIndex + 1) % videos.length;
-      changeVideo(nextIndex);
-    }
-  }, [videos.length, currentVideoIndex, changeVideo]);
 
   // Timer automatique
   useEffect(() => {
@@ -210,7 +232,7 @@ export default function VideoBackground() {
         video.removeEventListener('canplay', onCanPlay);
       });
     }
-  }, [videos.length]);
+  }, [videos]);
 
   // Navigation manuelle
   const goToVideo = (direction: 'prev' | 'next') => {

@@ -59,6 +59,8 @@ export default function Hero() {
               fill
               className="object-contain filter drop-shadow-lg"
               priority
+              quality={95}
+              sizes="(max-width: 768px) 96px, 128px"
             />
           </div>
           <h1 className="text-6xl md:text-8xl font-gaming foil-effect">

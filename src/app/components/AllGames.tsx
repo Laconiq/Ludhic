@@ -53,19 +53,27 @@ export default function AllGames({ games, onModalStateChange }: AllGamesProps) {
     logValidationErrors(games);
   }, [games]);
 
-  // Fonction de filtrage
+  // Fonction de filtrage optimisée
   const filteredGames = useMemo(() => {
     return games.filter((game) => {
-      const matchesSearch = !filters.searchTerm || 
-        game.title.toLowerCase().includes(filters.searchTerm.toLowerCase());
+      if (filters.searchTerm) {
+        const searchLower = filters.searchTerm.toLowerCase();
+        const matchesSearch = 
+          game.title.toLowerCase().includes(searchLower) ||
+          game.longDescription.toLowerCase().includes(searchLower) ||
+          game.genres.some(genre => genre.toLowerCase().includes(searchLower));
+        if (!matchesSearch) return false;
+      }
       
-      const matchesGenre = !filters.selectedGenre || 
-        game.genres.includes(filters.selectedGenre);
+      if (filters.selectedGenre && !game.genres.includes(filters.selectedGenre)) {
+        return false;
+      }
       
-      const matchesYear = filters.selectedYear === null || 
-        game.year === filters.selectedYear;
-
-      return matchesSearch && matchesGenre && matchesYear;
+      if (filters.selectedYear !== null && game.year !== filters.selectedYear) {
+        return false;
+      }
+      
+      return true;
     });
   }, [games, filters]);
 
@@ -92,7 +100,7 @@ export default function AllGames({ games, onModalStateChange }: AllGamesProps) {
     setTimeout(() => {
       setVisibleGames(prev => Math.min(prev + 8, allSortedGames.length));
       setIsLoading(false);
-    }, 500); // Délai pour l'effet de chargement
+    }, 200); // Réduit de 500ms à 200ms
   }, [visibleGames, allSortedGames.length]);
 
   // Intersection Observer pour le lazy loading
@@ -103,7 +111,10 @@ export default function AllGames({ games, onModalStateChange }: AllGamesProps) {
           loadMoreGames();
         }
       },
-      { threshold: 0.1 }
+      { 
+        threshold: 0.1,
+        rootMargin: '100px' // Précharger 100px avant
+      }
     );
 
     if (observerRef.current) {
@@ -117,6 +128,10 @@ export default function AllGames({ games, onModalStateChange }: AllGamesProps) {
   useEffect(() => {
     setVisibleGames(8);
   }, [filters]);
+
+  // Jeux à afficher (avec limitation pour le lazy loading)
+  const gamesToDisplay = allSortedGames.slice(0, visibleGames);
+  const hasActiveFilters = filters.searchTerm || filters.selectedGenre || filters.selectedYear !== null;
 
   const handleGameClick = (game: GameData) => {
     setSelectedGame(game);
@@ -133,10 +148,6 @@ export default function AllGames({ games, onModalStateChange }: AllGamesProps) {
   const handleFiltersChange = (newFilters: GameFilters) => {
     setFilters(newFilters);
   };
-
-  // Jeux à afficher (avec limitation pour le lazy loading)
-  const gamesToDisplay = allSortedGames.slice(0, visibleGames);
-  const hasActiveFilters = filters.searchTerm || filters.selectedGenre || filters.selectedYear !== null;
 
   return (
     <section id="games" className="py-16 px-4 bg-gray-900">

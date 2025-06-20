@@ -55,6 +55,9 @@ export default function Navigation({ isModalOpen }: NavigationProps) {
                 alt="Ludhic Logo"
                 fill
                 className="object-contain"
+                priority
+                quality={90}
+                sizes="40px"
               />
             </div>
             <span className="font-gaming text-xl foil-effect">
