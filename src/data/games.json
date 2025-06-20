@@ -682,5 +682,35 @@
       { "firstName": "Lory", "lastName": "RAVILY", "roles": ["Project manager"] }
     ],
     "featured": false
+  },
+  {
+    "id": 24,
+    "title": "Synthopolis",
+    "longDescription": "Synthopolis est une cité virtuelle où s'affronte la précieuse Couleur. Dans ce FPS stylisé 1v1 de 6 minutes, incarnez chasseur ou porteur : capturez, défendez ou reprenez la Couleur au cours de rounds haletants. Explorez ruelles et toits brutalistes peints à l'aquarelle, glissez, sautez, escaladez et usez d'un grappin pour surprendre. Manipulez le temps avec des objets spéciaux. Solo ou multijoueur, mettez vos réflexes et votre stratégie à l'épreuve.",
+    "genres": ["Action", "Plateforme", "3D", "FPS"],
+    "year": 2025,
+    "contentFolder": "/games/synthopolis",
+    "imageCount": 5,
+    "hasVideo": false,
+    "customButton": {
+      "enabled": true,
+      "name": "Télécharger sur Itch.io",
+      "link": "https://synthopolis.itch.io/synthopolis"
+    },
+    "credits": [
+      { "firstName": "Rayane", "lastName": "RAHAL", "roles": ["Developer", "Game Designer"] },
+      { "firstName": "Eliott", "lastName": "BOUCHONNET", "roles": ["Level Designer", "2D Artist"] },
+      { "firstName": "Romain", "lastName": "", "roles": ["Developer", "Level Designer"] },
+      { "firstName": "Sana", "lastName": "", "roles": ["2D Artist", "3D Artist"] },
+      { "firstName": "Virginie", "lastName": "", "roles": ["2D Artist", "UI Designer"] },
+      { "firstName": "Ariane", "lastName": "", "roles": ["2D Artist", "3D Artist"] },
+      { "firstName": "Valeria", "lastName": "", "roles": ["2D Artist"] },
+      { "firstName": "Hugo", "lastName": "", "roles": ["3D Artist"] },
+      { "firstName": "Way", "lastName": "", "roles": ["UI Designer"] },
+      { "firstName": "Cody", "lastName": "", "roles": ["Sound Designer"] },
+      { "firstName": "Pierre", "lastName": "", "roles": ["Sound Designer"] },
+      { "firstName": "Charly", "lastName": "", "roles": ["Sound Designer"] }
+    ],
+    "featured": false
   }
 ] 
