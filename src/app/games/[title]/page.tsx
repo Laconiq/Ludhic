@@ -4,15 +4,13 @@ import gamesData from '../../../data/games.json';
 import GamePageContent from '../../components/GamePageContent';
 import Footer from '../../components/Footer';
 
-interface GamePageProps {
-  params: Promise<{ title: string }>;
-}
-
 // Fonction pour créer un slug à partir du titre
 function createSlug(title: string): string {
   return title
     .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, '') // Supprimer les caractères spéciaux
+    .normalize('NFD') // Normaliser les caractères accentués
+    .replace(/[\u0300-\u036f]/g, '') // Supprimer les diacritiques
+    .replace(/[^a-z0-9\s-]/g, '') // Supprimer les autres caractères spéciaux
     .replace(/\s+/g, '-') // Remplacer les espaces par des tirets
     .replace(/-+/g, '-') // Supprimer les tirets multiples
     .trim();
@@ -24,7 +22,7 @@ function findGameBySlug(slug: string) {
 }
 
 // Générer les métadonnées pour chaque jeu
-export async function generateMetadata({ params }: GamePageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ title: string }> }): Promise<Metadata> {
   const { title } = await params;
   const game = findGameBySlug(decodeURIComponent(title));
   
@@ -79,7 +77,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function GamePage({ params }: GamePageProps) {
+export default async function Page({ params }: { params: Promise<{ title: string }> }) {
   const { title } = await params;
   const game = findGameBySlug(decodeURIComponent(title));
   

@@ -5,8 +5,9 @@ import Game from '../../../components/Game';
 import Navigation from '../../../components/Navigation';
 import Footer from '../../../components/Footer';
 
-export default function YearGamesPage({ params }: { params: { year: string } }) {
-  const year = parseInt(params.year, 10);
+export default async function Page({ params }: { params: Promise<{ year: string }> }) {
+  const { year: yearParam } = await params;
+  const year = parseInt(yearParam, 10);
   if (isNaN(year)) return notFound();
 
   const gamesOfYear = gamesData.filter(game => game.year === year);
@@ -14,7 +15,7 @@ export default function YearGamesPage({ params }: { params: { year: string } }) 
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-white">
         <h1 className="text-4xl font-gaming mb-4">Aucun jeu trouvé pour {year}</h1>
-        <p className="text-white/60">Il n'y a pas encore de jeux répertoriés pour cette année.</p>
+        <p className="text-white/60">Il n&apos;y a pas encore de jeux répertoriés pour cette année.</p>
       </div>
     );
   }
@@ -45,7 +46,7 @@ export default function YearGamesPage({ params }: { params: { year: string } }) 
         <div className="relative z-10 max-w-4xl mx-auto text-center px-4">
           <h1 className="text-3xl md:text-5xl font-gaming foil-effect mb-6">JEUX ÉTUDIANTS {year}</h1>
           <p className="text-white/80 text-lg md:text-xl max-w-2xl mx-auto mb-8 font-gaming">
-            Découvrez les créations interactives des étudiants du Master HIC pour l'année {year}.
+            Découvrez les créations interactives des étudiants du Master HIC pour l&apos;année {year}.
           </p>
           <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8">
             {gamesOfYear.map(game => (

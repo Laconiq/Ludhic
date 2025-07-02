@@ -5,7 +5,7 @@ Portfolio interactif des projets de jeux vidéo créés par les étudiants du Ma
 ## 🚀 Démarrage Rapide
 
 ### Prérequis
-- Node.js 18+ 
+- Node.js 18+
 - pnpm (recommandé)
 
 ### Installation
@@ -46,7 +46,59 @@ pnpm build        # Build de production optimisé
 pnpm start        # Démarre le serveur de production
 pnpm lint         # Vérifie le code avec ESLint
 pnpm type-check   # Vérifie les types TypeScript
+pnpm generate-videos # Génère les vidéos d'arrière-plan (voir section dédiée)
 ```
+
+## 🎬 Génération Automatique des Vidéos d'Arrière-plan
+
+Le script `scripts/generate-videos.js` permet de générer automatiquement 3 vidéos d'arrière-plan à partir des vidéos individuelles des jeux.
+
+### Prérequis
+- **FFmpeg** installé sur votre système
+- Vidéos des jeux dans `public/games/[slug-du-jeu]/video.webm`
+
+#### Installation de FFmpeg
+- **Windows** : `choco install ffmpeg` ou télécharger depuis https://ffmpeg.org/download.html
+- **macOS** : `brew install ffmpeg`
+- **Linux** : `sudo apt install ffmpeg` (Debian/Ubuntu)
+
+### Génération des vidéos
+```bash
+pnpm generate-videos
+```
+Cela crée 3 vidéos d'arrière-plan dans `public/videos/` et un fichier de configuration `video-config.json`.
+
+#### Structure générée
+```
+public/
+└── videos/
+    ├── background-1.webm    # Vidéo 1 (variation 1)
+    ├── background-2.webm    # Vidéo 2 (variation 2)
+    ├── background-3.webm    # Vidéo 3 (variation 3)
+    └── video-config.json    # Configuration automatique
+```
+
+#### Fonctionnement
+- Lecture de `src/data/games.json` pour trouver les jeux avec `hasVideo: true`
+- Vérification de l'existence des fichiers `video.webm`
+- Génération de 3 vidéos avec des variations (ordre, transitions, etc.)
+- Compression VP9, résolution 1920x1080, transitions fluides
+
+#### Personnalisation
+Modifiez les paramètres dans `scripts/generate-videos.js` :
+```js
+const SEGMENT_DURATION = 5;        // Durée par jeu (secondes)
+const TRANSITION_DURATION = 1;     // Durée de transition (secondes)
+const TOTAL_VIDEOS = 3;            // Nombre de vidéos à générer
+```
+
+#### Dépannage
+- **FFmpeg not found** : Vérifiez l'installation avec `ffmpeg -version`
+- **Vidéos manquantes** : Vérifiez que chaque jeu a bien `video.webm` et `hasVideo: true` dans `games.json`
+- **Erreur de génération** : Consultez les logs détaillés :
+  ```bash
+  pnpm generate-videos 2>&1 | tee generate.log
+  ```
 
 ## ⚡ Optimisations de Performance
 
@@ -61,7 +113,7 @@ Ce projet inclut plusieurs optimisations de performance :
 
 ## 🏗️ Architecture
 
-- **Framework** : Next.js 15 avec App Router
+- **Framework** : Next.js 15 (App Router)
 - **Langage** : TypeScript
 - **Styling** : Tailwind CSS
 - **Polices** : Geist (optimisées avec next/font)
@@ -72,26 +124,50 @@ Ce projet inclut plusieurs optimisations de performance :
 
 ```
 src/
-├── app/                 # Pages et composants Next.js
-│   ├── components/      # Composants réutilisables
-│   ├── [slug]/         # Pages dynamiques des jeux
-│   └── games/[id]/     # Pages des jeux par ID
-├── data/               # Données JSON des jeux
-├── utils/              # Utilitaires et helpers
-└── styles/             # Styles globaux
+├── app/                     # Pages et composants Next.js
+│   ├── components/          # Composants réutilisables
+│   ├── games/[title]/       # Pages dynamiques pour chaque jeu (slug)
+│   └── games/year/[year]/   # Pages dynamiques par année
+├── data/                    # Données JSON des jeux
+├── utils/                   # Utilitaires et helpers
+└── validation/              # Schémas de validation
 
 public/
-├── games/              # Assets des jeux (images, vidéos)
-├── images/             # Images du site
-└── sw.js              # Service Worker
+├── games/                   # Assets des jeux (images, vidéos)
+├── images/                  # Images du site
+└── sw.js                    # Service Worker
 ```
+
+## 🧑‍💻 Pages Dynamiques & Slugs
+
+- Les pages `/games/[title]` sont générées dynamiquement à partir du titre du jeu.
+- Les slugs sont générés automatiquement à partir du titre, avec gestion des accents et caractères spéciaux (ex : "Anirya et le monde inversé" → `anirya-et-le-monde-inverse`).
+- Les pages `/games/year/[year]` listent tous les jeux d'une année donnée.
+- Les paramètres dynamiques (`params`) sont typés de façon **asynchrone** (Next.js 15) :
+  ```ts
+  export default async function Page({ params }: { params: Promise<{ title: string }> }) { ... }
+  ```
 
 ## 🎮 Ajout d'un Nouveau Jeu
 
-1. Ajouter les données dans `src/data/games.json`
-2. Créer le dossier `public/games/[nom-du-jeu]/`
-3. Ajouter les images (1.webp, 2.webp, etc.) et le logo (logo.webp)
-4. Optionnel : ajouter une vidéo (video.webm)
+1. Ajouter les données dans `src/data/games.json` (voir exemples existants).
+2. Créer le dossier `public/games/[slug-du-jeu]/` (le slug est généré automatiquement à partir du titre).
+3. Ajouter les images (`1.webp`, `2.webp`, etc.) et le logo (`logo.webp`).
+4. Optionnel : ajouter une vidéo (`video.webm`).
+
+## 🚩 Gestion des erreurs courantes
+
+- **Erreur 404 ou 500 sur une page jeu ou année** :
+  - Vérifiez que le slug généré correspond bien au dossier et aux données.
+  - Si vous accédez à `/games/year/XXXX` pour une année sans jeux, un message personnalisé s'affiche.
+- **Erreur `Cannot find module './xx.js'`** :
+  - Supprimez le dossier `.next` puis relancez la build :
+    ```bash
+    rm -rf .next
+    pnpm build
+    ```
+- **Problèmes de slugs accentués** :
+  - La fonction de slug retire désormais les accents pour garantir la cohérence entre les titres et les URLs.
 
 ## 🚀 Déploiement
 
