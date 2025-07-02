@@ -308,12 +308,6 @@ export default function GamePageContent({ game }: GamePageContentProps) {
             ))}
           </div>
         </div>
-        
-        {/* Métadonnées */}
-        <div className="text-center text-white/60 text-sm border-t border-gray-700 pt-8">
-          <p>Année de création : {game.year}</p>
-          <p>Master Humanités et Industries Créatives</p>
-        </div>
       </div>
     </>
   );

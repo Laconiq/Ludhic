@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import gamesData from '../../../data/games.json';
 import GamePageContent from '../../components/GamePageContent';
+import Footer from '../../components/Footer';
 
 interface GamePageProps {
   params: Promise<{ title: string }>;
@@ -117,10 +118,10 @@ export default async function GamePage({ params }: GamePageProps) {
           __html: JSON.stringify(gameSchema, null, 2)
         }}
       />
-      
-      <div className="min-h-screen bg-gray-900">
+      <div className="min-h-screen bg-gray-900 flex flex-col">
         {/* Contenu du jeu */}
         <GamePageContent game={game} />
+        <Footer />
       </div>
     </>
   );
