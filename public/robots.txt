@@ -1,3 +1,7 @@
+# Robots.txt pour Ludhic - Portfolio Jeux Étudiants Master HIC
+# https://ludhic.fr
+
+# Règles générales pour tous les robots
 User-agent: *
 Allow: /
 
@@ -11,22 +15,55 @@ User-agent: Bingbot
 Allow: /
 Crawl-delay: 1
 
-# Interdire l'accès aux fichiers système
-Disallow: /_next/static/
+# Optimisations pour les autres moteurs de recherche
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 2
+
+User-agent: YandexBot
+Allow: /
+Crawl-delay: 1
+
+# Interdire l'accès aux fichiers système et techniques
+Disallow: /_next/
 Disallow: /api/
 Disallow: *.json$
+Disallow: /sw.js
+Disallow: /manifest.json
+Disallow: /browserconfig.xml
 
-# Interdire l'indexation des pages de jeux par ID
-Disallow: /games/[0-9]+/
+# Interdire l'accès aux fichiers de développement
+Disallow: /.env
+Disallow: /.git/
+Disallow: /node_modules/
+Disallow: /package.json
+Disallow: /pnpm-lock.yaml
 
 # Autoriser explicitement les pages importantes
 Allow: /games/
 Allow: /bingodir/
 Allow: /images/
+Allow: /videos/
+Allow: /fonts/
 
-# Sitemap
+# Autoriser les ressources statiques importantes
+Allow: /*.webp
+Allow: /*.webm
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.svg
+Allow: /*.ico
+
+# Sitemap principal
 Sitemap: https://ludhic.fr/sitemap.xml
 
 # Informations additionnelles
 # Site: https://ludhic.fr
-# Contact: ludhic.association@gmail.com 
+# Contact: ludhic.association@gmail.com
+# Association: Ludhic - Master HIC
+# Langue: Français (fr-FR) 

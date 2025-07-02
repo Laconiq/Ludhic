@@ -16,9 +16,11 @@ interface GameProps {
 function createSlug(title: string): string {
   return title
     .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, '') // Supprimer les caractères spéciaux
-    .replace(/\s+/g, '-') // Remplacer les espaces par des tirets
-    .replace(/-+/g, '-') // Supprimer les tirets multiples
+    .normalize('NFD') // décompose les accents
+    .replace(/[\u0300-\u036f]/g, '') // enlève les diacritiques
+    .replace(/[^a-z0-9\s-]/g, '') // enlève les caractères spéciaux
+    .replace(/\s+/g, '-') // espaces → tirets
+    .replace(/-+/g, '-') // tirets multiples
     .trim();
 }
 

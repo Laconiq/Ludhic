@@ -5,26 +5,29 @@ import gamesData from '../data/games.json'
 function createSlug(title: string): string {
   return title
     .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, '') // Supprimer les caractères spéciaux
-    .replace(/\s+/g, '-') // Remplacer les espaces par des tirets
-    .replace(/-+/g, '-') // Supprimer les tirets multiples
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
     .trim();
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://ludhic.fr'
+  const currentDate = new Date()
   
   // Pages statiques principales
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
-      lastModified: new Date(),
+      lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 1,
     },
     {
       url: `${baseUrl}/bingodir`,
-      lastModified: new Date(),
+      lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
@@ -33,22 +36,49 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Pages individuelles des jeux (SEO optimisé)
   const gamePages: MetadataRoute.Sitemap = gamesData.map(game => ({
     url: `${baseUrl}/games/${createSlug(game.title)}`,
-    lastModified: new Date(),
+    lastModified: currentDate,
     changeFrequency: 'monthly' as const,
-    priority: 0.9, // Priorité élevée pour les pages de jeux
+    priority: 0.9,
+    alternates: {
+      languages: {
+        'fr-FR': `${baseUrl}/games/${createSlug(game.title)}`,
+      },
+    },
   }))
 
   // Pages par année (pour le SEO)
   const yearPages: MetadataRoute.Sitemap = []
-  const years = [...new Set(gamesData.map(game => game.year))]
+  const years = [...new Set(gamesData.map(game => game.year))].sort((a, b) => b - a) // Tri décroissant
   years.forEach(year => {
     yearPages.push({
       url: `${baseUrl}/games/year/${year}`,
-      lastModified: new Date(),
+      lastModified: currentDate,
       changeFrequency: 'monthly' as const,
-      priority: 0.6,
+      priority: 0.7,
+      alternates: {
+        languages: {
+          'fr-FR': `${baseUrl}/games/year/${year}`,
+        },
+      },
     })
   })
 
-  return [...staticPages, ...gamePages, ...yearPages]
+  // Pages de catégories par genre (SEO additionnel)
+  const genrePages: MetadataRoute.Sitemap = []
+  const allGenres = [...new Set(gamesData.flatMap(game => game.genres))]
+  allGenres.forEach(genre => {
+    genrePages.push({
+      url: `${baseUrl}/games/genre/${genre.toLowerCase().replace(/\s+/g, '-')}`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+      alternates: {
+        languages: {
+          'fr-FR': `${baseUrl}/games/genre/${genre.toLowerCase().replace(/\s+/g, '-')}`,
+        },
+      },
+    })
+  })
+
+  return [...staticPages, ...gamePages, ...yearPages, ...genrePages]
 } 

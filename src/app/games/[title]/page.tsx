@@ -8,11 +8,11 @@ import Footer from '../../components/Footer';
 function createSlug(title: string): string {
   return title
     .toLowerCase()
-    .normalize('NFD') // Normaliser les caractères accentués
-    .replace(/[\u0300-\u036f]/g, '') // Supprimer les diacritiques
-    .replace(/[^a-z0-9\s-]/g, '') // Supprimer les autres caractères spéciaux
-    .replace(/\s+/g, '-') // Remplacer les espaces par des tirets
-    .replace(/-+/g, '-') // Supprimer les tirets multiples
+    .normalize('NFD') // décompose les accents
+    .replace(/[\u0300-\u036f]/g, '') // enlève les diacritiques
+    .replace(/[^a-z0-9\s-]/g, '') // enlève les caractères spéciaux
+    .replace(/\s+/g, '-') // espaces → tirets
+    .replace(/-+/g, '-') // tirets multiples
     .trim();
 }
 

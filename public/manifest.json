@@ -1,7 +1,7 @@
 {
-  "name": "Ludhic - Association Jeux Étudiants Master HIC",
+  "name": "Ludhic - Portfolio Jeux Étudiants Master HIC",
   "short_name": "Ludhic",
-  "description": "Portfolio interactif des jeux créés par les étudiants du Master Humanités et Industries Créatives",
+  "description": "Portfolio interactif des jeux créés par les étudiants du Master Humanités et Industries Créatives. Découvrez des créations uniques et innovantes.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#1f2937",
@@ -9,40 +9,71 @@
   "orientation": "portrait-primary",
   "scope": "/",
   "lang": "fr-FR",
-  "categories": ["education", "games", "portfolio"],
+  "dir": "ltr",
+  "categories": ["education", "games", "portfolio", "entertainment"],
   "screenshots": [
     {
       "src": "/images/screenshot-wide.jpg",
       "sizes": "1280x720",
       "type": "image/jpeg",
-      "form_factor": "wide"
+      "form_factor": "wide",
+      "label": "Page d'accueil Ludhic - Vue desktop"
     },
     {
       "src": "/images/screenshot-narrow.jpg", 
       "sizes": "720x1280",
       "type": "image/jpeg",
-      "form_factor": "narrow"
+      "form_factor": "narrow",
+      "label": "Page d'accueil Ludhic - Vue mobile"
     }
   ],
   "icons": [
     {
-      "src": "/images/logo-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "/images/logo-512x512.png",
-      "sizes": "512x512", 
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
       "src": "/images/logo.png",
       "sizes": "any",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Explorer les jeux",
+      "short_name": "Jeux",
+      "description": "Accéder directement à la galerie des jeux",
+      "url": "/#games",
+      "icons": [
+        {
+          "src": "/images/logo.png",
+          "sizes": "any"
+        }
+      ]
+    },
+    {
+      "name": "Master HIC",
+      "short_name": "Master",
+      "description": "En savoir plus sur le Master HIC",
+      "url": "https://univ-cotedazur.fr/formation/offre-de-formation/majic-master-jeux-video-image-et-creativite",
+      "icons": [
+        {
+          "src": "/images/logo.png",
+          "sizes": "any"
+        }
+      ]
     }
   ],
   "related_applications": [],
-  "prefer_related_applications": false
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "handle_links": "preferred",
+  "protocol_handlers": [
+    {
+      "protocol": "web+game",
+      "url": "/games/%s"
+    }
+  ]
 } 
