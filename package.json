@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "generate-videos": "node scripts/generate-videos.js"
   },
   "dependencies": {
     "critters": "^0.0.23",
