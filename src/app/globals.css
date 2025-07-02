@@ -181,7 +181,7 @@ p {
 .btn-gaming-secondary {
   background: linear-gradient(135deg, rgba(30, 36, 56, 0.8) 0%, rgba(20, 24, 41, 0.9) 100%);
   border: 1px solid rgba(49, 70, 128, 0.4);
-  color: rgba(242, 244, 243, 0.8);
+  color: #F2F4F3;
   font-family: 'PixelifySans', monospace !important;
   font-weight: 600;
   text-transform: uppercase;

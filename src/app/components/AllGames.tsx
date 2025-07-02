@@ -2,7 +2,6 @@
 
 import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import Game from './Game';
-import GameModal from './GameModal';
 import FilterBar, { GameFilters } from './FilterBar';
 import { logValidationErrors } from '../../utils/gameValidation';
 
@@ -30,12 +29,9 @@ interface GameData {
 
 interface AllGamesProps {
   games: GameData[];
-  onModalStateChange: (isOpen: boolean) => void;
 }
 
-export default function AllGames({ games, onModalStateChange }: AllGamesProps) {
-  const [selectedGame, setSelectedGame] = useState<GameData | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+export default function AllGames({ games }: AllGamesProps) {
   const [filters, setFilters] = useState<GameFilters>({
     searchTerm: '',
     selectedGenre: '',
@@ -133,18 +129,6 @@ export default function AllGames({ games, onModalStateChange }: AllGamesProps) {
   const gamesToDisplay = allSortedGames.slice(0, visibleGames);
   const hasActiveFilters = filters.searchTerm || filters.selectedGenre || filters.selectedYear !== null;
 
-  const handleGameClick = (game: GameData) => {
-    setSelectedGame(game);
-    setIsModalOpen(true);
-    onModalStateChange(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedGame(null);
-    onModalStateChange(false);
-  };
-
   const handleFiltersChange = (newFilters: GameFilters) => {
     setFilters(newFilters);
   };
@@ -163,7 +147,7 @@ export default function AllGames({ games, onModalStateChange }: AllGamesProps) {
       </div>
       
       {/* Barre de filtres avec sa propre largeur */}
-      <FilterBar games={games} onFiltersChange={handleFiltersChange} />
+      <FilterBar games={games} onFiltersChange={handleFiltersChange} currentFilters={filters} />
       
       {/* Contenu principal */}
       <div className="max-w-7xl mx-auto px-4">
@@ -178,7 +162,7 @@ export default function AllGames({ games, onModalStateChange }: AllGamesProps) {
               </p>
               <button
                 onClick={() => setFilters({ searchTerm: '', selectedGenre: '', selectedYear: null })}
-                className="btn-gaming px-6 py-3 rounded-lg"
+                className="btn-gaming px-6 py-3 rounded-lg cursor-pointer"
               >
                 RESET FILTRES
               </button>
@@ -202,7 +186,6 @@ export default function AllGames({ games, onModalStateChange }: AllGamesProps) {
                           genres={game.genres}
                           contentFolder={game.contentFolder}
                           year={game.year}
-                          onClick={() => handleGameClick(game)}
                         />
                       </div>
                     ))}
@@ -236,7 +219,6 @@ export default function AllGames({ games, onModalStateChange }: AllGamesProps) {
                           genres={game.genres}
                           contentFolder={game.contentFolder}
                           year={game.year}
-                          onClick={() => handleGameClick(game)}
                         />
                       </div>
                     ))}
@@ -272,13 +254,6 @@ export default function AllGames({ games, onModalStateChange }: AllGamesProps) {
           )}
         </div>
       </div>
-      
-      {/* Modal */}
-      <GameModal 
-        game={selectedGame}
-        isOpen={isModalOpen}
-        onClose={closeModal}
-      />
     </section>
   );
 } 

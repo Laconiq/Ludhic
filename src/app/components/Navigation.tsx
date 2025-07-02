@@ -4,11 +4,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-interface NavigationProps {
-  isModalOpen: boolean;
-}
-
-export default function Navigation({ isModalOpen }: NavigationProps) {
+export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -44,7 +40,7 @@ export default function Navigation({ isModalOpen }: NavigationProps) {
   return (
     <nav className={`fixed top-0 left-0 right-0 z-[200] transition-all duration-300 nav-gaming ${
       isScrolled ? 'py-2' : 'py-4'
-    } ${isModalOpen ? 'transform -translate-y-full pointer-events-none' : 'transform translate-y-0'}`}>
+    }`}>
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between">
           {/* Logo */}

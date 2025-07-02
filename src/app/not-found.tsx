@@ -4,7 +4,7 @@ import Navigation from './components/Navigation';
 export default function NotFound() {
   return (
     <>
-      <Navigation isModalOpen={false} />
+      <Navigation />
       
       <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4 pt-20">
         <div className="text-center max-w-md">

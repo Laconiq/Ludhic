@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { getMainImageUrl, getLogoUrl } from '../../utils/imageUtils';
 
 interface GameProps {
@@ -9,7 +10,16 @@ interface GameProps {
   genres: string[];
   contentFolder: string;
   year: number;
-  onClick: () => void;
+}
+
+// Fonction pour créer un slug à partir du titre
+function createSlug(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '') // Supprimer les caractères spéciaux
+    .replace(/\s+/g, '-') // Remplacer les espaces par des tirets
+    .replace(/-+/g, '-') // Supprimer les tirets multiples
+    .trim();
 }
 
 export default function Game({ 
@@ -17,14 +27,13 @@ export default function Game({
   longDescription, 
   genres, 
   contentFolder,
-  year,
-  onClick 
+  year
 }: GameProps) {
 
   return (
-    <div 
-      className="card-gaming rounded-xl cursor-pointer h-full flex flex-col overflow-hidden"
-      onClick={onClick}
+    <Link 
+      href={`/games/${createSlug(title)}`}
+      className="card-gaming rounded-xl cursor-pointer h-full flex flex-col overflow-hidden block hover:scale-105 transition-transform duration-300"
     >
       {/* Image principale avec logo en overlay */}
       <div className="relative w-full h-48 flex-shrink-0">
@@ -90,6 +99,6 @@ export default function Game({
           }
         </p>
       </div>
-    </div>
+    </Link>
   );
 } 

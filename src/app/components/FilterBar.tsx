@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { ALL_GENRES } from '../../constants/gameGenres';
 
 export interface GameFilters {
@@ -34,14 +34,24 @@ interface GameData {
 interface FilterBarProps {
   games: GameData[];
   onFiltersChange: (filters: GameFilters) => void;
+  currentFilters?: GameFilters;
 }
 
-export default function FilterBar({ games, onFiltersChange }: FilterBarProps) {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedGenre, setSelectedGenre] = useState('');
-  const [selectedYear, setSelectedYear] = useState<number | null>(null);
+export default function FilterBar({ games, onFiltersChange, currentFilters }: FilterBarProps) {
+  const [searchTerm, setSearchTerm] = useState(currentFilters?.searchTerm || '');
+  const [selectedGenre, setSelectedGenre] = useState(currentFilters?.selectedGenre || '');
+  const [selectedYear, setSelectedYear] = useState<number | null>(currentFilters?.selectedYear || null);
   const [isGenreOpen, setIsGenreOpen] = useState(false);
   const [isYearOpen, setIsYearOpen] = useState(false);
+
+  // Synchroniser les états locaux avec les filtres externes
+  useEffect(() => {
+    if (currentFilters) {
+      setSearchTerm(currentFilters.searchTerm);
+      setSelectedGenre(currentFilters.selectedGenre);
+      setSelectedYear(currentFilters.selectedYear);
+    }
+  }, [currentFilters]);
 
   // Obtenir les années uniques des jeux
   const availableYears = useMemo(() => {

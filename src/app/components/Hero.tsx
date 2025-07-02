@@ -29,6 +29,7 @@ export default function Hero() {
         className="absolute top-0 left-0 w-full h-full object-cover -z-10"
         src={bgVideo}
       />
+      <div className="absolute top-0 left-0 w-full h-full bg-black/50 z-0 pointer-events-none" />
       
       {/* Gaming background effects */}
       <div className="absolute inset-0 z-10">
@@ -106,7 +107,7 @@ export default function Hero() {
             href="https://univ-cotedazur.fr/formation/offre-de-formation/majic-master-jeux-video-image-et-creativite" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="btn-gaming-secondary px-8 py-4 rounded-lg text-lg font-semibold cursor-pointer w-full sm:w-auto min-w-[200px]"
+            className="btn-gaming px-8 py-4 rounded-lg text-lg font-semibold cursor-pointer w-full sm:w-auto min-w-[200px]"
           >
             MASTER OFFICIEL ↗
           </a>
