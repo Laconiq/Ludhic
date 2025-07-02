@@ -1,0 +1,74 @@
+{
+  "generatedAt": "2025-07-02T17:23:03.208Z",
+  "totalVideos": 3,
+  "clipDuration": 5,
+  "resolution": "1920x1080",
+  "totalGames": 13,
+  "videos": [
+    {
+      "title": "QBT",
+      "path": "public/games/qbt/video.webm",
+      "duration": 120.02
+    },
+    {
+      "title": "Anthares",
+      "path": "public/games/anthares/video.webm",
+      "duration": 120.02
+    },
+    {
+      "title": "Cosmostasia: a Trial of Hope",
+      "path": "public/games/cosmostasia/video.webm",
+      "duration": 120.031
+    },
+    {
+      "title": "Aeon",
+      "path": "public/games/aeon/video.webm",
+      "duration": 115.06
+    },
+    {
+      "title": "Anamnesis",
+      "path": "public/games/anamnesis/video.webm",
+      "duration": 120.02
+    },
+    {
+      "title": "Atone",
+      "path": "public/games/atone/video.webm",
+      "duration": 149.08
+    },
+    {
+      "title": "Towards the Unknown",
+      "path": "public/games/towards-the-unknown/video.webm",
+      "duration": 50.021
+    },
+    {
+      "title": "Dernière Lueur",
+      "path": "public/games/derniere-lueur/video.webm",
+      "duration": 182.921
+    },
+    {
+      "title": "La Nouvelle",
+      "path": "public/games/la-nouvelle/video.webm",
+      "duration": 120.02
+    },
+    {
+      "title": "Anirya et le monde inversé",
+      "path": "public/games/anirya/video.webm",
+      "duration": 120.02
+    },
+    {
+      "title": "God.S",
+      "path": "public/games/god-s/video.webm",
+      "duration": 64.06
+    },
+    {
+      "title": "Snap",
+      "path": "public/games/snap/video.webm",
+      "duration": 67.04
+    },
+    {
+      "title": "Cafardage Arena",
+      "path": "public/games/cafardage-arena/video.webm",
+      "duration": 120.02
+    }
+  ]
+}

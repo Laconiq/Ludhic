@@ -5,142 +5,162 @@ const path = require('path');
 const { execSync } = require('child_process');
 
 // Configuration
-const GAMES_DATA_PATH = '../src/data/games.json';
-const PUBLIC_GAMES_PATH = '../public/games';
-const OUTPUT_PATH = '../public/videos';
-const SEGMENT_DURATION = 5; // 5 secondes par jeu
-const TRANSITION_DURATION = 1; // 1 seconde de transition
-const TOTAL_VIDEOS = 3;
+const GAMES_DIR = 'public/games';
+const OUTPUT_DIR = 'public/videos';
+const CLIP_DURATION = 5; // secondes par jeu
+const WIDTH = 1920;
+const HEIGHT = 1080;
+const NUM_VIDEOS = 3;
 
-// Charger les données des jeux
-const gamesData = JSON.parse(fs.readFileSync(path.resolve(__dirname, GAMES_DATA_PATH), 'utf8'));
-const gamesWithVideo = gamesData.filter(game => game.hasVideo);
-
-console.log(`🎬 Génération de ${TOTAL_VIDEOS} vidéos avec ${gamesWithVideo.length} jeux...`);
-
-// Créer le dossier de sortie
-if (!fs.existsSync(path.resolve(__dirname, OUTPUT_PATH))) {
-  fs.mkdirSync(path.resolve(__dirname, OUTPUT_PATH), { recursive: true });
+// Créer le dossier de sortie s'il n'existe pas
+if (!fs.existsSync(OUTPUT_DIR)) {
+  fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 }
 
-// Fonction pour vérifier si une vidéo existe
-function videoExists(gamePath) {
-  const videoPath = path.resolve(__dirname, PUBLIC_GAMES_PATH, gamePath.replace('/games/', ''), 'video.webm');
+// Fonction pour vérifier si un jeu a une vidéo
+function hasVideo(gameFolder) {
+  // Enlever le /games/ du début et garder seulement le nom du dossier
+  const cleanFolder = gameFolder.replace('/games/', '');
+  const videoPath = path.join(GAMES_DIR, cleanFolder, 'video.webm');
+  console.log(`🔍 Vérification: ${gameFolder} -> ${cleanFolder} -> ${videoPath} -> ${fs.existsSync(videoPath) ? 'EXISTE' : 'N\'EXISTE PAS'}`);
   return fs.existsSync(videoPath);
 }
 
-// Fonction pour générer une vidéo
-function generateVideo(videoIndex) {
-  console.log(`\n🎥 Génération de la vidéo ${videoIndex + 1}/${TOTAL_VIDEOS}...`);
-  
-  const outputFile = path.resolve(__dirname, OUTPUT_PATH, `background-${videoIndex + 1}.webm`);
-  const filterComplex = [];
-  const inputs = [];
-  let inputIndex = 0;
-  
-  // Préparer les segments pour chaque jeu
-  gamesWithVideo.forEach((game, gameIndex) => {
-    const gamePath = game.contentFolder.replace('/games/', '');
-    const videoPath = path.resolve(__dirname, PUBLIC_GAMES_PATH, gamePath, 'video.webm');
-    
-    if (!videoExists(game.contentFolder)) {
-      console.log(`⚠️  Vidéo manquante pour ${game.title}, ignorée`);
-      return;
-    }
-    
-    inputs.push(`-i "${videoPath}"`);
-    
-    // Démarrer à un temps aléatoire différent pour chaque vidéo
-    const randomOffset = (videoIndex * 10 + gameIndex * 3) % 30; // Variation par vidéo
-    
-    filterComplex.push(
-      `[${inputIndex}:v]trim=start=${randomOffset}:duration=${SEGMENT_DURATION},scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,fade=t=in:st=0:d=${TRANSITION_DURATION},fade=t=out:st=${SEGMENT_DURATION - TRANSITION_DURATION}:d=${TRANSITION_DURATION}[v${inputIndex}];`,
-      `[${inputIndex}:a]atrim=start=${randomOffset}:duration=${SEGMENT_DURATION},afade=t=in:st=0:d=${TRANSITION_DURATION},afade=t=out:st=${SEGMENT_DURATION - TRANSITION_DURATION}:d=${TRANSITION_DURATION}[a${inputIndex}];`
-    );
-    
-    inputIndex++;
-  });
-  
-  // Concaténer tous les segments
-  const videoStreams = Array.from({ length: inputIndex }, (_, i) => `[v${i}]`).join('');
-  const audioStreams = Array.from({ length: inputIndex }, (_, i) => `[a${i}]`).join('');
-  
-  filterComplex.push(
-    `${videoStreams}concat=n=${inputIndex}:v=1:a=0[outv];`,
-    `${audioStreams}concat=n=${inputIndex}:v=0:a=1[outa]`
-  );
-  
-  // Commande FFmpeg
-  const ffmpegCommand = `ffmpeg ${inputs.join(' ')} -filter_complex "${filterComplex.join('')}" -map "[outv]" -map "[outa]" -c:v libvpx-vp9 -crf 30 -b:v 0 -c:a libopus -b:a 128k -shortest -y "${outputFile}"`;
-  
+// Fonction pour obtenir la durée d'une vidéo
+function getVideoDuration(videoPath) {
   try {
-    console.log(`🔄 Exécution de FFmpeg...`);
-    execSync(ffmpegCommand, { stdio: 'inherit' });
-    console.log(`✅ Vidéo ${videoIndex + 1} générée: ${outputFile}`);
+    const output = execSync(`ffprobe -v quiet -show_entries format=duration -of csv=p=0 "${videoPath}"`, { encoding: 'utf8' });
+    return parseFloat(output.trim());
   } catch (error) {
-    console.error(`❌ Erreur lors de la génération de la vidéo ${videoIndex + 1}:`, error.message);
+    console.error(`❌ Erreur lors de la lecture de la durée pour ${videoPath}:`, error.message);
+    return 0;
   }
 }
 
-// Fonction pour créer le fichier de configuration
-function createVideoConfig() {
-  const config = {
-    videos: Array.from({ length: TOTAL_VIDEOS }, (_, i) => ({
-      path: `/videos/background-${i + 1}.webm`,
-      index: i + 1
-    })),
-    totalGames: gamesWithVideo.length,
-    segmentDuration: SEGMENT_DURATION,
-    transitionDuration: TRANSITION_DURATION,
-    generatedAt: new Date().toISOString()
-  };
+// Fonction pour générer une vidéo de compilation
+function generateCompilationVideo(videoNumber, videos) {
+  console.log(`🎥 Génération de la vidéo ${videoNumber}/${NUM_VIDEOS}...`);
   
-  const configPath = path.resolve(__dirname, OUTPUT_PATH, 'video-config.json');
-  fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
-  console.log(`📝 Configuration sauvegardée: ${configPath}`);
+  if (videos.length === 0) {
+    console.log('❌ Aucune vidéo valide trouvée');
+    return false;
+  }
+
+  const outputPath = path.join(OUTPUT_DIR, `background-${videoNumber}.webm`);
+  
+  // Construire la commande FFmpeg
+  const inputs = videos.map(video => `-i "${video.path}"`).join(' ');
+  
+  const videoFilter = videos.map((video, index) => {
+    const maxStart = Math.max(0, video.duration - CLIP_DURATION - 1);
+    const startTime = Math.floor(Math.random() * maxStart);
+    return `[${index}:v]trim=start=${startTime}:duration=${CLIP_DURATION},setpts=PTS-STARTPTS,scale=${WIDTH}:${HEIGHT}:force_original_aspect_ratio=decrease,pad=${WIDTH}:${HEIGHT}:(ow-iw)/2:(oh-ih)/2,setsar=1:1,fade=t=in:st=0:d=1,fade=t=out:st=${CLIP_DURATION-1}:d=1[v${index}];[${index}:a]atrim=start=${startTime}:duration=${CLIP_DURATION},asetpts=PTS-STARTPTS,afade=t=in:st=0:d=1,afade=t=out:st=${CLIP_DURATION-1}:d=1[a${index}]`;
+  }).join(';');
+
+  const concatFilter = `[${videos.map((_, i) => `v${i}`).join('][')}]concat=n=${videos.length}:v=1:a=0[outv];[${videos.map((_, i) => `a${i}`).join('][')}]concat=n=${videos.length}:v=0:a=1[outa]`;
+
+  const command = `ffmpeg ${inputs} -filter_complex "${videoFilter};${concatFilter}" -map "[outv]" -map "[outa]" -c:v libvpx-vp9 -crf 30 -b:v 0 -c:a libopus -b:a 128k -shortest -y "${outputPath}"`;
+
+  try {
+    execSync(command, { stdio: 'inherit' });
+    console.log(`✅ Vidéo ${videoNumber} générée avec succès`);
+    return true;
+  } catch (error) {
+    console.error(`❌ Erreur lors de la génération de la vidéo ${videoNumber}:`, error.message);
+    return false;
+  }
 }
 
 // Fonction principale
 function main() {
-  console.log('🎬 Générateur de vidéos d\'arrière-plan Ludhic');
-  console.log('=============================================');
+  console.log('🎬 Début de la génération des vidéos de compilation...');
   
-  if (gamesWithVideo.length === 0) {
-    console.log('❌ Aucun jeu avec vidéo trouvé dans games.json');
-    return;
-  }
+  // Lire le fichier games.json
+  const gamesData = JSON.parse(fs.readFileSync('src/data/games.json', 'utf8'));
   
-  console.log(`📋 Jeux avec vidéo: ${gamesWithVideo.length}`);
-  gamesWithVideo.forEach(game => {
-    const hasVideo = videoExists(game.contentFolder);
-    console.log(`  ${hasVideo ? '✅' : '❌'} ${game.title} (${game.year})`);
+  // Filtrer seulement les jeux qui ont une vidéo
+  const gamesWithVideos = gamesData.filter(game => {
+    const hasVideoFile = hasVideo(game.contentFolder);
+    if (!hasVideoFile) {
+      console.log(`⚠️  ${game.title}: Pas de vidéo trouvée`);
+    }
+    return hasVideoFile;
   });
   
-  // Vérifier FFmpeg
-  try {
-    execSync('ffmpeg -version', { stdio: 'pipe' });
-  } catch (error) {
-    console.error('❌ FFmpeg n\'est pas installé. Veuillez l\'installer d\'abord.');
-    console.log('📥 Téléchargement: https://ffmpeg.org/download.html');
+  console.log(`📋 ${gamesWithVideos.length} jeux avec vidéo trouvés sur ${gamesData.length} jeux total`);
+  
+  if (gamesWithVideos.length === 0) {
+    console.log('❌ Aucun jeu avec vidéo trouvé');
     return;
   }
+
+  // Préparer les données des vidéos
+  const videos = gamesWithVideos.map(game => {
+    const cleanFolder = game.contentFolder.replace('/games/', '');
+    const videoPath = path.join(GAMES_DIR, cleanFolder, 'video.webm');
+    const duration = getVideoDuration(videoPath);
+    
+    if (duration < CLIP_DURATION) {
+      console.log(`⚠️  ${game.title}: Vidéo trop courte (${duration}s < ${CLIP_DURATION}s)`);
+      return null;
+    }
+    
+    return {
+      path: videoPath,
+      title: game.title,
+      year: game.year || 0,
+      duration: duration
+    };
+  }).filter(video => video !== null);
+
+  // Trier par année (décroissante) puis par nom alphabétiquement
+  videos.sort((a, b) => {
+    // D'abord par année (décroissante)
+    if (b.year !== a.year) {
+      return b.year - a.year;
+    }
+    // Puis par nom alphabétiquement
+    return a.title.localeCompare(b.title, 'fr', { sensitivity: 'base' });
+  });
+
+  console.log('📅 Ordre des jeux dans les compilations:');
+  videos.forEach((video, index) => {
+    console.log(`  ${index + 1}. ${video.title} (${video.year})`);
+  });
+
+  console.log(`🎯 ${videos.length} vidéos valides pour la compilation`);
   
-  // Générer les vidéos
-  for (let i = 0; i < TOTAL_VIDEOS; i++) {
-    generateVideo(i);
+  if (videos.length === 0) {
+    console.log('❌ Aucune vidéo valide pour la compilation');
+    return;
   }
+
+  // Générer les 3 vidéos avec l'ordre trié (année décroissante puis nom alphabétique)
+  let successCount = 0;
+  for (let i = 1; i <= NUM_VIDEOS; i++) {
+    if (generateCompilationVideo(i, videos)) {
+      successCount++;
+    }
+  }
+
+  console.log(`\n🎯 Génération terminée ! ${successCount}/${NUM_VIDEOS} vidéos créées avec succès`);
   
-  // Créer la configuration
-  createVideoConfig();
+  // Créer le fichier de métadonnées
+  const metadata = {
+    generatedAt: new Date().toISOString(),
+    totalVideos: successCount,
+    clipDuration: CLIP_DURATION,
+    resolution: `${WIDTH}x${HEIGHT}`,
+    totalGames: videos.length,
+    videos: videos.map(v => ({
+      title: v.title,
+      path: v.path,
+      duration: v.duration
+    }))
+  };
   
-  console.log('\n🎉 Génération terminée !');
-  console.log(`📁 Vidéos générées dans: ${path.resolve(__dirname, OUTPUT_PATH)}`);
-  console.log('🚀 Vous pouvez maintenant utiliser ces vidéos dans VideoBackground.tsx');
+  fs.writeFileSync(path.join(OUTPUT_DIR, 'metadata.json'), JSON.stringify(metadata, null, 2));
+  console.log('📝 Fichier de métadonnées créé');
 }
 
-// Exécuter le script
-if (require.main === module) {
-  main();
-}
-
-module.exports = { generateVideo, createVideoConfig }; 
+main(); 

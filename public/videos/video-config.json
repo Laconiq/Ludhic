@@ -1,0 +1,20 @@
+{
+  "videos": [
+    {
+      "path": "/videos/background-1.webm",
+      "index": 1
+    },
+    {
+      "path": "/videos/background-2.webm",
+      "index": 2
+    },
+    {
+      "path": "/videos/background-3.webm",
+      "index": 3
+    }
+  ],
+  "totalGames": 13,
+  "segmentDuration": 5,
+  "transitionDuration": 1,
+  "generatedAt": "2025-07-02T16:59:06.910Z"
+}

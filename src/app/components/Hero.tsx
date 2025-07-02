@@ -1,9 +1,16 @@
 'use client';
 
 import Image from 'next/image';
-import VideoBackground from './VideoBackground';
+import { useState, useEffect } from 'react';
 
 export default function Hero() {
+  const [bgVideo, setBgVideo] = useState('/videos/background-1.webm');
+
+  useEffect(() => {
+    const idx = Math.floor(Math.random() * 3) + 1;
+    setBgVideo(`/videos/background-${idx}.webm`);
+  }, []);
+
   const scrollToGames = () => {
     const element = document.getElementById('games');
     if (element) {
@@ -14,7 +21,14 @@ export default function Hero() {
   return (
     <section id="hero" className="h-screen flex items-center justify-center relative overflow-hidden -mt-16">
       {/* Vidéo en arrière-plan */}
-      <VideoBackground />
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute top-0 left-0 w-full h-full object-cover -z-10"
+        src={bgVideo}
+      />
       
       {/* Gaming background effects */}
       <div className="absolute inset-0 z-10">
