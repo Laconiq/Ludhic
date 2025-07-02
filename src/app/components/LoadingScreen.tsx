@@ -155,10 +155,6 @@ export default function LoadingScreen({ onLoadingComplete }: LoadingScreenProps)
         </div>
       </div>
 
-      {/* Effet de bordure animée */}
-      <div className="absolute inset-0 border-2 border-transparent rounded-lg">
-        <div className="absolute inset-0 border-2 border-cyan-400/30 rounded-lg animate-pulse"></div>
-      </div>
     </div>
   );
 } 

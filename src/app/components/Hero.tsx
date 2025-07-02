@@ -4,22 +4,19 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 
 interface HeroProps {
-  onVideoLoaded?: () => void;
+  videoIndex?: number;
 }
 
-export default function Hero({ onVideoLoaded }: HeroProps) {
+export default function Hero({ videoIndex }: HeroProps) {
   const [bgVideo, setBgVideo] = useState('/videos/background-1.webm');
 
   useEffect(() => {
-    const idx = Math.floor(Math.random() * 3) + 1;
-    setBgVideo(`/videos/background-${idx}.webm`);
-  }, []);
-
-  const handleVideoLoad = () => {
-    if (onVideoLoaded) {
-      onVideoLoaded();
+    let idx = videoIndex;
+    if (!idx) {
+      idx = Math.floor(Math.random() * 3) + 1;
     }
-  };
+    setBgVideo(`/videos/background-${idx}.webm`);
+  }, [videoIndex]);
 
   const scrollToGames = () => {
     const element = document.getElementById('games');
@@ -38,7 +35,6 @@ export default function Hero({ onVideoLoaded }: HeroProps) {
         playsInline
         className="absolute top-0 left-0 w-full h-full object-cover -z-10"
         src={bgVideo}
-        onLoadedData={handleVideoLoad}
       />
       <div className="absolute top-0 left-0 w-full h-full bg-black/50 z-0 pointer-events-none" />
       

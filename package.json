@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.0.0",
+    "@tailwindcss/line-clamp": "^0.4.4",
     "@tailwindcss/postcss": "^4.1.8",
     "@types/node": "^20.0.0",
     "@types/react": "^19.0.0",

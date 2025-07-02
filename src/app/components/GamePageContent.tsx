@@ -121,29 +121,28 @@ export default function GamePageContent({ game }: GamePageContentProps) {
       {/* Contenu principal */}
       <div className="max-w-7xl mx-auto px-6 md:px-8 py-16">
         {/* Genres et année juste au-dessus du titre */}
-        <div className="flex flex-wrap items-center gap-2 mb-8 justify-between text-[1em]">
-          {/* Année à gauche */}
-          <span className="font-gaming bg-black/50 backdrop-blur-sm px-3 py-1 rounded-full border border-cyan-400/30 text-cyan-400">
-            ANNÉE {game.year}
-          </span>
-          {/* Genres au centre */}
-          <div className="flex flex-wrap gap-2">
+        <div className="flex flex-col items-center gap-y-2 mb-8">
+          {/* Capsules année + genres */}
+          <div className="flex flex-wrap gap-2 justify-center">
+            <span className="font-gaming bg-black/50 backdrop-blur-sm rounded-full border border-cyan-400/30 text-cyan-400 text-xs px-2 py-0.5 sm:text-base sm:px-3 sm:py-1">
+              ANNÉE {game.year}
+            </span>
             {game.genres.map((genre) => (
               <span 
                 key={genre} 
-                className="px-3 py-1 bg-black/50 backdrop-blur-sm rounded-full text-cyan-300 border border-cyan-400/30 font-gaming"
+                className="px-2 py-0.5 sm:px-3 sm:py-1 bg-black/50 backdrop-blur-sm rounded-full text-cyan-300 border border-cyan-400/30 font-gaming text-xs sm:text-base"
               >
                 {genre}
               </span>
             ))}
           </div>
-          {/* Bouton personnalisé à droite */}
+          {/* Bouton personnalisé centré */}
           {game.customButton.enabled && (
             <a
               href={game.customButton.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block btn-gaming px-5 py-2 rounded-lg font-semibold cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg ml-auto"
+              className="btn-gaming px-5 py-2 rounded-lg font-semibold cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg mt-4 block mx-auto w-auto"
             >
               {game.customButton.name}
             </a>

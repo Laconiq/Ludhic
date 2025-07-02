@@ -94,11 +94,10 @@ export default function Game({
         </div>
 
         {/* Description */}
-        <p className="text-white/70 text-sm line-clamp-3 flex-grow">
-          {longDescription.length > 150 
-            ? `${longDescription.slice(0, 150)}...` 
-            : longDescription
-          }
+        <p className="text-white/70 text-sm flex-grow">
+          {longDescription.length > 150
+            ? longDescription.slice(0, 150) + '...'
+            : longDescription}
         </p>
       </div>
     </Link>

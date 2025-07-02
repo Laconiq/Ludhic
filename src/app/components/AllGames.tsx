@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import Game from './Game';
 import FilterBar, { GameFilters } from './FilterBar';
 import { logValidationErrors } from '../../utils/gameValidation';
@@ -37,9 +37,7 @@ export default function AllGames({ games }: AllGamesProps) {
     selectedGenre: '',
     selectedYear: null
   });
-  const [visibleGames, setVisibleGames] = useState(8); // Nombre initial de jeux affichés
-  const [isLoading, setIsLoading] = useState(false);
-  const observerRef = useRef<HTMLDivElement>(null);
+  const [showAllGames, setShowAllGames] = useState(false);
 
   // Configuration de l'année en vedette (peut être configuré facilement)
   const FEATURED_YEAR = 2025;
@@ -85,49 +83,16 @@ export default function AllGames({ games }: AllGamesProps) {
 
   // Jeux en vedette : ceux de l'année configurée
   const featuredGames = sortedGames.filter(game => game.year === FEATURED_YEAR);
-  const otherGames = sortedGames.filter(game => game.year !== FEATURED_YEAR);
-  const allSortedGames = [...featuredGames, ...otherGames];
-
-  // Fonction pour charger plus de jeux
-  const loadMoreGames = useCallback(() => {
-    if (visibleGames >= allSortedGames.length) return;
-    
-    setIsLoading(true);
-    setTimeout(() => {
-      setVisibleGames(prev => Math.min(prev + 8, allSortedGames.length));
-      setIsLoading(false);
-    }, 200); // Réduit de 500ms à 200ms
-  }, [visibleGames, allSortedGames.length]);
-
-  // Intersection Observer pour le lazy loading
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && !isLoading && visibleGames < allSortedGames.length) {
-          loadMoreGames();
-        }
-      },
-      { 
-        threshold: 0.1,
-        rootMargin: '100px' // Précharger 100px avant
-      }
-    );
-
-    if (observerRef.current) {
-      observer.observe(observerRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [loadMoreGames, isLoading, visibleGames, allSortedGames.length]);
-
-  // Reset des jeux visibles quand les filtres changent
-  useEffect(() => {
-    setVisibleGames(8);
-  }, [filters]);
-
-  // Jeux à afficher (avec limitation pour le lazy loading)
-  const gamesToDisplay = allSortedGames.slice(0, visibleGames);
+  const allSortedGames = sortedGames;
   const hasActiveFilters = filters.searchTerm || filters.selectedGenre || filters.selectedYear !== null;
+
+  // Jeux à afficher (seulement les jeux en vedette initialement, tous si showAllGames est true ou si filtres actifs)
+  const gamesToDisplay = (showAllGames || hasActiveFilters) ? allSortedGames : featuredGames;
+
+  // Reset quand les filtres changent
+  useEffect(() => {
+    setShowAllGames(false);
+  }, [filters]);
 
   const handleFiltersChange = (newFilters: GameFilters) => {
     setFilters(newFilters);
@@ -171,45 +136,36 @@ export default function AllGames({ games }: AllGamesProps) {
 
           {gamesToDisplay.length > 0 && (
             <>
-              {/* Sections avec jeux en vedette d'abord, puis les autres */}
-              {!hasActiveFilters && featuredGames.length > 0 && (
+              {/* Affichage des jeux */}
+              {gamesToDisplay.length > 0 && (
                 <div className="mb-12">
-                  <h3 className="text-2xl font-gaming text-cyan-400 mb-8 tracking-wider">
-                    ⭐ JEUX EN VEDETTE {FEATURED_YEAR}
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 auto-rows-fr">
-                    {featuredGames.slice(0, Math.min(visibleGames, featuredGames.length)).map((game) => (
-                      <div key={game.id} className="animate-fadeIn">
-                        <Game
-                          title={game.title}
-                          longDescription={game.longDescription}
-                          genres={game.genres}
-                          contentFolder={game.contentFolder}
-                          year={game.year}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Portfolio complet */}
-              {(hasActiveFilters || otherGames.length > 0) && (
-                <div className="mb-12">
-                  {!hasActiveFilters && otherGames.length > 0 && (
-                    <h3 className="text-2xl font-gaming text-purple-400 mb-8 tracking-wider">
+                  {/* Titre selon le contexte */}
+                  {!hasActiveFilters && !showAllGames && featuredGames.length > 0 && (
+                    <h3 className="text-2xl font-gaming text-cyan-400 mb-8 tracking-wider">
+                      ⭐ JEUX EN VEDETTE {FEATURED_YEAR}
+                    </h3>
+                  )}
+                  
+                  {!hasActiveFilters && showAllGames && (
+                    <h3 className="text-2xl font-gaming text-purple-400 mb-8 tracking-wider animate-fadeIn">
                       🎮 PORTFOLIO COMPLET
                     </h3>
                   )}
+
+                  {hasActiveFilters && (
+                    <h3 className="text-2xl font-gaming text-purple-400 mb-8 tracking-wider">
+                      🔍 RÉSULTATS DE RECHERCHE ({gamesToDisplay.length} jeu{gamesToDisplay.length > 1 ? 'x' : ''})
+                    </h3>
+                  )}
+
+                  {/* Grille des jeux */}
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 auto-rows-fr">
-                    {gamesToDisplay
-                      .filter(game => hasActiveFilters || game.year !== FEATURED_YEAR)
-                      .map((game, index) => (
+                    {gamesToDisplay.map((game, index) => (
                       <div 
                         key={game.id} 
                         className="animate-fadeIn"
                         style={{ 
-                          animationDelay: `${(index % 8) * 0.1}s`,
+                          animationDelay: `${index * 0.1}s`,
                           animationFillMode: 'both'
                         }}
                       >
@@ -226,27 +182,23 @@ export default function AllGames({ games }: AllGamesProps) {
                 </div>
               )}
 
-              {/* Indicateur de chargement */}
-              {visibleGames < allSortedGames.length && (
-                <div ref={observerRef} className="text-center py-12">
-                  {isLoading ? (
-                    <div className="flex items-center justify-center space-x-4">
-                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-400"></div>
-                      <span className="text-cyan-400 font-gaming">CHARGEMENT...</span>
-                    </div>
-                  ) : (
-                    <div className="text-white/60 font-gaming text-sm">
-                      Scroll pour charger plus de jeux...
-                    </div>
-                  )}
+              {/* Bouton "Voir le portfolio complet" */}
+              {!showAllGames && allSortedGames.length > featuredGames.length && !hasActiveFilters && (
+                <div className="text-center py-12">
+                  <button
+                    onClick={() => setShowAllGames(true)}
+                    className="btn-gaming px-8 py-4 rounded-lg cursor-pointer text-lg font-gaming tracking-wider hover:scale-105 transition-transform duration-200"
+                  >
+                    VOIR LE PORTFOLIO COMPLET ({allSortedGames.length - featuredGames.length} autres jeux)
+                  </button>
                 </div>
               )}
 
-              {/* Indicateur de fin */}
-              {visibleGames >= allSortedGames.length && allSortedGames.length > 8 && (
+              {/* Indicateur quand tous les jeux sont affichés */}
+              {showAllGames && allSortedGames.length > featuredGames.length && (
                 <div className="text-center py-8">
                   <div className="text-white/60 font-gaming text-sm">
-                    ✨ Tous les jeux ont été chargés ({allSortedGames.length} jeux)
+                    ✨ Portfolio complet affiché ({allSortedGames.length} jeux)
                   </div>
                 </div>
               )}

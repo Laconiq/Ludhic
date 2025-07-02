@@ -1,57 +1,21 @@
 'use client';
 
-import { Suspense, useState, useEffect } from 'react';
+import { Suspense } from 'react';
 import Hero from './components/Hero';
 import AllGames from './components/AllGames';
 import FAQ from './components/FAQ';
 import Footer from './components/Footer';
 import Navigation from './components/Navigation';
 import SEOSchema from './components/SEOSchema';
-import LoadingScreen from './components/LoadingScreen';
 import gamesData from '../data/games.json';
 
+
 function HomeContent() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [videoLoaded, setVideoLoaded] = useState(false);
-  const [essentialElementsLoaded, setEssentialElementsLoaded] = useState(false);
-
-  // Vérifier que les éléments essentiels sont chargés
-  useEffect(() => {
-    const checkEssentialElements = () => {
-      // Vérifier que les images critiques sont chargées
-      const logoImg = new Image();
-      logoImg.onload = () => {
-        setEssentialElementsLoaded(true);
-      };
-      logoImg.src = '/images/logo.png';
-    };
-
-    checkEssentialElements();
-  }, []);
-
-  // Attendre que la vidéo ET les éléments essentiels soient chargés
-  useEffect(() => {
-    if (videoLoaded && essentialElementsLoaded) {
-      // Petit délai pour une transition fluide
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 1000);
-    }
-  }, [videoLoaded, essentialElementsLoaded]);
-
-  const handleVideoLoaded = () => {
-    setVideoLoaded(true);
-  };
-
-  if (isLoading) {
-    return <LoadingScreen onLoadingComplete={() => setIsLoading(false)} />;
-  }
-
   return (
     <>
       <Navigation />
       <main>
-        <Hero onVideoLoaded={handleVideoLoaded} />
+        <Hero />
         <AllGames games={gamesData} />
         <FAQ />
       </main>
