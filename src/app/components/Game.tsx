@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { getMainImageUrl, getLogoUrl } from '../utils/imageUtils';
+import { getMainImageUrl, getLogoUrl } from '../../utils/imageUtils';
 
 interface GameProps {
   title: string;

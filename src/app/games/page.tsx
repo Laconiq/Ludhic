@@ -1,1 +1,1 @@
-export { default } from '../../pages/games/[title]/page'; 
+export { default } from './[title]/page'; 
