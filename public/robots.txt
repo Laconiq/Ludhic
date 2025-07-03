@@ -45,7 +45,7 @@ Disallow: /pnpm-lock.yaml
 
 # Autoriser explicitement les pages importantes
 Allow: /games/
-Allow: /bingodir/
+
 Allow: /images/
 Allow: /videos/
 Allow: /fonts/

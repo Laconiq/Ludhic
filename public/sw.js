@@ -1,7 +1,7 @@
 const CACHE_NAME = 'ludhic-v1';
 const urlsToCache = [
   '/',
-  '/bingodir',
+
   '/images/logo.png',
   '/images/logo-16x16.png',
   '/images/logo-32x32.png',
