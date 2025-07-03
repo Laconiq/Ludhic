@@ -28,14 +28,6 @@
 
 @font-face {
   font-family: 'PixelifySans';
-  src: url('/fonts/PixelifySans-Medium.ttf') format('truetype');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'PixelifySans';
   src: url('/fonts/PixelifySans-SemiBold.ttf') format('truetype');
   font-weight: 600;
   font-style: normal;
@@ -323,34 +315,6 @@ p {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .animate-fadeIn {
   animation: fadeIn 0.5s ease-out forwards;
 }
@@ -370,8 +334,6 @@ p {
 .animate-float {
   animation: float ease-in-out infinite;
 }
-
-
 
 /* Line clamp utilities */
 .line-clamp-2 {
@@ -476,35 +438,4 @@ p {
 /* Conteneur simplifié */
 .foil-container {
   cursor: default;
-}
-
-@keyframes spin {
-  100% { transform: rotate(360deg); }
-}
-.animate-spin-slow {
-  animation: spin 1.2s linear infinite;
-}
-
-@keyframes loader-dot-spin {
-  100% { transform: rotate(360deg); }
-}
-@keyframes loader-dot-spin2 {
-  100% { transform: rotate(-360deg); }
-}
-@keyframes loader-dot-spin3 {
-  100% { transform: rotate(180deg); }
-}
-@keyframes loader-pulse {
-  0%, 100% { stroke-width: 4; opacity: 0.5; }
-  50% { stroke-width: 8; opacity: 1; }
-}
-@keyframes loader-center-pulse {
-  0%, 100% { r: 5; opacity: 1; }
-  50% { r: 8; opacity: 0.7; }
-}
-@keyframes loader-scan {
-  100% { transform: rotate(360deg); }
-}
-.shadow-glow-bar {
-  box-shadow: 0 0 16px 4px #06b6d4cc, 0 0 32px 8px #9333ea44;
 }

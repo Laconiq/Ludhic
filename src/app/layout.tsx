@@ -143,6 +143,22 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://ludhic.fr" />
         <link rel="preload" href="/videos/background-1.webm" as="video" type="video/webm" />
         <link rel="preload" href="/images/logo.png" as="image" />
+        
+        {/* Préchargement des polices critiques pour éviter les layout shifts */}
+        <link 
+          rel="preload" 
+          href="/fonts/PlusJakartaSans-VariableFont_wght.ttf" 
+          as="font" 
+          type="font/ttf" 
+          crossOrigin="anonymous" 
+        />
+        <link 
+          rel="preload" 
+          href="/fonts/PixelifySans-SemiBold.ttf" 
+          as="font" 
+          type="font/ttf" 
+          crossOrigin="anonymous" 
+        />
       </head>
       <body className="bg-gray-900 text-white antialiased">
         <ServiceWorker />
