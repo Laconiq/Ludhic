@@ -10,8 +10,6 @@ interface GameProps {
   genres: string[];
   contentFolder: string;
   year: number;
-  className?: string;
-  style?: React.CSSProperties;
 }
 
 // Fonction pour créer un slug à partir du titre
@@ -31,17 +29,14 @@ export default function Game({
   longDescription, 
   genres, 
   contentFolder,
-  year,
-  className = '',
-  style
+  year
 }: GameProps) {
 
   return (
     <Link 
       href={`/games/${createSlug(title)}`}
-      className={`card-gaming rounded-xl cursor-pointer h-full flex flex-col overflow-hidden block hover:scale-105 transition-transform duration-300 ${className}`}
+      className="card-gaming rounded-xl cursor-pointer h-full flex flex-col overflow-hidden block hover:scale-105 transition-transform duration-300"
       aria-label={`Voir les détails du jeu ${title}`}
-      style={style}
     >
       {/* Image principale avec logo en overlay */}
       <div className="relative w-full h-48 flex-shrink-0">

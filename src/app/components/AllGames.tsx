@@ -158,35 +158,48 @@ export default function AllGames({ games }: AllGamesProps) {
                     </h3>
                   )}
 
-                  {/* Grille des jeux avec pagination */}
+                  {/* Grille des jeux */}
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 auto-rows-fr">
-                    {gamesToDisplay.slice(0, showAllGames ? gamesToDisplay.length : 12).map((game, index) => (
-                      <Game
-                        key={game.id}
-                        title={game.title}
-                        longDescription={game.longDescription}
-                        genres={game.genres}
-                        contentFolder={game.contentFolder}
-                        year={game.year}
+                    {gamesToDisplay.map((game, index) => (
+                      <div 
+                        key={game.id} 
                         className="animate-fadeIn"
-                        style={{
+                        style={{ 
                           animationDelay: `${index * 0.1}s`,
-                          animationFillMode: 'both',
+                          animationFillMode: 'both'
                         }}
-                      />
+                      >
+                        <Game
+                          title={game.title}
+                          longDescription={game.longDescription}
+                          genres={game.genres}
+                          contentFolder={game.contentFolder}
+                          year={game.year}
+                        />
+                      </div>
                     ))}
                   </div>
-                  {/* Bouton Charger plus */}
-                  {!showAllGames && gamesToDisplay.length > 12 && (
-                    <div className="text-center py-8">
-                      <button
-                        onClick={() => setShowAllGames(true)}
-                        className="btn-gaming px-8 py-4 rounded-lg cursor-pointer text-lg font-gaming tracking-wider hover:scale-105 transition-transform duration-200"
-                      >
-                        CHARGER PLUS ({gamesToDisplay.length - 12} autres jeux)
-                      </button>
-                    </div>
-                  )}
+                </div>
+              )}
+
+              {/* Bouton "Voir le portfolio complet" */}
+              {!showAllGames && allSortedGames.length > featuredGames.length && !hasActiveFilters && (
+                <div className="text-center py-12">
+                  <button
+                    onClick={() => setShowAllGames(true)}
+                    className="btn-gaming px-8 py-4 rounded-lg cursor-pointer text-lg font-gaming tracking-wider hover:scale-105 transition-transform duration-200"
+                  >
+                    VOIR LE PORTFOLIO COMPLET ({allSortedGames.length - featuredGames.length} autres jeux)
+                  </button>
+                </div>
+              )}
+
+              {/* Indicateur quand tous les jeux sont affichés */}
+              {showAllGames && allSortedGames.length > featuredGames.length && (
+                <div className="text-center py-8">
+                  <div className="text-white/60 font-gaming text-sm">
+                    ✨ Portfolio complet affiché ({allSortedGames.length} jeux)
+                  </div>
                 </div>
               )}
             </>
