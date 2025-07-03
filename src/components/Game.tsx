@@ -36,6 +36,7 @@ export default function Game({
     <Link 
       href={`/games/${createSlug(title)}`}
       className="card-gaming rounded-xl cursor-pointer h-full flex flex-col overflow-hidden block hover:scale-105 transition-transform duration-300"
+      aria-label={`Voir les détails du jeu ${title}`}
     >
       {/* Image principale avec logo en overlay */}
       <div className="relative w-full h-48 flex-shrink-0">
@@ -94,7 +95,7 @@ export default function Game({
         </div>
 
         {/* Description */}
-        <p className="text-white/70 text-sm flex-grow">
+        <p className="text-white/85 text-sm flex-grow">
           {longDescription.length > 140
             ? longDescription.slice(0, 140) + '...'
             : longDescription}

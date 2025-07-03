@@ -72,7 +72,7 @@
   
   /* Couleurs de texte */
   --text-primary: #F2F4F3;
-  --text-secondary: #a8adb8;
+  --text-secondary: #c8ccd4;
   --text-accent: #314680;
   --text-light: #F2F4F3;
   
@@ -209,7 +209,8 @@ p {
 }
 
 .input-gaming::placeholder {
-  color: var(--text-secondary);
+  color: var(--text-primary);
+  opacity: 0.7;
 }
 
 /* Gaming Navigation */
@@ -223,7 +224,7 @@ p {
 .tag-gaming {
   background: var(--bg-tertiary);
   border: 1px solid var(--border-primary);
-  color: var(--text-secondary);
+  color: var(--text-primary);
   font-family: 'PixelifySans', monospace !important;
   font-weight: 500;
   font-size: 0.7rem;

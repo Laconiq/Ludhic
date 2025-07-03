@@ -119,10 +119,10 @@ export default function AllGames({ games }: AllGamesProps) {
         <div className="mt-8">
           {gamesToDisplay.length === 0 && hasActiveFilters && (
             <div className="text-center py-20">
-              <div className="text-white/60 text-xl mb-4 font-gaming">
+              <div className="text-white/75 text-xl mb-4 font-gaming">
                 ⚠ AUCUN JEU TROUVÉ
               </div>
-              <p className="text-white/40 mb-6">
+              <p className="text-white/65 mb-6">
                 Aucun jeu ne correspond à vos critères de recherche
               </p>
               <button

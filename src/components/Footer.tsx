@@ -22,7 +22,7 @@ export default function Footer() {
                   href="https://univ-cotedazur.fr/formation/offre-de-formation/majic-master-jeux-video-image-et-creativite"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block text-white/70 hover:text-cyan-400 transition-colors text-sm font-gaming"
+                  className="block text-white/80 hover:text-cyan-300 transition-colors text-sm font-gaming"
                 >
                   Master MAJIC Officiel →
                 </a>
@@ -30,19 +30,19 @@ export default function Footer() {
                   href="https://univ-cotedazur.fr"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block text-white/70 hover:text-cyan-400 transition-colors text-sm font-gaming"
+                  className="block text-white/80 hover:text-cyan-300 transition-colors text-sm font-gaming"
                 >
                   Université Côte d&apos;Azur →
                 </a>
                 <a 
                   href="#games"
-                  className="block text-white/70 hover:text-cyan-400 transition-colors text-sm font-gaming"
+                  className="block text-white/80 hover:text-cyan-300 transition-colors text-sm font-gaming"
                 >
                   Portfolio Jeux →
                 </a>
                 <a 
                   href="#faq"
-                  className="block text-white/70 hover:text-cyan-400 transition-colors text-sm font-gaming"
+                  className="block text-white/80 hover:text-cyan-300 transition-colors text-sm font-gaming"
                 >
                   FAQ →
                 </a>
@@ -53,17 +53,17 @@ export default function Footer() {
             <div className="space-y-4">
               <h4 className="text-lg font-gaming text-white mb-4">CONTACT</h4>
               <div className="space-y-3 text-sm">
-                <div className="text-white/70">
-                  <div className="font-gaming text-cyan-400 mb-1">ASSOCIATION</div>
+                <div className="text-white/80">
+                  <div className="font-gaming text-cyan-300 mb-1">ASSOCIATION</div>
                   <a 
                     href="mailto:ludhic.association@gmail.com"
-                    className="hover:text-cyan-400 transition-colors"
+                    className="hover:text-cyan-300 transition-colors"
                   >
                     ludhic.association@gmail.com
                   </a>
                 </div>
-                <div className="text-white/70">
-                  <div className="font-gaming text-cyan-400 mb-1">LOCALISATION</div>
+                <div className="text-white/80">
+                  <div className="font-gaming text-cyan-300 mb-1">LOCALISATION</div>
                   <div>Campus de Cannes</div>
                   <div>Université Côte d&apos;Azur</div>
                 </div>
@@ -76,7 +76,7 @@ export default function Footer() {
 
           {/* Copyright et liens légaux */}
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="text-white/60 text-sm font-gaming">
+            <div className="text-white/75 text-sm font-gaming">
               © {currentYear} LUDHIC
             </div>
             
@@ -84,13 +84,15 @@ export default function Footer() {
             <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-6 text-xs">
               <button
                 onClick={() => setIsCGUModalOpen(true)}
-                className="text-white/50 hover:text-cyan-400 transition-colors cursor-pointer"
+                aria-label="Ouvrir les conditions générales d'utilisation"
+                className="text-white/60 hover:text-cyan-300 transition-colors cursor-pointer"
               >
                 Conditions Générales d&apos;Utilisation
               </button>
               <button
                 onClick={() => setIsPrivacyModalOpen(true)}
-                className="text-white/50 hover:text-cyan-400 transition-colors cursor-pointer"
+                aria-label="Ouvrir la politique de confidentialité"
+                className="text-white/60 hover:text-cyan-300 transition-colors cursor-pointer"
               >
                 Politique de Confidentialité
               </button>

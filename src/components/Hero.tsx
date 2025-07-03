@@ -92,7 +92,7 @@ export default function Hero({ videoIndex }: HeroProps) {
         
         {/* Description */}
         <p 
-          className="text-lg md:text-xl text-white/70 mb-12 max-w-4xl mx-auto leading-relaxed"
+          className="text-lg md:text-xl text-white/85 mb-12 max-w-4xl mx-auto leading-relaxed"
           style={{
             fontFamily: "'Plus Jakarta Sans', system-ui, -apple-system, sans-serif",
           }}

@@ -136,6 +136,8 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
                     setIsGenreOpen(!isGenreOpen);
                     setIsYearOpen(false);
                   }}
+                  aria-label={`Filtrer par genre${selectedGenre ? ` : ${selectedGenre}` : ''}`}
+                  aria-expanded={isGenreOpen}
                   className="btn-gaming px-6 py-3 rounded-xl flex items-center gap-2 min-w-[140px] justify-between cursor-pointer"
                 >
                   <span className="text-sm">
@@ -146,6 +148,7 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
                     fill="none" 
                     stroke="currentColor" 
                     viewBox="0 0 24 24"
+                    aria-hidden="true"
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
@@ -158,7 +161,7 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
                         updateFilters(searchTerm, '', selectedYear);
                         setIsGenreOpen(false);
                       }}
-                      className="w-full text-left px-4 py-2 text-white/70 hover:text-cyan-400 hover:bg-gray-700/50 transition-colors text-sm cursor-pointer"
+                      className="w-full text-left px-4 py-2 text-white/80 hover:text-cyan-300 hover:bg-gray-700/50 transition-colors text-sm cursor-pointer"
                     >
                       Tous les genres
                     </button>
@@ -171,8 +174,8 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
                         }}
                         className={`w-full text-left px-4 py-2 transition-colors text-sm cursor-pointer ${
                           selectedGenre === genre 
-                            ? 'text-cyan-400 bg-gray-700/50' 
-                            : 'text-white/70 hover:text-cyan-400 hover:bg-gray-700/50'
+                            ? 'text-cyan-300 bg-gray-700/50' 
+                            : 'text-white/80 hover:text-cyan-300 hover:bg-gray-700/50'
                         }`}
                       >
                         {genre}
@@ -189,6 +192,8 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
                     setIsYearOpen(!isYearOpen);
                     setIsGenreOpen(false);
                   }}
+                  aria-label={`Filtrer par année${selectedYear ? ` : ${selectedYear}` : ''}`}
+                  aria-expanded={isYearOpen}
                   className="btn-gaming px-6 py-3 rounded-xl flex items-center gap-2 min-w-[120px] justify-between cursor-pointer"
                 >
                   <span className="text-sm">
@@ -199,6 +204,7 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
                     fill="none" 
                     stroke="currentColor" 
                     viewBox="0 0 24 24"
+                    aria-hidden="true"
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
@@ -211,7 +217,7 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
                         updateFilters(searchTerm, selectedGenre, null);
                         setIsYearOpen(false);
                       }}
-                      className="w-full text-left px-4 py-2 text-white/70 hover:text-cyan-400 hover:bg-gray-700/50 transition-colors text-sm cursor-pointer"
+                      className="w-full text-left px-4 py-2 text-white/80 hover:text-cyan-300 hover:bg-gray-700/50 transition-colors text-sm cursor-pointer"
                     >
                       Toutes les années
                     </button>
@@ -224,8 +230,8 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
                         }}
                         className={`w-full text-left px-4 py-2 transition-colors text-sm cursor-pointer ${
                           selectedYear === year 
-                            ? 'text-cyan-400 bg-gray-700/50' 
-                            : 'text-white/70 hover:text-cyan-400 hover:bg-gray-700/50'
+                            ? 'text-cyan-300 bg-gray-700/50' 
+                            : 'text-white/80 hover:text-cyan-300 hover:bg-gray-700/50'
                         }`}
                       >
                         {year}
@@ -239,15 +245,16 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
             {/* Section droite: Résultats et reset */}
             <div className="flex items-center gap-4">
               {/* Compteur de résultats */}
-              <div className="text-white/70 font-gaming text-sm">
-                <span className="text-cyan-400">{filteredCount}</span> jeu{filteredCount !== 1 ? 'x' : ''}
+              <div className="text-white/80 font-gaming text-sm">
+                <span className="text-cyan-300">{filteredCount}</span> jeu{filteredCount !== 1 ? 'x' : ''}
               </div>
 
               {/* Bouton reset */}
               {hasActiveFilters && (
                 <button
                   onClick={resetFilters}
-                  className="text-white/60 hover:text-cyan-400 transition-colors text-sm font-gaming tracking-wider cursor-pointer"
+                  aria-label="Réinitialiser tous les filtres"
+                  className="text-white/70 hover:text-cyan-300 transition-colors text-sm font-gaming tracking-wider cursor-pointer"
                 >
                   RESET
                 </button>
@@ -264,6 +271,8 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
                   setIsGenreOpen(!isGenreOpen);
                   setIsYearOpen(false);
                 }}
+                aria-label={`Filtrer par genre${selectedGenre ? ` : ${selectedGenre}` : ''}`}
+                aria-expanded={isGenreOpen}
                 className="btn-gaming px-4 py-2 rounded-xl flex items-center gap-2 cursor-pointer"
               >
                 <span className="text-xs">
@@ -274,6 +283,7 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
                   fill="none" 
                   stroke="currentColor" 
                   viewBox="0 0 24 24"
+                  aria-hidden="true"
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
@@ -286,7 +296,7 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
                       updateFilters(searchTerm, '', selectedYear);
                       setIsGenreOpen(false);
                     }}
-                    className="w-full text-left px-4 py-2 text-white/70 hover:text-cyan-400 hover:bg-gray-700/50 transition-colors text-sm cursor-pointer"
+                    className="w-full text-left px-4 py-2 text-white/80 hover:text-cyan-300 hover:bg-gray-700/50 transition-colors text-sm cursor-pointer"
                   >
                     Tous les genres
                   </button>
@@ -299,8 +309,8 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
                       }}
                       className={`w-full text-left px-4 py-2 transition-colors text-sm cursor-pointer ${
                         selectedGenre === genre 
-                          ? 'text-cyan-400 bg-gray-700/50' 
-                          : 'text-white/70 hover:text-cyan-400 hover:bg-gray-700/50'
+                          ? 'text-cyan-300 bg-gray-700/50' 
+                          : 'text-white/80 hover:text-cyan-300 hover:bg-gray-700/50'
                       }`}
                     >
                       {genre}
@@ -317,6 +327,8 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
                   setIsYearOpen(!isYearOpen);
                   setIsGenreOpen(false);
                 }}
+                aria-label={`Filtrer par année${selectedYear ? ` : ${selectedYear}` : ''}`}
+                aria-expanded={isYearOpen}
                 className="btn-gaming px-4 py-2 rounded-xl flex items-center gap-2 cursor-pointer"
               >
                 <span className="text-xs">
@@ -327,6 +339,7 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
                   fill="none" 
                   stroke="currentColor" 
                   viewBox="0 0 24 24"
+                  aria-hidden="true"
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
@@ -339,7 +352,7 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
                       updateFilters(searchTerm, selectedGenre, null);
                       setIsYearOpen(false);
                     }}
-                    className="w-full text-left px-4 py-2 text-white/70 hover:text-cyan-400 hover:bg-gray-700/50 transition-colors text-sm cursor-pointer"
+                    className="w-full text-left px-4 py-2 text-white/80 hover:text-cyan-300 hover:bg-gray-700/50 transition-colors text-sm cursor-pointer"
                   >
                     Toutes les années
                   </button>
@@ -352,8 +365,8 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
                       }}
                       className={`w-full text-left px-4 py-2 transition-colors text-sm cursor-pointer ${
                         selectedYear === year 
-                          ? 'text-cyan-400 bg-gray-700/50' 
-                          : 'text-white/70 hover:text-cyan-400 hover:bg-gray-700/50'
+                          ? 'text-cyan-300 bg-gray-700/50' 
+                          : 'text-white/80 hover:text-cyan-300 hover:bg-gray-700/50'
                       }`}
                     >
                       {year}
@@ -367,7 +380,8 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
             {hasActiveFilters && (
               <button
                 onClick={resetFilters}
-                className="text-white/60 hover:text-cyan-400 transition-colors text-xs font-gaming tracking-wider cursor-pointer"
+                aria-label="Réinitialiser tous les filtres"
+                className="text-white/70 hover:text-cyan-300 transition-colors text-xs font-gaming tracking-wider cursor-pointer"
               >
                 RESET
               </button>

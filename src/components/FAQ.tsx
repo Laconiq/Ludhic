@@ -31,7 +31,7 @@ export default function FAQ() {
           <h2 className="text-4xl md:text-5xl font-gaming foil-effect mb-4">
             FAQ
           </h2>
-          <p className="text-white/70 text-lg">
+          <p className="text-white/85 text-lg">
             Questions fréquentes sur le Master HIC et nos projets
           </p>
         </div>
@@ -44,6 +44,8 @@ export default function FAQ() {
             >
               <button
                 onClick={() => toggleAccordion(index)}
+                aria-label={`${openIndex === index ? 'Fermer' : 'Ouvrir'} la question : ${item.question}`}
+                aria-expanded={openIndex === index}
                 className="w-full text-left p-6 flex justify-between items-center hover:bg-gray-800/50 transition-colors duration-300 cursor-pointer"
               >
                 <h3 className="text-lg md:text-xl font-gaming text-white pr-4">
@@ -53,10 +55,11 @@ export default function FAQ() {
                   openIndex === index ? 'rotate-180' : ''
                 }`}>
                   <svg 
-                    className="w-6 h-6 text-cyan-400" 
+                    className="w-6 h-6 text-cyan-300" 
                     fill="none" 
                     stroke="currentColor" 
                     viewBox="0 0 24 24"
+                    aria-hidden="true"
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
@@ -68,7 +71,7 @@ export default function FAQ() {
               }`}>
                 <div className="px-6 pb-6">
                   <div className="w-full h-px bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent mb-4"></div>
-                  <p className="text-white/80 leading-relaxed">
+                  <p className="text-white/90 leading-relaxed">
                     {item.answer}
                   </p>
                 </div>

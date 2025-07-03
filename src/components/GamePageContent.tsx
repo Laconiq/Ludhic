@@ -153,7 +153,7 @@ export default function GamePageContent({ game }: GamePageContentProps) {
           <h2 className="text-xl md:text-2xl font-gaming text-cyan-400 mb-6 tracking-wider">
             À PROPOS DU JEU
           </h2>
-          <p className="text-white/80 text-base leading-relaxed max-w-4xl">
+          <p className="text-white/90 text-base leading-relaxed max-w-4xl">
             {game.longDescription}
           </p>
         </div>
@@ -209,18 +209,20 @@ export default function GamePageContent({ game }: GamePageContentProps) {
               <button
                 onClick={() => changeImage('prev')}
                 disabled={isTransitioning}
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 p-3 rounded-full bg-black/50 backdrop-blur-sm text-white hover:bg-black/70 hover:text-cyan-400 transition-all duration-200 disabled:opacity-50 cursor-pointer"
+                aria-label="Image précédente"
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 p-3 rounded-full bg-black/70 backdrop-blur-sm text-white hover:bg-black/90 hover:text-cyan-300 transition-all duration-200 disabled:opacity-50 cursor-pointer"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
               <button
                 onClick={() => changeImage('next')}
                 disabled={isTransitioning}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 rounded-full bg-black/50 backdrop-blur-sm text-white hover:bg-black/70 hover:text-cyan-400 transition-all duration-200 disabled:opacity-50 cursor-pointer"
+                aria-label="Image suivante"
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 rounded-full bg-black/70 backdrop-blur-sm text-white hover:bg-black/90 hover:text-cyan-300 transition-all duration-200 disabled:opacity-50 cursor-pointer"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </button>
@@ -232,10 +234,11 @@ export default function GamePageContent({ game }: GamePageContentProps) {
                     key={index}
                     onClick={() => goToImage(index)}
                     disabled={isTransitioning}
+                    aria-label={`Aller à l'image ${index + 1}`}
                     className={`w-3 h-3 rounded-full transition-all duration-200 cursor-pointer ${
                       index === currentImageIndex 
-                        ? 'bg-cyan-400 scale-125' 
-                        : 'bg-white/50 hover:bg-white/70'
+                        ? 'bg-cyan-300 scale-125' 
+                        : 'bg-white/70 hover:bg-white/90'
                     }`}
                   />
                 ))}
