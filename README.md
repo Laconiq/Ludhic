@@ -239,11 +239,12 @@ vercel --prod
 
 ## 📊 Performance & Métriques
 
-- **Lighthouse Score** : 90+ (Performance, Accessibility, Best Practices, SEO)
-- **First Contentful Paint** : < 1.5s
-- **Largest Contentful Paint** : < 2.5s
-- **Cumulative Layout Shift** : < 0.1
-- **Accessibility Score** : 90+ (WCAG 2.1 AA)
+- **Lighthouse Score** : 99 (Performance), 96 (Accessibilité), 96 (Bonnes pratiques), 100 (SEO)
+- **First Contentful Paint** : 0,3 s
+- **Largest Contentful Paint** : 0,6 s
+- **Total Blocking Time** : 80 ms
+- **Cumulative Layout Shift** : 0
+- **Accessibility Score** : 96 (WCAG 2.1 AA)
 - **SEO Score** : 100 (Métadonnées optimisées)
 
 ## 🔧 Technologies & Outils
