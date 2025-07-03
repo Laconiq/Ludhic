@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { getMainImageUrl, getLogoUrl } from '../../utils/imageUtils';
+import { getMainImageUrl, getLogoUrl } from '../utils/imageUtils';
 
 interface GameProps {
   title: string;
@@ -95,8 +95,8 @@ export default function Game({
 
         {/* Description */}
         <p className="text-white/70 text-sm flex-grow">
-          {longDescription.length > 150
-            ? longDescription.slice(0, 150) + '...'
+          {longDescription.length > 140
+            ? longDescription.slice(0, 140) + '...'
             : longDescription}
         </p>
       </div>

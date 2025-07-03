@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import ServiceWorker from "./components/ServiceWorker";
-import PerformanceMeta from "./components/PerformanceMeta";
+import ServiceWorker from "../components/ServiceWorker";
+import PerformanceMeta from "../components/PerformanceMeta";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

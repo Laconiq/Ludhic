@@ -125,12 +125,12 @@ Ce projet inclut plusieurs optimisations de performance :
 ```
 src/
 ├── app/                     # Pages et composants Next.js
-│   ├── components/          # Composants réutilisables
 │   ├── games/[title]/       # Pages dynamiques pour chaque jeu (slug)
 │   └── games/year/[year]/   # Pages dynamiques par année
+├── components/              # Composants réutilisables
 ├── data/                    # Données JSON des jeux
-├── utils/                   # Utilitaires et helpers
-└── validation/              # Schémas de validation
+├── pages/                   # Pages Next.js (redirection vers app/)
+└── utils/                   # Utilitaires, helpers et constantes
 
 public/
 ├── games/                   # Assets des jeux (images, vidéos)
@@ -185,14 +185,6 @@ vercel --prod
 - **First Contentful Paint** : < 1.5s
 - **Largest Contentful Paint** : < 2.5s
 - **Cumulative Layout Shift** : < 0.1
-
-## 🤝 Contribution
-
-1. Fork le projet
-2. Créer une branche feature (`git checkout -b feature/AmazingFeature`)
-3. Commit les changements (`git commit -m 'Add some AmazingFeature'`)
-4. Push vers la branche (`git push origin feature/AmazingFeature`)
-5. Ouvrir une Pull Request
 
 ## 📝 Licence
 

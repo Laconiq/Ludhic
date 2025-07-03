@@ -3,7 +3,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import Game from './Game';
 import FilterBar, { GameFilters } from './FilterBar';
-import { logValidationErrors } from '../../utils/gameValidation';
+import { logValidationErrors } from '../utils/gameValidation';
 
 interface GameData {
   id: number;

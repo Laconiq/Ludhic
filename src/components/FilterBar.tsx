@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
-import { ALL_GENRES } from '../../constants/gameGenres';
+import { ALL_GENRES } from '../utils/gameGenres';
 
 export interface GameFilters {
   searchTerm: string;

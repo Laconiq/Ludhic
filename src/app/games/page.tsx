@@ -1,0 +1,1 @@
+export { default } from '../../pages/games/[title]/page'; 

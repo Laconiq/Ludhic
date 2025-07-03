@@ -1,4 +1,4 @@
-import { isValidGenre, ALL_GENRES } from '../constants/gameGenres';
+import { isValidGenre, ALL_GENRES } from './gameGenres';
 
 interface GameData {
   id: number;
@@ -57,7 +57,7 @@ export const validateAllGames = (games: GameData[]): {
   return {
     isValid: errors.length === 0,
     errors,
-    availableGenres: ALL_GENRES
+    availableGenres: [...ALL_GENRES]
   };
 };
 

@@ -1,39 +1,27 @@
 // Constantes pour les genres de jeux
 export const GAME_GENRES = {
-  // Action & Aventure
-  ACTION: 'Action',
-  AVENTURE: 'Aventure',
-  NARRATIF: 'Narratif',
-  
-  // Gameplay
-  PLATEFORME: 'Plateforme',
-  PUZZLE: 'Puzzle',
-  TACTIQUE: 'Tactique',
-  RYTHME: 'Rythme',
-  POINT_AND_CLICK: 'Point & Click',
-  
-  // Styles de jeu
-  DECKBUILDING: 'Deckbuilding',
-  ROGUE_LIKE: 'Rogue Like',
-  METROIDVANIA: 'Metroidvania',
-  
-  // Genres spécialisés
-  HORREUR: 'Horreur',
-  VR: 'VR',
-  
-  // Dimensions graphiques
   '2D': '2D',
   '3D': '3D',
-  ISOMETRIQUE: 'Isométrique'
+  ACTION: 'Action',
+  AVENTURE: 'Aventure',
+  DECKBUILDING: 'Deckbuilding',
+  HORREUR: 'Horreur',
+  ISOMETRIQUE: 'Isométrique',
+  METROIDVANIA: 'Metroidvania',
+  NARRATIF: 'Narratif',
+  PLATEFORME: 'Plateforme',
+  POINT_AND_CLICK: 'Point & Click',
+  PUZZLE: 'Puzzle',
+  ROGUE_LIKE: 'Rogue Like',
+  RYTHME: 'Rythme',
+  TACTIQUE: 'Tactique',
+  VR: 'VR'
 } as const;
 
-// Type pour les genres (pour TypeScript)
 export type GameGenre = typeof GAME_GENRES[keyof typeof GAME_GENRES];
 
-// Array de tous les genres pour les dropdowns et validations
 export const ALL_GENRES = Object.values(GAME_GENRES);
 
-// Genres par catégorie pour une organisation plus claire
 export const GENRES_BY_CATEGORY = {
   'Action & Aventure': [
     GAME_GENRES.ACTION,
