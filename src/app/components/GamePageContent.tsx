@@ -119,7 +119,7 @@ export default function GamePageContent({ game }: GamePageContentProps) {
       </div>
       
       {/* Contenu principal */}
-      <div className="max-w-7xl mx-auto px-6 md:px-8 py-16">
+      <div className="w-full px-[15vw] md:px-[25vw] py-16">
         {/* Genres et année juste au-dessus du titre */}
         <div className="flex flex-col items-center gap-y-2 mb-8">
           {/* Capsules année + genres */}
@@ -149,11 +149,11 @@ export default function GamePageContent({ game }: GamePageContentProps) {
           )}
         </div>
         {/* Description */}
-        <div className="mb-12">
-          <h2 className="text-xl md:text-2xl font-gaming text-cyan-400 mb-6 tracking-wider">
+        <div className="mb-12 w-full">
+          <h2 className="text-xl md:text-2xl font-gaming text-cyan-400 mb-6 tracking-wider w-full">
             À PROPOS DU JEU
           </h2>
-          <p className="text-white/90 text-base leading-relaxed max-w-4xl">
+          <p className="text-white/90 text-base leading-relaxed w-full">
             {game.longDescription}
           </p>
         </div>
@@ -164,84 +164,85 @@ export default function GamePageContent({ game }: GamePageContentProps) {
             <h3 className="text-lg font-gaming text-cyan-400 mb-6 tracking-wider">
               📸 CAPTURES D&apos;ÉCRAN
             </h3>
-            <div 
-              className="relative w-full rounded-xl overflow-hidden shadow-2xl cursor-default" 
-              style={{ aspectRatio: '16/9' }}
-              onMouseEnter={() => setIsCarouselHovered(true)}
-              onMouseLeave={() => setIsCarouselHovered(false)}
-            >
-              {/* Container avec toutes les images en ligne */}
+            <div className="w-full flex justify-center">
               <div 
-                className="flex h-full transition-transform duration-500 ease-in-out"
-                style={{ 
-                  width: `${game.imageCount * 100}%`,
-                  transform: `translateX(-${(currentImageIndex * 100) / game.imageCount}%)`
-                }}
+                className="relative w-full rounded-xl overflow-hidden shadow-2xl cursor-default aspect-[16/9]" 
+                onMouseEnter={() => setIsCarouselHovered(true)}
+                onMouseLeave={() => setIsCarouselHovered(false)}
               >
-                {allImages.map((imageUrl, index) => (
-                  <div 
-                    key={index}
-                    className="relative flex-shrink-0 h-full"
-                    style={{ width: `${100 / game.imageCount}%` }}
-                  >
-                    <Image
-                      src={imageUrl}
-                      alt={`${game.title} - Screenshot ${index + 1}`}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 1200px"
-                      loading={index === 0 ? "eager" : "lazy"}
-                      priority={index === 0}
-                      quality={85}
-                    />
-                  </div>
-                ))}
-              </div>
-              
-              {/* Auto-play indicator */}
-              {!isCarouselHovered && (
-                <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-sm px-3 py-1 rounded-full text-white/70 text-xs font-gaming">
-                  AUTO-PLAY
+                {/* Container avec toutes les images en ligne */}
+                <div 
+                  className="flex h-full transition-transform duration-500 ease-in-out"
+                  style={{ 
+                    width: `${game.imageCount * 100}%`,
+                    transform: `translateX(-${(currentImageIndex * 100) / game.imageCount}%)`
+                  }}
+                >
+                  {allImages.map((imageUrl, index) => (
+                    <div 
+                      key={index}
+                      className="relative flex-shrink-0 h-full w-full"
+                      style={{ width: `${100 / game.imageCount}%` }}
+                    >
+                      <Image
+                        src={imageUrl}
+                        alt={`${game.title} - Screenshot ${index + 1}`}
+                        fill
+                        className="object-cover w-full h-full"
+                        sizes="(max-width: 768px) 100vw, 1200px"
+                        loading={index === 0 ? "eager" : "lazy"}
+                        priority={index === 0}
+                        quality={85}
+                      />
+                    </div>
+                  ))}
                 </div>
-              )}
-              
-              {/* Carrousel controls */}
-              <button
-                onClick={() => changeImage('prev')}
-                disabled={isTransitioning}
-                aria-label="Image précédente"
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 p-3 rounded-full bg-black/70 backdrop-blur-sm text-white hover:bg-black/90 hover:text-cyan-300 transition-all duration-200 disabled:opacity-50 cursor-pointer"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              <button
-                onClick={() => changeImage('next')}
-                disabled={isTransitioning}
-                aria-label="Image suivante"
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 rounded-full bg-black/70 backdrop-blur-sm text-white hover:bg-black/90 hover:text-cyan-300 transition-all duration-200 disabled:opacity-50 cursor-pointer"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-              
-              {/* Image indicators */}
-              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
-                {allImages.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => goToImage(index)}
-                    disabled={isTransitioning}
-                    aria-label={`Aller à l'image ${index + 1}`}
-                    className={`w-3 h-3 rounded-full transition-all duration-200 cursor-pointer ${
-                      index === currentImageIndex 
-                        ? 'bg-cyan-300 scale-125' 
-                        : 'bg-white/70 hover:bg-white/90'
-                    }`}
-                  />
-                ))}
+                
+                {/* Auto-play indicator */}
+                {!isCarouselHovered && (
+                  <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-sm px-3 py-1 rounded-full text-white/70 text-xs font-gaming">
+                    AUTO-PLAY
+                  </div>
+                )}
+                
+                {/* Carrousel controls */}
+                <button
+                  onClick={() => changeImage('prev')}
+                  disabled={isTransitioning}
+                  aria-label="Image précédente"
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 p-3 rounded-full bg-black/70 backdrop-blur-sm text-white hover:bg-black/90 hover:text-cyan-300 transition-all duration-200 disabled:opacity-50 cursor-pointer"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                <button
+                  onClick={() => changeImage('next')}
+                  disabled={isTransitioning}
+                  aria-label="Image suivante"
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 rounded-full bg-black/70 backdrop-blur-sm text-white hover:bg-black/90 hover:text-cyan-300 transition-all duration-200 disabled:opacity-50 cursor-pointer"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+                
+                {/* Image indicators */}
+                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+                  {allImages.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => goToImage(index)}
+                      disabled={isTransitioning}
+                      aria-label={`Aller à l'image ${index + 1}`}
+                      className={`w-3 h-3 rounded-full transition-all duration-200 cursor-pointer ${
+                        index === currentImageIndex 
+                          ? 'bg-cyan-300 scale-125' 
+                          : 'bg-white/70 hover:bg-white/90'
+                      }`}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
           </div>
