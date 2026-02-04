@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { getMainImageUrl, getLogoUrl } from '../../utils/imageUtils';
+import { createSlug } from '@/lib/slug';
 
 interface GameProps {
   title: string;
@@ -10,18 +11,6 @@ interface GameProps {
   genres: string[];
   contentFolder: string;
   year: number;
-}
-
-// Fonction pour créer un slug à partir du titre
-function createSlug(title: string): string {
-  return title
-    .toLowerCase()
-    .normalize('NFD') // décompose les accents
-    .replace(/[\u0300-\u036f]/g, '') // enlève les diacritiques
-    .replace(/[^a-z0-9\s-]/g, '') // enlève les caractères spéciaux
-    .replace(/\s+/g, '-') // espaces → tirets
-    .replace(/-+/g, '-') // tirets multiples
-    .trim();
 }
 
 export default function Game({ 

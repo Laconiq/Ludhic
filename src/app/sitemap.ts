@@ -1,17 +1,6 @@
 import { MetadataRoute } from 'next'
 import gamesData from '../data/games.json'
-
-// Fonction pour créer un slug à partir du titre
-function createSlug(title: string): string {
-  return title
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9\s-]/g, '')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-')
-    .trim();
-}
+import { createSlug } from '@/lib/slug'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://ludhic.fr'

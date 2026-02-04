@@ -3,31 +3,10 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Navigation from './Navigation';
-
-interface Game {
-  id: number;
-  title: string;
-  longDescription: string;
-  genres: string[];
-  year: number;
-  contentFolder: string;
-  imageCount: number;
-  hasVideo: boolean;
-  customButton: {
-    enabled: boolean;
-    name: string;
-    link: string;
-  };
-  credits: Array<{
-    firstName: string;
-    lastName: string;
-    roles: string[];
-  }>;
-  featured: boolean;
-}
+import { GameData } from '@/types/game';
 
 interface GamePageContentProps {
-  game: Game;
+  game: GameData;
 }
 
 // Fonctions utilitaires pour les images

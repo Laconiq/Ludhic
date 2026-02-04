@@ -2,33 +2,12 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import { ALL_GENRES } from '../../utils/gameGenres';
+import { GameData } from '@/types/game';
 
 export interface GameFilters {
   searchTerm: string;
   selectedGenre: string;
   selectedYear: number | null;
-}
-
-interface GameData {
-  id: number;
-  title: string;
-  longDescription: string;
-  genres: string[];
-  year: number;
-  contentFolder: string;
-  imageCount: number;
-  hasVideo: boolean;
-  customButton: {
-    enabled: boolean;
-    name: string;
-    link: string;
-  };
-  credits: Array<{
-    firstName: string;
-    lastName: string;
-    roles: string[];
-  }>;
-  featured: boolean;
 }
 
 interface FilterBarProps {

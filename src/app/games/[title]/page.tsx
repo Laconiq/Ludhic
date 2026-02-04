@@ -3,18 +3,7 @@ import { notFound } from 'next/navigation';
 import gamesData from '../../../data/games.json';
 import GamePageWrapper from '../../components/GamePageWrapper';
 import Footer from '../../components/Footer';
-
-// Fonction pour créer un slug à partir du titre
-function createSlug(title: string): string {
-  return title
-    .toLowerCase()
-    .normalize('NFD') // décompose les accents
-    .replace(/[\u0300-\u036f]/g, '') // enlève les diacritiques
-    .replace(/[^a-z0-9\s-]/g, '') // enlève les caractères spéciaux
-    .replace(/\s+/g, '-') // espaces → tirets
-    .replace(/-+/g, '-') // tirets multiples
-    .trim();
-}
+import { createSlug } from '@/lib/slug';
 
 // Fonction pour trouver un jeu par son slug
 function findGameBySlug(slug: string) {

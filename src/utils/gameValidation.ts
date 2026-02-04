@@ -1,26 +1,5 @@
 import { isValidGenre, ALL_GENRES } from './gameGenres';
-
-interface GameData {
-  id: number;
-  title: string;
-  longDescription: string;
-  genres: string[];
-  contentFolder: string;
-  imageCount: number;
-  year: number;
-  hasVideo: boolean;
-  featured: boolean;
-  customButton: {
-    enabled: boolean;
-    name: string;
-    link: string;
-  };
-  credits: Array<{
-    firstName: string;
-    lastName: string;
-    roles: string[];
-  }>;
-}
+import { GameData } from '@/types/game';
 
 // Valide qu'un jeu utilise des genres valides
 export const validateGameGenres = (game: GameData): string[] => {

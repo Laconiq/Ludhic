@@ -4,28 +4,7 @@ import { useState, useMemo, useEffect } from 'react';
 import Game from './Game';
 import FilterBar, { GameFilters } from './FilterBar';
 import { logValidationErrors } from '../../utils/gameValidation';
-
-interface GameData {
-  id: number;
-  title: string;
-  longDescription: string;
-  genres: string[];
-  year: number;
-  contentFolder: string;
-  imageCount: number;
-  hasVideo: boolean;
-  customButton: {
-    enabled: boolean;
-    name: string;
-    link: string;
-  };
-  credits: Array<{
-    firstName: string;
-    lastName: string;
-    roles: string[];
-  }>;
-  featured: boolean;
-}
+import { GameData } from '@/types/game';
 
 interface AllGamesProps {
   games: GameData[];

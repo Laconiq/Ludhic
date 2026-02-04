@@ -1,5 +1,7 @@
 'use client';
 
+import { createSlug } from '@/lib/slug';
+
 interface SEOSchemaProps {
   games?: Array<{
     id: number;
@@ -29,18 +31,6 @@ interface SEOSchemaProps {
 
 export default function SEOSchema({ games = [], currentPage = 'home', currentGame }: SEOSchemaProps) {
   const baseUrl = 'https://ludhic.fr';
-
-  // Fonction pour créer un slug à partir du titre
-  function createSlug(title: string): string {
-    return title
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/[^a-z0-9\s-]/g, '')
-      .replace(/\s+/g, '-')
-      .replace(/-+/g, '-')
-      .trim();
-  }
 
   // Schema principal de l'organisation
   const organizationSchema = {
