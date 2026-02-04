@@ -99,12 +99,43 @@ export default async function Page({ params }: { params: Promise<{ title: string
     "inLanguage": "fr-FR"
   };
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Accueil",
+        "item": SITE_URL
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Jeux",
+        "item": `${SITE_URL}#games`
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": game.title,
+        "item": `${SITE_URL}/games/${createSlug(game.title)}`
+      }
+    ]
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(gameSchema, null, 2)
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema, null, 2)
         }}
       />
       <div className="min-h-screen bg-gray-900 flex flex-col">

@@ -27,7 +27,7 @@ function HomeContent() {
 export default function Home() {
   return (
     <>
-      <SEOSchema games={gamesData} currentPage="home" />
+      <SEOSchema games={gamesData} />
       <Suspense fallback={
         <div className="min-h-screen bg-gray-900 flex items-center justify-center">
           <div className="text-center">

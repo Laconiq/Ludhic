@@ -1,6 +1,7 @@
 'use client';
 
 import { createSlug } from '@/lib/slug';
+import { SITE_URL } from '@/constants/site';
 
 interface SEOSchemaProps {
   games?: Array<{
@@ -22,16 +23,9 @@ interface SEOSchemaProps {
       link: string;
     };
   }>;
-  currentPage?: string;
-  currentGame?: {
-    title: string;
-    id: number;
-  };
 }
 
-export default function SEOSchema({ games = [], currentPage = 'home', currentGame }: SEOSchemaProps) {
-  const baseUrl = 'https://ludhic.fr';
-
+export default function SEOSchema({ games = [] }: SEOSchemaProps) {
   // Schema principal de l'organisation
   const organizationSchema = {
     "@context": "https://schema.org",
@@ -39,9 +33,9 @@ export default function SEOSchema({ games = [], currentPage = 'home', currentGam
     "name": "Association Ludhic",
     "alternateName": "Ludhic",
     "description": "Association regroupant les étudiants et anciens étudiants du Master Humanités et Industries Créatives (HIC), spécialisée dans la création de jeux vidéo et contenus numériques.",
-    "url": baseUrl,
-    "logo": `${baseUrl}/images/logo.png`,
-    "image": `${baseUrl}/images/logo.png`,
+    "url": SITE_URL,
+    "logo": `${SITE_URL}/images/logo.png`,
+    "image": `${SITE_URL}/images/logo.png`,
     "foundingDate": "2023",
     "address": {
       "@type": "PostalAddress",
@@ -61,7 +55,7 @@ export default function SEOSchema({ games = [], currentPage = 'home', currentGam
     ],
     "knowsAbout": [
       "Game Design",
-      "Développement Jeux Vidéo", 
+      "Développement Jeux Vidéo",
       "Humanités Numériques",
       "Industries Créatives",
       "Formation Universitaire",
@@ -82,7 +76,7 @@ export default function SEOSchema({ games = [], currentPage = 'home', currentGam
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Ludhic - Portfolio Jeux Étudiants Master HIC",
-    "url": baseUrl,
+    "url": SITE_URL,
     "description": "Portfolio interactif présentant les créations de jeux vidéo des étudiants du Master Humanités et Industries Créatives",
     "publisher": {
       "@type": "Organization",
@@ -92,7 +86,7 @@ export default function SEOSchema({ games = [], currentPage = 'home', currentGam
       "@type": "SearchAction",
       "target": {
         "@type": "EntryPoint",
-        "urlTemplate": `${baseUrl}/?search={search_term_string}`
+        "urlTemplate": `${SITE_URL}/?search={search_term_string}`
       },
       "query-input": "required name=search_term_string"
     },
@@ -106,49 +100,22 @@ export default function SEOSchema({ games = [], currentPage = 'home', currentGam
     "keywords": "jeux vidéo, étudiants, Master HIC, portfolio, association, création numérique"
   };
 
-  // Schema pour chaque jeu (créative work)
-  const gamesSchemas = games.map(game => ({
+  // ItemList des jeux (liste légère, pas de VideoGame complet par jeu)
+  const itemListSchema = {
     "@context": "https://schema.org",
-    "@type": "VideoGame",
-    "name": game.title,
-    "description": game.longDescription,
-    "url": `${baseUrl}/games/${createSlug(game.title)}`,
-    "image": `${baseUrl}${game.contentFolder}/1.webp`,
-    "dateCreated": `${game.year}`,
-    "genre": game.genres,
-    "creator": game.credits.map(member => ({
-      "@type": "Person",
-      "name": `${member.firstName} ${member.lastName}`,
-      "jobTitle": member.roles[0] || "Contributeur",
-      "knowsAbout": member.roles
-    })),
-    "publisher": {
-      "@type": "Organization", 
-      "name": "Association Ludhic"
-    },
-    "educationalUse": "Student Project",
-    "audience": {
-      "@type": "Audience",
-      "audienceType": "Game Enthusiasts, Students, Educators"
-    },
-    "inLanguage": "fr-FR",
-    "gamePlatform": ["PC", "Web"],
-    "applicationCategory": "Game",
-    "operatingSystem": "Windows, macOS, Linux",
-    "offers": game.customButton?.enabled ? {
-      "@type": "Offer",
-      "url": game.customButton.link,
-      "name": game.customButton.name,
-      "availability": "https://schema.org/InStock"
-    } : undefined,
-    "isPartOf": {
-      "@type": "CreativeWorkSeries",
-      "name": "Portfolio Ludhic",
-      "description": "Collection de jeux étudiants du Master HIC"
-    }
-  }));
+    "@type": "ItemList",
+    "name": "Portfolio Ludhic - Jeux Étudiants",
+    "description": "Collection de jeux vidéo créés par les étudiants du Master Humanités et Industries Créatives",
+    "numberOfItems": games.length,
+    "itemListElement": games.map((game, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": game.title,
+      "url": `${SITE_URL}/games/${createSlug(game.title)}`
+    }))
+  };
 
-  // Schema breadcrumb pour la navigation
+  // Schema breadcrumb pour la homepage
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -157,29 +124,14 @@ export default function SEOSchema({ games = [], currentPage = 'home', currentGam
         "@type": "ListItem",
         "position": 1,
         "name": "Accueil",
-        "item": baseUrl
+        "item": SITE_URL
       },
-      ...(currentPage === 'game' && currentGame ? [
-        {
-          "@type": "ListItem", 
-          "position": 2,
-          "name": "Jeux",
-          "item": `${baseUrl}#games`
-        },
-        {
-          "@type": "ListItem", 
-          "position": 3,
-          "name": currentGame.title,
-          "item": `${baseUrl}/games/${createSlug(currentGame.title)}`
-        }
-      ] : [
-        {
-          "@type": "ListItem", 
-          "position": 2,
-          "name": "Jeux",
-          "item": `${baseUrl}#games`
-        }
-      ])
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Jeux",
+        "item": `${SITE_URL}#games`
+      }
     ]
   };
 
@@ -215,41 +167,13 @@ export default function SEOSchema({ games = [], currentPage = 'home', currentGam
     ]
   };
 
-  // Schema Collection pour l'ensemble des jeux
-  const collectionSchema = {
-    "@context": "https://schema.org",
-    "@type": "CreativeWorkSeries",
-    "name": "Portfolio Ludhic - Jeux Étudiants",
-    "description": "Collection de jeux vidéo créés par les étudiants du Master Humanités et Industries Créatives",
-    "url": `${baseUrl}#games`,
-    "publisher": {
-      "@type": "Organization",
-      "name": "Association Ludhic"
-    },
-    "hasPart": games.map(game => ({
-      "@type": "VideoGame",
-      "name": game.title,
-      "url": `${baseUrl}/games/${createSlug(game.title)}`
-    })),
-    "inLanguage": "fr-FR",
-    "audience": {
-      "@type": "Audience",
-      "audienceType": "Game Enthusiasts, Students, Educators"
-    }
-  };
-
   const allSchemas: Record<string, unknown>[] = [
     organizationSchema,
     websiteSchema,
+    itemListSchema,
     breadcrumbSchema,
-    collectionSchema,
-    ...gamesSchemas
+    faqSchema
   ];
-
-  // Ajouter le FAQ schema seulement sur la page d'accueil
-  if (currentPage === 'home') {
-    allSchemas.push(faqSchema);
-  }
 
   return (
     <>
@@ -264,4 +188,4 @@ export default function SEOSchema({ games = [], currentPage = 'home', currentGam
       ))}
     </>
   );
-} 
+}
