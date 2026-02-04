@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import gamesData from '../../../data/games.json';
-import GamePageWrapper from '../../components/GamePageWrapper';
+import GamePageContent from '../../components/GamePageContent';
 import Footer from '../../components/Footer';
 import { createSlug } from '@/lib/slug';
 
@@ -108,7 +108,7 @@ export default async function Page({ params }: { params: Promise<{ title: string
       />
       <div className="min-h-screen bg-gray-900 flex flex-col">
         {/* Contenu du jeu - composant client */}
-        <GamePageWrapper game={game} />
+        <GamePageContent game={game} />
         <Footer />
       </div>
     </>
