@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Game from '../../../components/Game';
 import Navigation from '../../../components/Navigation';
 import Footer from '../../../components/Footer';
+import { getMainImageUrl, getLogoUrl } from '@/utils/imageUtils';
 
 export async function generateStaticParams() {
   // On récupère toutes les années uniques
@@ -36,7 +37,7 @@ export default async function Page({ params }: { params: Promise<{ year: string 
           {gamesOfYear.map(game => (
             <div key={game.id} className="relative flex-1 h-full min-w-0">
               <Image
-                src={game.contentFolder + '/1.webp'}
+                src={getMainImageUrl(game.contentFolder)}
                 alt={game.title + ' Banner'}
                 fill
                 className="object-cover w-full h-full blur-sm opacity-70"
@@ -58,7 +59,7 @@ export default async function Page({ params }: { params: Promise<{ year: string 
             {gamesOfYear.map(game => (
               <div key={game.id} className="bg-black/40 rounded-xl p-2 md:p-3 flex items-center justify-center shadow-lg">
                 <Image
-                  src={game.contentFolder + '/logo.webp'}
+                  src={getLogoUrl(game.contentFolder)}
                   alt={game.title + ' Logo'}
                   width={100}
                   height={40}

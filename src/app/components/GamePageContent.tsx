@@ -4,14 +4,11 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Navigation from './Navigation';
 import { GameData } from '@/types/game';
+import { getMainImageUrl, getLogoUrl, getAllImageUrls } from '@/utils/imageUtils';
 
 interface GamePageContentProps {
   game: GameData;
 }
-
-// Fonctions utilitaires pour les images
-const getMainImageUrl = (contentFolder: string) => `${contentFolder}/1.webp`;
-const getLogoUrl = (contentFolder: string) => `${contentFolder}/logo.webp`;
 
 export default function GamePageContent({ game }: GamePageContentProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -19,9 +16,7 @@ export default function GamePageContent({ game }: GamePageContentProps) {
   const [isCarouselHovered, setIsCarouselHovered] = useState(false);
 
   // Générer toutes les URLs d'images
-  const allImages = Array.from({ length: game.imageCount }, (_, i) => 
-    `${game.contentFolder}/${i + 1}.webp`
-  );
+  const allImages = getAllImageUrls(game.contentFolder, game.imageCount);
 
   // Auto-play du carrousel
   useEffect(() => {
