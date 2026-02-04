@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ServiceWorker from "./components/ServiceWorker";
-import PerformanceMeta from "./components/PerformanceMeta";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -137,7 +136,6 @@ export default function RootLayout({
   return (
     <html lang="fr" className={`${geistSans.variable} ${geistMono.variable}`}>
       <head>
-        <PerformanceMeta />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://ludhic.fr" />
