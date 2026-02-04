@@ -5,6 +5,9 @@ import Link from 'next/link';
 import { getMainImageUrl, getLogoUrl } from '@/lib/images';
 import { createSlug } from '@/lib/slug';
 
+const DESCRIPTION_MAX_LENGTH = 140;
+const MAX_VISIBLE_GENRES = 3;
+
 interface GameProps {
   title: string;
   longDescription: string;
@@ -68,7 +71,7 @@ export default function GameCard({
 
         {/* Genres */}
         <div className="flex flex-wrap gap-2 mb-3 flex-shrink-0">
-          {genres.slice(0, 3).map((genre) => (
+          {genres.slice(0, MAX_VISIBLE_GENRES).map((genre) => (
             <span
               key={genre}
               className="tag-gaming px-3 py-1 rounded-full text-xs"
@@ -76,17 +79,17 @@ export default function GameCard({
               #{genre}
             </span>
           ))}
-          {genres.length > 3 && (
+          {genres.length > MAX_VISIBLE_GENRES && (
             <span className="tag-gaming px-3 py-1 rounded-full text-xs">
-              +{genres.length - 3}
+              +{genres.length - MAX_VISIBLE_GENRES}
             </span>
           )}
         </div>
 
         {/* Description */}
         <p className="text-white/85 text-sm flex-grow">
-          {longDescription.length > 140
-            ? longDescription.slice(0, 140) + '...'
+          {longDescription.length > DESCRIPTION_MAX_LENGTH
+            ? longDescription.slice(0, DESCRIPTION_MAX_LENGTH) + '...'
             : longDescription}
         </p>
       </div>

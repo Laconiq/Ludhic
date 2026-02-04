@@ -1,15 +1,15 @@
 import { MetadataRoute } from 'next'
 import gamesData from '@/data/games.json'
 import { createSlug } from '@/lib/slug'
+import { SITE_URL } from '@/constants/site'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://ludhic.fr'
   const currentDate = new Date()
-  
+
   // Pages statiques principales
   const staticPages: MetadataRoute.Sitemap = [
     {
-      url: baseUrl,
+      url: SITE_URL,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 1,
@@ -18,50 +18,33 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Pages individuelles des jeux (SEO optimisé)
   const gamePages: MetadataRoute.Sitemap = gamesData.map(game => ({
-    url: `${baseUrl}/games/${createSlug(game.title)}`,
+    url: `${SITE_URL}/games/${createSlug(game.title)}`,
     lastModified: currentDate,
     changeFrequency: 'monthly' as const,
     priority: 0.9,
     alternates: {
       languages: {
-        'fr-FR': `${baseUrl}/games/${createSlug(game.title)}`,
+        'fr-FR': `${SITE_URL}/games/${createSlug(game.title)}`,
       },
     },
   }))
 
   // Pages par année (pour le SEO)
   const yearPages: MetadataRoute.Sitemap = []
-  const years = [...new Set(gamesData.map(game => game.year))].sort((a, b) => b - a) // Tri décroissant
+  const years = [...new Set(gamesData.map(game => game.year))].sort((a, b) => b - a)
   years.forEach(year => {
     yearPages.push({
-      url: `${baseUrl}/games/year/${year}`,
+      url: `${SITE_URL}/games/year/${year}`,
       lastModified: currentDate,
       changeFrequency: 'monthly' as const,
       priority: 0.7,
       alternates: {
         languages: {
-          'fr-FR': `${baseUrl}/games/year/${year}`,
+          'fr-FR': `${SITE_URL}/games/year/${year}`,
         },
       },
     })
   })
 
-  // Pages de catégories par genre (SEO additionnel)
-  const genrePages: MetadataRoute.Sitemap = []
-  const allGenres = [...new Set(gamesData.flatMap(game => game.genres))]
-  allGenres.forEach(genre => {
-    genrePages.push({
-      url: `${baseUrl}/games/genre/${genre.toLowerCase().replace(/\s+/g, '-')}`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly' as const,
-      priority: 0.6,
-      alternates: {
-        languages: {
-          'fr-FR': `${baseUrl}/games/genre/${genre.toLowerCase().replace(/\s+/g, '-')}`,
-        },
-      },
-    })
-  })
-
-  return [...staticPages, ...gamePages, ...yearPages, ...genrePages]
-} 
+  return [...staticPages, ...gamePages, ...yearPages]
+}

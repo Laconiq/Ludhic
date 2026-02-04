@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ServiceWorker from "@/app/components/layout/ServiceWorker";
+import { SITE_URL } from "@/constants/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://ludhic.fr'),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Ludhic - Portfolio Jeux Étudiants Master HIC | Association Jeux Vidéo",
     template: "%s | Ludhic - Master HIC"

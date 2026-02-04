@@ -4,6 +4,7 @@ import gamesData from '@/data/games.json';
 import GamePageContent from '@/app/components/game/GamePageContent';
 import Footer from '@/app/components/layout/Footer';
 import { createSlug } from '@/lib/slug';
+import { SITE_URL } from '@/constants/site';
 
 // Fonction pour trouver un jeu par son slug
 function findGameBySlug(slug: string) {
@@ -36,11 +37,11 @@ export async function generateMetadata({ params }: { params: Promise<{ title: st
     openGraph: {
       title: `${game.title} - Jeu étudiant Master HIC`,
       description: game.longDescription,
-      url: `https://ludhic.fr/games/${createSlug(game.title)}`,
+      url: `${SITE_URL}/games/${createSlug(game.title)}`,
       type: 'article',
       images: [
         {
-          url: `https://ludhic.fr${game.contentFolder}/1.webp`,
+          url: `${SITE_URL}${game.contentFolder}/1.webp`,
           width: 1200,
           height: 630,
           alt: `Screenshot du jeu ${game.title}`,
@@ -51,10 +52,10 @@ export async function generateMetadata({ params }: { params: Promise<{ title: st
       card: 'summary_large_image',
       title: `${game.title} - Jeu étudiant Master HIC`,
       description: game.longDescription.slice(0, 160),
-      images: [`https://ludhic.fr${game.contentFolder}/1.webp`],
+      images: [`${SITE_URL}${game.contentFolder}/1.webp`],
     },
     alternates: {
-      canonical: `https://ludhic.fr/games/${createSlug(game.title)}`,
+      canonical: `${SITE_URL}/games/${createSlug(game.title)}`,
     },
   };
 }
@@ -81,8 +82,8 @@ export default async function Page({ params }: { params: Promise<{ title: string
     "@type": "VideoGame",
     "name": game.title,
     "description": game.longDescription,
-    "url": `https://ludhic.fr/games/${createSlug(game.title)}`,
-    "image": `https://ludhic.fr${game.contentFolder}/1.webp`,
+    "url": `${SITE_URL}/games/${createSlug(game.title)}`,
+    "image": `${SITE_URL}${game.contentFolder}/1.webp`,
     "dateCreated": `${game.year}`,
     "genre": game.genres,
     "creator": game.credits.map(member => ({

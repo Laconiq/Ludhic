@@ -5,6 +5,7 @@ import GameCard from './GameCard';
 import FilterBar, { GameFilters } from './FilterBar';
 import { logValidationErrors } from '@/lib/validation';
 import { GameData } from '@/types/game';
+import { FEATURED_YEAR } from '@/constants/site';
 
 interface AllGamesProps {
   games: GameData[];
@@ -18,8 +19,6 @@ export default function GameGrid({ games }: AllGamesProps) {
   });
   const [showAllGames, setShowAllGames] = useState(false);
 
-  // Configuration de l'année en vedette (peut être configuré facilement)
-  const FEATURED_YEAR = 2025;
 
   // Validation des genres au chargement (en développement uniquement)
   useEffect(() => {

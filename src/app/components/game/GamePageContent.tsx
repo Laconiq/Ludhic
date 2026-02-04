@@ -6,6 +6,8 @@ import Navigation from '@/app/components/layout/Navigation';
 import { GameData } from '@/types/game';
 import { getMainImageUrl, getLogoUrl, getAllImageUrls } from '@/lib/images';
 
+const CAROUSEL_INTERVAL_MS = 4000;
+
 interface GamePageContentProps {
   game: GameData;
 }
@@ -24,7 +26,7 @@ export default function GamePageContent({ game }: GamePageContentProps) {
 
     const interval = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % game.imageCount);
-    }, 4000);
+    }, CAROUSEL_INTERVAL_MS);
 
     return () => clearInterval(interval);
   }, [game.imageCount, isCarouselHovered]);
