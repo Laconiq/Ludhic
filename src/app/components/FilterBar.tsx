@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
-import { ALL_GENRES } from '../../utils/gameGenres';
+import { ALL_GENRES } from '@/lib/genres';
 import { GameData } from '@/types/game';
 
 export interface GameFilters {

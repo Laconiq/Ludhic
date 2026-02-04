@@ -1,4 +1,4 @@
-import { isValidGenre, ALL_GENRES } from './gameGenres';
+import { isValidGenre, ALL_GENRES } from '@/lib/genres';
 import { GameData } from '@/types/game';
 
 // Valide qu'un jeu utilise des genres valides
