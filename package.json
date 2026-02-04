@@ -11,7 +11,7 @@
     "generate-videos": "node scripts/generate-videos.js"
   },
   "dependencies": {
-    "next": "15.5.11",
+    "next": "15.5.7",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
   },
