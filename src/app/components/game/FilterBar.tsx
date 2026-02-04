@@ -16,6 +16,72 @@ interface FilterBarProps {
   currentFilters?: GameFilters;
 }
 
+interface DropdownFilterProps {
+  label: string;
+  value: string | number | null;
+  options: readonly (string | number)[];
+  isOpen: boolean;
+  onToggle: () => void;
+  onSelect: (value: string | number | null) => void;
+  resetLabel: string;
+  size: 'sm' | 'md';
+  dropdownWidth: string;
+}
+
+function DropdownFilter({ label, value, options, isOpen, onToggle, onSelect, resetLabel, size, dropdownWidth }: DropdownFilterProps) {
+  const isMd = size === 'md';
+
+  return (
+    <div className="relative">
+      <button
+        onClick={onToggle}
+        aria-label={`Filtrer par ${label.toLowerCase()}${value ? ` : ${value}` : ''}`}
+        aria-expanded={isOpen}
+        className={`btn-gaming rounded-xl flex items-center gap-2 cursor-pointer ${
+          isMd ? 'px-6 py-3 min-w-[120px] justify-between' : 'px-4 py-2'
+        }`}
+      >
+        <span className={isMd ? 'text-sm' : 'text-xs'}>
+          {value || label}
+        </span>
+        <svg
+          className={`transition-transform duration-200 ${isOpen ? 'rotate-180' : ''} ${isMd ? 'w-4 h-4' : 'w-3 h-3'}`}
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      {isOpen && (
+        <div className={`absolute top-full left-0 mt-2 ${dropdownWidth} modal-gaming rounded-xl shadow-xl border border-gray-600 py-2 z-[100]`}>
+          <button
+            onClick={() => onSelect(null)}
+            className="w-full text-left px-4 py-2 text-white/80 hover:text-cyan-300 hover:bg-gray-700/50 transition-colors text-sm cursor-pointer"
+          >
+            {resetLabel}
+          </button>
+          {options.map((option) => (
+            <button
+              key={option}
+              onClick={() => onSelect(option)}
+              className={`w-full text-left px-4 py-2 transition-colors text-sm cursor-pointer ${
+                value === option
+                  ? 'text-cyan-300 bg-gray-700/50'
+                  : 'text-white/80 hover:text-cyan-300 hover:bg-gray-700/50'
+              }`}
+            >
+              {option}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function FilterBar({ games, onFiltersChange, currentFilters }: FilterBarProps) {
   const [searchTerm, setSearchTerm] = useState(currentFilters?.searchTerm || '');
   const [selectedGenre, setSelectedGenre] = useState(currentFilters?.selectedGenre || '');
@@ -35,21 +101,18 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
   // Obtenir les années uniques des jeux
   const availableYears = useMemo(() => {
     const years = [...new Set(games.map(game => game.year))];
-    return years.sort((a, b) => b - a); // Ordre décroissant
+    return years.sort((a, b) => b - a);
   }, [games]);
 
   // Compter les résultats actuels
   const filteredCount = useMemo(() => {
     return games.filter((game) => {
-      const matchesSearch = !searchTerm || 
+      const matchesSearch = !searchTerm ||
         game.title.toLowerCase().includes(searchTerm.toLowerCase());
-      
-      const matchesGenre = !selectedGenre || 
+      const matchesGenre = !selectedGenre ||
         game.genres.includes(selectedGenre);
-      
-      const matchesYear = selectedYear === null || 
+      const matchesYear = selectedYear === null ||
         game.year === selectedYear;
-
       return matchesSearch && matchesGenre && matchesYear;
     }).length;
   }, [games, searchTerm, selectedGenre, selectedYear]);
@@ -63,8 +126,7 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
       selectedGenre: newGenre,
       selectedYear: newYear
     });
-    
-    // Scroll vers la section des jeux quand on applique un filtre
+
     const gamesElement = document.getElementById('games');
     if (gamesElement) {
       gamesElement.scrollIntoView({ behavior: 'smooth' });
@@ -78,6 +140,26 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
   };
 
   const hasActiveFilters = searchTerm || selectedGenre || selectedYear !== null;
+
+  const handleGenreToggle = () => {
+    setIsGenreOpen(!isGenreOpen);
+    setIsYearOpen(false);
+  };
+
+  const handleYearToggle = () => {
+    setIsYearOpen(!isYearOpen);
+    setIsGenreOpen(false);
+  };
+
+  const handleGenreSelect = (value: string | number | null) => {
+    updateFilters(searchTerm, value as string ?? '', selectedYear);
+    setIsGenreOpen(false);
+  };
+
+  const handleYearSelect = (value: string | number | null) => {
+    updateFilters(searchTerm, selectedGenre, value as number | null);
+    setIsYearOpen(false);
+  };
 
   return (
     <div className="sticky top-16 z-50 mb-8">
@@ -95,10 +177,10 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
                   onChange={(e) => updateFilters(e.target.value, selectedGenre, selectedYear)}
                   className="input-gaming w-full pl-12 pr-4 py-3 rounded-xl focus:outline-none"
                 />
-                <svg 
-                  className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" 
-                  fill="none" 
-                  stroke="currentColor" 
+                <svg
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -108,131 +190,39 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
 
             {/* Section centre: Filtres */}
             <div className="flex gap-4 items-center">
-              {/* Dropdown Genre */}
-              <div className="relative">
-                <button
-                  onClick={() => {
-                    setIsGenreOpen(!isGenreOpen);
-                    setIsYearOpen(false);
-                  }}
-                  aria-label={`Filtrer par genre${selectedGenre ? ` : ${selectedGenre}` : ''}`}
-                  aria-expanded={isGenreOpen}
-                  className="btn-gaming px-6 py-3 rounded-xl flex items-center gap-2 min-w-[140px] justify-between cursor-pointer"
-                >
-                  <span className="text-sm">
-                    {selectedGenre || 'GENRE'}
-                  </span>
-                  <svg 
-                    className={`w-4 h-4 transition-transform duration-200 ${isGenreOpen ? 'rotate-180' : ''}`} 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-                
-                {isGenreOpen && (
-                  <div className="absolute top-full left-0 mt-2 w-48 modal-gaming rounded-xl shadow-xl border border-gray-600 py-2 z-[100]">
-                    <button
-                      onClick={() => {
-                        updateFilters(searchTerm, '', selectedYear);
-                        setIsGenreOpen(false);
-                      }}
-                      className="w-full text-left px-4 py-2 text-white/80 hover:text-cyan-300 hover:bg-gray-700/50 transition-colors text-sm cursor-pointer"
-                    >
-                      Tous les genres
-                    </button>
-                    {ALL_GENRES.map((genre) => (
-                      <button
-                        key={genre}
-                        onClick={() => {
-                          updateFilters(searchTerm, genre, selectedYear);
-                          setIsGenreOpen(false);
-                        }}
-                        className={`w-full text-left px-4 py-2 transition-colors text-sm cursor-pointer ${
-                          selectedGenre === genre 
-                            ? 'text-cyan-300 bg-gray-700/50' 
-                            : 'text-white/80 hover:text-cyan-300 hover:bg-gray-700/50'
-                        }`}
-                      >
-                        {genre}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Dropdown Année */}
-              <div className="relative">
-                <button
-                  onClick={() => {
-                    setIsYearOpen(!isYearOpen);
-                    setIsGenreOpen(false);
-                  }}
-                  aria-label={`Filtrer par année${selectedYear ? ` : ${selectedYear}` : ''}`}
-                  aria-expanded={isYearOpen}
-                  className="btn-gaming px-6 py-3 rounded-xl flex items-center gap-2 min-w-[120px] justify-between cursor-pointer"
-                >
-                  <span className="text-sm">
-                    {selectedYear || 'ANNÉE'}
-                  </span>
-                  <svg 
-                    className={`w-4 h-4 transition-transform duration-200 ${isYearOpen ? 'rotate-180' : ''}`} 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-                
-                {isYearOpen && (
-                  <div className="absolute top-full left-0 mt-2 w-36 modal-gaming rounded-xl shadow-xl border border-gray-600 py-2 z-[100]">
-                    <button
-                      onClick={() => {
-                        updateFilters(searchTerm, selectedGenre, null);
-                        setIsYearOpen(false);
-                      }}
-                      className="w-full text-left px-4 py-2 text-white/80 hover:text-cyan-300 hover:bg-gray-700/50 transition-colors text-sm cursor-pointer"
-                    >
-                      Toutes les années
-                    </button>
-                    {availableYears.map((year) => (
-                      <button
-                        key={year}
-                        onClick={() => {
-                          updateFilters(searchTerm, selectedGenre, year);
-                          setIsYearOpen(false);
-                        }}
-                        className={`w-full text-left px-4 py-2 transition-colors text-sm cursor-pointer ${
-                          selectedYear === year 
-                            ? 'text-cyan-300 bg-gray-700/50' 
-                            : 'text-white/80 hover:text-cyan-300 hover:bg-gray-700/50'
-                        }`}
-                      >
-                        {year}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
+              <DropdownFilter
+                label="GENRE"
+                value={selectedGenre || null}
+                options={ALL_GENRES}
+                isOpen={isGenreOpen}
+                onToggle={handleGenreToggle}
+                onSelect={handleGenreSelect}
+                resetLabel="Tous les genres"
+                size="md"
+                dropdownWidth="w-48"
+              />
+              <DropdownFilter
+                label="ANNEE"
+                value={selectedYear}
+                options={availableYears}
+                isOpen={isYearOpen}
+                onToggle={handleYearToggle}
+                onSelect={handleYearSelect}
+                resetLabel="Toutes les annees"
+                size="md"
+                dropdownWidth="w-36"
+              />
             </div>
 
-            {/* Section droite: Résultats et reset */}
+            {/* Section droite: Resultats et reset */}
             <div className="flex items-center gap-4">
-              {/* Compteur de résultats */}
               <div className="text-white/80 font-gaming text-sm">
                 <span className="text-cyan-300">{filteredCount}</span> jeu{filteredCount !== 1 ? 'x' : ''}
               </div>
-
-              {/* Bouton reset */}
               {hasActiveFilters && (
                 <button
                   onClick={resetFilters}
-                  aria-label="Réinitialiser tous les filtres"
+                  aria-label="Reinitialiser tous les filtres"
                   className="text-white/70 hover:text-cyan-300 transition-colors text-sm font-gaming tracking-wider cursor-pointer"
                 >
                   RESET
@@ -241,125 +231,34 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
             </div>
           </div>
 
-          {/* Layout Mobile - Simplifié */}
+          {/* Layout Mobile */}
           <div className="lg:hidden flex items-center justify-center gap-3">
-            {/* Dropdown Genre */}
-            <div className="relative">
-              <button
-                onClick={() => {
-                  setIsGenreOpen(!isGenreOpen);
-                  setIsYearOpen(false);
-                }}
-                aria-label={`Filtrer par genre${selectedGenre ? ` : ${selectedGenre}` : ''}`}
-                aria-expanded={isGenreOpen}
-                className="btn-gaming px-4 py-2 rounded-xl flex items-center gap-2 cursor-pointer"
-              >
-                <span className="text-xs">
-                  {selectedGenre || 'GENRE'}
-                </span>
-                <svg 
-                  className={`w-3 h-3 transition-transform duration-200 ${isGenreOpen ? 'rotate-180' : ''}`} 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              
-              {isGenreOpen && (
-                <div className="absolute top-full left-0 mt-2 w-48 modal-gaming rounded-xl shadow-xl border border-gray-600 py-2 z-[100]">
-                  <button
-                    onClick={() => {
-                      updateFilters(searchTerm, '', selectedYear);
-                      setIsGenreOpen(false);
-                    }}
-                    className="w-full text-left px-4 py-2 text-white/80 hover:text-cyan-300 hover:bg-gray-700/50 transition-colors text-sm cursor-pointer"
-                  >
-                    Tous les genres
-                  </button>
-                  {ALL_GENRES.map((genre) => (
-                    <button
-                      key={genre}
-                      onClick={() => {
-                        updateFilters(searchTerm, genre, selectedYear);
-                        setIsGenreOpen(false);
-                      }}
-                      className={`w-full text-left px-4 py-2 transition-colors text-sm cursor-pointer ${
-                        selectedGenre === genre 
-                          ? 'text-cyan-300 bg-gray-700/50' 
-                          : 'text-white/80 hover:text-cyan-300 hover:bg-gray-700/50'
-                      }`}
-                    >
-                      {genre}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Dropdown Année */}
-            <div className="relative">
-              <button
-                onClick={() => {
-                  setIsYearOpen(!isYearOpen);
-                  setIsGenreOpen(false);
-                }}
-                aria-label={`Filtrer par année${selectedYear ? ` : ${selectedYear}` : ''}`}
-                aria-expanded={isYearOpen}
-                className="btn-gaming px-4 py-2 rounded-xl flex items-center gap-2 cursor-pointer"
-              >
-                <span className="text-xs">
-                  {selectedYear || 'ANNÉE'}
-                </span>
-                <svg 
-                  className={`w-3 h-3 transition-transform duration-200 ${isYearOpen ? 'rotate-180' : ''}`} 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              
-              {isYearOpen && (
-                <div className="absolute top-full left-0 mt-2 w-36 modal-gaming rounded-xl shadow-xl border border-gray-600 py-2 z-[100]">
-                  <button
-                    onClick={() => {
-                      updateFilters(searchTerm, selectedGenre, null);
-                      setIsYearOpen(false);
-                    }}
-                    className="w-full text-left px-4 py-2 text-white/80 hover:text-cyan-300 hover:bg-gray-700/50 transition-colors text-sm cursor-pointer"
-                  >
-                    Toutes les années
-                  </button>
-                  {availableYears.map((year) => (
-                    <button
-                      key={year}
-                      onClick={() => {
-                        updateFilters(searchTerm, selectedGenre, year);
-                        setIsYearOpen(false);
-                      }}
-                      className={`w-full text-left px-4 py-2 transition-colors text-sm cursor-pointer ${
-                        selectedYear === year 
-                          ? 'text-cyan-300 bg-gray-700/50' 
-                          : 'text-white/80 hover:text-cyan-300 hover:bg-gray-700/50'
-                      }`}
-                    >
-                      {year}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Bouton reset */}
+            <DropdownFilter
+              label="GENRE"
+              value={selectedGenre || null}
+              options={ALL_GENRES}
+              isOpen={isGenreOpen}
+              onToggle={handleGenreToggle}
+              onSelect={handleGenreSelect}
+              resetLabel="Tous les genres"
+              size="sm"
+              dropdownWidth="w-48"
+            />
+            <DropdownFilter
+              label="ANNEE"
+              value={selectedYear}
+              options={availableYears}
+              isOpen={isYearOpen}
+              onToggle={handleYearToggle}
+              onSelect={handleYearSelect}
+              resetLabel="Toutes les annees"
+              size="sm"
+              dropdownWidth="w-36"
+            />
             {hasActiveFilters && (
               <button
                 onClick={resetFilters}
-                aria-label="Réinitialiser tous les filtres"
+                aria-label="Reinitialiser tous les filtres"
                 className="text-white/70 hover:text-cyan-300 transition-colors text-xs font-gaming tracking-wider cursor-pointer"
               >
                 RESET
@@ -370,4 +269,4 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
       </div>
     </div>
   );
-} 
+}
