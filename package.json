@@ -11,22 +11,22 @@
     "generate-videos": "node scripts/generate-videos.js"
   },
   "dependencies": {
-    "critters": "^0.0.25",
-    "next": "15.5.9",
-    "postcss": "^8.5.4",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3"
+    "next": "15.5.11",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.3",
     "@tailwindcss/line-clamp": "^0.4.4",
     "@tailwindcss/postcss": "^4.1.18",
-    "@types/node": "^22.0.0",
-    "@types/react": "^19.2.9",
+    "@types/node": "^25.2.0",
+    "@types/react": "^19.2.11",
     "@types/react-dom": "^19.2.3",
     "eslint": "^9.39.2",
-    "eslint-config-next": "15.5.9",
+    "eslint-config-next": "15.5.11",
+    "postcss": "^8.5.6",
     "tailwindcss": "^4.1.18",
-    "typescript": "~5.8.3"
-  }
+    "typescript": "~5.9.3"
+  },
+  "packageManager": "pnpm@10.28.2+sha512.41872f037ad22f7348e3b1debbaf7e867cfd448f2726d9cf74c08f19507c31d2c8e7a11525b983febc2df640b5438dee6023ebb1f84ed43cc2d654d2bc326264"
 }
