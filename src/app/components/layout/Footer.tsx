@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import CGUModal from './CGUModal';
-import PrivacyModal from './PrivacyModal';
+import CGUModal from '@/app/components/legal/CGUModal';
+import PrivacyModal from '@/app/components/legal/PrivacyModal';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();

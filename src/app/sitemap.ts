@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next'
-import gamesData from '../data/games.json'
+import gamesData from '@/data/games.json'
 import { createSlug } from '@/lib/slug'
 
 export default function sitemap(): MetadataRoute.Sitemap {

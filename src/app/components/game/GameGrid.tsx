@@ -1,16 +1,16 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
-import Game from './Game';
+import GameCard from './GameCard';
 import FilterBar, { GameFilters } from './FilterBar';
-import { logValidationErrors } from '../../utils/gameValidation';
+import { logValidationErrors } from '@/lib/validation';
 import { GameData } from '@/types/game';
 
 interface AllGamesProps {
   games: GameData[];
 }
 
-export default function AllGames({ games }: AllGamesProps) {
+export default function GameGrid({ games }: AllGamesProps) {
   const [filters, setFilters] = useState<GameFilters>({
     searchTerm: '',
     selectedGenre: '',
@@ -148,7 +148,7 @@ export default function AllGames({ games }: AllGamesProps) {
                           animationFillMode: 'both'
                         }}
                       >
-                        <Game
+                        <GameCard
                           title={game.title}
                           longDescription={game.longDescription}
                           genres={game.genres}

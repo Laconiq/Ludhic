@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { getMainImageUrl, getLogoUrl } from '../../utils/imageUtils';
+import { getMainImageUrl, getLogoUrl } from '@/lib/images';
 import { createSlug } from '@/lib/slug';
 
 interface GameProps {
@@ -13,7 +13,7 @@ interface GameProps {
   year: number;
 }
 
-export default function Game({ 
+export default function GameCard({
   title, 
   longDescription, 
   genres, 

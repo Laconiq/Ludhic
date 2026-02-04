@@ -1,10 +1,10 @@
 import { notFound } from 'next/navigation';
-import gamesData from '../../../../data/games.json';
+import gamesData from '@/data/games.json';
 import Image from 'next/image';
-import Game from '../../../components/Game';
-import Navigation from '../../../components/Navigation';
-import Footer from '../../../components/Footer';
-import { getMainImageUrl, getLogoUrl } from '@/utils/imageUtils';
+import GameCard from '@/app/components/game/GameCard';
+import Navigation from '@/app/components/layout/Navigation';
+import Footer from '@/app/components/layout/Footer';
+import { getMainImageUrl, getLogoUrl } from '@/lib/images';
 
 export async function generateStaticParams() {
   // On récupère toutes les années uniques
@@ -77,7 +77,7 @@ export default async function Page({ params }: { params: Promise<{ year: string 
       <div className="max-w-7xl mx-auto px-4 pb-16 pt-12 w-full">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 auto-rows-fr">
           {gamesOfYear.map(game => (
-            <Game
+            <GameCard
               key={game.id}
               title={game.title}
               longDescription={game.longDescription}

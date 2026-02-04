@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import gamesData from '../../../data/games.json';
-import GamePageContent from '../../components/GamePageContent';
-import Footer from '../../components/Footer';
+import gamesData from '@/data/games.json';
+import GamePageContent from '@/app/components/game/GamePageContent';
+import Footer from '@/app/components/layout/Footer';
 import { createSlug } from '@/lib/slug';
 
 // Fonction pour trouver un jeu par son slug

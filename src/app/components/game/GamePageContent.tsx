@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import Navigation from './Navigation';
+import Navigation from '@/app/components/layout/Navigation';
 import { GameData } from '@/types/game';
-import { getMainImageUrl, getLogoUrl, getAllImageUrls } from '@/utils/imageUtils';
+import { getMainImageUrl, getLogoUrl, getAllImageUrls } from '@/lib/images';
 
 interface GamePageContentProps {
   game: GameData;
