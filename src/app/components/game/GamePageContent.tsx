@@ -7,6 +7,7 @@ import Navigation from '@/app/components/layout/Navigation';
 import { GameData } from '@/types/game';
 import { getMainImageUrl, getLogoUrl, getAllImageUrls } from '@/lib/images';
 import GamingButton from '@/app/components/ui/GamingButton';
+import GameCredits from '@/app/components/game/GameCredits';
 
 const CAROUSEL_INTERVAL_MS = 4000;
 
@@ -258,23 +259,7 @@ export default function GamePageContent({ game }: GamePageContentProps) {
           </div>
         )}
         
-        <div className="mb-16">
-          <h3 className="text-lg font-gaming text-cyan-400 mb-8 tracking-wider">
-            👥 ÉQUIPE DE DÉVELOPPEMENT
-          </h3>
-          <div className="bg-gray-800/30 backdrop-blur-sm rounded-lg p-6 border border-gray-600">
-            {game.credits.map((member, index) => (
-              <div key={index} className="flex flex-wrap items-baseline gap-2 mb-2">
-                <span className="font-semibold text-white text-sm md:text-base">
-                  {member.firstName} {member.lastName}
-                </span>
-                <span className="text-cyan-300 text-xs md:text-sm">
-                  {member.roles.length > 0 ? member.roles.join(', ') : 'Contributeur'}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
+        <GameCredits credits={game.credits} />
       </div>
     </>
   );
