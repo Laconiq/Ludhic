@@ -30,10 +30,13 @@ export default function GameGrid({ games }: AllGamesProps) {
     return games.filter((game) => {
       if (filters.searchTerm) {
         const searchLower = filters.searchTerm.toLowerCase();
-        const matchesSearch = 
+        const matchesSearch =
           game.title.toLowerCase().includes(searchLower) ||
           game.longDescription.toLowerCase().includes(searchLower) ||
-          game.genres.some(genre => genre.toLowerCase().includes(searchLower));
+          game.genres.some(genre => genre.toLowerCase().includes(searchLower)) ||
+          game.credits.some(credit =>
+            `${credit.firstName} ${credit.lastName}`.toLowerCase().includes(searchLower)
+          );
         if (!matchesSearch) return false;
       }
       

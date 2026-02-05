@@ -107,13 +107,20 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
   // Compter les résultats actuels
   const filteredCount = useMemo(() => {
     return games.filter((game) => {
-      const matchesSearch = !searchTerm ||
-        game.title.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesGenre = !selectedGenre ||
-        game.genres.includes(selectedGenre);
-      const matchesYear = selectedYear === null ||
-        game.year === selectedYear;
-      return matchesSearch && matchesGenre && matchesYear;
+      if (searchTerm) {
+        const searchLower = searchTerm.toLowerCase();
+        const matchesSearch =
+          game.title.toLowerCase().includes(searchLower) ||
+          game.longDescription.toLowerCase().includes(searchLower) ||
+          game.genres.some(genre => genre.toLowerCase().includes(searchLower)) ||
+          game.credits.some(credit =>
+            `${credit.firstName} ${credit.lastName}`.toLowerCase().includes(searchLower)
+          );
+        if (!matchesSearch) return false;
+      }
+      if (selectedGenre && !game.genres.includes(selectedGenre)) return false;
+      if (selectedYear !== null && game.year !== selectedYear) return false;
+      return true;
     }).length;
   }, [games, searchTerm, selectedGenre, selectedYear]);
 
@@ -172,7 +179,7 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
               <div className="relative">
                 <input
                   type="text"
-                  placeholder="Rechercher un jeu..."
+                  placeholder="Rechercher un jeu, genre, personne..."
                   value={searchTerm}
                   onChange={(e) => updateFilters(e.target.value, selectedGenre, selectedYear)}
                   className="input-gaming w-full pl-12 pr-4 py-3 rounded-xl focus:outline-none"
