@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import ServiceWorker from "@/app/components/layout/ServiceWorker";
 import { SITE_URL } from "@/constants/site";
 
 const geistSans = Geist({
@@ -90,7 +89,6 @@ export const metadata: Metadata = {
   },
   verification: {
     google: 'VOTRE_CODE_GOOGLE_SEARCH_CONSOLE',
-    // bing: 'VOTRE_CODE_BING',
   },
   alternates: {
     canonical: 'https://ludhic.fr',
@@ -141,8 +139,7 @@ export default function RootLayout({
         <link rel="preload" href="/videos/background-1.webm" as="video" type="video/webm" />
         <link rel="preload" href="/images/logo.png" as="image" />
         
-        {/* Préchargement des polices critiques pour éviter les layout shifts */}
-        <link 
+        <link
           rel="preload" 
           href="/fonts/PlusJakartaSans-VariableFont_wght.ttf" 
           as="font" 
@@ -158,7 +155,6 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-gray-900 text-white antialiased">
-        <ServiceWorker />
         {children}
       </body>
     </html>
