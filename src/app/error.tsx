@@ -33,7 +33,6 @@ export default function Error({
           <GamingButton
             onClick={reset}
             size="md"
-            className="rounded-lg"
           >
             RECOMMENCER
           </GamingButton>
@@ -41,7 +40,6 @@ export default function Error({
           <GamingButton
             href="/"
             size="md"
-            className="rounded-lg"
           >
             RETOUR AU MENU
           </GamingButton>

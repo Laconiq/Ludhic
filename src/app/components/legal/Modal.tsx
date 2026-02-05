@@ -15,6 +15,8 @@ export default function Modal({ isOpen, onClose, titleId, title, closeLabel, chi
   const overlayRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const triggerRef = useRef<HTMLElement | null>(null);
+  const prevIsOpenRef = useRef(false);
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.key === 'Escape') {
@@ -36,6 +38,16 @@ export default function Modal({ isOpen, onClose, titleId, title, closeLabel, chi
       }
     }
   }, [onClose]);
+
+  useEffect(() => {
+    if (isOpen && !prevIsOpenRef.current) {
+      triggerRef.current = document.activeElement as HTMLElement | null;
+    }
+    if (!isOpen && prevIsOpenRef.current) {
+      triggerRef.current?.focus();
+    }
+    prevIsOpenRef.current = isOpen;
+  }, [isOpen]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -76,7 +88,6 @@ export default function Modal({ isOpen, onClose, titleId, title, closeLabel, chi
         className="bg-gray-900 rounded-xl border border-gray-700 max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-700">
           <h2 className="text-2xl font-gaming text-cyan-400">
             <span id={titleId}>{title}</span>
@@ -93,7 +104,6 @@ export default function Modal({ isOpen, onClose, titleId, title, closeLabel, chi
           </button>
         </div>
 
-        {/* Content */}
         <div className="p-6 overflow-y-auto max-h-[calc(90vh-140px)]" style={{ overscrollBehavior: 'contain', WebkitOverflowScrolling: 'touch' }}>
           <div className="prose prose-invert prose-cyan max-w-none text-white/80 space-y-6">
             {children}

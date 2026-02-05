@@ -22,7 +22,7 @@ type GamingButtonProps = (ButtonOnlyProps | LinkProps) & {
 const SIZES = { sm: 'px-5 py-2', md: 'px-6 py-3', lg: 'px-8 py-4 text-lg' };
 
 const BASE = [
-  'relative overflow-hidden cursor-pointer',
+  'relative overflow-hidden cursor-pointer rounded-lg',
   'bg-[linear-gradient(135deg,var(--bg-tertiary)_0%,var(--bg-secondary)_100%)]',
   'border border-[var(--border-primary)]',
   'text-[var(--text-primary)] font-gaming uppercase',
@@ -35,7 +35,7 @@ const BASE = [
 ].join(' ');
 
 export default function GamingButton({ href, external, size, className = '', children, ...props }: GamingButtonProps) {
-  const classes = `${BASE} ${size ? SIZES[size] : ''} ${className}`;
+  const classes = [BASE, size && SIZES[size], className].filter(Boolean).join(' ');
 
   if (href) {
     return (

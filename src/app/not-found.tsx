@@ -24,7 +24,7 @@ export default function NotFound() {
             <GamingButton
               href="/"
               size="md"
-              className="rounded-lg block w-fit mx-auto"
+              className="block w-fit mx-auto"
             >
               🚪 RETOUR À LA RÉALITÉ
             </GamingButton>
