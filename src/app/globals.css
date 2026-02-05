@@ -9,14 +9,6 @@
   font-display: swap;
 }
 
-@font-face {
-  font-family: 'Plus Jakarta Sans';
-  src: url('/fonts/PlusJakartaSans-Italic-VariableFont_wght.ttf') format('truetype-variations');
-  font-weight: 200 800;
-  font-style: italic;
-  font-display: swap;
-}
-
 /* Polices locales PixelifySans */
 @font-face {
   font-family: 'PixelifySans';
@@ -30,14 +22,6 @@
   font-family: 'PixelifySans';
   src: url('/fonts/PixelifySans-SemiBold.ttf') format('truetype');
   font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'PixelifySans';
-  src: url('/fonts/PixelifySans-Bold.ttf') format('truetype');
-  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
@@ -116,12 +100,6 @@ p {
   font-family: 'PixelifySans', monospace !important;
   font-weight: 600;
   letter-spacing: 0.1em;
-}
-
-.press-start-2p-regular {
-  font-family: 'PixelifySans', monospace;
-  font-weight: 400;
-  font-style: normal;
 }
 
 .text-neon {

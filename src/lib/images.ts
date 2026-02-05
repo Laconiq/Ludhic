@@ -15,13 +15,6 @@ export function getAllImageUrls(imageFolder: string, imageCount: number): string
 }
 
 /**
- * Génère l'URL d'une image spécifique
- */
-export function getImageUrl(imageFolder: string, imageNumber: number): string {
-  return `${imageFolder}/${imageNumber}.webp`;
-}
-
-/**
  * Génère l'URL du logo d'un jeu (toujours logo.webp)
  */
 export function getLogoUrl(imageFolder: string): string {

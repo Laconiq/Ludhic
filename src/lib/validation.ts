@@ -2,7 +2,7 @@ import { isValidGenre, ALL_GENRES } from '@/lib/genres';
 import { GameData } from '@/types/game';
 
 // Valide qu'un jeu utilise des genres valides
-export const validateGameGenres = (game: GameData): string[] => {
+const validateGameGenres = (game: GameData): string[] => {
   const invalidGenres: string[] = [];
   
   game.genres.forEach(genre => {
@@ -15,7 +15,7 @@ export const validateGameGenres = (game: GameData): string[] => {
 };
 
 // Valide tous les jeux et retourne un rapport
-export const validateAllGames = (games: GameData[]): {
+const validateAllGames = (games: GameData[]): {
   isValid: boolean;
   errors: { gameId: number; title: string; invalidGenres: string[] }[];
   availableGenres: string[];
