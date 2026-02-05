@@ -8,54 +8,18 @@ import { GameData } from '@/types/game';
 import { getMainImageUrl, getLogoUrl, getAllImageUrls } from '@/lib/images';
 import GamingButton from '@/app/components/ui/GamingButton';
 import GameCredits from '@/app/components/game/GameCredits';
-
-const CAROUSEL_INTERVAL_MS = 4000;
+import ImageCarousel from '@/app/components/game/ImageCarousel';
 
 interface GamePageContentProps {
   game: GameData;
 }
 
 export default function GamePageContent({ game }: GamePageContentProps) {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [isCarouselHovered, setIsCarouselHovered] = useState(false);
   const [videoError, setVideoError] = useState(false);
 
   useEffect(() => setVideoError(false), [game.contentFolder]);
 
   const allImages = getAllImageUrls(game.contentFolder, game.imageCount);
-
-  useEffect(() => {
-    if (game.imageCount <= 1 || isCarouselHovered) return;
-
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % game.imageCount);
-    }, CAROUSEL_INTERVAL_MS);
-
-    return () => clearInterval(interval);
-  }, [game.imageCount, isCarouselHovered]);
-
-  const changeImage = (direction: 'prev' | 'next') => {
-    if (isTransitioning) return;
-
-    setIsTransitioning(true);
-    setCurrentImageIndex((prev) => {
-      if (direction === 'prev') {
-        return prev === 0 ? game.imageCount - 1 : prev - 1;
-      } else {
-        return (prev + 1) % game.imageCount;
-      }
-    });
-    
-    setTimeout(() => setIsTransitioning(false), 500);
-  };
-
-  const goToImage = (index: number) => {
-    if (isTransitioning || index === currentImageIndex) return;
-    setIsTransitioning(true);
-    setCurrentImageIndex(index);
-    setTimeout(() => setIsTransitioning(false), 500);
-  };
 
   return (
     <>
@@ -146,88 +110,7 @@ export default function GamePageContent({ game }: GamePageContentProps) {
         </div>
         
         {game.imageCount > 1 && (
-          <div className="mb-16">
-            <h3 className="text-lg font-gaming text-cyan-400 mb-6 tracking-wider">
-              📸 CAPTURES D&apos;ÉCRAN
-            </h3>
-            <div className="w-full flex justify-center">
-              <div 
-                className="relative w-full rounded-xl overflow-hidden shadow-2xl cursor-default aspect-[16/9]" 
-                onMouseEnter={() => setIsCarouselHovered(true)}
-                onMouseLeave={() => setIsCarouselHovered(false)}
-              >
-                <div
-                  className="flex h-full transition-transform duration-500 ease-in-out"
-                  style={{ 
-                    width: `${game.imageCount * 100}%`,
-                    transform: `translateX(-${(currentImageIndex * 100) / game.imageCount}%)`
-                  }}
-                >
-                  {allImages.map((imageUrl, index) => (
-                    <div 
-                      key={index}
-                      className="relative flex-shrink-0 h-full w-full"
-                      style={{ width: `${100 / game.imageCount}%` }}
-                    >
-                      <Image
-                        src={imageUrl}
-                        alt={`${game.title} - Screenshot ${index + 1}`}
-                        fill
-                        className="object-cover w-full h-full"
-                        sizes="(max-width: 768px) 100vw, 1200px"
-                        loading={index === 0 ? "eager" : "lazy"}
-                        priority={index === 0}
-                        quality={85}
-                      />
-                    </div>
-                  ))}
-                </div>
-                
-                {!isCarouselHovered && (
-                  <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-sm px-3 py-1 rounded-full text-white/70 text-xs font-gaming">
-                    AUTO-PLAY
-                  </div>
-                )}
-                
-                <button
-                  onClick={() => changeImage('prev')}
-                  disabled={isTransitioning}
-                  aria-label="Image précédente"
-                  className="absolute left-4 top-1/2 transform -translate-y-1/2 p-3 rounded-full bg-black/70 backdrop-blur-sm text-white hover:bg-black/90 hover:text-cyan-300 transition-all duration-200 disabled:opacity-50 cursor-pointer"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                  </svg>
-                </button>
-                <button
-                  onClick={() => changeImage('next')}
-                  disabled={isTransitioning}
-                  aria-label="Image suivante"
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 rounded-full bg-black/70 backdrop-blur-sm text-white hover:bg-black/90 hover:text-cyan-300 transition-all duration-200 disabled:opacity-50 cursor-pointer"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
-                
-                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
-                  {allImages.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => goToImage(index)}
-                      disabled={isTransitioning}
-                      aria-label={`Aller à l'image ${index + 1}`}
-                      className={`w-3 h-3 rounded-full transition-all duration-200 cursor-pointer ${
-                        index === currentImageIndex 
-                          ? 'bg-cyan-300 scale-125' 
-                          : 'bg-white/70 hover:bg-white/90'
-                      }`}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
+          <ImageCarousel images={allImages} title={game.title} />
         )}
         
         {game.hasVideo && (
