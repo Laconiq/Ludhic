@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import Link from 'next/link';
+import GamingButton from '@/app/components/ui/GamingButton';
 
 export default function Error({
   error,
@@ -30,19 +30,21 @@ export default function Error({
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button
+          <GamingButton
             onClick={reset}
-            className="btn-gaming px-6 py-3 rounded-lg font-gaming text-sm md:text-base hover:scale-105 transition-transform cursor-pointer"
+            size="md"
+            className="rounded-lg"
           >
             RECOMMENCER
-          </button>
+          </GamingButton>
 
-          <Link
+          <GamingButton
             href="/"
-            className="btn-gaming px-6 py-3 rounded-lg font-gaming text-sm md:text-base hover:scale-105 transition-transform text-center"
+            size="md"
+            className="rounded-lg"
           >
             RETOUR AU MENU
-          </Link>
+          </GamingButton>
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import GameCard from './GameCard';
+import GamingButton from '@/app/components/ui/GamingButton';
 import FilterBar, { GameFilters } from './FilterBar';
 import { logValidationErrors } from '@/lib/validation';
 import { GameData } from '@/types/game';
@@ -106,12 +107,13 @@ export default function GameGrid({ games }: AllGamesProps) {
               <p className="text-white/65 mb-6">
                 Aucun jeu ne correspond à vos critères de recherche
               </p>
-              <button
+              <GamingButton
                 onClick={() => setFilters({ searchTerm: '', selectedGenre: '', selectedYear: null })}
-                className="btn-gaming px-6 py-3 rounded-lg cursor-pointer"
+                size="md"
+                className="rounded-lg"
               >
                 RESET FILTRES
-              </button>
+              </GamingButton>
             </div>
           )}
 
@@ -166,12 +168,13 @@ export default function GameGrid({ games }: AllGamesProps) {
               {/* Bouton "Voir le portfolio complet" */}
               {!showAllGames && allSortedGames.length > featuredGames.length && !hasActiveFilters && (
                 <div className="text-center py-12">
-                  <button
+                  <GamingButton
                     onClick={() => setShowAllGames(true)}
-                    className="btn-gaming px-8 py-4 rounded-lg cursor-pointer text-lg font-gaming tracking-wider hover:scale-105 transition-transform duration-200"
+                    size="lg"
+                    className="rounded-lg hover:scale-105"
                   >
                     VOIR LE PORTFOLIO COMPLET ({allSortedGames.length - featuredGames.length} autres jeux)
-                  </button>
+                  </GamingButton>
                 </div>
               )}
 

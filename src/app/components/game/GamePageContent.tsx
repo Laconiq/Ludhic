@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Navigation from '@/app/components/layout/Navigation';
 import { GameData } from '@/types/game';
 import { getMainImageUrl, getLogoUrl, getAllImageUrls } from '@/lib/images';
+import GamingButton from '@/app/components/ui/GamingButton';
 
 const CAROUSEL_INTERVAL_MS = 4000;
 
@@ -114,14 +115,14 @@ export default function GamePageContent({ game }: GamePageContentProps) {
           </div>
           {/* Bouton personnalisé centré */}
           {game.customButton.enabled && (
-            <a
+            <GamingButton
               href={game.customButton.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-gaming px-5 py-2 rounded-lg font-semibold cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg mt-4 block mx-auto w-auto"
+              external
+              size="sm"
+              className="rounded-lg mt-4 block mx-auto w-auto hover:scale-105"
             >
               {game.customButton.name}
-            </a>
+            </GamingButton>
           )}
         </div>
         {/* Description */}

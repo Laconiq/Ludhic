@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { scrollToSection } from '@/lib/scroll';
+import GamingButton from '@/app/components/ui/GamingButton';
 
 interface HeroProps {
   videoIndex?: number;
@@ -99,21 +100,22 @@ export default function Hero({ videoIndex }: HeroProps) {
         
         {/* CTA Buttons - Tailles égalisées */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <button 
+          <GamingButton
             onClick={scrollToGames}
-            className="btn-gaming px-8 py-4 rounded-lg text-lg font-semibold cursor-pointer w-full sm:w-auto min-w-[200px]"
+            size="lg"
+            className="rounded-lg w-full sm:w-auto min-w-[200px] hover:scale-105"
           >
             ▶ EXPLORER LES JEUX
-          </button>
-          
-          <a 
-            href="https://univ-cotedazur.fr/formation/offre-de-formation/majic-master-jeux-video-image-et-creativite" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="btn-gaming px-8 py-4 rounded-lg text-lg font-semibold cursor-pointer w-full sm:w-auto min-w-[200px]"
+          </GamingButton>
+
+          <GamingButton
+            href="https://univ-cotedazur.fr/formation/offre-de-formation/majic-master-jeux-video-image-et-creativite"
+            external
+            size="lg"
+            className="rounded-lg w-full sm:w-auto min-w-[200px] hover:scale-105"
           >
             MASTER OFFICIEL ↗
-          </a>
+          </GamingButton>
         </div>
       </div>
     </section>

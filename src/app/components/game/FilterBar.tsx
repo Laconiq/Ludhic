@@ -4,6 +4,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { ALL_GENRES } from '@/lib/genres';
 import { GameData } from '@/types/game';
 import { scrollToSection } from '@/lib/scroll';
+import GamingButton from '@/app/components/ui/GamingButton';
 
 export interface GameFilters {
   searchTerm: string;
@@ -34,11 +35,11 @@ function DropdownFilter({ label, value, options, isOpen, onToggle, onSelect, res
 
   return (
     <div className="relative">
-      <button
+      <GamingButton
         onClick={onToggle}
         aria-label={`Filtrer par ${label.toLowerCase()}${value ? ` : ${value}` : ''}`}
         aria-expanded={isOpen}
-        className={`btn-gaming rounded-xl flex items-center gap-2 cursor-pointer ${
+        className={`rounded-xl flex items-center gap-2 ${
           isMd ? 'px-6 py-3 min-w-[120px] justify-between' : 'px-4 py-2'
         }`}
       >
@@ -54,7 +55,7 @@ function DropdownFilter({ label, value, options, isOpen, onToggle, onSelect, res
         >
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
-      </button>
+      </GamingButton>
 
       {isOpen && (
         <div className={`absolute top-full left-0 mt-2 ${dropdownWidth} bg-[linear-gradient(135deg,var(--bg-primary)_0%,var(--bg-secondary)_100%)] border border-[var(--border-primary)] shadow-[var(--shadow-dark),var(--shadow-glow)] rounded-xl py-2 z-[100]`}>

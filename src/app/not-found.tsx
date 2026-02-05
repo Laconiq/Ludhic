@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import Navigation from '@/app/components/layout/Navigation';
+import GamingButton from '@/app/components/ui/GamingButton';
 
 export default function NotFound() {
   return (
@@ -21,12 +21,13 @@ export default function NotFound() {
           </p>
 
           <div className="space-y-4">
-            <Link 
+            <GamingButton
               href="/"
-              className="inline-block btn-gaming px-6 py-3 rounded-lg font-gaming text-sm md:text-base hover:scale-105 transition-transform"
+              size="md"
+              className="rounded-lg block w-fit mx-auto"
             >
               🚪 RETOUR À LA RÉALITÉ
-            </Link>
+            </GamingButton>
             
             <div className="text-xs text-white/40">
               <p>Conseil : Évitez de regarder derrière vous... 👁️</p>
