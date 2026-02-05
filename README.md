@@ -128,7 +128,7 @@ Le site respecte les standards d'accessibilité WCAG 2.1 AA :
 
 - **Framework** : Next.js 15 (App Router)
 - **Langage** : TypeScript
-- **Styling** : Tailwind CSS
+- **Styling** : Tailwind CSS 4
 - **Polices** : Plus Jakarta Sans + Pixelify Sans (locales)
 - **Images** : Optimisation automatique Next.js
 - **Cache** : Service Worker personnalisé
@@ -140,16 +140,25 @@ Le site respecte les standards d'accessibilité WCAG 2.1 AA :
 src/
 ├── app/                     # Architecture App Router Next.js 15
 │   ├── components/          # Tous les composants réutilisables
+│   │   ├── game/           # Composants liés aux jeux (GameCard, GameGrid, FilterBar...)
+│   │   ├── layout/         # Composants de layout (Navigation, Hero, FAQ, Footer...)
+│   │   ├── legal/          # Modales CGU et Confidentialité
+│   │   ├── seo/            # Schéma SEO structuré
+│   │   └── ui/             # Composants UI réutilisables (GamingButton...)
 │   ├── games/
 │   │   ├── [title]/        # Pages dynamiques pour chaque jeu
 │   │   └── year/[year]/     # Pages dynamiques par année
 │   ├── layout.tsx          # Layout principal
 │   ├── page.tsx            # Page d'accueil
+│   ├── loading.tsx         # Page de chargement
+│   ├── error.tsx           # Page d'erreur
 │   ├── not-found.tsx       # Page 404 personnalisée
 │   ├── globals.css         # Styles globaux
 │   └── sitemap.ts          # Génération automatique du sitemap
+├── constants/              # Constantes du site
 ├── data/                   # Données JSON des jeux
-└── utils/                  # Utilitaires et helpers
+├── lib/                    # Utilitaires et helpers (genres, slug, validation...)
+└── types/                  # Types TypeScript partagés
 
 public/
 ├── games/                  # Assets des jeux (images, vidéos, logos)
@@ -199,7 +208,8 @@ export async function generateMetadata({ params }: { params: Promise<{ title: st
      },
      "credits": [
        { "firstName": "Prénom", "lastName": "NOM", "roles": ["Developer"] }
-     ]
+     ],
+     "featured": false
    }
    ```
 
@@ -249,8 +259,8 @@ vercel --prod
 
 ## 🔧 Technologies & Outils
 
-- **Frontend** : Next.js 15, React 18, TypeScript
-- **Styling** : Tailwind CSS, CSS Variables
+- **Frontend** : Next.js 15, React 19, TypeScript
+- **Styling** : Tailwind CSS 4
 - **Polices** : Plus Jakarta Sans, Pixelify Sans (locales)
 - **Images** : Next.js Image, WebP/AVIF
 - **Performance** : Service Worker, Lazy Loading
