@@ -24,7 +24,6 @@ export default function Hero({ videoIndex }: HeroProps) {
 
   return (
     <section id="hero" className="h-screen flex items-center justify-center relative overflow-hidden -mt-16">
-      {/* Vidéo en arrière-plan */}
       <video
         autoPlay
         loop
@@ -35,9 +34,7 @@ export default function Hero({ videoIndex }: HeroProps) {
       />
       <div className="absolute top-0 left-0 w-full h-full bg-black/50 z-0 pointer-events-none" />
       
-      {/* Gaming background effects */}
       <div className="absolute inset-0 z-10">
-        {/* Animated grid - plus visible */}
         <div 
           className="absolute inset-0 opacity-30 animate-grid-move"
           style={{
@@ -48,8 +45,7 @@ export default function Hero({ videoIndex }: HeroProps) {
             backgroundSize: '50px 50px'
           }}
         />
-        {/* Grille secondaire pour plus de détail */}
-        <div 
+        <div
           className="absolute inset-0 opacity-15"
           style={{
             backgroundImage: `
@@ -61,9 +57,7 @@ export default function Hero({ videoIndex }: HeroProps) {
         />
       </div>
 
-      {/* Content */}
       <div className="relative z-20 text-center px-4 pt-16 max-w-5xl mx-auto">
-        {/* Logo et titre sur la même ligne avec conteneur hover */}
         <div 
           className="flex items-center justify-center gap-6 mb-8 foil-container"
           style={{
@@ -87,8 +81,7 @@ export default function Hero({ videoIndex }: HeroProps) {
           </h1>
         </div>
         
-        {/* Description */}
-        <p 
+        <p
           className="text-lg md:text-xl text-white/85 mb-12 max-w-4xl mx-auto leading-relaxed"
           style={{
             fontFamily: "'Plus Jakarta Sans', system-ui, -apple-system, sans-serif",
@@ -98,12 +91,11 @@ export default function Hero({ videoIndex }: HeroProps) {
           Cette association a pour but principal de répertorier et de mettre en avant les travaux des étudiants.
         </p>
         
-        {/* CTA Buttons - Tailles égalisées */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <GamingButton
             onClick={scrollToGames}
             size="lg"
-            className="rounded-lg w-full sm:w-auto min-w-[200px] hover:scale-105"
+            className="w-full sm:w-auto min-w-[200px] hover:scale-105"
           >
             ▶ EXPLORER LES JEUX
           </GamingButton>
@@ -112,7 +104,7 @@ export default function Hero({ videoIndex }: HeroProps) {
             href="https://univ-cotedazur.fr/formation/offre-de-formation/majic-master-jeux-video-image-et-creativite"
             external
             size="lg"
-            className="rounded-lg w-full sm:w-auto min-w-[200px] hover:scale-105"
+            className="w-full sm:w-auto min-w-[200px] hover:scale-105"
           >
             MASTER OFFICIEL ↗
           </GamingButton>

@@ -91,7 +91,6 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
   const [isGenreOpen, setIsGenreOpen] = useState(false);
   const [isYearOpen, setIsYearOpen] = useState(false);
 
-  // Synchroniser les états locaux avec les filtres externes
   useEffect(() => {
     if (currentFilters) {
       setSearchTerm(currentFilters.searchTerm);
@@ -100,13 +99,11 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
     }
   }, [currentFilters]);
 
-  // Obtenir les années uniques des jeux
   const availableYears = useMemo(() => {
     const years = [...new Set(games.map(game => game.year))];
     return years.sort((a, b) => b - a);
   }, [games]);
 
-  // Compter les résultats actuels
   const filteredCount = useMemo(() => {
     return games.filter((game) => {
       if (searchTerm) {
@@ -171,9 +168,7 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
     <div className="sticky top-16 z-50 mb-8">
       <div className="max-w-screen-2xl mx-auto px-4">
         <div className="bg-gradient-to-r from-gray-800/95 via-gray-900/95 to-gray-800/95 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-gray-700">
-          {/* Layout Desktop */}
           <div className="hidden lg:flex gap-4 items-center justify-between">
-            {/* Section gauche: Recherche */}
             <div className="flex-1 max-w-md w-full">
               <div className="relative">
                 <input
@@ -181,6 +176,7 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
                   placeholder="Rechercher un jeu, genre, personne..."
                   value={searchTerm}
                   onChange={(e) => updateFilters(e.target.value, selectedGenre, selectedYear)}
+                  aria-label="Rechercher un jeu, genre ou personne"
                   className="bg-[var(--bg-tertiary)] border border-[var(--border-primary)] text-[var(--text-primary)] font-['Inter',sans-serif] transition-all duration-300 focus:border-[var(--primary-blue)] focus:shadow-[0_0_15px_rgba(49,70,128,0.3)] focus:bg-[var(--bg-secondary)] placeholder:text-[var(--text-primary)] placeholder:opacity-70 w-full pl-12 pr-4 py-3 rounded-xl focus:outline-none"
                 />
                 <svg
@@ -194,7 +190,6 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
               </div>
             </div>
 
-            {/* Section centre: Filtres */}
             <div className="flex gap-4 items-center">
               <DropdownFilter
                 label="GENRE"
@@ -220,7 +215,6 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
               />
             </div>
 
-            {/* Section droite: Resultats et reset */}
             <div className="flex items-center gap-4">
               <div className="text-white/80 font-gaming text-sm">
                 <span className="text-cyan-300">{filteredCount}</span> jeu{filteredCount !== 1 ? 'x' : ''}
@@ -237,7 +231,6 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
             </div>
           </div>
 
-          {/* Layout Mobile */}
           <div className="lg:hidden flex items-center justify-center gap-3">
             <DropdownFilter
               label="GENRE"

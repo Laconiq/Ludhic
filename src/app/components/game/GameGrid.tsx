@@ -21,12 +21,10 @@ export default function GameGrid({ games }: AllGamesProps) {
   const [showAllGames, setShowAllGames] = useState(false);
 
 
-  // Validation des genres au chargement (en développement uniquement)
   useEffect(() => {
     logValidationErrors(games);
   }, [games]);
 
-  // Fonction de filtrage optimisée
   const filteredGames = useMemo(() => {
     return games.filter((game) => {
       if (filters.searchTerm) {
@@ -53,25 +51,21 @@ export default function GameGrid({ games }: AllGamesProps) {
     });
   }, [games, filters]);
 
-  // Trier par année décroissante puis ordre alphabétique
   const sortedGames = useMemo(() => {
     return [...filteredGames].sort((a, b) => {
       if (a.year !== b.year) {
-        return b.year - a.year; // Année décroissante
+        return b.year - a.year;
       }
-      return a.title.localeCompare(b.title); // Ordre alphabétique
+      return a.title.localeCompare(b.title);
     });
   }, [filteredGames]);
 
-  // Jeux en vedette : ceux de l'année configurée
   const featuredGames = sortedGames.filter(game => game.year === FEATURED_YEAR);
   const allSortedGames = sortedGames;
   const hasActiveFilters = filters.searchTerm || filters.selectedGenre || filters.selectedYear !== null;
 
-  // Jeux à afficher (seulement les jeux en vedette initialement, tous si showAllGames est true ou si filtres actifs)
   const gamesToDisplay = (showAllGames || hasActiveFilters) ? allSortedGames : featuredGames;
 
-  // Reset quand les filtres changent
   useEffect(() => {
     setShowAllGames(false);
   }, [filters]);
@@ -93,10 +87,7 @@ export default function GameGrid({ games }: AllGamesProps) {
         </div>
       </div>
       
-      {/* Barre de filtres avec sa propre largeur */}
       <FilterBar games={games} onFiltersChange={handleFiltersChange} currentFilters={filters} />
-      
-      {/* Contenu principal */}
       <div className="max-w-7xl mx-auto px-4">
         <div className="mt-8">
           {gamesToDisplay.length === 0 && hasActiveFilters && (
@@ -110,7 +101,6 @@ export default function GameGrid({ games }: AllGamesProps) {
               <GamingButton
                 onClick={() => setFilters({ searchTerm: '', selectedGenre: '', selectedYear: null })}
                 size="md"
-                className="rounded-lg"
               >
                 RESET FILTRES
               </GamingButton>
@@ -119,10 +109,8 @@ export default function GameGrid({ games }: AllGamesProps) {
 
           {gamesToDisplay.length > 0 && (
             <>
-              {/* Affichage des jeux */}
               {gamesToDisplay.length > 0 && (
                 <div className="mb-12">
-                  {/* Titre selon le contexte */}
                   {!hasActiveFilters && !showAllGames && featuredGames.length > 0 && (
                     <h3 className="text-2xl font-gaming text-cyan-400 mb-8 tracking-wider">
                       ⭐ JEUX EN VEDETTE {FEATURED_YEAR}
@@ -141,7 +129,6 @@ export default function GameGrid({ games }: AllGamesProps) {
                     </h3>
                   )}
 
-                  {/* Grille des jeux */}
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 auto-rows-fr">
                     {gamesToDisplay.map((game, index) => (
                       <div 
@@ -165,20 +152,18 @@ export default function GameGrid({ games }: AllGamesProps) {
                 </div>
               )}
 
-              {/* Bouton "Voir le portfolio complet" */}
               {!showAllGames && allSortedGames.length > featuredGames.length && !hasActiveFilters && (
                 <div className="text-center py-12">
                   <GamingButton
                     onClick={() => setShowAllGames(true)}
                     size="lg"
-                    className="rounded-lg hover:scale-105"
+                    className="hover:scale-105"
                   >
                     VOIR LE PORTFOLIO COMPLET ({allSortedGames.length - featuredGames.length} autres jeux)
                   </GamingButton>
                 </div>
               )}
 
-              {/* Indicateur quand tous les jeux sont affichés */}
               {showAllGames && allSortedGames.length > featuredGames.length && (
                 <div className="text-center py-8">
                   <div className="text-white/60 font-gaming text-sm">
