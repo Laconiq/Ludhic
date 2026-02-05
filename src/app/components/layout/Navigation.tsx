@@ -1,20 +1,64 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { scrollToSection } from '@/lib/scroll';
 
+const NAV_HEIGHT = 120;
+
+const MENU_ITEMS = [
+  { label: 'ACCUEIL', id: 'hero' },
+  { label: 'JEUX', id: 'games' },
+  { label: 'FAQ', id: 'faq' },
+] as const;
+
+const SECTION_IDS = MENU_ITEMS.toReversed().map(item => item.id);
+
+const navItemClass = (isActive: boolean) =>
+  isActive
+    ? 'text-[var(--primary-blue)] [text-shadow:0_0_20px_currentColor]'
+    : 'text-white/85 hover:text-[var(--primary-blue)] hover:[text-shadow:0_0_20px_currentColor]';
+
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
+  const activeSectionRef = useRef('');
+  const isScrolledRef = useRef(false);
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrolled = window.scrollY > 10;
+          if (isScrolledRef.current !== scrolled) {
+            isScrolledRef.current = scrolled;
+            setIsScrolled(scrolled);
+          }
+          for (const id of SECTION_IDS) {
+            const el = document.getElementById(id);
+            if (el) {
+              const rect = el.getBoundingClientRect();
+              if (rect.top <= NAV_HEIGHT && rect.bottom > NAV_HEIGHT) {
+                if (activeSectionRef.current !== id) {
+                  activeSectionRef.current = id;
+                  setActiveSection(id);
+                }
+                break;
+              }
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -23,23 +67,12 @@ export default function Navigation() {
     setIsMobileMenuOpen(false);
   };
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
-
-  const menuItems = [
-    { label: 'ACCUEIL', id: 'hero' },
-    { label: 'JEUX', id: 'games' },
-    { label: 'FAQ', id: 'faq' }
-  ];
-
   return (
     <nav className={`fixed top-0 left-0 right-0 z-[200] transition-all duration-300 bg-[rgba(10,14,26,0.95)] backdrop-blur-[20px] border-b border-[var(--border-primary)] ${
       isScrolled ? 'py-2' : 'py-4'
     }`}>
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between">
-          {/* Logo */}
           <Link href="/" className="flex items-center space-x-3 cursor-pointer hover:scale-105 transition-transform duration-200">
             <div className="relative w-10 h-10">
               <Image
@@ -57,23 +90,23 @@ export default function Navigation() {
             </span>
           </Link>
 
-          {/* Menu items - Desktop */}
           <div className="hidden md:flex items-center space-x-8">
-            {menuItems.map((item) => (
+            {MENU_ITEMS.map((item) => (
               <button
                 key={item.id}
                 onClick={() => handleScrollToSection(item.id)}
-                className="text-white/85 hover:text-[var(--primary-blue)] hover:[text-shadow:0_0_20px_currentColor] font-gaming text-sm tracking-wider transition-all duration-300 relative group cursor-pointer hover:scale-105"
+                className={`font-gaming text-sm tracking-wider transition-all duration-300 relative group cursor-pointer hover:scale-105 ${navItemClass(activeSection === item.id)}`}
               >
                 {item.label}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-600 transition-all duration-300 group-hover:w-full"></span>
+                <span className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-600 transition-all duration-300 ${
+                  activeSection === item.id ? 'w-full' : 'w-0 group-hover:w-full'
+                }`}></span>
               </button>
             ))}
           </div>
 
-          {/* Mobile menu button */}
-          <button 
-            onClick={toggleMobileMenu}
+          <button
+            onClick={() => setIsMobileMenuOpen(prev => !prev)}
             aria-label={isMobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
             aria-expanded={isMobileMenuOpen}
             className="md:hidden text-white p-2 rounded-lg border border-gray-500 hover:border-cyan-300 hover:bg-cyan-300/10 hover:scale-105 transition-all duration-200 cursor-pointer"
@@ -88,15 +121,16 @@ export default function Navigation() {
           </button>
         </div>
 
-        {/* Mobile menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden mt-4 pb-4 border-t border-gray-600 relative z-[150]">
             <div className="flex flex-col space-y-4 pt-4">
-              {menuItems.map((item) => (
+              {MENU_ITEMS.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => handleScrollToSection(item.id)}
-                  className="text-white/85 hover:text-[var(--primary-blue)] hover:[text-shadow:0_0_20px_currentColor] font-gaming text-sm tracking-wider transition-all duration-300 text-left py-2 px-4 rounded-lg hover:bg-cyan-300/10 cursor-pointer"
+                  className={`font-gaming text-sm tracking-wider transition-all duration-300 text-left py-2 px-4 rounded-lg cursor-pointer hover:bg-cyan-300/10 ${
+                    activeSection === item.id ? `${navItemClass(true)} bg-cyan-300/10` : navItemClass(false)
+                  }`}
                 >
                   {item.label}
                 </button>
@@ -107,4 +141,4 @@ export default function Navigation() {
       </div>
     </nav>
   );
-} 
+}
