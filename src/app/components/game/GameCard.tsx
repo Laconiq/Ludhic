@@ -27,7 +27,7 @@ export default function GameCard({
   return (
     <Link 
       href={`/games/${createSlug(title)}`}
-      className="card-gaming rounded-xl cursor-pointer h-full flex flex-col overflow-hidden block hover:scale-105 transition-transform duration-300"
+      className="bg-[linear-gradient(135deg,var(--bg-tertiary)_0%,var(--bg-secondary)_100%)] border border-[var(--border-primary)] backdrop-blur-[10px] transition-all duration-300 hover:border-[var(--primary-blue)] hover:shadow-[var(--shadow-glow)] hover:-translate-y-2 hover:scale-[1.02] rounded-xl cursor-pointer h-full flex flex-col overflow-hidden block"
       aria-label={`Voir les détails du jeu ${title}`}
     >
       {/* Image principale avec logo en overlay */}
@@ -74,13 +74,13 @@ export default function GameCard({
           {genres.slice(0, MAX_VISIBLE_GENRES).map((genre) => (
             <span
               key={genre}
-              className="tag-gaming px-3 py-1 rounded-full text-xs"
+              className="bg-[var(--bg-tertiary)] border border-[var(--border-primary)] text-[var(--text-primary)] font-['PixelifySans',monospace] font-medium text-[0.7rem] uppercase tracking-[0.05em] px-3 py-1 rounded-full"
             >
               #{genre}
             </span>
           ))}
           {genres.length > MAX_VISIBLE_GENRES && (
-            <span className="tag-gaming px-3 py-1 rounded-full text-xs">
+            <span className="bg-[var(--bg-tertiary)] border border-[var(--border-primary)] text-[var(--text-primary)] font-['PixelifySans',monospace] font-medium text-[0.7rem] uppercase tracking-[0.05em] px-3 py-1 rounded-full">
               +{genres.length - MAX_VISIBLE_GENRES}
             </span>
           )}

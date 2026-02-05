@@ -40,7 +40,7 @@ export default function FAQ() {
           {faqData.map((item, index) => (
             <div
               key={index}
-              className="card-gaming rounded-xl overflow-hidden"
+              className="bg-[linear-gradient(135deg,var(--bg-tertiary)_0%,var(--bg-secondary)_100%)] border border-[var(--border-primary)] backdrop-blur-[10px] transition-all duration-300 hover:border-[var(--primary-blue)] hover:shadow-[var(--shadow-glow)] hover:-translate-y-2 hover:scale-[1.02] rounded-xl overflow-hidden"
             >
               <button
                 onClick={() => toggleAccordion(index)}

@@ -34,7 +34,7 @@ export default function Navigation() {
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-[200] transition-all duration-300 nav-gaming ${
+    <nav className={`fixed top-0 left-0 right-0 z-[200] transition-all duration-300 bg-[rgba(10,14,26,0.95)] backdrop-blur-[20px] border-b border-[var(--border-primary)] ${
       isScrolled ? 'py-2' : 'py-4'
     }`}>
       <div className="max-w-7xl mx-auto px-4">
@@ -63,7 +63,7 @@ export default function Navigation() {
               <button
                 key={item.id}
                 onClick={() => handleScrollToSection(item.id)}
-                className="text-white/85 hover:text-neon font-gaming text-sm tracking-wider transition-all duration-300 hover:text-glow relative group cursor-pointer hover:scale-105"
+                className="text-white/85 hover:text-[var(--primary-blue)] hover:[text-shadow:0_0_20px_currentColor] font-gaming text-sm tracking-wider transition-all duration-300 relative group cursor-pointer hover:scale-105"
               >
                 {item.label}
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-600 transition-all duration-300 group-hover:w-full"></span>
@@ -96,7 +96,7 @@ export default function Navigation() {
                 <button
                   key={item.id}
                   onClick={() => handleScrollToSection(item.id)}
-                  className="text-white/85 hover:text-neon font-gaming text-sm tracking-wider transition-all duration-300 hover:text-glow text-left py-2 px-4 rounded-lg hover:bg-cyan-300/10 cursor-pointer"
+                  className="text-white/85 hover:text-[var(--primary-blue)] hover:[text-shadow:0_0_20px_currentColor] font-gaming text-sm tracking-wider transition-all duration-300 text-left py-2 px-4 rounded-lg hover:bg-cyan-300/10 cursor-pointer"
                 >
                   {item.label}
                 </button>

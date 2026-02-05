@@ -57,7 +57,7 @@ function DropdownFilter({ label, value, options, isOpen, onToggle, onSelect, res
       </button>
 
       {isOpen && (
-        <div className={`absolute top-full left-0 mt-2 ${dropdownWidth} modal-gaming rounded-xl shadow-xl border border-gray-600 py-2 z-[100]`}>
+        <div className={`absolute top-full left-0 mt-2 ${dropdownWidth} bg-[linear-gradient(135deg,var(--bg-primary)_0%,var(--bg-secondary)_100%)] border border-[var(--border-primary)] shadow-[var(--shadow-dark),var(--shadow-glow)] rounded-xl py-2 z-[100]`}>
           <button
             onClick={() => onSelect(null)}
             className="w-full text-left px-4 py-2 text-white/80 hover:text-cyan-300 hover:bg-gray-700/50 transition-colors text-sm cursor-pointer"
@@ -180,7 +180,7 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
                   placeholder="Rechercher un jeu, genre, personne..."
                   value={searchTerm}
                   onChange={(e) => updateFilters(e.target.value, selectedGenre, selectedYear)}
-                  className="input-gaming w-full pl-12 pr-4 py-3 rounded-xl focus:outline-none"
+                  className="bg-[var(--bg-tertiary)] border border-[var(--border-primary)] text-[var(--text-primary)] font-['Inter',sans-serif] transition-all duration-300 focus:border-[var(--primary-blue)] focus:shadow-[0_0_15px_rgba(49,70,128,0.3)] focus:bg-[var(--bg-secondary)] placeholder:text-[var(--text-primary)] placeholder:opacity-70 w-full pl-12 pr-4 py-3 rounded-xl focus:outline-none"
                 />
                 <svg
                   className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
