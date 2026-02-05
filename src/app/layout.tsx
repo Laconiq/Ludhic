@@ -122,9 +122,7 @@ export const metadata: Metadata = {
       { url: "/images/logo-152x152.png", sizes: "152x152", type: "image/png" },
       { url: "/images/logo-120x120.png", sizes: "120x120", type: "image/png" },
     ],
-    other: [
-      { rel: "mask-icon", url: "/images/safari-pinned-tab.svg", color: "#06b6d4" },
-    ],
+    other: [],
   },
   manifest: '/manifest.json',
 };
