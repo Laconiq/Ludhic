@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
+import { scrollToSection } from '@/lib/scroll';
 
 interface HeroProps {
   videoIndex?: number;
@@ -18,12 +19,7 @@ export default function Hero({ videoIndex }: HeroProps) {
     setBgVideo(`/videos/background-${idx}.webm`);
   }, [videoIndex]);
 
-  const scrollToGames = () => {
-    const element = document.getElementById('games');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  const scrollToGames = () => scrollToSection('games');
 
   return (
     <section id="hero" className="h-screen flex items-center justify-center relative overflow-hidden -mt-16">

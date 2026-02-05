@@ -3,6 +3,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { ALL_GENRES } from '@/lib/genres';
 import { GameData } from '@/types/game';
+import { scrollToSection } from '@/lib/scroll';
 
 export interface GameFilters {
   searchTerm: string;
@@ -134,10 +135,7 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
       selectedYear: newYear
     });
 
-    const gamesElement = document.getElementById('games');
-    if (gamesElement) {
-      gamesElement.scrollIntoView({ behavior: 'smooth' });
-    }
+    scrollToSection('games');
   };
 
   const resetFilters = () => {

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { scrollToSection } from '@/lib/scroll';
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -17,14 +18,9 @@ export default function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsMobileMenuOpen(false);
-    } else {
-      window.location.href = `/#${sectionId}`;
-    }
+  const handleScrollToSection = (sectionId: string) => {
+    scrollToSection(sectionId, true);
+    setIsMobileMenuOpen(false);
   };
 
   const toggleMobileMenu = () => {
@@ -66,7 +62,7 @@ export default function Navigation() {
             {menuItems.map((item) => (
               <button
                 key={item.id}
-                onClick={() => scrollToSection(item.id)}
+                onClick={() => handleScrollToSection(item.id)}
                 className="text-white/85 hover:text-neon font-gaming text-sm tracking-wider transition-all duration-300 hover:text-glow relative group cursor-pointer hover:scale-105"
               >
                 {item.label}
@@ -99,7 +95,7 @@ export default function Navigation() {
               {menuItems.map((item) => (
                 <button
                   key={item.id}
-                  onClick={() => scrollToSection(item.id)}
+                  onClick={() => handleScrollToSection(item.id)}
                   className="text-white/85 hover:text-neon font-gaming text-sm tracking-wider transition-all duration-300 hover:text-glow text-left py-2 px-4 rounded-lg hover:bg-cyan-300/10 cursor-pointer"
                 >
                   {item.label}
