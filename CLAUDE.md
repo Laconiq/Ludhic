@@ -4,60 +4,72 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Ludhic is a portfolio website for video game projects created by students of the Master Humanités et Industries Créatives (HIC). Built with Next.js 15 App Router, TypeScript, and Tailwind CSS 4.
+Ludhic is a portfolio website for video game projects created by students of the Master Humanités et Industries Créatives (HIC). Built with Next.js 15 App Router, React 19, TypeScript, and Tailwind CSS 4.
 
 ## Commands
 
 ```bash
 pnpm dev              # Start development server (localhost:3000)
-pnpm build            # Production build
+pnpm build            # Production build (static generation)
 pnpm start            # Start production server
 pnpm lint             # Run ESLint
-pnpm type-check       # Run TypeScript type checking
+pnpm type-check       # Run TypeScript type checking (tsc --noEmit)
 pnpm generate-videos  # Generate background videos from game videos (requires FFmpeg)
 ```
 
 ## Architecture
 
 ### Data Flow
-- Game data lives in `src/data/games.json` - single source of truth for all game information
-- Games have slugs auto-generated from titles via `createSlug()` function in page files
-- Static generation via `generateStaticParams()` for all game and year pages
 
-### Key Patterns
-- **Next.js 15 params**: Route params are `Promise<{ param: string }>` - must be awaited
-- **Path alias**: Use `@/*` to import from `src/*` (configured in tsconfig.json)
-- **Components location**: All components in `src/app/components/` (not a separate components folder)
+- **Single source of truth**: `src/data/games.json` contains all game data (no database, no API)
+- **Slugs are computed, not stored**: `createSlug(game.title)` in `src/lib/slug.ts` generates URL slugs at build time. Changing a title changes the URL.
+- **Convention-based assets**: Image/video paths are derived from `contentFolder` field — not stored as URLs. Helpers in `src/lib/images.ts` build paths (e.g., `getMainImageUrl()`, `getAllImageUrls()`, `getLogoUrl()`).
+- **Static generation**: All pages pre-rendered via `generateStaticParams()` — no runtime data fetching.
+
+### Client/Server Boundary
+
+Pages are **server components** (for metadata + SEO + JSON-LD), which pass data to **client components** (`'use client'`) for interactivity. Pattern: server wrapper finds game data, calls `notFound()` if missing, then renders client content component.
 
 ### Route Structure
-- `/` - Homepage with hero, game grid, FAQ
-- `/games/[title]` - Individual game pages (slug-based)
-- `/games/year/[year]` - Games filtered by year
+
+- `/` — Homepage with hero, game grid (featured year only by default), FAQ
+- `/games/[title]` — Individual game pages (slug-based)
+- `/games/year/[year]` — Games filtered by year
+
+### Key Modules
+
+- **`src/lib/slug.ts`**: `createSlug()` — Unicode normalization, strips accents, kebab-case
+- **`src/lib/genres.ts`**: `ALL_GENRES` const array + `isValidGenre()` type guard. Add new genres here before using in JSON.
+- **`src/lib/images.ts`**: Convention-based image URL builders
+- **`src/lib/scroll.ts`**: `scrollToSection()` — handles same-page and cross-page smooth scrolling
+- **`src/lib/validation.ts`**: Dev-only genre validation (console warnings)
+- **`src/constants/site.ts`**: `SITE_URL`, `SITE_NAME`, `FEATURED_YEAR` — update `FEATURED_YEAR` annually to feature new cohort on homepage
+
+### Key Patterns
+
+- **Next.js 15 params**: Route params are `Promise<{ param: string }>` — must be awaited
+- **Path alias**: Use `@/*` to import from `src/*` (configured in tsconfig.json)
+- **Components location**: `src/app/components/` organized by purpose: `game/`, `layout/`, `legal/`, `seo/`, `ui/`
+- **GamingButton**: Polymorphic component — renders as `<button>` or `<Link>` based on `href` prop, enforced by union types
+- **CSS variables**: Gaming theme defined in `globals.css` (`--main`, `--secondary`, `--light`, `--dark`)
+- **Fonts**: Plus Jakarta Sans (body) + PixelifySans (gaming headers, via `.font-gaming` class)
 
 ### Game Data Schema
+
 Each game in `games.json` requires:
 - `id`, `title`, `longDescription`, `genres[]`, `year`
-- `contentFolder` - path to assets in `public/games/[slug]/`
-- `imageCount` - number of screenshots (1.webp, 2.webp, etc.)
-- `hasVideo` - whether video.webm exists
-- `customButton` - { enabled, name, link } for external links
-- `credits[]` - { firstName, lastName, roles[] }
-- `featured` - boolean for homepage featuring
+- `contentFolder` — path to assets in `public/games/[slug]/`
+- `imageCount` — number of screenshots (named `1.webp`, `2.webp`, etc.)
+- `hasVideo` — whether `video.webm` exists
+- `customButton` — `{ enabled, name, link }` for external links
+- `credits[]` — `{ firstName, lastName, roles[] }`
+- `featured` — boolean (currently unused; homepage uses `FEATURED_YEAR` constant instead)
 
-### Genre System
-Valid genres are defined in `src/constants/gameGenres.ts` and `src/utils/gameGenres.ts`. Use `isValidGenre()` to validate. Available: Action, Aventure, Narratif, Plateforme, Puzzle, Tactique, Rythme, Point & Click, Deckbuilding, Rogue Like, Metroidvania, Horreur, VR, 2D, 3D, Isométrique.
+### Asset Convention
 
-### Asset Structure
 ```
 public/games/[slug]/
 ├── logo.webp          # Game logo
 ├── 1.webp, 2.webp...  # Screenshots (count matches imageCount)
 └── video.webm         # Optional game video
 ```
-
-## Tech Stack Notes
-- Next.js 15.3.3 with App Router
-- React 19
-- Tailwind CSS 4 via PostCSS
-- pnpm as package manager
-- Static site generation (all pages pre-rendered)
