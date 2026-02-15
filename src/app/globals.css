@@ -27,40 +27,22 @@
 }
 
 :root {
-  /* Nouvelle palette de couleurs */
-  --main: #314680;
-  --secondary: #EC0B43;
-  --light: #F2F4F3;
-  --dark: #0a0e1a;
-
-  /* Couleurs de fond basées sur la nouvelle palette */
+  /* Couleurs de fond */
   --bg-primary: #0a0e1a;
   --bg-secondary: #141829;
   --bg-tertiary: #1e2438;
 
   /* Couleurs principales */
   --primary-blue: #314680;
-  --primary-light: #4a6bb3;
-  --primary-dark: #1e2d59;
-  --accent-secondary: #EC0B43;
-  --accent-secondary-light: #ff2659;
-  --accent-secondary-dark: #c70935;
 
   /* Couleurs de texte */
   --text-primary: #F2F4F3;
-  --text-secondary: #c8ccd4;
-  --text-accent: #314680;
-  --text-light: #F2F4F3;
 
   /* Couleurs de bordure */
   --border-primary: #2a2f3f;
-  --border-glow: #31468033;
-  --border-secondary: #EC0B4333;
 
-  /* Ombres mises à jour */
+  /* Ombres */
   --shadow-glow: 0 0 20px rgba(49, 70, 128, 0.3);
-  --shadow-neon: 0 0 30px rgba(49, 70, 128, 0.5);
-  --shadow-secondary: 0 0 20px rgba(236, 11, 67, 0.3);
   --shadow-dark: 0 8px 25px rgba(10, 14, 26, 0.8);
 }
 
@@ -68,7 +50,6 @@
   --color-background: var(--bg-primary);
   --color-foreground: var(--text-primary);
   --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  --font-mono: var(--font-geist-mono);
   --font-display: 'Pixelify Sans';
 }
 
@@ -176,4 +157,35 @@ p {
 /* Conteneur simplifié */
 .foil-container {
   cursor: default;
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease;
+}
+
+/* Gaming card — gradient + border + hover + rounded */
+.gaming-card {
+  background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+  border: 1px solid var(--border-primary);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s;
+  border-radius: 0.75rem;
+}
+.gaming-card:hover {
+  border-color: var(--primary-blue);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-0.5rem) scale(1.02);
+}
+
+/* Gaming grid background pattern */
+.gaming-grid-bg {
+  background-image:
+    linear-gradient(rgba(45, 66, 126, 0.3) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(45, 66, 126, 0.3) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+.gaming-grid-bg-fine {
+  background-image:
+    linear-gradient(rgba(45, 66, 126, 0.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(45, 66, 126, 0.2) 1px, transparent 1px);
+  background-size: 10px 10px;
 }

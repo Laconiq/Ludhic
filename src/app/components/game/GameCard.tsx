@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { getMainImageUrl, getLogoUrl } from '@/lib/images';
 import { createSlug } from '@/lib/slug';
+import GenreBadge from '@/app/components/ui/GenreBadge';
 
 const DESCRIPTION_MAX_LENGTH = 140;
 const MAX_VISIBLE_GENRES = 3;
@@ -27,7 +28,7 @@ export default function GameCard({
   return (
     <Link 
       href={`/games/${createSlug(title)}`}
-      className="bg-[linear-gradient(135deg,var(--bg-tertiary)_0%,var(--bg-secondary)_100%)] border border-[var(--border-primary)] backdrop-blur-[10px] transition-all duration-300 hover:border-[var(--primary-blue)] hover:shadow-[var(--shadow-glow)] hover:-translate-y-2 hover:scale-[1.02] rounded-xl cursor-pointer h-full flex flex-col overflow-hidden block"
+      className="gaming-card cursor-pointer h-full flex flex-col overflow-hidden block"
       aria-label={`Voir les détails du jeu ${title}`}
     >
       <div className="relative w-full h-48 flex-shrink-0">
@@ -66,17 +67,10 @@ export default function GameCard({
 
         <div className="flex flex-wrap gap-2 mb-3 flex-shrink-0">
           {genres.slice(0, MAX_VISIBLE_GENRES).map((genre) => (
-            <span
-              key={genre}
-              className="bg-[var(--bg-tertiary)] border border-[var(--border-primary)] text-[var(--text-primary)] font-['PixelifySans',monospace] font-medium text-[0.7rem] uppercase tracking-[0.05em] px-3 py-1 rounded-full"
-            >
-              #{genre}
-            </span>
+            <GenreBadge key={genre} genre={genre} variant="card" />
           ))}
           {genres.length > MAX_VISIBLE_GENRES && (
-            <span className="bg-[var(--bg-tertiary)] border border-[var(--border-primary)] text-[var(--text-primary)] font-['PixelifySans',monospace] font-medium text-[0.7rem] uppercase tracking-[0.05em] px-3 py-1 rounded-full">
-              +{genres.length - MAX_VISIBLE_GENRES}
-            </span>
+            <GenreBadge genre={`+${genres.length - MAX_VISIBLE_GENRES}`} variant="card" showHash={false} />
           )}
         </div>
 

@@ -4,18 +4,14 @@ import { useState, useMemo, useEffect } from 'react';
 import { ALL_GENRES } from '@/lib/genres';
 import { GameData } from '@/types/game';
 import { scrollToSection } from '@/lib/scroll';
+import { GameFilters, getAvailableYears } from '@/lib/filters';
 import GamingButton from '@/app/components/ui/GamingButton';
-
-export interface GameFilters {
-  searchTerm: string;
-  selectedGenre: string;
-  selectedYear: number | null;
-}
 
 interface FilterBarProps {
   games: GameData[];
   onFiltersChange: (filters: GameFilters) => void;
   currentFilters?: GameFilters;
+  filteredCount: number;
 }
 
 interface DropdownFilterProps {
@@ -84,7 +80,7 @@ function DropdownFilter({ label, value, options, isOpen, onToggle, onSelect, res
   );
 }
 
-export default function FilterBar({ games, onFiltersChange, currentFilters }: FilterBarProps) {
+export default function FilterBar({ games, onFiltersChange, currentFilters, filteredCount }: FilterBarProps) {
   const [searchTerm, setSearchTerm] = useState(currentFilters?.searchTerm || '');
   const [selectedGenre, setSelectedGenre] = useState(currentFilters?.selectedGenre || '');
   const [selectedYear, setSelectedYear] = useState<number | null>(currentFilters?.selectedYear || null);
@@ -100,28 +96,8 @@ export default function FilterBar({ games, onFiltersChange, currentFilters }: Fi
   }, [currentFilters]);
 
   const availableYears = useMemo(() => {
-    const years = [...new Set(games.map(game => game.year))];
-    return years.sort((a, b) => b - a);
+    return getAvailableYears(games);
   }, [games]);
-
-  const filteredCount = useMemo(() => {
-    return games.filter((game) => {
-      if (searchTerm) {
-        const searchLower = searchTerm.toLowerCase();
-        const matchesSearch =
-          game.title.toLowerCase().includes(searchLower) ||
-          game.longDescription.toLowerCase().includes(searchLower) ||
-          game.genres.some(genre => genre.toLowerCase().includes(searchLower)) ||
-          game.credits.some(credit =>
-            `${credit.firstName} ${credit.lastName}`.toLowerCase().includes(searchLower)
-          );
-        if (!matchesSearch) return false;
-      }
-      if (selectedGenre && !game.genres.includes(selectedGenre)) return false;
-      if (selectedYear !== null && game.year !== selectedYear) return false;
-      return true;
-    }).length;
-  }, [games, searchTerm, selectedGenre, selectedYear]);
 
   const updateFilters = (newSearchTerm: string, newGenre: string, newYear: number | null) => {
     setSearchTerm(newSearchTerm);

@@ -5,6 +5,7 @@ import GamePageContent from '@/app/components/game/GamePageContent';
 import Footer from '@/app/components/layout/Footer';
 import { createSlug } from '@/lib/slug';
 import { SITE_URL } from '@/constants/site';
+import { createBreadcrumbSchema, createVideoGameSchema } from '@/lib/schemas';
 
 // Fonction pour trouver un jeu par son slug
 function findGameBySlug(slug: string) {
@@ -76,53 +77,13 @@ export default async function Page({ params }: { params: Promise<{ title: string
     notFound();
   }
 
-  // Schema.org pour le jeu spécifique
-  const gameSchema = {
-    "@context": "https://schema.org",
-    "@type": "VideoGame",
-    "name": game.title,
-    "description": game.longDescription,
-    "url": `${SITE_URL}/games/${createSlug(game.title)}`,
-    "image": `${SITE_URL}${game.contentFolder}/1.webp`,
-    "dateCreated": `${game.year}`,
-    "genre": game.genres,
-    "creator": game.credits.map(member => ({
-      "@type": "Person",
-      "name": `${member.firstName} ${member.lastName}`,
-      "jobTitle": member.roles[0] || "Contributeur"
-    })),
-    "publisher": {
-      "@type": "Organization",
-      "name": "Association Ludhic"
-    },
-    "educationalUse": "Student Project",
-    "inLanguage": "fr-FR"
-  };
+  const gameSchema = createVideoGameSchema(game);
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Accueil",
-        "item": SITE_URL
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Jeux",
-        "item": `${SITE_URL}#games`
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": game.title,
-        "item": `${SITE_URL}/games/${createSlug(game.title)}`
-      }
-    ]
-  };
+  const breadcrumbSchema = createBreadcrumbSchema([
+    { name: "Accueil", url: SITE_URL },
+    { name: "Jeux", url: `${SITE_URL}#games` },
+    { name: game.title, url: `${SITE_URL}/games/${createSlug(game.title)}` }
+  ]);
 
   return (
     <>

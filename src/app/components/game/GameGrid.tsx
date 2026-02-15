@@ -3,9 +3,10 @@
 import { useState, useMemo, useEffect } from 'react';
 import GameCard from './GameCard';
 import GamingButton from '@/app/components/ui/GamingButton';
-import FilterBar, { GameFilters } from './FilterBar';
+import FilterBar from './FilterBar';
 import { logValidationErrors } from '@/lib/validation';
 import { GameData } from '@/types/game';
+import { GameFilters, filterGames } from '@/lib/filters';
 import { FEATURED_YEAR } from '@/constants/site';
 
 interface AllGamesProps {
@@ -26,29 +27,7 @@ export default function GameGrid({ games }: AllGamesProps) {
   }, [games]);
 
   const filteredGames = useMemo(() => {
-    return games.filter((game) => {
-      if (filters.searchTerm) {
-        const searchLower = filters.searchTerm.toLowerCase();
-        const matchesSearch =
-          game.title.toLowerCase().includes(searchLower) ||
-          game.longDescription.toLowerCase().includes(searchLower) ||
-          game.genres.some(genre => genre.toLowerCase().includes(searchLower)) ||
-          game.credits.some(credit =>
-            `${credit.firstName} ${credit.lastName}`.toLowerCase().includes(searchLower)
-          );
-        if (!matchesSearch) return false;
-      }
-      
-      if (filters.selectedGenre && !game.genres.includes(filters.selectedGenre)) {
-        return false;
-      }
-      
-      if (filters.selectedYear !== null && game.year !== filters.selectedYear) {
-        return false;
-      }
-      
-      return true;
-    });
+    return filterGames(games, filters);
   }, [games, filters]);
 
   const sortedGames = useMemo(() => {
@@ -87,7 +66,7 @@ export default function GameGrid({ games }: AllGamesProps) {
         </div>
       </div>
       
-      <FilterBar games={games} onFiltersChange={handleFiltersChange} currentFilters={filters} />
+      <FilterBar games={games} onFiltersChange={handleFiltersChange} currentFilters={filters} filteredCount={filteredGames.length} />
       <div className="max-w-7xl mx-auto px-4">
         <div className="mt-8">
           {gamesToDisplay.length === 0 && hasActiveFilters && (

@@ -2,6 +2,7 @@
 
 import { createSlug } from '@/lib/slug';
 import { SITE_URL } from '@/constants/site';
+import { createBreadcrumbSchema } from '@/lib/schemas';
 
 interface SEOSchemaProps {
   games?: Array<{
@@ -116,24 +117,10 @@ export default function SEOSchema({ games = [] }: SEOSchemaProps) {
   };
 
   // Schema breadcrumb pour la homepage
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Accueil",
-        "item": SITE_URL
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Jeux",
-        "item": `${SITE_URL}#games`
-      }
-    ]
-  };
+  const breadcrumbSchema = createBreadcrumbSchema([
+    { name: "Accueil", url: SITE_URL },
+    { name: "Jeux", url: `${SITE_URL}#games` }
+  ]);
 
   // Schema FAQ pour la page d'accueil
   const faqSchema = {

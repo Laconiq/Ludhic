@@ -101,16 +101,7 @@ export default function Footer() {
 
           {/* Pattern de fond */}
           <div className="absolute inset-0 opacity-10 pointer-events-none">
-            <div 
-              className="w-full h-full"
-              style={{
-                backgroundImage: `
-                  linear-gradient(rgba(45,66,126,0.3) 1px, transparent 1px),
-                  linear-gradient(90deg, rgba(45,66,126,0.3) 1px, transparent 1px)
-                `,
-                backgroundSize: '50px 50px'
-              }}
-            />
+            <div className="w-full h-full gaming-grid-bg" />
           </div>
         </div>
       </footer>

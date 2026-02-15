@@ -2,6 +2,7 @@ import { MetadataRoute } from 'next'
 import gamesData from '@/data/games.json'
 import { createSlug } from '@/lib/slug'
 import { SITE_URL } from '@/constants/site'
+import { getAvailableYears } from '@/lib/filters'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const currentDate = new Date()
@@ -31,7 +32,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Pages par année (pour le SEO)
   const yearPages: MetadataRoute.Sitemap = []
-  const years = [...new Set(gamesData.map(game => game.year))].sort((a, b) => b - a)
+  const years = getAvailableYears(gamesData)
   years.forEach(year => {
     yearPages.push({
       url: `${SITE_URL}/games/year/${year}`,
