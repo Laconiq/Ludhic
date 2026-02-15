@@ -18,9 +18,9 @@ function getRelatedGames(game: GameData, limit = 4): GameData[] {
 
   const scored = otherGames.map(g => {
     let score = 0;
-    if (g.year === game.year) score += 2;
     const commonGenres = g.genres.filter(genre => game.genres.includes(genre));
-    score += commonGenres.length;
+    score += commonGenres.length * 3;
+    if (g.year === game.year) score += 1;
     return { game: g, score };
   });
 
