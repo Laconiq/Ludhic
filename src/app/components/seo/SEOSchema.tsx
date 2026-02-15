@@ -27,7 +27,6 @@ interface SEOSchemaProps {
 }
 
 export default function SEOSchema({ games = [] }: SEOSchemaProps) {
-  // Schema principal de l'organisation
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "EducationalOrganization",
@@ -72,7 +71,6 @@ export default function SEOSchema({ games = [] }: SEOSchemaProps) {
     "inLanguage": "fr-FR"
   };
 
-  // Schema du site web
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -101,7 +99,6 @@ export default function SEOSchema({ games = [] }: SEOSchemaProps) {
     "keywords": "jeux vidéo, étudiants, Master HIC, portfolio, association, création numérique"
   };
 
-  // ItemList des jeux (liste légère, pas de VideoGame complet par jeu)
   const itemListSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -116,13 +113,11 @@ export default function SEOSchema({ games = [] }: SEOSchemaProps) {
     }))
   };
 
-  // Schema breadcrumb pour la homepage
   const breadcrumbSchema = createBreadcrumbSchema([
     { name: "Accueil", url: SITE_URL },
     { name: "Jeux", url: `${SITE_URL}#games` }
   ]);
 
-  // Schema FAQ pour la page d'accueil
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",

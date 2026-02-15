@@ -14,11 +14,10 @@ export default function Footer() {
       <footer className="bg-gradient-to-t from-black to-gray-900 border-t border-gray-800">
         <div className="max-w-7xl mx-auto px-4 py-12">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Liens utiles */}
             <div className="space-y-4">
               <h4 className="text-lg font-gaming text-white mb-4">LIENS UTILES</h4>
               <div className="space-y-3">
-                <a 
+                <a
                   href="https://univ-cotedazur.fr/formation/offre-de-formation/majic-master-jeux-video-image-et-creativite"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -26,7 +25,7 @@ export default function Footer() {
                 >
                   Master MAJIC Officiel →
                 </a>
-                <a 
+                <a
                   href="https://univ-cotedazur.fr"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -34,13 +33,13 @@ export default function Footer() {
                 >
                   Université Côte d&apos;Azur →
                 </a>
-                <a 
+                <a
                   href="#games"
                   className="block text-white/80 hover:text-cyan-300 transition-colors text-sm font-gaming"
                 >
                   Portfolio Jeux →
                 </a>
-                <a 
+                <a
                   href="#faq"
                   className="block text-white/80 hover:text-cyan-300 transition-colors text-sm font-gaming"
                 >
@@ -49,13 +48,12 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Contact et infos */}
             <div className="space-y-4">
               <h4 className="text-lg font-gaming text-white mb-4">CONTACT</h4>
               <div className="space-y-3 text-sm">
                 <div className="text-white/80">
                   <div className="font-gaming text-cyan-300 mb-1">ASSOCIATION</div>
-                  <a 
+                  <a
                     href="mailto:ludhic.association@gmail.com"
                     className="hover:text-cyan-300 transition-colors"
                   >
@@ -71,16 +69,13 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Séparateur gaming */}
           <div className="w-full h-px bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent my-8"></div>
 
-          {/* Copyright et liens légaux */}
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-white/75 text-sm font-gaming">
               © {currentYear} LUDHIC
             </div>
-            
-            {/* Liens légaux */}
+
             <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-6 text-xs">
               <button
                 onClick={() => setIsCGUModalOpen(true)}
@@ -99,22 +94,20 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Pattern de fond */}
           <div className="absolute inset-0 opacity-10 pointer-events-none">
             <div className="w-full h-full gaming-grid-bg" />
           </div>
         </div>
       </footer>
 
-      {/* Modals */}
-      <CGUModal 
-        isOpen={isCGUModalOpen} 
-        onClose={() => setIsCGUModalOpen(false)} 
+      <CGUModal
+        isOpen={isCGUModalOpen}
+        onClose={() => setIsCGUModalOpen(false)}
       />
-      <PrivacyModal 
-        isOpen={isPrivacyModalOpen} 
-        onClose={() => setIsPrivacyModalOpen(false)} 
+      <PrivacyModal
+        isOpen={isPrivacyModalOpen}
+        onClose={() => setIsPrivacyModalOpen(false)}
       />
     </>
   );
-} 
+}

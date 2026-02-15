@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-/* Polices variables locales PlusJakartaSans */
 @font-face {
   font-family: 'Plus Jakarta Sans';
   src: url('/fonts/PlusJakartaSans-VariableFont_wght.ttf') format('truetype-variations');
@@ -9,7 +8,6 @@
   font-display: swap;
 }
 
-/* Polices locales PixelifySans */
 @font-face {
   font-family: 'PixelifySans';
   src: url('/fonts/PixelifySans-Regular.ttf') format('truetype');
@@ -27,21 +25,12 @@
 }
 
 :root {
-  /* Couleurs de fond */
   --bg-primary: #0a0e1a;
   --bg-secondary: #141829;
   --bg-tertiary: #1e2438;
-
-  /* Couleurs principales */
   --primary-blue: #314680;
-
-  /* Couleurs de texte */
   --text-primary: #F2F4F3;
-
-  /* Couleurs de bordure */
   --border-primary: #2a2f3f;
-
-  /* Ombres */
   --shadow-glow: 0 0 20px rgba(49, 70, 128, 0.3);
   --shadow-dark: 0 8px 25px rgba(10, 14, 26, 0.8);
 }
@@ -58,8 +47,6 @@ body {
   color: var(--text-primary);
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   padding-top: 64px;
-
-  /* Pattern de fond mis à jour avec la nouvelle palette */
   background-image:
     radial-gradient(circle at 20% 50%, rgba(49, 70, 128, 0.08) 0%, transparent 50%),
     radial-gradient(circle at 80% 20%, rgba(236, 11, 67, 0.06) 0%, transparent 50%),
@@ -67,7 +54,6 @@ body {
   background-attachment: fixed;
 }
 
-/* Style spécifique pour les paragraphes - police variable locale */
 p {
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   font-weight: 400;
@@ -76,14 +62,12 @@ p {
   font-feature-settings: 'kern' 1, 'liga' 1;
 }
 
-/* Gaming Typography avec PixelifySans locale */
 .font-gaming {
   font-family: 'PixelifySans', monospace !important;
   font-weight: 600;
   letter-spacing: 0.1em;
 }
 
-/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -112,7 +96,6 @@ p {
   animation: grid-move 20s linear infinite;
 }
 
-/* Scrollbar gaming */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -131,7 +114,6 @@ p {
   box-shadow: 0 0 10px var(--primary-blue);
 }
 
-/* Effet Foil/Holographique statique */
 .foil-effect {
   position: relative;
   background: linear-gradient(
@@ -154,14 +136,12 @@ p {
   filter: drop-shadow(0 0 10px rgba(242, 244, 243, 0.2));
 }
 
-/* Conteneur simplifié */
 .foil-container {
   cursor: default;
   transform-style: preserve-3d;
   transition: transform 0.2s ease;
 }
 
-/* Gaming card — gradient + border + hover + rounded */
 .gaming-card {
   background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
   border: 1px solid var(--border-primary);
@@ -175,7 +155,6 @@ p {
   transform: translateY(-0.5rem) scale(1.02);
 }
 
-/* Gaming grid background pattern */
 .gaming-grid-bg {
   background-image:
     linear-gradient(rgba(45, 66, 126, 0.3) 1px, transparent 1px),

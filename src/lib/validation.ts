@@ -1,27 +1,25 @@
 import { isValidGenre, ALL_GENRES } from '@/lib/genres';
 import { GameData } from '@/types/game';
 
-// Valide qu'un jeu utilise des genres valides
 const validateGameGenres = (game: GameData): string[] => {
   const invalidGenres: string[] = [];
-  
+
   game.genres.forEach(genre => {
     if (!isValidGenre(genre)) {
       invalidGenres.push(genre);
     }
   });
-  
+
   return invalidGenres;
 };
 
-// Valide tous les jeux et retourne un rapport
 const validateAllGames = (games: GameData[]): {
   isValid: boolean;
   errors: { gameId: number; title: string; invalidGenres: string[] }[];
   availableGenres: string[];
 } => {
   const errors: { gameId: number; title: string; invalidGenres: string[] }[] = [];
-  
+
   games.forEach(game => {
     const invalidGenres = validateGameGenres(game);
     if (invalidGenres.length > 0) {
@@ -32,7 +30,7 @@ const validateAllGames = (games: GameData[]): {
       });
     }
   });
-  
+
   return {
     isValid: errors.length === 0,
     errors,
@@ -40,11 +38,10 @@ const validateAllGames = (games: GameData[]): {
   };
 };
 
-// Fonction utilitaire pour logger les erreurs de validation
 export const logValidationErrors = (games: GameData[]): void => {
   if (process.env.NODE_ENV === 'development') {
     const validation = validateAllGames(games);
-    
+
     if (!validation.isValid) {
       console.warn('⚠️ Genres invalides détectés dans les données des jeux:');
       validation.errors.forEach(error => {
@@ -55,4 +52,4 @@ export const logValidationErrors = (games: GameData[]): void => {
       console.log('✅ Tous les genres des jeux sont valides');
     }
   }
-}; 
+};

@@ -80,7 +80,6 @@ export default function FAQ() {
           ))}
         </div>
 
-        {/* Gaming accent elements */}
         <div className="text-center mt-16">
           <div className="inline-flex items-center gap-4 text-cyan-400/60">
             <div className="w-8 h-px bg-gradient-to-r from-transparent to-cyan-400/60"></div>
