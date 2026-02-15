@@ -33,7 +33,8 @@ Pages are **server components** (for metadata + SEO + JSON-LD), which pass data 
 ### Route Structure
 
 - `/` — Homepage with hero, game grid (featured year only by default), FAQ
-- `/games/[title]` — Individual game pages (slug-based)
+- `/games` — Catalog page listing all games with filters
+- `/games/[title]` — Individual game pages (slug-based) with related games section
 - `/games/year/[year]` — Games filtered by year
 
 ### Key Modules
@@ -41,7 +42,9 @@ Pages are **server components** (for metadata + SEO + JSON-LD), which pass data 
 - **`src/lib/slug.ts`**: `createSlug()` — Unicode normalization, strips accents, kebab-case
 - **`src/lib/genres.ts`**: `ALL_GENRES` const array + `isValidGenre()` type guard. Add new genres here before using in JSON.
 - **`src/lib/images.ts`**: Convention-based image URL builders
+- **`src/lib/schemas.ts`**: JSON-LD schema generators (`createBreadcrumbSchema()`, `createVideoGameSchema()`)
 - **`src/lib/scroll.ts`**: `scrollToSection()` — handles same-page and cross-page smooth scrolling
+- **`src/lib/filters.ts`**: Game filtering logic (`filterGames()`, `getAvailableYears()`)
 - **`src/lib/validation.ts`**: Dev-only genre validation (console warnings)
 - **`src/constants/site.ts`**: `SITE_URL`, `SITE_NAME`, `FEATURED_YEAR` — update `FEATURED_YEAR` annually to feature new cohort on homepage
 
@@ -51,8 +54,10 @@ Pages are **server components** (for metadata + SEO + JSON-LD), which pass data 
 - **Path alias**: Use `@/*` to import from `src/*` (configured in tsconfig.json)
 - **Components location**: `src/app/components/` organized by purpose: `game/`, `layout/`, `legal/`, `seo/`, `ui/`
 - **GamingButton**: Polymorphic component — renders as `<button>` or `<Link>` based on `href` prop, enforced by union types
-- **CSS variables**: Gaming theme defined in `globals.css` (`--main`, `--secondary`, `--light`, `--dark`)
-- **Fonts**: Plus Jakarta Sans (body) + PixelifySans (gaming headers, via `.font-gaming` class)
+- **CSS variables**: Gaming theme defined in `globals.css` (`--bg-primary`, `--bg-secondary`, `--primary-blue`, `--text-primary`, `--border-primary`)
+- **Fonts**: Plus Jakarta Sans (body) + PixelifySans (gaming headers, via `.font-gaming` class) — loaded locally, no Google Fonts
+- **Related games**: On each game page, 4 related games are computed server-side (scored by shared year + genres) and rendered via `RelatedGames` component
+- **Dynamic robots/sitemap**: `src/app/robots.ts` and `src/app/sitemap.ts` generate `/robots.txt` and `/sitemap.xml` at build time using `SITE_URL`
 
 ### Game Data Schema
 
