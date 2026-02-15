@@ -2,10 +2,11 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { createSlug } from '../src/lib/slug';
 import { ALL_GENRES, isValidGenre } from '../src/lib/genres';
 
-const __dirname = import.meta.dirname;
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const GAMES_PATH = path.join(__dirname, '..', 'src', 'data', 'games.json');
 const PUBLIC_PATH = path.join(__dirname, '..', 'public');
 
