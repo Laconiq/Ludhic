@@ -61,7 +61,7 @@ export default function GameCard({
       </div>
 
       <div className="p-4 flex-grow flex flex-col">
-        <h3 className="text-lg font-sans font-bold text-white mb-3 line-clamp-2">
+        <h3 className="text-lg font-sans font-bold text-[var(--text-primary)] mb-3 line-clamp-2">
           {title}
         </h3>
 

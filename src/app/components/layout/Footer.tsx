@@ -11,7 +11,7 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="bg-gradient-to-t from-black to-gray-900 border-t border-gray-800">
+      <footer className="bg-gradient-to-t from-[var(--bg-secondary)] to-[var(--bg-primary)] border-t border-[var(--border-primary)]">
         <div className="max-w-7xl mx-auto px-4 py-12">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-4">

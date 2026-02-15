@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { scrollToSection } from '@/lib/scroll';
 import GamingButton from '@/app/components/ui/GamingButton';
+import FadeInView from '@/app/components/ui/FadeInView';
 
 interface HeroProps {
   videoIndex?: number;
@@ -40,46 +41,52 @@ export default function Hero({ videoIndex }: HeroProps) {
       </div>
 
       <div className="relative z-20 text-center px-4 pt-16 max-w-5xl mx-auto">
-        <div className="flex items-center justify-center gap-6 mb-8 foil-container">
-          <div className="relative w-24 h-24 md:w-32 md:h-32 flex-shrink-0 foil-logo">
-            <Image
-              src="/images/logo.png"
-              alt="Ludhic Logo"
-              fill
-              className="object-contain filter drop-shadow-lg"
-              priority
-              quality={95}
-              sizes="(max-width: 768px) 96px, 128px"
-            />
+        <FadeInView direction="down">
+          <div className="flex items-center justify-center gap-6 mb-8 foil-container">
+            <div className="relative w-24 h-24 md:w-32 md:h-32 flex-shrink-0 foil-logo">
+              <Image
+                src="/images/logo.png"
+                alt="Ludhic Logo"
+                fill
+                className="object-contain filter drop-shadow-lg"
+                priority
+                quality={95}
+                sizes="(max-width: 768px) 96px, 128px"
+              />
+            </div>
+            <h1 className="text-6xl md:text-8xl font-gaming foil-effect">
+              LUDHIC
+            </h1>
           </div>
-          <h1 className="text-6xl md:text-8xl font-gaming foil-effect">
-            LUDHIC
-          </h1>
-        </div>
-        
-        <p className="text-lg md:text-xl text-white/85 mb-12 max-w-4xl mx-auto leading-relaxed">
-          Ludhic est une association regroupant plusieurs étudiants et anciens étudiants du Master HIC (anciennement MAJE). 
-          Cette association a pour but principal de répertorier et de mettre en avant les travaux des étudiants.
-        </p>
-        
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <GamingButton
-            onClick={scrollToGames}
-            size="lg"
-            className="w-full sm:w-auto min-w-[200px] hover:scale-105"
-          >
-            ▶ EXPLORER LES JEUX
-          </GamingButton>
+        </FadeInView>
 
-          <GamingButton
-            href="https://univ-cotedazur.fr/formation/offre-de-formation/majic-master-jeux-video-image-et-creativite"
-            external
-            size="lg"
-            className="w-full sm:w-auto min-w-[200px] hover:scale-105"
-          >
-            MASTER OFFICIEL ↗
-          </GamingButton>
-        </div>
+        <FadeInView delay={0.2}>
+          <p className="text-lg md:text-xl text-white/85 mb-12 max-w-4xl mx-auto leading-relaxed">
+            Ludhic est une association regroupant plusieurs étudiants et anciens étudiants du Master HIC (anciennement MAJE).
+            Cette association a pour but principal de répertorier et de mettre en avant les travaux des étudiants.
+          </p>
+        </FadeInView>
+
+        <FadeInView delay={0.4}>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <GamingButton
+              onClick={scrollToGames}
+              size="lg"
+              className="w-full sm:w-auto min-w-[200px] hover:scale-105"
+            >
+              ▶ EXPLORER LES JEUX
+            </GamingButton>
+
+            <GamingButton
+              href="https://univ-cotedazur.fr/formation/offre-de-formation/majic-master-jeux-video-image-et-creativite"
+              external
+              size="lg"
+              className="w-full sm:w-auto min-w-[200px] hover:scale-105"
+            >
+              MASTER OFFICIEL ↗
+            </GamingButton>
+          </div>
+        </FadeInView>
       </div>
     </section>
   );

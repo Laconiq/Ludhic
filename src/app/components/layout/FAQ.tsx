@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import FadeInView from '@/app/components/ui/FadeInView';
 
 const faqData = [
   {
@@ -25,7 +26,7 @@ export default function FAQ() {
   };
 
   return (
-    <section id="faq" className="py-20 px-4 bg-gray-900">
+    <section id="faq" className="py-20 px-4 bg-[var(--bg-primary)]">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-gaming foil-effect mb-4">
@@ -38,8 +39,8 @@ export default function FAQ() {
 
         <div className="space-y-6">
           {faqData.map((item, index) => (
+            <FadeInView key={index} delay={index * 0.1}>
             <div
-              key={index}
               className="gaming-card overflow-hidden"
             >
               <button
@@ -77,6 +78,7 @@ export default function FAQ() {
                 </div>
               </div>
             </div>
+            </FadeInView>
           ))}
         </div>
 

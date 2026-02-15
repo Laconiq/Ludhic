@@ -139,7 +139,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body className="bg-gray-900 text-white antialiased">
+      <body className="bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased">
         {children}
       </body>
     </html>

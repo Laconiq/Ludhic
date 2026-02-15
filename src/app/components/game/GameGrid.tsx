@@ -4,6 +4,7 @@ import { useState, useMemo, useEffect } from 'react';
 import GameCard from './GameCard';
 import GamingButton from '@/app/components/ui/GamingButton';
 import FilterBar from './FilterBar';
+import FadeInView from '@/app/components/ui/FadeInView';
 import { logValidationErrors } from '@/lib/validation';
 import { GameData } from '@/types/game';
 import { GameFilters, filterGames } from '@/lib/filters';
@@ -11,16 +12,28 @@ import { FEATURED_YEAR } from '@/constants/site';
 
 interface AllGamesProps {
   games: GameData[];
+  initialGenre?: string;
+  initialYear?: number | null;
 }
 
-export default function GameGrid({ games }: AllGamesProps) {
+export default function GameGrid({ games, initialGenre = '', initialYear = null }: AllGamesProps) {
   const [filters, setFilters] = useState<GameFilters>({
     searchTerm: '',
-    selectedGenre: '',
-    selectedYear: null
+    selectedGenre: initialGenre,
+    selectedYear: initialYear ?? null
   });
   const [showAllGames, setShowAllGames] = useState(false);
 
+
+  useEffect(() => {
+    if (initialGenre || initialYear !== null) {
+      setFilters(prev => ({
+        ...prev,
+        selectedGenre: initialGenre,
+        selectedYear: initialYear ?? null,
+      }));
+    }
+  }, [initialGenre, initialYear]);
 
   useEffect(() => {
     logValidationErrors(games);
@@ -54,7 +67,7 @@ export default function GameGrid({ games }: AllGamesProps) {
   };
 
   return (
-    <section id="games" className="py-16 px-4 bg-gray-900">
+    <section id="games" className="py-16 px-4 bg-[var(--bg-primary)]">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-gaming foil-effect mb-4">
@@ -110,14 +123,7 @@ export default function GameGrid({ games }: AllGamesProps) {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 auto-rows-fr">
                     {gamesToDisplay.map((game, index) => (
-                      <div 
-                        key={game.id} 
-                        className="animate-fadeIn"
-                        style={{ 
-                          animationDelay: `${index * 0.1}s`,
-                          animationFillMode: 'both'
-                        }}
-                      >
+                      <FadeInView key={game.id} delay={index * 0.05}>
                         <GameCard
                           title={game.title}
                           longDescription={game.longDescription}
@@ -125,7 +131,7 @@ export default function GameGrid({ games }: AllGamesProps) {
                           contentFolder={game.contentFolder}
                           year={game.year}
                         />
-                      </div>
+                      </FadeInView>
                     ))}
                   </div>
                 </div>
