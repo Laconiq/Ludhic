@@ -1,19 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SITE_URL } from "@/constants/site";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -21,15 +8,15 @@ export const metadata: Metadata = {
     default: "Ludhic - Portfolio Jeux Étudiants Master HIC | Association Jeux Vidéo",
     template: "%s | Ludhic - Master HIC"
   },
-  description: "🎮 Découvrez les projets de jeux vidéo créés par les étudiants du Master Humanités et Industries Créatives (HIC). Portfolio interactif, association étudiante, créations originales. Anciennement MAJIC. Explorez des jeux uniques et innovants.",
+  description: "Découvrez les projets de jeux vidéo créés par les étudiants du Master Humanités et Industries Créatives (HIC). Portfolio interactif, association étudiante, créations originales. Anciennement MAJIC. Explorez des jeux uniques et innovants.",
   keywords: [
-    "Master HIC", 
-    "jeux vidéo étudiants", 
+    "Master HIC",
+    "jeux vidéo étudiants",
     "Humanités Industries Créatives",
     "association étudiante",
     "portfolio jeux",
     "game design",
-    "création numérique", 
+    "création numérique",
     "MAJIC",
     "Ludhic",
     "projets étudiants",
@@ -68,7 +55,7 @@ export const metadata: Metadata = {
     url: 'https://ludhic.fr',
     siteName: 'Ludhic - Association Master HIC',
     title: 'Ludhic - Portfolio Jeux Étudiants Master HIC | Association Jeux Vidéo',
-    description: '🎮 Découvrez les créations de jeux vidéo des étudiants du Master Humanités et Industries Créatives. Portfolio interactif et association étudiante. Explorez des jeux uniques et innovants.',
+    description: 'Découvrez les créations de jeux vidéo des étudiants du Master Humanités et Industries Créatives. Portfolio interactif et association étudiante. Explorez des jeux uniques et innovants.',
     images: [
       {
         url: 'https://ludhic.fr/images/logo.png',
@@ -82,7 +69,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Ludhic - Portfolio Jeux Étudiants Master HIC | Association Jeux Vidéo',
-    description: '🎮 Découvrez les créations de jeux vidéo des étudiants du Master HIC. Portfolio interactif et association étudiante. Explorez des jeux uniques et innovants.',
+    description: 'Découvrez les créations de jeux vidéo des étudiants du Master HIC. Portfolio interactif et association étudiante. Explorez des jeux uniques et innovants.',
     images: ['https://ludhic.fr/images/logo.png'],
     creator: '@LudhicFr',
     site: '@LudhicFr',
@@ -131,27 +118,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="fr">
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://ludhic.fr" />
         <link rel="preload" href="/videos/background-1.webm" as="video" type="video/webm" />
         <link rel="preload" href="/images/logo.png" as="image" />
-        
+
         <link
-          rel="preload" 
-          href="/fonts/PlusJakartaSans-VariableFont_wght.ttf" 
-          as="font" 
-          type="font/ttf" 
-          crossOrigin="anonymous" 
+          rel="preload"
+          href="/fonts/PlusJakartaSans-VariableFont_wght.ttf"
+          as="font"
+          type="font/ttf"
+          crossOrigin="anonymous"
         />
-        <link 
-          rel="preload" 
-          href="/fonts/PixelifySans-SemiBold.ttf" 
-          as="font" 
-          type="font/ttf" 
-          crossOrigin="anonymous" 
+        <link
+          rel="preload"
+          href="/fonts/PixelifySans-SemiBold.ttf"
+          as="font"
+          type="font/ttf"
+          crossOrigin="anonymous"
         />
       </head>
       <body className="bg-gray-900 text-white antialiased">

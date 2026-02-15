@@ -44,6 +44,9 @@ export default function GamePageContent({ game }: GamePageContentProps) {
             </li>
           </ol>
         </nav>
+        <h1 className="text-2xl md:text-4xl font-gaming foil-effect text-center mb-6">
+          {game.title.toUpperCase()}
+        </h1>
         <div className="flex flex-col items-center gap-y-2 mb-8">
           <div className="flex flex-wrap gap-2 justify-center">
             <span className="font-gaming bg-black/50 backdrop-blur-sm rounded-full border border-cyan-400/30 text-cyan-400 text-xs px-2 py-0.5 sm:text-base sm:px-3 sm:py-1">

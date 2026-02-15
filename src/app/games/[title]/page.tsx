@@ -2,21 +2,36 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import gamesData from '@/data/games.json';
 import GamePageContent from '@/app/components/game/GamePageContent';
+import RelatedGames from '@/app/components/game/RelatedGames';
 import Footer from '@/app/components/layout/Footer';
 import { createSlug } from '@/lib/slug';
 import { SITE_URL } from '@/constants/site';
 import { createBreadcrumbSchema, createVideoGameSchema } from '@/lib/schemas';
+import { GameData } from '@/types/game';
 
-// Fonction pour trouver un jeu par son slug
 function findGameBySlug(slug: string) {
   return gamesData.find(game => createSlug(game.title) === slug);
 }
 
-// Générer les métadonnées pour chaque jeu
+function getRelatedGames(game: GameData, limit = 4): GameData[] {
+  const otherGames = gamesData.filter(g => g.id !== game.id);
+
+  const scored = otherGames.map(g => {
+    let score = 0;
+    if (g.year === game.year) score += 2;
+    const commonGenres = g.genres.filter(genre => game.genres.includes(genre));
+    score += commonGenres.length;
+    return { game: g, score };
+  });
+
+  scored.sort((a, b) => b.score - a.score);
+  return scored.slice(0, limit).map(s => s.game);
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ title: string }> }): Promise<Metadata> {
   const { title } = await params;
   const game = findGameBySlug(decodeURIComponent(title));
-  
+
   if (!game) {
     return {
       title: 'Jeu non trouvé | Ludhic',
@@ -61,18 +76,16 @@ export async function generateMetadata({ params }: { params: Promise<{ title: st
   };
 }
 
-// Générer toutes les routes statiques possibles
 export async function generateStaticParams() {
   return gamesData.map((game) => ({
     title: createSlug(game.title),
   }));
 }
 
-// Composant serveur qui wrapper le composant client
 export default async function Page({ params }: { params: Promise<{ title: string }> }) {
   const { title } = await params;
   const game = findGameBySlug(decodeURIComponent(title));
-  
+
   if (!game) {
     notFound();
   }
@@ -81,9 +94,11 @@ export default async function Page({ params }: { params: Promise<{ title: string
 
   const breadcrumbSchema = createBreadcrumbSchema([
     { name: "Accueil", url: SITE_URL },
-    { name: "Jeux", url: `${SITE_URL}#games` },
+    { name: "Jeux", url: `${SITE_URL}/games` },
     { name: game.title, url: `${SITE_URL}/games/${createSlug(game.title)}` }
   ]);
+
+  const relatedGames = getRelatedGames(game);
 
   return (
     <>
@@ -100,10 +115,10 @@ export default async function Page({ params }: { params: Promise<{ title: string
         }}
       />
       <div className="min-h-screen bg-gray-900 flex flex-col">
-        {/* Contenu du jeu - composant client */}
         <GamePageContent game={game} />
+        <RelatedGames games={relatedGames} />
         <Footer />
       </div>
     </>
   );
-} 
+}
