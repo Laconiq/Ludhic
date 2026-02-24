@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Build output
+.next/
+out/
+build/
+
+# Binary assets (images, videos, fonts)
+public/games/
+public/videos/
+public/fonts/
+public/images/
+
+# Generated files
+pnpm-lock.yaml
+next-env.d.ts
+*.tsbuildinfo
+
+# Deployment
+.vercel/

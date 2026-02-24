@@ -1,28 +1,24 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Optimisations d'images
   images: {
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 60 * 60 * 24 * 30, // 30 jours
+    minimumCacheTTL: 60 * 60 * 24 * 30,
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     unoptimized: false,
     loader: 'default',
   },
-  
-  // Optimisations de compilation
+
   compress: true,
-  
-  // Optimisations de performance
+
   experimental: {
-    optimizeCss: false, // Désactivé car critters n'est pas installé
+    optimizeCss: false,
     optimizePackageImports: ['@next/font'],
   },
-  
-  // Turbopack (remplace experimental.turbo)
+
   turbopack: {
     rules: {
       '*.svg': {
@@ -31,10 +27,8 @@ const nextConfig: NextConfig = {
       },
     },
   },
-  
-  // Optimisations de webpack
+
   webpack: (config, { dev, isServer }) => {
-    // Optimisations pour la production
     if (!dev && !isServer) {
       config.optimization.splitChunks = {
         chunks: 'all',
@@ -51,7 +45,6 @@ const nextConfig: NextConfig = {
     return config;
   },
   
-  // Headers de cache et sécurité
   async headers() {
     return [
       {
@@ -101,16 +94,13 @@ const nextConfig: NextConfig = {
     ];
   },
   
-  // Optimisations de production
   poweredByHeader: false,
   generateEtags: false,
-  
-  // Optimisations de TypeScript
+
   typescript: {
     ignoreBuildErrors: false,
   },
-  
-  // Optimisations ESLint
+
   eslint: {
     ignoreDuringBuilds: false,
   },

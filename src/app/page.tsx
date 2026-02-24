@@ -1,13 +1,13 @@
 'use client';
 
 import { Suspense } from 'react';
-import Hero from './components/Hero';
-import AllGames from './components/AllGames';
-import FAQ from './components/FAQ';
-import Footer from './components/Footer';
-import Navigation from './components/Navigation';
-import SEOSchema from './components/SEOSchema';
-import gamesData from '../data/games.json';
+import Hero from '@/app/components/layout/Hero';
+import GameGrid from '@/app/components/game/GameGrid';
+import FAQ from '@/app/components/layout/FAQ';
+import Footer from '@/app/components/layout/Footer';
+import Navigation from '@/app/components/layout/Navigation';
+import SEOSchema from '@/app/components/seo/SEOSchema';
+import gamesData from '@/data/games.json';
 
 
 function HomeContent() {
@@ -16,7 +16,7 @@ function HomeContent() {
       <Navigation />
       <main>
         <Hero />
-        <AllGames games={gamesData} />
+        <GameGrid games={gamesData} />
         <FAQ />
       </main>
       <Footer />
@@ -27,7 +27,7 @@ function HomeContent() {
 export default function Home() {
   return (
     <>
-      <SEOSchema games={gamesData} currentPage="home" />
+      <SEOSchema games={gamesData} />
       <Suspense fallback={
         <div className="min-h-screen bg-gray-900 flex items-center justify-center">
           <div className="text-center">
