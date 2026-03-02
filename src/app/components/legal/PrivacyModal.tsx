@@ -18,39 +18,33 @@ export default function PrivacyModal({ isOpen, onClose }: PrivacyModalProps) {
         <h3 className="text-lg font-gaming text-cyan-400 mb-3">Introduction</h3>
         <p className="leading-relaxed">
           L&apos;association Ludhic s&apos;engage à protéger la vie privée et les données personnelles de ses membres.
-          Cette politique de confidentialité vise à informer nos utilisateurs de nos pratiques en matière de collecte,
-          d&apos;utilisation, de gestion et de protection de leurs données personnelles conformément au Règlement Général
-          sur la Protection des Données (RGPD) et aux lois françaises applicables.
+          Cette politique de confidentialité vise à informer les visiteurs et membres de nos pratiques en matière
+          de gestion et de protection des données personnelles conformément au Règlement Général sur la Protection
+          des Données (RGPD) et aux lois françaises applicables.
         </p>
       </section>
 
       <section>
-        <h3 className="text-lg font-gaming text-cyan-400 mb-3">Données Personnelles Collectées</h3>
+        <h3 className="text-lg font-gaming text-cyan-400 mb-3">Données Affichées sur le Site</h3>
         <p className="leading-relaxed mb-4">
-          Nous collectons les informations suivantes lors de l&apos;adhésion à l&apos;association Ludhic :
+          Le site ludhic.fr est un portfolio statique qui ne collecte aucune donnée personnelle de ses visiteurs.
+          Les seules données personnelles présentes sur le site sont les crédits des projets (prénoms et noms des
+          membres), affichés avec le consentement des personnes concernées.
         </p>
-        <ul className="list-disc list-inside space-y-2 text-white/70">
-          <li>Prénom et nom</li>
-          <li>Adresse e-mail</li>
-          <li>Adresse postale</li>
-          <li>Numéro de téléphone</li>
-          <li>Informations sur le parcours académique (Master HIC)</li>
-        </ul>
-        <p className="leading-relaxed mt-4">
-          Ces données sont nécessaires pour créer un compte membre sur notre site, gérer votre adhésion,
-          et présenter vos travaux dans le portfolio des étudiants.
+        <p className="leading-relaxed">
+          Les informations collectées lors de l&apos;adhésion à l&apos;association (email, adresse postale, téléphone)
+          sont gérées en dehors du site et ne sont pas accessibles publiquement.
         </p>
       </section>
 
       <section>
         <h3 className="text-lg font-gaming text-cyan-400 mb-3">Utilisation des Données</h3>
         <p className="leading-relaxed">
-          Les données personnelles collectées sont utilisées exclusivement dans le cadre des activités de l&apos;association :
+          Les données personnelles des membres sont utilisées exclusivement dans le cadre des activités de l&apos;association :
         </p>
         <ul className="list-disc list-inside space-y-2 text-white/70 mt-4">
-          <li>Gestion des comptes membres</li>
           <li>Communication avec les membres</li>
-          <li>Présentation des projets étudiants</li>
+          <li>Présentation des projets étudiants (crédits)</li>
           <li>Promotion de l&apos;association et de ses membres</li>
         </ul>
         <p className="leading-relaxed mt-4">
@@ -61,9 +55,8 @@ export default function PrivacyModal({ isOpen, onClose }: PrivacyModalProps) {
       <section>
         <h3 className="text-lg font-gaming text-cyan-400 mb-3">Cookies et Technologies de Suivi</h3>
         <p className="leading-relaxed">
-          Le site ludhic.fr utilise uniquement des cookies techniques nécessaires au fonctionnement du site
-          (sessions utilisateurs, préférences). Nous n&apos;utilisons pas de cookies de tracking publicitaire
-          ou d&apos;analyse comportementale à des fins commerciales.
+          Le site ludhic.fr ne dépose aucun cookie et ne collecte aucune donnée de navigation.
+          Aucun outil d&apos;analyse, de tracking publicitaire ou de suivi comportemental n&apos;est utilisé.
         </p>
       </section>
 
@@ -99,11 +92,11 @@ export default function PrivacyModal({ isOpen, onClose }: PrivacyModalProps) {
       </section>
 
       <section>
-        <h3 className="text-lg font-gaming text-cyan-400 mb-3">Hébergement et Transferts de Données</h3>
+        <h3 className="text-lg font-gaming text-cyan-400 mb-3">Hébergement</h3>
         <p className="leading-relaxed">
-          Aucun transfert de données personnelles n&apos;est effectué en dehors de l&apos;Union Européenne.
-          Notre hébergeur, Hostinger, est basé en Lituanie et adhère aux normes de protection des données de l&apos;UE.
-          Toutes les données restent sur des serveurs européens conformes au RGPD.
+          Le site est hébergé par Vercel Inc. (San Francisco, États-Unis). Vercel peut utiliser des serveurs
+          situés en dehors de l&apos;Union Européenne. Le site étant un portfolio statique ne collectant aucune
+          donnée de visiteur, aucune donnée personnelle de navigation n&apos;est transférée via l&apos;hébergement.
         </p>
       </section>
 
@@ -113,7 +106,7 @@ export default function PrivacyModal({ isOpen, onClose }: PrivacyModalProps) {
           L&apos;association Ludhic est le responsable de la protection des données. Pour toute question relative
           à la vie privée et à la protection des données personnelles, contactez-nous :
         </p>
-        <div className="bg-gray-800/50 rounded-lg p-4 mt-4">
+        <div className="bg-[var(--bg-tertiary)]/50 rounded-lg p-4 mt-4">
           <p className="text-white/90">
             <strong>Email :</strong>{' '}
             <a href="mailto:ludhic.association@gmail.com" className="text-cyan-400 hover:text-cyan-300">
@@ -132,7 +125,7 @@ export default function PrivacyModal({ isOpen, onClose }: PrivacyModalProps) {
         </p>
       </section>
 
-      <div className="border-t border-gray-700 pt-6 mt-8">
+      <div className="border-t border-[var(--border-primary)] pt-6 mt-8">
         <p className="text-sm text-white/60 text-center">
           Cette politique est effective à partir du 03 novembre 2023.<br/>
           Dernière mise à jour : {new Date().toLocaleDateString('fr-FR')}
