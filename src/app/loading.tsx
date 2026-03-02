@@ -1,14 +1,15 @@
+import SkeletonGrid from '@/app/components/ui/SkeletonGrid';
+
 export default function Loading() {
   return (
-    <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-      <div className="text-center">
-        <div className="relative w-16 h-16 mx-auto mb-6">
-          <div className="absolute inset-0 rounded-full border-2 border-gray-700" />
-          <div className="absolute inset-0 rounded-full border-2 border-transparent border-t-[var(--primary-blue)] animate-spin" />
+    <div className="min-h-screen bg-[var(--bg-primary)] flex flex-col">
+      <div className="pt-24">
+        <div className="max-w-7xl mx-auto px-4 mb-8">
+          <div className="h-12 w-80 mx-auto bg-[var(--bg-tertiary)] rounded animate-pulse" />
         </div>
-        <p className="text-white/70 font-gaming text-sm tracking-wider">
-          CHARGEMENT...
-        </p>
+        <div className="max-w-7xl mx-auto px-4">
+          <SkeletonGrid count={8} />
+        </div>
       </div>
     </div>
   );

@@ -162,9 +162,33 @@ p {
   background-size: 50px 50px;
 }
 
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+}
+
 .gaming-grid-bg-fine {
   background-image:
     linear-gradient(rgba(45, 66, 126, 0.2) 1px, transparent 1px),
     linear-gradient(90deg, rgba(45, 66, 126, 0.2) 1px, transparent 1px);
   background-size: 10px 10px;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.25s;
+  animation-timing-function: ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
 }

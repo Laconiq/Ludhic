@@ -18,7 +18,7 @@ const SECTION_IDS = MENU_ITEMS.toReversed().map(item => item.id);
 const navItemClass = (isActive: boolean) =>
   isActive
     ? 'text-[var(--primary-blue)] [text-shadow:0_0_20px_currentColor]'
-    : 'text-white/85 hover:text-[var(--primary-blue)] hover:[text-shadow:0_0_20px_currentColor]';
+    : 'text-[var(--text-primary)]/85 hover:text-[var(--primary-blue)] hover:[text-shadow:0_0_20px_currentColor]';
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -26,7 +26,6 @@ export default function Navigation() {
   const [activeSection, setActiveSection] = useState('');
   const activeSectionRef = useRef('');
   const isScrolledRef = useRef(false);
-
   useEffect(() => {
     let ticking = false;
 
@@ -62,13 +61,13 @@ export default function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleScrollToSection = (sectionId: string) => {
+  const handleNavClick = (sectionId: string) => {
     scrollToSection(sectionId, true);
     setIsMobileMenuOpen(false);
   };
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-[200] transition-all duration-300 bg-[rgba(10,14,26,0.95)] backdrop-blur-[20px] border-b border-[var(--border-primary)] ${
+    <nav className={`fixed top-0 left-0 right-0 z-[200] transition-all duration-300 bg-[var(--bg-primary)]/95 backdrop-blur-[20px] border-b border-[var(--border-primary)] ${
       isScrolled ? 'py-2' : 'py-4'
     }`}>
       <div className="max-w-7xl mx-auto px-4">
@@ -94,7 +93,7 @@ export default function Navigation() {
             {MENU_ITEMS.map((item) => (
               <button
                 key={item.id}
-                onClick={() => handleScrollToSection(item.id)}
+                onClick={() => handleNavClick(item.id)}
                 className={`font-gaming text-sm tracking-wider transition-all duration-300 relative group cursor-pointer hover:scale-105 ${navItemClass(activeSection === item.id)}`}
               >
                 {item.label}
@@ -109,7 +108,7 @@ export default function Navigation() {
             onClick={() => setIsMobileMenuOpen(prev => !prev)}
             aria-label={isMobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
             aria-expanded={isMobileMenuOpen}
-            className="md:hidden text-white p-2 rounded-lg border border-gray-500 hover:border-cyan-300 hover:bg-cyan-300/10 hover:scale-105 transition-all duration-200 cursor-pointer"
+            className="md:hidden text-[var(--text-primary)] p-2 rounded-lg border border-[var(--border-primary)] hover:border-[var(--primary-blue)] hover:bg-[var(--primary-blue)]/10 hover:scale-105 transition-all duration-200 cursor-pointer"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               {isMobileMenuOpen ? (
@@ -122,14 +121,14 @@ export default function Navigation() {
         </div>
 
         {isMobileMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 border-t border-gray-600 relative z-[150]">
+          <div className="md:hidden mt-4 pb-4 border-t border-[var(--border-primary)] relative z-[150]">
             <div className="flex flex-col space-y-4 pt-4">
               {MENU_ITEMS.map((item) => (
                 <button
                   key={item.id}
-                  onClick={() => handleScrollToSection(item.id)}
-                  className={`font-gaming text-sm tracking-wider transition-all duration-300 text-left py-2 px-4 rounded-lg cursor-pointer hover:bg-cyan-300/10 ${
-                    activeSection === item.id ? `${navItemClass(true)} bg-cyan-300/10` : navItemClass(false)
+                  onClick={() => handleNavClick(item.id)}
+                  className={`font-gaming text-sm tracking-wider transition-all duration-300 text-left py-2 px-4 rounded-lg cursor-pointer hover:bg-[var(--primary-blue)]/10 ${
+                    activeSection === item.id ? `${navItemClass(true)} bg-[var(--primary-blue)]/10` : navItemClass(false)
                   }`}
                 >
                   {item.label}

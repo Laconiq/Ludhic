@@ -57,7 +57,7 @@ function DropdownFilter({ label, value, options, isOpen, onToggle, onSelect, res
         <div className={`absolute top-full left-0 mt-2 ${dropdownWidth} bg-[linear-gradient(135deg,var(--bg-primary)_0%,var(--bg-secondary)_100%)] border border-[var(--border-primary)] shadow-[var(--shadow-dark),var(--shadow-glow)] rounded-xl py-2 z-[100]`}>
           <button
             onClick={() => onSelect(null)}
-            className="w-full text-left px-4 py-2 text-white/80 hover:text-cyan-300 hover:bg-gray-700/50 transition-colors text-sm cursor-pointer"
+            className="w-full text-left px-4 py-2 text-[var(--text-primary)]/80 hover:text-cyan-300 hover:bg-[var(--bg-tertiary)]/50 transition-colors text-sm cursor-pointer"
           >
             {resetLabel}
           </button>
@@ -67,8 +67,8 @@ function DropdownFilter({ label, value, options, isOpen, onToggle, onSelect, res
               onClick={() => onSelect(option)}
               className={`w-full text-left px-4 py-2 transition-colors text-sm cursor-pointer ${
                 value === option
-                  ? 'text-cyan-300 bg-gray-700/50'
-                  : 'text-white/80 hover:text-cyan-300 hover:bg-gray-700/50'
+                  ? 'text-cyan-300 bg-[var(--bg-tertiary)]/50'
+                  : 'text-[var(--text-primary)]/80 hover:text-cyan-300 hover:bg-[var(--bg-tertiary)]/50'
               }`}
             >
               {option}
@@ -143,7 +143,7 @@ export default function FilterBar({ games, onFiltersChange, currentFilters, filt
   return (
     <div className="sticky top-16 z-50 mb-8">
       <div className="max-w-screen-2xl mx-auto px-4">
-        <div className="bg-gradient-to-r from-gray-800/95 via-gray-900/95 to-gray-800/95 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-gray-700">
+        <div className="bg-gradient-to-r from-[var(--bg-secondary)]/95 via-[var(--bg-primary)]/95 to-[var(--bg-secondary)]/95 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-[var(--border-primary)]">
           <div className="hidden lg:flex gap-4 items-center justify-between">
             <div className="flex-1 max-w-md w-full">
               <div className="relative">

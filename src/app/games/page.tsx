@@ -1,11 +1,10 @@
+import { Suspense } from 'react';
 import { Metadata } from 'next';
 import gamesData from '@/data/games.json';
-import Navigation from '@/app/components/layout/Navigation';
-import Footer from '@/app/components/layout/Footer';
-import GameGrid from '@/app/components/game/GameGrid';
 import { SITE_URL } from '@/constants/site';
 import { createBreadcrumbSchema } from '@/lib/schemas';
 import { createSlug } from '@/lib/slug';
+import GamesPageContent from '@/app/components/game/GamesPageContent';
 
 export const metadata: Metadata = {
   title: 'Tous les jeux étudiants | Ludhic - Master HIC',
@@ -72,18 +71,9 @@ export default function GamesPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
       />
-      <div className="min-h-screen bg-gray-900 flex flex-col">
-        <Navigation />
-        <div className="pt-24">
-          <div className="max-w-7xl mx-auto px-4 mb-8">
-            <h1 className="text-3xl md:text-5xl font-gaming foil-effect text-center">
-              TOUS LES JEUX ÉTUDIANTS
-            </h1>
-          </div>
-          <GameGrid games={gamesData} />
-        </div>
-        <Footer />
-      </div>
+      <Suspense>
+        <GamesPageContent games={gamesData} />
+      </Suspense>
     </>
   );
 }

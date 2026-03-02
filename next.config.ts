@@ -17,6 +17,7 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizeCss: false,
     optimizePackageImports: ['@next/font'],
+    viewTransition: true,
   },
 
   turbopack: {

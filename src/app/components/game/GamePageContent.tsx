@@ -10,6 +10,7 @@ import GameCredits from '@/app/components/game/GameCredits';
 import GameHero from '@/app/components/game/GameHero';
 import GameVideo from '@/app/components/game/GameVideo';
 import ImageCarousel from '@/app/components/game/ImageCarousel';
+import FadeInView from '@/app/components/ui/FadeInView';
 
 interface GamePageContentProps {
   game: GameData;
@@ -53,7 +54,7 @@ export default function GamePageContent({ game }: GamePageContentProps) {
               ANNÉE {game.year}
             </span>
             {game.genres.map((genre) => (
-              <GenreBadge key={genre} genre={genre} variant="detail" />
+              <GenreBadge key={genre} genre={genre} variant="detail" href={`/games?genre=${encodeURIComponent(genre)}`} />
             ))}
           </div>
           {game.customButton.enabled && (
@@ -67,24 +68,32 @@ export default function GamePageContent({ game }: GamePageContentProps) {
             </GamingButton>
           )}
         </div>
-        <div className="mb-12 w-full">
-          <h2 className="text-xl md:text-2xl font-gaming text-cyan-400 mb-6 tracking-wider w-full">
-            A PROPOS DU JEU
-          </h2>
-          <p className="text-white/90 text-base leading-relaxed w-full">
-            {game.longDescription}
-          </p>
-        </div>
+        <FadeInView>
+          <div className="mb-12 w-full">
+            <h2 className="text-xl md:text-2xl font-gaming text-cyan-400 mb-6 tracking-wider w-full">
+              A PROPOS DU JEU
+            </h2>
+            <p className="text-white/90 text-base leading-relaxed w-full">
+              {game.longDescription}
+            </p>
+          </div>
+        </FadeInView>
 
         {game.imageCount > 1 && (
-          <ImageCarousel images={allImages} title={game.title} />
+          <FadeInView delay={0.1}>
+            <ImageCarousel images={allImages} title={game.title} />
+          </FadeInView>
         )}
 
         {game.hasVideo && (
-          <GameVideo contentFolder={game.contentFolder} />
+          <FadeInView delay={0.2}>
+            <GameVideo contentFolder={game.contentFolder} />
+          </FadeInView>
         )}
 
-        <GameCredits credits={game.credits} />
+        <FadeInView delay={0.3}>
+          <GameCredits credits={game.credits} />
+        </FadeInView>
       </div>
     </>
   );

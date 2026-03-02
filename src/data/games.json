@@ -588,7 +588,8 @@
       { "firstName": "Jhon", "lastName": "BALLESTER", "roles": ["Narrative Designer", "Doubleur"] },
       { "firstName": "Alex", "lastName": "ALAPHILIPPE", "roles": ["Narrative Designer", "Doubleur"] },
       { "firstName": "Gaétan", "lastName": "PERBET", "roles": ["Doubleur"] },
-      { "firstName": "Ariane", "lastName": "LESTRADE", "roles": ["Doubleuse"] }
+      { "firstName": "Ariane", "lastName": "LESTRADE", "roles": ["Doubleuse"] },
+      { "firstName": "Damien", "lastName": "CARLEVAN", "roles": ["Graphiste 3D"] }
     ],
     "featured": true
   },
