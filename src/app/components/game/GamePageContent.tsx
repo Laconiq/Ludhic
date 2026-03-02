@@ -25,7 +25,7 @@ export default function GamePageContent({ game }: GamePageContentProps) {
 
       <GameHero title={game.title} contentFolder={game.contentFolder} />
 
-      <div className="w-full px-[15vw] md:px-[25vw] py-16">
+      <div className="w-full max-w-4xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16 py-16">
         <nav aria-label="Fil d'Ariane" className="mb-8">
           <ol className="flex items-center gap-2 text-sm text-white/60">
             <li>

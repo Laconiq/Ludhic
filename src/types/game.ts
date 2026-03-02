@@ -1,3 +1,11 @@
+export type JsonLdValue = string | number | boolean | null | JsonLdSchema | JsonLdValue[];
+
+export interface JsonLdSchema {
+  '@context'?: string;
+  '@type'?: string;
+  [key: string]: JsonLdValue | undefined;
+}
+
 export interface Credit {
   firstName: string;
   lastName: string;

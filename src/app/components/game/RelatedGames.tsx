@@ -9,7 +9,7 @@ export default function RelatedGames({ games }: RelatedGamesProps) {
   if (games.length === 0) return null;
 
   return (
-    <section className="py-16 px-4 bg-gray-900 border-t border-white/10">
+    <section className="py-16 px-4 bg-[var(--bg-primary)] border-t border-[var(--border-primary)]">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-2xl md:text-3xl font-gaming foil-effect text-center mb-10">
           JEUX SIMILAIRES

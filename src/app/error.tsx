@@ -15,7 +15,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4 pt-20">
+    <div className="min-h-screen bg-[var(--bg-primary)] flex items-center justify-center px-4 pt-20">
       <div className="text-center max-w-md">
         <h1 className="text-4xl md:text-5xl font-gaming text-red-400 mb-4">
           GAME OVER
