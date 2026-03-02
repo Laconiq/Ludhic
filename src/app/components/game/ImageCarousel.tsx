@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import Image from 'next/image';
 
 const CAROUSEL_INTERVAL_MS = 4000;
@@ -14,6 +14,7 @@ export default function ImageCarousel({ images, title }: ImageCarouselProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const isTransitioningRef = useRef(false);
 
   const imageCount = images.length;
 
@@ -27,9 +28,10 @@ export default function ImageCarousel({ images, title }: ImageCarouselProps) {
     return () => clearInterval(interval);
   }, [imageCount, isHovered]);
 
-  const changeImage = (direction: 'prev' | 'next') => {
-    if (isTransitioning) return;
+  const changeImage = useCallback((direction: 'prev' | 'next') => {
+    if (isTransitioningRef.current) return;
 
+    isTransitioningRef.current = true;
     setIsTransitioning(true);
     setCurrentImageIndex((prev) => {
       if (direction === 'prev') {
@@ -39,15 +41,25 @@ export default function ImageCarousel({ images, title }: ImageCarouselProps) {
       }
     });
 
-    setTimeout(() => setIsTransitioning(false), 500);
-  };
+    setTimeout(() => {
+      isTransitioningRef.current = false;
+      setIsTransitioning(false);
+    }, 500);
+  }, [imageCount]);
 
-  const goToImage = (index: number) => {
-    if (isTransitioning || index === currentImageIndex) return;
-    setIsTransitioning(true);
-    setCurrentImageIndex(index);
-    setTimeout(() => setIsTransitioning(false), 500);
-  };
+  const goToImage = useCallback((index: number) => {
+    if (isTransitioningRef.current) return;
+    setCurrentImageIndex((prev) => {
+      if (index === prev) return prev;
+      isTransitioningRef.current = true;
+      setIsTransitioning(true);
+      setTimeout(() => {
+        isTransitioningRef.current = false;
+        setIsTransitioning(false);
+      }, 500);
+      return index;
+    });
+  }, []);
 
   return (
     <div className="mb-16">
@@ -69,7 +81,7 @@ export default function ImageCarousel({ images, title }: ImageCarouselProps) {
           >
             {images.map((imageUrl, index) => (
               <div
-                key={index}
+                key={imageUrl}
                 className="relative flex-shrink-0 h-full w-full"
                 style={{ width: `${100 / imageCount}%` }}
               >
@@ -115,9 +127,9 @@ export default function ImageCarousel({ images, title }: ImageCarouselProps) {
           </button>
 
           <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
-            {images.map((_, index) => (
+            {images.map((imageUrl, index) => (
               <button
-                key={index}
+                key={imageUrl}
                 onClick={() => goToImage(index)}
                 disabled={isTransitioning}
                 aria-label={`Aller à l'image ${index + 1}`}
