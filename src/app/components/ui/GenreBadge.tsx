@@ -16,8 +16,8 @@ export default function GenreBadge({ genre, variant, showHash = true, href }: Ge
     );
   }
 
-  const className = `px-2 py-0.5 sm:px-3 sm:py-1 bg-[var(--bg-tertiary)]/50 backdrop-blur-sm rounded-full text-[var(--primary-blue)] border border-[var(--primary-blue)]/30 font-gaming text-xs sm:text-base${
-    href ? ' cursor-pointer hover:border-[var(--primary-blue)] hover:bg-[var(--bg-tertiary)]/70 transition-colors' : ''
+  const className = `font-gaming bg-black/50 backdrop-blur-sm rounded-full border border-cyan-400/30 text-cyan-400 text-xs px-2 py-0.5 sm:text-base sm:px-3 sm:py-1${
+    href ? ' cursor-pointer hover:border-cyan-400 hover:bg-black/70 transition-colors' : ''
   }`;
 
   if (href) {
