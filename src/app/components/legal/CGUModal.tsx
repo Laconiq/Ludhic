@@ -28,10 +28,10 @@ export default function CGUModal({ isOpen, onClose }: CGUModalProps) {
       <section>
         <h3 className="text-lg font-gaming text-cyan-400 mb-3">2. Utilisation du Site</h3>
         <p className="leading-relaxed">
-          Le site ludhic.fr est une vitrine pour présenter les travaux des étudiants et anciens étudiants du Master HIC
-          (anciennement MAJIC). Les membres dont les informations ont été recueillies lors de leur adhésion à l&apos;association
-          Ludhic sont les seuls à pouvoir être inscrits avec un compte sur le site. Chaque jeu présenté peut être accompagné
-          de titres, descriptions, images, logos et vidéos, ainsi que des crédits attribués aux membres du projet.
+          Le site ludhic.fr est un portfolio statique présentant les projets de jeux vidéo réalisés par les étudiants
+          et anciens étudiants du Master HIC (anciennement MAJIC). Le site ne requiert aucune inscription ni création
+          de compte. Chaque jeu présenté peut être accompagné de titres, descriptions, images, logos et vidéos, ainsi
+          que des crédits attribués aux membres du projet.
         </p>
       </section>
 
@@ -47,8 +47,8 @@ export default function CGUModal({ isOpen, onClose }: CGUModalProps) {
       <section>
         <h3 className="text-lg font-gaming text-cyan-400 mb-3">4. Confidentialité</h3>
         <p className="leading-relaxed">
-          Ludhic.fr est engagé à protéger la confidentialité des membres. Aucune donnée personnelle recueillie lors de
-          l&apos;adhésion ne sera utilisée à des fins autres que celles nécessaires pour la gestion du compte membre sur le site.
+          Le site ludhic.fr ne collecte aucune donnée personnelle de ses visiteurs. Les données des membres de
+          l&apos;association (noms, prénoms) sont affichées dans les crédits des projets avec leur consentement.
           Pour plus de détails, consultez notre politique de confidentialité.
         </p>
       </section>
@@ -56,9 +56,8 @@ export default function CGUModal({ isOpen, onClose }: CGUModalProps) {
       <section>
         <h3 className="text-lg font-gaming text-cyan-400 mb-3">5. Cookies et Données Techniques</h3>
         <p className="leading-relaxed">
-          Le site ludhic.fr utilise des cookies ou des données en cache nécessaires au maintien des sessions des utilisateurs
-          connectés et à l&apos;amélioration de l&apos;expérience utilisateur. Aucune collecte de données à des fins commerciales ou de
-          tracking publicitaire n&apos;est effectuée.
+          Le site ludhic.fr ne dépose aucun cookie et ne collecte aucune donnée de navigation. Aucun outil d&apos;analyse,
+          de tracking publicitaire ou de suivi comportemental n&apos;est utilisé.
         </p>
       </section>
 
@@ -98,7 +97,7 @@ export default function CGUModal({ isOpen, onClose }: CGUModalProps) {
         </p>
       </section>
 
-      <div className="border-t border-gray-700 pt-6 mt-8">
+      <div className="border-t border-[var(--border-primary)] pt-6 mt-8">
         <p className="text-sm text-white/60 text-center">
           Ces CGU sont effectives à partir du 03 novembre 2023.<br/>
           Dernière mise à jour : {new Date().toLocaleDateString('fr-FR')}

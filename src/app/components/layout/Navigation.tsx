@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { scrollToSection } from '@/lib/scroll';
@@ -61,10 +61,10 @@ export default function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNavClick = (sectionId: string) => {
+  const handleNavClick = useCallback((sectionId: string) => {
     scrollToSection(sectionId, true);
     setIsMobileMenuOpen(false);
-  };
+  }, []);
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-[200] transition-all duration-300 bg-[var(--bg-primary)]/95 backdrop-blur-[20px] border-b border-[var(--border-primary)] ${
@@ -94,7 +94,7 @@ export default function Navigation() {
               <button
                 key={item.id}
                 onClick={() => handleNavClick(item.id)}
-                className={`font-gaming text-sm tracking-wider transition-all duration-300 relative group cursor-pointer hover:scale-105 ${navItemClass(activeSection === item.id)}`}
+                className={`font-gaming text-sm tracking-wider transition-all duration-300 relative group cursor-pointer hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:rounded ${navItemClass(activeSection === item.id)}`}
               >
                 {item.label}
                 <span className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-600 transition-all duration-300 ${
@@ -108,7 +108,7 @@ export default function Navigation() {
             onClick={() => setIsMobileMenuOpen(prev => !prev)}
             aria-label={isMobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
             aria-expanded={isMobileMenuOpen}
-            className="md:hidden text-[var(--text-primary)] p-2 rounded-lg border border-[var(--border-primary)] hover:border-[var(--primary-blue)] hover:bg-[var(--primary-blue)]/10 hover:scale-105 transition-all duration-200 cursor-pointer"
+            className="md:hidden text-[var(--text-primary)] p-2 rounded-lg border border-[var(--border-primary)] hover:border-[var(--primary-blue)] hover:bg-[var(--primary-blue)]/10 hover:scale-105 transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               {isMobileMenuOpen ? (
@@ -127,7 +127,7 @@ export default function Navigation() {
                 <button
                   key={item.id}
                   onClick={() => handleNavClick(item.id)}
-                  className={`font-gaming text-sm tracking-wider transition-all duration-300 text-left py-2 px-4 rounded-lg cursor-pointer hover:bg-[var(--primary-blue)]/10 ${
+                  className={`font-gaming text-sm tracking-wider transition-all duration-300 text-left py-2 px-4 rounded-lg cursor-pointer hover:bg-[var(--primary-blue)]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 ${
                     activeSection === item.id ? `${navItemClass(true)} bg-[var(--primary-blue)]/10` : navItemClass(false)
                   }`}
                 >

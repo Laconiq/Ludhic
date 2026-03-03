@@ -114,7 +114,7 @@ export default async function Page({ params }: { params: Promise<{ title: string
           __html: JSON.stringify(breadcrumbSchema, null, 2)
         }}
       />
-      <div className="min-h-screen bg-gray-900 flex flex-col">
+      <div className="min-h-screen bg-[var(--bg-primary)] flex flex-col">
         <GamePageContent game={game} />
         <RelatedGames games={relatedGames} />
         <Footer />

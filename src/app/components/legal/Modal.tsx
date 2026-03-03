@@ -85,10 +85,10 @@ export default function Modal({ isOpen, onClose, titleId, title, closeLabel, chi
     >
       <div
         ref={modalRef}
-        className="bg-gray-900 rounded-xl border border-gray-700 max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl"
+        className="bg-[var(--bg-primary)] rounded-xl border border-[var(--border-primary)] max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between p-6 border-b border-gray-700">
+        <div className="flex items-center justify-between p-6 border-b border-[var(--border-primary)]">
           <h2 className="text-2xl font-gaming text-cyan-400">
             <span id={titleId}>{title}</span>
           </h2>
@@ -96,7 +96,7 @@ export default function Modal({ isOpen, onClose, titleId, title, closeLabel, chi
             ref={closeButtonRef}
             onClick={onClose}
             aria-label={closeLabel}
-            className="text-white/60 hover:text-white transition-colors p-2 rounded-lg hover:bg-gray-800 cursor-pointer"
+            className="text-white/60 hover:text-white transition-colors p-2 rounded-lg hover:bg-[var(--bg-tertiary)] cursor-pointer"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

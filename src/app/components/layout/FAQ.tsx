@@ -47,7 +47,7 @@ export default function FAQ() {
                 onClick={() => toggleAccordion(index)}
                 aria-label={`${openIndex === index ? 'Fermer' : 'Ouvrir'} la question : ${item.question}`}
                 aria-expanded={openIndex === index}
-                className="w-full text-left p-6 flex justify-between items-center hover:bg-gray-800/50 transition-colors duration-300 cursor-pointer"
+                className="w-full text-left p-6 flex justify-between items-center hover:bg-[var(--bg-tertiary)]/50 transition-colors duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-primary)]"
               >
                 <h3 className="text-lg md:text-xl font-gaming text-white pr-4">
                   {item.question}

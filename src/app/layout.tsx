@@ -74,9 +74,6 @@ export const metadata: Metadata = {
     creator: '@LudhicFr',
     site: '@LudhicFr',
   },
-  verification: {
-    google: 'VOTRE_CODE_GOOGLE_SEARCH_CONSOLE',
-  },
   alternates: {
     canonical: 'https://ludhic.fr',
     languages: {

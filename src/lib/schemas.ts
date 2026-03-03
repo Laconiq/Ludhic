@@ -1,6 +1,7 @@
 import { SITE_URL } from '@/constants/site';
 import { createSlug } from '@/lib/slug';
 import { getAllImageUrls, getLogoUrl } from '@/lib/images';
+import type { JsonLdSchema } from '@/types/game';
 
 interface BreadcrumbItem {
   name: string;
@@ -40,7 +41,7 @@ export function createVideoGameSchema(game: GameSchemaInput) {
     (url) => `${SITE_URL}${url}`
   );
 
-  const schema: Record<string, unknown> = {
+  const schema: JsonLdSchema = {
     "@context": "https://schema.org",
     "@type": "VideoGame",
     "name": game.title,

@@ -54,9 +54,10 @@ Pages are **server components** (for metadata + SEO + JSON-LD), which pass data 
 - **Path alias**: Use `@/*` to import from `src/*` (configured in tsconfig.json)
 - **Components location**: `src/app/components/` organized by purpose: `game/`, `layout/`, `legal/`, `seo/`, `ui/`
 - **GamingButton**: Polymorphic component — renders as `<button>` or `<Link>` based on `href` prop, enforced by union types
-- **CSS variables**: Gaming theme defined in `globals.css` (`--bg-primary`, `--bg-secondary`, `--primary-blue`, `--text-primary`, `--border-primary`)
+- **CSS variables**: Gaming theme defined in `globals.css` (`--bg-primary`, `--bg-secondary`, `--bg-tertiary`, `--primary-blue`, `--text-primary`, `--border-primary`, `--shadow-glow`, `--shadow-dark`)
 - **Fonts**: Plus Jakarta Sans (body) + PixelifySans (gaming headers, via `.font-gaming` class) — loaded locally, no Google Fonts
 - **Related games**: On each game page, 4 related games are computed server-side (scored by shared year + genres) and rendered via `RelatedGames` component
+- **Performance**: `memo()` on `GameCard` to avoid re-renders in grids, `useCallback` with refs for stable handlers in `FilterBar`/`ImageCarousel`, legal modals lazy-loaded via `next/dynamic` in `Footer`
 - **Dynamic robots/sitemap**: `src/app/robots.ts` and `src/app/sitemap.ts` generate `/robots.txt` and `/sitemap.xml` at build time using `SITE_URL`
 
 ### Game Data Schema

@@ -76,7 +76,7 @@ export default async function Page({ params }: { params: Promise<{ year: string 
   const gamesOfYear = getGamesOfYear(year);
   if (gamesOfYear.length === 0) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-white">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-[var(--bg-primary)] text-white">
         <h1 className="text-4xl font-gaming mb-4">Aucun jeu trouvé pour {year}</h1>
         <p className="text-white/60">Il n&apos;y a pas encore de jeux répertoriés pour cette année.</p>
       </div>
@@ -112,9 +112,9 @@ export default async function Page({ params }: { params: Promise<{ year: string 
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
       />
-      <div className="min-h-screen bg-gray-900 flex flex-col">
+      <div className="min-h-screen bg-[var(--bg-primary)] flex flex-col">
         <Navigation />
-        <section className="relative w-full py-16 md:py-24 bg-gray-900 mb-0 overflow-hidden">
+        <section className="relative w-full py-16 md:py-24 bg-[var(--bg-primary)] mb-0 overflow-hidden">
           <div className="absolute inset-0 w-full h-full flex">
             {gamesOfYear.map(game => (
               <div key={game.id} className="relative flex-1 h-full min-w-0">

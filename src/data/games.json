@@ -569,9 +569,9 @@
     "imageCount": 5,
     "hasVideo": false,
     "customButton": {
-      "enabled": false,
-      "name": "",
-      "link": ""
+      "enabled": true,
+      "name": "Jouer sur Itch.io",
+      "link": "https://jessymonrocq.itch.io/project-astra-chronos-terminal"
     },
     "credits": [
       { "firstName": "Jessy", "lastName": "MONROCQ", "roles": ["Chef de Projet", "Technical Game Designer"] },
@@ -603,9 +603,9 @@
     "imageCount": 5,
     "hasVideo": true,
     "customButton": {
-      "enabled": false,
-      "name": "",
-      "link": ""
+      "enabled": true,
+      "name": "Jouer sur Itch.io",
+      "link": "https://robin-lefebvre.itch.io/qbt"
     },
     "credits": [
       { "firstName": "Céline", "lastName": "WANG", "roles": ["Game Designer", "Level Designer", "3D Artist", "QA Tester"] },

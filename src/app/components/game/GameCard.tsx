@@ -1,5 +1,6 @@
 'use client';
 
+import { memo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getMainImageUrl, getLogoUrl } from '@/lib/images';
@@ -17,10 +18,10 @@ interface GameProps {
   year: number;
 }
 
-export default function GameCard({
-  title, 
-  longDescription, 
-  genres, 
+export default memo(function GameCard({
+  title,
+  longDescription,
+  genres,
   contentFolder,
   year
 }: GameProps) {
@@ -82,4 +83,4 @@ export default function GameCard({
       </div>
     </Link>
   );
-} 
+});

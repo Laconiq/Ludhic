@@ -50,10 +50,10 @@ pnpm generate-videos  # Génère les vidéos d'arrière-plan (nécessite FFmpeg)
 src/
 ├── app/
 │   ├── components/
-│   │   ├── game/           # GameCard, GameGrid, GameHero, GameCredits,
-│   │   │                   # ImageCarousel, GameVideo, FilterBar, RelatedGames
+│   │   ├── game/           # GameCard, GameGrid, GameHero, GameCredits, GamePageContent,
+│   │   │                   # GamesPageContent, ImageCarousel, GameVideo, FilterBar, RelatedGames
 │   │   ├── layout/         # Navigation, Hero, FAQ, Footer
-│   │   ├── legal/          # CGUModal, PrivacyModal
+│   │   ├── legal/          # Modal, CGUModal, PrivacyModal
 │   │   ├── seo/            # SEOSchema (JSON-LD homepage)
 │   │   └── ui/             # GamingButton, GenreBadge
 │   ├── games/
@@ -68,7 +68,7 @@ src/
 ├── constants/              # SITE_URL, SITE_NAME, FEATURED_YEAR
 ├── data/                   # games.json
 ├── lib/                    # slug, images, schemas, filters, genres, validation, scroll
-└── types/                  # GameData, Credit
+└── types/                  # GameData, Credit, JsonLdSchema
 
 public/
 ├── games/                  # Assets des jeux (images, vidéos, logos)

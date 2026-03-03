@@ -3,6 +3,7 @@
 import { createSlug } from '@/lib/slug';
 import { SITE_URL } from '@/constants/site';
 import { createBreadcrumbSchema } from '@/lib/schemas';
+import type { JsonLdSchema } from '@/types/game';
 
 interface SEOSchemaProps {
   games?: Array<{
@@ -149,7 +150,7 @@ export default function SEOSchema({ games = [] }: SEOSchemaProps) {
     ]
   };
 
-  const allSchemas: Record<string, unknown>[] = [
+  const allSchemas: JsonLdSchema[] = [
     organizationSchema,
     websiteSchema,
     itemListSchema,
