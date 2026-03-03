@@ -79,7 +79,6 @@ export default function BingoDir() {
   const gridRef = useRef(bingoGrid);
   const pseudoRef = useRef(pseudo);
   const eventSourceRef = useRef<EventSource | null>(null);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => { gridRef.current = bingoGrid; }, [bingoGrid]);
@@ -107,9 +106,7 @@ export default function BingoDir() {
 
     es.addEventListener('init', (e) => {
       const data = JSON.parse(e.data);
-      setMessages(
-        (data.messages as ChatMessage[]).filter((m: ChatMessage) => m.senderId !== id)
-      );
+      setMessages(data.messages as ChatMessage[]);
       const map = new Map<string, PlayerInfo>();
       for (const [pid, info] of Object.entries(data.players)) {
         if (pid !== id) map.set(pid, info as PlayerInfo);
@@ -175,7 +172,9 @@ export default function BingoDir() {
   }, [bingoGrid, pseudo]);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    document.querySelectorAll<HTMLElement>('[data-chat-messages]').forEach(el => {
+      el.scrollTop = el.scrollHeight;
+    });
   }, [messages]);
 
   const joinChat = useCallback((e: React.FormEvent) => {
@@ -266,7 +265,7 @@ export default function BingoDir() {
   );
 
   const chatMessages = (
-    <div className="flex-1 overflow-y-auto px-3 py-2 space-y-2">
+    <div data-chat-messages className="flex-1 overflow-y-auto px-3 py-2 space-y-2">
       {messages.length === 0 && (
         <p className="text-[var(--text-primary)]/40 text-xs text-center mt-8">Aucun message...</p>
       )}
@@ -287,7 +286,6 @@ export default function BingoDir() {
           </div>
         );
       })}
-      <div ref={messagesEndRef} />
     </div>
   );
 
