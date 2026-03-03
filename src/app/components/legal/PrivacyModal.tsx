@@ -87,16 +87,16 @@ export default function PrivacyModal({ isOpen, onClose }: PrivacyModalProps) {
         <p className="leading-relaxed">
           Nous prenons la sécurité des données au sérieux et utilisons des mesures de sécurité appropriées
           pour empêcher l&apos;accès non autorisé, la divulgation, la modification ou la destruction non autorisée
-          des données. Nos serveurs sont hébergés en Europe et respectent les normes de sécurité européennes.
+          des données. Nos serveurs sont hébergés dans l&apos;Union Européenne (Pays-Bas) et respectent les normes de sécurité européennes.
         </p>
       </section>
 
       <section>
         <h3 className="text-lg font-gaming text-cyan-400 mb-3">Hébergement</h3>
         <p className="leading-relaxed">
-          Le site est hébergé par Vercel Inc. (San Francisco, États-Unis). Vercel peut utiliser des serveurs
-          situés en dehors de l&apos;Union Européenne. Le site étant un portfolio statique ne collectant aucune
-          donnée de visiteur, aucune donnée personnelle de navigation n&apos;est transférée via l&apos;hébergement.
+          Le site est hébergé par Railway Corp. sur des serveurs situés dans l&apos;Union Européenne (région europe-west4,
+          Pays-Bas). Le site ne collecte aucune donnée personnelle de navigation. La page Bingodir utilise un pseudonyme
+          stocké localement sur votre appareil (localStorage) qui n&apos;est jamais transmis à des tiers.
         </p>
       </section>
 

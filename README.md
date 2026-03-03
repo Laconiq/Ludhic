@@ -42,7 +42,7 @@ pnpm generate-videos  # Génère les vidéos d'arrière-plan (nécessite FFmpeg)
 - **Styling** : Tailwind CSS 4
 - **Polices** : Plus Jakarta Sans + Pixelify Sans (locales)
 - **Données** : `src/data/games.json` (source unique, pas de base de données)
-- **Génération** : Toutes les pages sont pré-rendues statiquement
+- **Génération** : Pages pré-rendues statiquement (sauf `/bingodir` — temps réel via SSE)
 
 ### Structure
 
@@ -136,10 +136,14 @@ const TOTAL_VIDEOS = 3;           // Nombre de vidéos à générer
 
 ## Déploiement
 
+Hébergé sur [Railway](https://railway.com/) (serveur Node.js persistant, nécessaire pour le SSE temps réel du Bingodir).
+
 ```bash
 pnpm build
-vercel --prod
+pnpm start
 ```
+
+Railway détecte automatiquement Next.js et lance `pnpm install` → `pnpm build` → `pnpm start` à chaque push.
 
 ## Contact
 

@@ -24,11 +24,15 @@ pnpm generate-videos  # Generate background videos from game videos (requires FF
 - **Single source of truth**: `src/data/games.json` contains all game data (no database, no API)
 - **Slugs are computed, not stored**: `createSlug(game.title)` in `src/lib/slug.ts` generates URL slugs at build time. Changing a title changes the URL.
 - **Convention-based assets**: Image/video paths are derived from `contentFolder` field — not stored as URLs. Helpers in `src/lib/images.ts` build paths (e.g., `getMainImageUrl()`, `getAllImageUrls()`, `getLogoUrl()`).
-- **Static generation**: All pages pre-rendered via `generateStaticParams()` — no runtime data fetching.
+- **Static generation**: All pages pre-rendered via `generateStaticParams()` — no runtime data fetching (except `/bingodir` which uses SSE for real-time multiplayer).
 
 ### Client/Server Boundary
 
 Pages are **server components** (for metadata + SEO + JSON-LD), which pass data to **client components** (`'use client'`) for interactivity. Pattern: server wrapper finds game data, calls `notFound()` if missing, then renders client content component.
+
+### Deployment
+
+Hosted on Railway (persistent Node.js server, required for SSE real-time features). Railway auto-detects Next.js and runs `pnpm install` → `pnpm build` → `pnpm start` on each push. Not compatible with Vercel's serverless model due to in-memory state and long-lived SSE connections.
 
 ### Route Structure
 
@@ -36,6 +40,7 @@ Pages are **server components** (for metadata + SEO + JSON-LD), which pass data 
 - `/games` — Catalog page listing all games with filters
 - `/games/[title]` — Individual game pages (slug-based) with related games section
 - `/games/year/[year]` — Games filtered by year
+- `/bingodir` — Real-time multiplayer bingo game (hidden page, SSE + in-memory state)
 
 ### Key Modules
 
@@ -47,6 +52,8 @@ Pages are **server components** (for metadata + SEO + JSON-LD), which pass data 
 - **`src/lib/filters.ts`**: Game filtering logic (`filterGames()`, `getAvailableYears()`)
 - **`src/lib/validation.ts`**: Dev-only genre validation (console warnings)
 - **`src/constants/site.ts`**: `SITE_URL`, `SITE_NAME`, `FEATURED_YEAR` — update `FEATURED_YEAR` annually to feature new cohort on homepage
+- **`src/app/api/bingodir/state.ts`**: In-memory shared state (players, chat messages, SSE clients) via `globalThis` — persists across requests on Railway, NOT on serverless
+- **`src/app/api/bingodir/`**: SSE events (`events/`), chat (`chat/`), player management (`players/`) — all `force-dynamic`
 
 ### Key Patterns
 
