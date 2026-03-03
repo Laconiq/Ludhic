@@ -28,10 +28,12 @@ export default function CGUModal({ isOpen, onClose }: CGUModalProps) {
       <section>
         <h3 className="text-lg font-gaming text-cyan-400 mb-3">2. Utilisation du Site</h3>
         <p className="leading-relaxed">
-          Le site ludhic.fr est un portfolio statique présentant les projets de jeux vidéo réalisés par les étudiants
+          Le site ludhic.fr est un portfolio présentant les projets de jeux vidéo réalisés par les étudiants
           et anciens étudiants du Master HIC (anciennement MAJIC). Le site ne requiert aucune inscription ni création
           de compte. Chaque jeu présenté peut être accompagné de titres, descriptions, images, logos et vidéos, ainsi
-          que des crédits attribués aux membres du projet.
+          que des crédits attribués aux membres du projet. Le site peut également proposer des fonctionnalités
+          interactives temporaires (comme le Bingodir) utilisant un pseudonyme choisi librement et stocké
+          localement sur votre appareil.
         </p>
       </section>
 
@@ -57,7 +59,9 @@ export default function CGUModal({ isOpen, onClose }: CGUModalProps) {
         <h3 className="text-lg font-gaming text-cyan-400 mb-3">5. Cookies et Données Techniques</h3>
         <p className="leading-relaxed">
           Le site ludhic.fr ne dépose aucun cookie et ne collecte aucune donnée de navigation. Aucun outil d&apos;analyse,
-          de tracking publicitaire ou de suivi comportemental n&apos;est utilisé.
+          de tracking publicitaire ou de suivi comportemental n&apos;est utilisé. Certaines fonctionnalités interactives
+          peuvent utiliser le stockage local de votre navigateur (localStorage) pour conserver vos préférences
+          (comme un pseudonyme). Ces données restent sur votre appareil et ne sont jamais transmises à des tiers.
         </p>
       </section>
 

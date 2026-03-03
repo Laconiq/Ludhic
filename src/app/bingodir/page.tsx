@@ -56,8 +56,13 @@ function countChecked(grid: BingoCell[][]): number {
   return grid.flat().filter(c => c.isChecked && !c.isCenter).length;
 }
 
-function generateId(): string {
-  return Math.random().toString(36).slice(2, 10);
+function getOrCreateId(): string {
+  const key = 'bingodir-id';
+  const existing = typeof window !== 'undefined' ? sessionStorage.getItem(key) : null;
+  if (existing) return existing;
+  const id = Math.random().toString(36).slice(2, 10);
+  if (typeof window !== 'undefined') sessionStorage.setItem(key, id);
+  return id;
 }
 
 export default function BingoDir() {
@@ -70,7 +75,7 @@ export default function BingoDir() {
   const [mobileTab, setMobileTab] = useState<'leaderboard' | 'chat'>('chat');
   const [connected, setConnected] = useState(false);
 
-  const myId = useRef(generateId());
+  const myId = useRef('');
   const gridRef = useRef(bingoGrid);
   const pseudoRef = useRef(pseudo);
   const eventSourceRef = useRef<EventSource | null>(null);
@@ -81,6 +86,7 @@ export default function BingoDir() {
   useEffect(() => { pseudoRef.current = pseudo; }, [pseudo]);
 
   useEffect(() => {
+    myId.current = getOrCreateId();
     const saved = localStorage.getItem(PSEUDO_KEY);
     if (saved) setPseudoInput(saved);
   }, []);
@@ -141,23 +147,21 @@ export default function BingoDir() {
       });
     };
 
-    const onUnload = () => {
+    const sendLeaveBeacon = () => {
       const blob = new Blob(
         [JSON.stringify({ id, action: 'leave' })],
         { type: 'application/json' }
       );
       navigator.sendBeacon('/api/bingodir/players', blob);
     };
-    window.addEventListener('beforeunload', onUnload);
+    window.addEventListener('beforeunload', sendLeaveBeacon);
+    window.addEventListener('pagehide', sendLeaveBeacon);
 
     return () => {
-      window.removeEventListener('beforeunload', onUnload);
+      window.removeEventListener('beforeunload', sendLeaveBeacon);
+      window.removeEventListener('pagehide', sendLeaveBeacon);
       es.close();
-      fetch('/api/bingodir/players', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, action: 'leave' }),
-      });
+      sendLeaveBeacon();
     };
   }, [pseudo]);
 
@@ -217,7 +221,7 @@ export default function BingoDir() {
 
   if (!pseudo) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen px-4">
+      <div className="flex flex-col items-center justify-center h-dvh overflow-hidden px-4 -mt-16">
         <h1 className="text-5xl lg:text-7xl font-gaming foil-effect mb-3">BINGODIR</h1>
         <p className="text-[var(--text-primary)]/70 text-sm lg:text-base mb-8 text-center">
           Le bingo officieux des soutenances Master HIC
@@ -310,7 +314,7 @@ export default function BingoDir() {
   );
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col h-dvh overflow-hidden -mt-16">
       <nav className="fixed top-0 left-0 right-0 z-[200] bg-[var(--bg-primary)]/95 backdrop-blur-[20px] border-b border-[var(--border-primary)] py-2 lg:py-4">
         <div className="flex items-center justify-between px-3 lg:px-6 max-w-7xl mx-auto">
           <Link href="/" className="flex items-center gap-2 hover:scale-105 transition-transform duration-200">
@@ -336,7 +340,7 @@ export default function BingoDir() {
         </div>
       </nav>
 
-      <main className="flex-1 pt-14 lg:pt-20 px-2 lg:px-4 pb-4">
+      <main className="flex-1 min-h-0 flex flex-col pt-16 lg:pt-22 px-2 lg:px-4 pb-4 overflow-hidden">
         <div className="flex flex-col items-center gap-1.5 mb-3 lg:mb-5">
           <h1 className="text-3xl lg:text-5xl font-gaming foil-effect">BINGODIR</h1>
           <div className="flex flex-wrap items-center justify-center gap-3">
@@ -356,9 +360,9 @@ export default function BingoDir() {
           </div>
         </div>
 
-        <div className="hidden lg:flex max-w-7xl mx-auto gap-4 items-start">
-          <div className="w-60 shrink-0 flex flex-col rounded-xl border border-[var(--border-primary)] bg-[var(--bg-primary)]/80 backdrop-blur-sm overflow-hidden sticky top-24 max-h-[calc(100vh-7rem)]">
-            <div className="px-3 py-2.5 border-b border-[var(--border-primary)] bg-[var(--bg-secondary)]/50">
+        <div className="hidden lg:flex w-full gap-6 flex-1 min-h-0">
+          <div className="flex-1 min-w-0 flex flex-col rounded-xl border border-[var(--border-primary)] bg-[var(--bg-primary)]/80 backdrop-blur-sm overflow-hidden self-stretch">
+            <div className="px-3 py-2.5 border-b border-[var(--border-primary)] bg-[var(--bg-secondary)]/50 shrink-0">
               <h2 className="font-gaming text-xs tracking-wider text-[var(--text-primary)]/80">
                 CLASSEMENT
                 <span className="ml-2 font-sans text-[var(--text-primary)]/40">{sortedPlayers.length}</span>
@@ -367,18 +371,18 @@ export default function BingoDir() {
             {leaderboardContent}
           </div>
 
-          <div className="flex-1 flex flex-col items-center">
-            <div className="w-full max-w-xl">
-              <div className="flex flex-col gap-2">
+          <div className="flex-[3] min-w-0 flex flex-col items-center min-h-0">
+            <div className="aspect-square max-h-full w-auto">
+              <div className="flex flex-col gap-2 h-full">
                 {bingoGrid.map((row, ri) => (
-                  <div key={ri} className="flex gap-2">
+                  <div key={ri} className="flex gap-2 flex-1 min-h-0">
                     {row.map((cell, ci) => (
                       <button
                         key={`${ri}-${ci}`}
                         onClick={() => toggleCell(ri, ci)}
                         className={`
-                          flex-1 aspect-square flex items-center justify-center p-3
-                          rounded-xl border transition-colors duration-200
+                          flex-1 aspect-square flex items-center justify-center p-1.5
+                          rounded-xl border transition-colors duration-200 overflow-hidden
                           ${cell.isCenter
                             ? 'bg-gradient-to-br from-yellow-500/30 to-orange-500/30 border-yellow-400 text-yellow-100 cursor-default'
                             : cell.isChecked
@@ -387,7 +391,7 @@ export default function BingoDir() {
                           }
                         `}
                       >
-                        <span className="text-xs leading-snug text-center break-words hyphens-auto">
+                        <span className="text-[clamp(0.5rem,1.2vw,0.85rem)] leading-snug text-center break-words hyphens-auto">
                           {cell.text}
                           {cell.isChecked && !cell.isCenter && <span className="ml-0.5 text-green-400">&#10003;</span>}
                           {cell.isCenter && <span className="ml-0.5 text-yellow-400">&#128081;</span>}
@@ -403,8 +407,8 @@ export default function BingoDir() {
             </div>
           </div>
 
-          <div className="w-72 shrink-0 flex flex-col rounded-xl border border-[var(--border-primary)] bg-[var(--bg-primary)]/80 backdrop-blur-sm overflow-hidden sticky top-24 max-h-[calc(100vh-7rem)]">
-            <div className="px-3 py-2.5 border-b border-[var(--border-primary)] bg-[var(--bg-secondary)]/50">
+          <div className="flex-1 min-w-0 flex flex-col rounded-xl border border-[var(--border-primary)] bg-[var(--bg-primary)]/80 backdrop-blur-sm overflow-hidden self-stretch">
+            <div className="px-3 py-2.5 border-b border-[var(--border-primary)] bg-[var(--bg-secondary)]/50 shrink-0">
               <h2 className="font-gaming text-xs tracking-wider text-[var(--text-primary)]/80">CHAT</h2>
             </div>
             {chatMessages}
@@ -412,7 +416,7 @@ export default function BingoDir() {
           </div>
         </div>
 
-        <div className="lg:hidden flex flex-col gap-3">
+        <div className="lg:hidden flex flex-col gap-2 flex-1 min-h-0">
           <div className="w-full max-w-[95vw] mx-auto">
             <div className="flex flex-col gap-1">
               {bingoGrid.map((row, ri) => (
