@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: ['/', '/games/', '/images/', '/videos/', '/fonts/'],
-        disallow: ['/_next/', '/api/', '/sw.js', '/manifest.json', '/browserconfig.xml', '/.env', '/.git/', '/node_modules/'],
+        disallow: ['/_next/', '/api/', '/sw.js', '/manifest.json', '/browserconfig.xml', '/.env', '/.git/', '/node_modules/', '/bingodir/'],
       },
       {
         userAgent: 'Googlebot',
