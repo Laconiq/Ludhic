@@ -1,7 +1,8 @@
 export const ALL_GENRES = [
   'Action', 'Aventure', 'Narratif', 'Plateforme', 'Puzzle',
   'Tactique', 'Rythme', 'Point & Click', 'Deckbuilding',
-  'Rogue Like', 'Metroidvania', 'Horreur', 'VR', '2D', '3D', 'Isométrique', 'FPS'
+  'Rogue Like', 'Metroidvania', 'Horreur', 'VR', '2D', '3D', 'Isométrique', 'FPS',
+  'Party Game'
 ] as const;
 
 export type GameGenre = typeof ALL_GENRES[number];

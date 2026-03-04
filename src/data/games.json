@@ -713,5 +713,38 @@
       { "firstName": "Charly", "lastName": "", "roles": ["Sound Designer"] }
     ],
     "featured": false
+  },
+  {
+    "id": 25,
+    "title": "Drealm",
+    "longDescription": "Drealm est un party game multijoueur local dans lequel 4 joueur·euses sont transporté·es dans un univers onirique et doivent s'affronter à travers une succession de mini jeux, orchestrés par une entité mythique pour sa simple distraction.",
+    "genres": ["2D", "3D", "Party Game"],
+    "year": 2026,
+    "contentFolder": "/games/drealm",
+    "imageCount": 5,
+    "hasVideo": false,
+    "customButton": {
+      "enabled": false,
+      "name": "",
+      "link": ""
+    },
+    "credits": [
+      { "firstName": "Evan", "lastName": "HUMEAU", "roles": ["Project Manager", "Game Designer", "Developer", "Technical Artist"] },
+      { "firstName": "Ethan", "lastName": "REVERTEGAT", "roles": ["Project Manager", "Game Designer", "2D Artist", "UI/UX Designer", "Narrative Designer"] },
+      { "firstName": "Valeria", "lastName": "CEGODARI", "roles": ["2D Artist", "Character Designer", "Narrative Designer"] },
+      { "firstName": "Carola", "lastName": "DE SANTIS", "roles": ["2D Artist", "Character Designer", "Narrative Designer"] },
+      { "firstName": "Edgar", "lastName": "COVAREL", "roles": ["Producer", "Project Manager", "Game Designer", "Developer"] },
+      { "firstName": "Clara", "lastName": "GARCIA", "roles": ["2D Artist", "3D Artist"] },
+      { "firstName": "Syphax", "lastName": "HADRI", "roles": ["Level Designer", "Developer", "3D Artist"] },
+      { "firstName": "Paulin", "lastName": "LAURENT", "roles": ["Game Designer", "Developer"] },
+      { "firstName": "Valentin", "lastName": "VENNER", "roles": ["Game Designer", "Developer", "3D Artist"] },
+      { "firstName": "Raphaël", "lastName": "CHIMENE", "roles": ["Sound Designer", "Composer"] },
+      { "firstName": "Iman", "lastName": "MBILI", "roles": ["Sound Designer", "Composer"] },
+      { "firstName": "Javier", "lastName": "RINCON", "roles": ["Sound Designer", "Composer"] },
+      { "firstName": "Rita", "lastName": "VEIGA", "roles": ["Sound Designer", "Composer"] },
+      { "firstName": "Dam", "lastName": "FREMY", "roles": ["Voice Actor", "Narrative Designer"] },
+      { "firstName": "Nelia", "lastName": "SALAH", "roles": ["2D Artist", "Character Designer"] }
+    ],
+    "featured": false
   }
 ] 
