@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import { Metadata } from 'next';
 import gamesData from '@/data/games.json';
 import { SITE_URL } from '@/constants/site';
@@ -71,9 +70,7 @@ export default function GamesPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
       />
-      <Suspense>
-        <GamesPageContent games={gamesData} />
-      </Suspense>
+      <GamesPageContent games={gamesData} />
     </>
   );
 }
