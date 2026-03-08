@@ -10,7 +10,9 @@ import GameCredits from '@/app/components/game/GameCredits';
 import GameHero from '@/app/components/game/GameHero';
 import GameVideo from '@/app/components/game/GameVideo';
 import ImageCarousel from '@/app/components/game/ImageCarousel';
-import FadeInView from '@/app/components/ui/FadeInView';
+import dynamic from 'next/dynamic';
+
+const FadeInView = dynamic(() => import('@/app/components/ui/FadeInView'), { ssr: false });
 
 interface GamePageContentProps {
   game: GameData;

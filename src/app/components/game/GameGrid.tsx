@@ -1,11 +1,13 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import GameCard from './GameCard';
 import GamingButton from '@/app/components/ui/GamingButton';
 import FilterBar from './FilterBar';
-import FadeInView from '@/app/components/ui/FadeInView';
 import { logValidationErrors } from '@/lib/validation';
+
+const FadeInView = dynamic(() => import('@/app/components/ui/FadeInView'), { ssr: false });
 import { GameData } from '@/types/game';
 import { GameFilters, filterGames } from '@/lib/filters';
 import { FEATURED_YEAR } from '@/constants/site';
@@ -122,17 +124,25 @@ export default function GameGrid({ games, initialGenre = '', initialYear = null 
                   )}
 
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 auto-rows-fr">
-                    {gamesToDisplay.map((game, index) => (
-                      <FadeInView key={game.id} delay={index * 0.05}>
+                    {gamesToDisplay.map((game, index) => {
+                      const card = (
                         <GameCard
                           title={game.title}
                           longDescription={game.longDescription}
                           genres={game.genres}
                           contentFolder={game.contentFolder}
                           year={game.year}
+                          priority={index < 4}
                         />
-                      </FadeInView>
-                    ))}
+                      );
+                      return index < 4 ? (
+                        <div key={game.id}>{card}</div>
+                      ) : (
+                        <FadeInView key={game.id} delay={Math.min((index - 4) * 0.05, 0.3)}>
+                          {card}
+                        </FadeInView>
+                      );
+                    })}
                   </div>
                 </div>
               )}
