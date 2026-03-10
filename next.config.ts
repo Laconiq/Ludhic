@@ -15,8 +15,8 @@ const nextConfig: NextConfig = {
   compress: true,
 
   experimental: {
-    optimizeCss: false,
-    optimizePackageImports: ['@next/font'],
+    optimizeCss: true,
+    optimizePackageImports: ['@next/font', 'motion'],
     viewTransition: true,
   },
 
@@ -29,20 +29,7 @@ const nextConfig: NextConfig = {
     },
   },
 
-  webpack: (config, { dev, isServer }) => {
-    if (!dev && !isServer) {
-      config.optimization.splitChunks = {
-        chunks: 'all',
-        cacheGroups: {
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
-            chunks: 'all',
-          },
-        },
-      };
-    }
-    
+  webpack: (config) => {
     return config;
   },
   

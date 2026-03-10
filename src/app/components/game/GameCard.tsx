@@ -16,6 +16,7 @@ interface GameProps {
   genres: string[];
   contentFolder: string;
   year: number;
+  priority?: boolean;
 }
 
 export default memo(function GameCard({
@@ -23,7 +24,8 @@ export default memo(function GameCard({
   longDescription,
   genres,
   contentFolder,
-  year
+  year,
+  priority = false,
 }: GameProps) {
 
   return (
@@ -39,7 +41,8 @@ export default memo(function GameCard({
           fill
           className="object-cover"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          loading="lazy"
+          priority={priority}
+          loading={priority ? undefined : 'lazy'}
           quality={80}
         />
         

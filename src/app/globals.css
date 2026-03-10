@@ -1,29 +1,5 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: 'Plus Jakarta Sans';
-  src: url('/fonts/PlusJakartaSans-VariableFont_wght.ttf') format('truetype-variations');
-  font-weight: 200 800;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'PixelifySans';
-  src: url('/fonts/PixelifySans-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'PixelifySans';
-  src: url('/fonts/PixelifySans-SemiBold.ttf') format('truetype');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
 :root {
   --bg-primary: #0a0e1a;
   --bg-secondary: #141829;
@@ -38,14 +14,14 @@
 @theme inline {
   --color-background: var(--bg-primary);
   --color-foreground: var(--text-primary);
-  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  --font-display: 'Pixelify Sans';
+  --font-sans: var(--font-body), system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-pixel), monospace;
 }
 
 body {
   background: var(--bg-primary);
   color: var(--text-primary);
-  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  font-family: var(--font-body), system-ui, -apple-system, sans-serif;
   padding-top: 64px;
   background-image:
     radial-gradient(circle at 20% 50%, rgba(49, 70, 128, 0.08) 0%, transparent 50%),
@@ -55,7 +31,7 @@ body {
 }
 
 p {
-  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  font-family: var(--font-body), system-ui, -apple-system, sans-serif;
   font-weight: 400;
   line-height: 1.65;
   letter-spacing: -0.01em;
@@ -63,7 +39,7 @@ p {
 }
 
 .font-gaming {
-  font-family: 'PixelifySans', monospace !important;
+  font-family: var(--font-pixel), monospace !important;
   font-weight: 600;
   letter-spacing: 0.1em;
 }
@@ -76,6 +52,36 @@ p {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes hero-slide-down {
+  from { transform: translateY(-20px); }
+  to { transform: translateY(0); }
+}
+
+@keyframes hero-slide-up {
+  from { transform: translateY(20px); }
+  to { transform: translateY(0); }
+}
+
+.hero-animate-title {
+  animation: hero-slide-down 0.5s ease-out both;
+}
+
+.hero-animate-text {
+  animation: hero-slide-up 0.5s ease-out 0.2s both;
+}
+
+.hero-animate-buttons {
+  animation: hero-slide-up 0.5s ease-out 0.4s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-animate-title,
+  .hero-animate-text,
+  .hero-animate-buttons {
+    animation: none;
   }
 }
 

@@ -746,5 +746,42 @@
       { "firstName": "Nelia", "lastName": "SALAH", "roles": ["2D Artist", "Character Designer"] }
     ],
     "featured": false
+  },
+  {
+    "id": 26,
+    "title": "VAL 153",
+    "longDescription": "VAL 153 est un jeu à la seconde personne dans lequel vous devrez livrer une valise piégée à un dictateur depuis le point de vue de cette dernière.\n\nPour accomplir votre mission, vous contrôlerez plusieurs personnages : une espionne, une électricienne, un bagagiste et un ambassadeur.\n\nFaites collaborer les différents membres du complot contre Pompidouille, le dictateur, pour traverser l'hôtel où il réside et passer toutes les sécurités.",
+    "genres": ["Puzzle", "3D"],
+    "year": 2026,
+    "contentFolder": "/games/val-153",
+    "imageCount": 5,
+    "hasVideo": false,
+    "youtubeUrl": "https://youtu.be/-SVGjZlri2g",
+    "customButton": {
+      "enabled": true,
+      "name": "Notre Itch.io",
+      "link": "https://ouichsana.itch.io/val153"
+    },
+    "credits": [
+      { "firstName": "Adrien", "lastName": "CHATEAU", "roles": ["Lead Game Designer", "Lead Level Designer", "Producer", "Doubleur"] },
+      { "firstName": "Sana", "lastName": "OUICHOUANI", "roles": ["Directrice Artistique", "Artiste 2D/3D", "Animatrice"] },
+      { "firstName": "Jules", "lastName": "VESNAT", "roles": ["Lead Développeur", "Game Designer", "Level Designer"] },
+      { "firstName": "Abdesslam", "lastName": "LMOUIDINI", "roles": ["Lead Producer", "Level Designer"] },
+      { "firstName": "Abir Yasmine", "lastName": "BOUDJELLALI", "roles": ["Artiste 2D/3D"] },
+      { "firstName": "Mathilde", "lastName": "FAURE", "roles": ["Artiste 2D/3D"] },
+      { "firstName": "Romain", "lastName": "LIEBERT", "roles": ["Artiste 3D"] },
+      { "firstName": "Wahyu", "lastName": "SAPUTRO", "roles": ["UI/UX Designer"] },
+      { "firstName": "Tristan", "lastName": "GUILLEMIER", "roles": ["Développeur", "Animateur"] },
+      { "firstName": "Amine", "lastName": "CHENIK", "roles": ["Développeur"] },
+      { "firstName": "Justin", "lastName": "FAVRAUD", "roles": ["Développeur", "Intégrateur Son"] },
+      { "firstName": "Hugo", "lastName": "DOURY", "roles": ["Compositeur", "Sound Designer"] },
+      { "firstName": "Lucie", "lastName": "HAUSER", "roles": ["Compositrice", "Sound Designer"] },
+      { "firstName": "Paolo", "lastName": "LEMBO", "roles": ["Compositeur", "Sound Designer"] },
+      { "firstName": "Zuzanna", "lastName": "WIĄCEK", "roles": ["Compositrice", "Sound Designer"] },
+      { "firstName": "Zoé", "lastName": "COIA", "roles": ["Scénariste"] },
+      { "firstName": "Raphaël", "lastName": "UMAROV", "roles": ["Développeur"] },
+      { "firstName": "Quentin", "lastName": "ESCUDIER", "roles": ["Développeur Prototype"] }
+    ],
+    "featured": false
   }
 ] 

@@ -1,6 +1,31 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import "./globals.css";
 import { SITE_URL } from "@/constants/site";
+
+const plusJakartaSans = localFont({
+  src: "../../public/fonts/PlusJakartaSans-VariableFont_wght.woff2",
+  variable: "--font-body",
+  display: "optional",
+  weight: "200 800",
+  preload: true,
+});
+
+const pixelifySans = localFont({
+  src: [
+    {
+      path: "../../public/fonts/PixelifySans-Regular.woff2",
+      weight: "400",
+    },
+    {
+      path: "../../public/fonts/PixelifySans-SemiBold.woff2",
+      weight: "600",
+    },
+  ],
+  variable: "--font-pixel",
+  display: "swap",
+  preload: false,
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -118,25 +143,8 @@ export default function RootLayout({
     <html lang="fr">
       <head>
         <link rel="dns-prefetch" href="https://ludhic.fr" />
-        <link rel="preload" href="/videos/background-1.webm" as="video" type="video/webm" />
-        <link rel="preload" href="/images/logo.png" as="image" />
-
-        <link
-          rel="preload"
-          href="/fonts/PlusJakartaSans-VariableFont_wght.ttf"
-          as="font"
-          type="font/ttf"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/fonts/PixelifySans-SemiBold.ttf"
-          as="font"
-          type="font/ttf"
-          crossOrigin="anonymous"
-        />
       </head>
-      <body className="bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased">
+      <body className={`${plusJakartaSans.variable} ${pixelifySans.variable} bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased`}>
         {children}
       </body>
     </html>

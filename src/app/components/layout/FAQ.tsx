@@ -1,7 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import FadeInView from '@/app/components/ui/FadeInView';
+import dynamic from 'next/dynamic';
+
+const FadeInView = dynamic(() => import('@/app/components/ui/FadeInView'), { ssr: false });
 
 const faqData = [
   {
@@ -83,10 +85,10 @@ export default function FAQ() {
         </div>
 
         <div className="text-center mt-16">
-          <div className="inline-flex items-center gap-4 text-cyan-400/60">
-            <div className="w-8 h-px bg-gradient-to-r from-transparent to-cyan-400/60"></div>
+          <div className="inline-flex items-center gap-4 text-cyan-400">
+            <div className="w-8 h-px bg-gradient-to-r from-transparent to-cyan-400"></div>
             <span className="font-gaming text-sm tracking-wider">LUDHIC JEUX ÉTUDIANTS</span>
-            <div className="w-8 h-px bg-gradient-to-l from-transparent to-cyan-400/60"></div>
+            <div className="w-8 h-px bg-gradient-to-l from-transparent to-cyan-400"></div>
           </div>
         </div>
       </div>
