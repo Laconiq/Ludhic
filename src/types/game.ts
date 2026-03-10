@@ -21,6 +21,7 @@ export interface GameData {
   contentFolder: string;
   imageCount: number;
   hasVideo: boolean;
+  youtubeUrl?: string;
   customButton: {
     enabled: boolean;
     name: string;

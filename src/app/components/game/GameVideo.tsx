@@ -5,12 +5,20 @@ import { getMainImageUrl } from '@/lib/images';
 
 interface GameVideoProps {
   contentFolder: string;
+  youtubeUrl?: string;
 }
 
-export default function GameVideo({ contentFolder }: GameVideoProps) {
+function getYoutubeEmbedUrl(url: string): string | null {
+  const match = url.match(/(?:youtu\.be\/|youtube\.com\/watch\?v=|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/);
+  return match ? `https://www.youtube.com/embed/${match[1]}` : null;
+}
+
+export default function GameVideo({ contentFolder, youtubeUrl }: GameVideoProps) {
   const [videoError, setVideoError] = useState(false);
 
   useEffect(() => setVideoError(false), [contentFolder]);
+
+  const embedUrl = youtubeUrl ? getYoutubeEmbedUrl(youtubeUrl) : null;
 
   return (
     <div className="mb-16">
@@ -18,7 +26,15 @@ export default function GameVideo({ contentFolder }: GameVideoProps) {
         VIDÉO DU JEU
       </h3>
       <div className="relative w-full rounded-xl overflow-hidden shadow-2xl aspect-video">
-        {videoError ? (
+        {embedUrl ? (
+          <iframe
+            className="w-full h-full"
+            src={embedUrl}
+            title="Vidéo du jeu"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        ) : videoError ? (
           <div className="flex items-center justify-center h-full bg-black/40 text-white/80">
             <p className="text-center p-4">
               La vidéo n&apos;a pas pu être chargée.<br />

@@ -87,9 +87,9 @@ export default function GamePageContent({ game }: GamePageContentProps) {
           </FadeInView>
         )}
 
-        {game.hasVideo && (
+        {(game.hasVideo || game.youtubeUrl) && (
           <FadeInView delay={0.2}>
-            <GameVideo contentFolder={game.contentFolder} />
+            <GameVideo contentFolder={game.contentFolder} youtubeUrl={game.youtubeUrl} />
           </FadeInView>
         )}
 
