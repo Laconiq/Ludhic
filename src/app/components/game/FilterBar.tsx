@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { ALL_GENRES } from '@/lib/genres';
 import { GameData } from '@/types/game';
 import { scrollToSection } from '@/lib/scroll';
@@ -10,7 +10,7 @@ import GamingButton from '@/app/components/ui/GamingButton';
 interface FilterBarProps {
   games: GameData[];
   onFiltersChange: (filters: GameFilters) => void;
-  currentFilters?: GameFilters;
+  currentFilters: GameFilters;
   filteredCount: number;
 }
 
@@ -81,34 +81,15 @@ function DropdownFilter({ label, value, options, isOpen, onToggle, onSelect, res
 }
 
 export default function FilterBar({ games, onFiltersChange, currentFilters, filteredCount }: FilterBarProps) {
-  const [searchTerm, setSearchTerm] = useState(currentFilters?.searchTerm || '');
-  const [selectedGenre, setSelectedGenre] = useState(currentFilters?.selectedGenre || '');
-  const [selectedYear, setSelectedYear] = useState<number | null>(currentFilters?.selectedYear || null);
+  const { searchTerm, selectedGenre, selectedYear } = currentFilters;
   const [isGenreOpen, setIsGenreOpen] = useState(false);
   const [isYearOpen, setIsYearOpen] = useState(false);
-  const searchTermRef = useRef(searchTerm);
-  const selectedGenreRef = useRef(selectedGenre);
-  const selectedYearRef = useRef(selectedYear);
-  searchTermRef.current = searchTerm;
-  selectedGenreRef.current = selectedGenre;
-  selectedYearRef.current = selectedYear;
-
-  useEffect(() => {
-    if (currentFilters) {
-      setSearchTerm(currentFilters.searchTerm);
-      setSelectedGenre(currentFilters.selectedGenre);
-      setSelectedYear(currentFilters.selectedYear);
-    }
-  }, [currentFilters]);
 
   const availableYears = useMemo(() => {
     return getAvailableYears(games);
   }, [games]);
 
   const updateFilters = useCallback((newSearchTerm: string, newGenre: string, newYear: number | null) => {
-    setSearchTerm(newSearchTerm);
-    setSelectedGenre(newGenre);
-    setSelectedYear(newYear);
     onFiltersChange({
       searchTerm: newSearchTerm,
       selectedGenre: newGenre,
@@ -137,14 +118,14 @@ export default function FilterBar({ games, onFiltersChange, currentFilters, filt
   }, []);
 
   const handleGenreSelect = useCallback((value: string | number | null) => {
-    updateFilters(searchTermRef.current, value as string ?? '', selectedYearRef.current);
+    updateFilters(searchTerm, value as string ?? '', selectedYear);
     setIsGenreOpen(false);
-  }, [updateFilters]);
+  }, [updateFilters, searchTerm, selectedYear]);
 
   const handleYearSelect = useCallback((value: string | number | null) => {
-    updateFilters(searchTermRef.current, selectedGenreRef.current, value as number | null);
+    updateFilters(searchTerm, selectedGenre, value as number | null);
     setIsYearOpen(false);
-  }, [updateFilters]);
+  }, [updateFilters, searchTerm, selectedGenre]);
 
   return (
     <div className="sticky top-16 z-50 mb-8">
@@ -157,7 +138,7 @@ export default function FilterBar({ games, onFiltersChange, currentFilters, filt
                   type="text"
                   placeholder="Rechercher un jeu, genre, personne..."
                   value={searchTerm}
-                  onChange={(e) => updateFilters(e.target.value, selectedGenreRef.current, selectedYearRef.current)}
+                  onChange={(e) => updateFilters(e.target.value, selectedGenre, selectedYear)}
                   aria-label="Rechercher un jeu, genre ou personne"
                   className="bg-[var(--bg-tertiary)] border border-[var(--border-primary)] text-[var(--text-primary)] font-['Inter',sans-serif] transition-all duration-300 focus:border-[var(--primary-blue)] focus:shadow-[0_0_15px_rgba(49,70,128,0.3)] focus:bg-[var(--bg-secondary)] placeholder:text-[var(--text-primary)] placeholder:opacity-70 w-full pl-12 pr-4 py-3 rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
                 />

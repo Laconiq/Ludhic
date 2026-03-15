@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { scrollToSection } from '@/lib/scroll';
 import GamingButton from '@/app/components/ui/GamingButton';
 
@@ -10,15 +10,10 @@ interface HeroProps {
 }
 
 export default function Hero({ videoIndex }: HeroProps) {
-  const [bgVideo, setBgVideo] = useState('/videos/background-1.webm');
-
-  useEffect(() => {
-    let idx = videoIndex;
-    if (!idx) {
-      idx = Math.floor(Math.random() * 3) + 1;
-    }
-    setBgVideo(`/videos/background-${idx}.webm`);
-  }, [videoIndex]);
+  const [bgVideo] = useState(() => {
+    const idx = videoIndex || Math.floor(Math.random() * 3) + 1;
+    return `/videos/background-${idx}.webm`;
+  });
 
   const scrollToGames = () => scrollToSection('games');
 

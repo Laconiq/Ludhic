@@ -21,7 +21,7 @@ export default function GamesPageContent({ games, initialGenre = '', initialYear
             TOUS LES JEUX ÉTUDIANTS
           </h1>
         </div>
-        <GameGrid games={games} initialGenre={initialGenre} initialYear={initialYear} />
+        <GameGrid key={`${initialGenre}-${initialYear}`} games={games} initialGenre={initialGenre} initialYear={initialYear} />
       </main>
       <Footer />
     </div>

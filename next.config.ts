@@ -16,23 +16,10 @@ const nextConfig: NextConfig = {
 
   experimental: {
     optimizeCss: true,
-    optimizePackageImports: ['@next/font', 'motion'],
+    optimizePackageImports: ['motion'],
     viewTransition: true,
   },
 
-  turbopack: {
-    rules: {
-      '*.svg': {
-        loaders: ['@svgr/webpack'],
-        as: '*.js',
-      },
-    },
-  },
-
-  webpack: (config) => {
-    return config;
-  },
-  
   async headers() {
     return [
       {
@@ -81,16 +68,12 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  
+
   poweredByHeader: false,
   generateEtags: false,
 
   typescript: {
     ignoreBuildErrors: false,
-  },
-
-  eslint: {
-    ignoreDuringBuilds: false,
   },
 };
 

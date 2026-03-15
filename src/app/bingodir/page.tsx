@@ -75,7 +75,8 @@ export default function BingoDir() {
   const [mobileTab, setMobileTab] = useState<'leaderboard' | 'chat'>('chat');
   const [connected, setConnected] = useState(false);
 
-  const myId = useRef('');
+  const [myId, setMyId] = useState('');
+  const myIdRef = useRef('');
   const gridRef = useRef(bingoGrid);
   const pseudoRef = useRef(pseudo);
   const eventSourceRef = useRef<EventSource | null>(null);
@@ -85,7 +86,10 @@ export default function BingoDir() {
   useEffect(() => { pseudoRef.current = pseudo; }, [pseudo]);
 
   useEffect(() => {
-    myId.current = getOrCreateId();
+    const id = getOrCreateId();
+    myIdRef.current = id;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMyId(id);
     const saved = localStorage.getItem(PSEUDO_KEY);
     if (saved) setPseudoInput(saved);
   }, []);
@@ -93,7 +97,7 @@ export default function BingoDir() {
   useEffect(() => {
     if (!pseudo) return;
 
-    const id = myId.current;
+    const id = myIdRef.current;
 
     fetch('/api/bingodir/players', {
       method: 'POST',
@@ -167,7 +171,7 @@ export default function BingoDir() {
     fetch('/api/bingodir/players', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id: myId.current, pseudo, checkedCount: countChecked(bingoGrid) }),
+      body: JSON.stringify({ id: myIdRef.current, pseudo, checkedCount: countChecked(bingoGrid) }),
     });
   }, [bingoGrid, pseudo]);
 
@@ -202,19 +206,19 @@ export default function BingoDir() {
     const trimmed = chatInput.trim();
     if (!trimmed || !pseudo) return;
 
-    const msg: ChatMessage = { senderId: myId.current, pseudo, text: trimmed, timestamp: Date.now() };
+    const msg: ChatMessage = { senderId: myIdRef.current, pseudo, text: trimmed, timestamp: Date.now() };
     setMessages(prev => [...prev, msg]);
     fetch('/api/bingodir/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id: myId.current, pseudo, text: trimmed }),
+      body: JSON.stringify({ id: myIdRef.current, pseudo, text: trimmed }),
     });
     setChatInput('');
     chatInputRef.current?.focus();
   }, [chatInput, pseudo]);
 
   const sortedPlayers = [
-    { id: myId.current, pseudo: pseudo || '', checkedCount: countChecked(bingoGrid) },
+    { id: myId, pseudo: pseudo || '', checkedCount: countChecked(bingoGrid) },
     ...Array.from(players.entries()).map(([id, info]) => ({ id, ...info })),
   ].sort((a, b) => b.checkedCount - a.checkedCount);
 
@@ -251,7 +255,7 @@ export default function BingoDir() {
         <div
           key={p.id}
           className={`flex items-center gap-2 px-2.5 py-2 rounded-lg text-xs ${
-            p.id === myId.current
+            p.id === myId
               ? 'bg-[var(--primary-blue)]/15 border border-[var(--primary-blue)]/30'
               : 'bg-[var(--bg-tertiary)]/50'
           }`}
@@ -269,8 +273,8 @@ export default function BingoDir() {
       {messages.length === 0 && (
         <p className="text-[var(--text-primary)]/40 text-xs text-center mt-8">Aucun message...</p>
       )}
-      {messages.map((msg, i) => {
-        const isMe = msg.senderId === myId.current;
+      {messages.map((msg) => {
+        const isMe = msg.senderId === myId;
         return (
           <div key={`${msg.senderId}-${msg.timestamp}`} className={`flex flex-col ${isMe ? 'items-end' : 'items-start'}`}>
             <span className="text-[0.6rem] text-[var(--text-primary)]/50 mb-0.5 px-1">{msg.pseudo}</span>
