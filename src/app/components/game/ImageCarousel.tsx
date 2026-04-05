@@ -48,18 +48,15 @@ export default function ImageCarousel({ images, title }: ImageCarouselProps) {
   }, [imageCount]);
 
   const goToImage = useCallback((index: number) => {
-    if (isTransitioningRef.current) return;
-    setCurrentImageIndex((prev) => {
-      if (index === prev) return prev;
-      isTransitioningRef.current = true;
-      setIsTransitioning(true);
-      setTimeout(() => {
-        isTransitioningRef.current = false;
-        setIsTransitioning(false);
-      }, 500);
-      return index;
-    });
-  }, []);
+    if (isTransitioningRef.current || index === currentImageIndex) return;
+    isTransitioningRef.current = true;
+    setIsTransitioning(true);
+    setCurrentImageIndex(index);
+    setTimeout(() => {
+      isTransitioningRef.current = false;
+      setIsTransitioning(false);
+    }, 500);
+  }, [currentImageIndex]);
 
   return (
     <div className="mb-16">

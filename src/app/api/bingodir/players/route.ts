@@ -4,7 +4,12 @@ import { state, broadcast } from '../state';
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: Request) {
-  const body = await req.json();
+  let body: Record<string, unknown>;
+  try {
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
+  }
   const id = String(body.id || '');
   const action = String(body.action || 'update');
 
