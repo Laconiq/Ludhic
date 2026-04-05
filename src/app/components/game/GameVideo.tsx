@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { getMainImageUrl } from '@/lib/images';
 
 interface GameVideoProps {
@@ -15,8 +15,6 @@ function getYoutubeEmbedUrl(url: string): string | null {
 
 export default function GameVideo({ contentFolder, youtubeUrl }: GameVideoProps) {
   const [videoError, setVideoError] = useState(false);
-
-  useEffect(() => setVideoError(false), [contentFolder]);
 
   const embedUrl = youtubeUrl ? getYoutubeEmbedUrl(youtubeUrl) : null;
 

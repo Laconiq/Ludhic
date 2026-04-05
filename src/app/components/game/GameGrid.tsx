@@ -26,17 +26,6 @@ export default function GameGrid({ games, initialGenre = '', initialYear = null 
   });
   const [showAllGames, setShowAllGames] = useState(false);
 
-
-  useEffect(() => {
-    if (initialGenre || initialYear !== null) {
-      setFilters(prev => ({
-        ...prev,
-        selectedGenre: initialGenre,
-        selectedYear: initialYear ?? null,
-      }));
-    }
-  }, [initialGenre, initialYear]);
-
   useEffect(() => {
     logValidationErrors(games);
   }, [games]);
@@ -60,12 +49,9 @@ export default function GameGrid({ games, initialGenre = '', initialYear = null 
 
   const gamesToDisplay = (showAllGames || hasActiveFilters) ? allSortedGames : featuredGames;
 
-  useEffect(() => {
-    setShowAllGames(false);
-  }, [filters]);
-
   const handleFiltersChange = (newFilters: GameFilters) => {
     setFilters(newFilters);
+    setShowAllGames(false);
   };
 
   return (

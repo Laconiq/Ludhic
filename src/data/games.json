@@ -10,7 +10,7 @@
     "hasVideo": true,
     "customButton": {
       "enabled": true,
-      "name": "Télécharger sur Itch.io",
+      "name": "Page Itch.io",
       "link": "https://robin-lefebvre.itch.io/anthares"
     },
     "credits": [
@@ -43,7 +43,7 @@
     "hasVideo": true,
     "customButton": {
       "enabled": true,
-      "name": "Télécharger sur Itch.io",
+      "name": "Page Itch.io",
       "link": "https://cosmostasia.itch.io/cosmostasia"
     },
     "credits": [
@@ -71,7 +71,7 @@
     "hasVideo": false,
     "customButton": {
       "enabled": true,
-      "name": "Télécharger sur Itch.io",
+      "name": "Page Itch.io",
       "link": "https://athenarc.itch.io/genesis"
     },
     "credits": [
@@ -140,7 +140,7 @@
     "hasVideo": false,
     "customButton": {
       "enabled": true,
-      "name": "Télécharger sur Itch.io",
+      "name": "Page Itch.io",
       "link": "https://chaoticdreams.itch.io/somnia"
     },
     "credits": [
@@ -230,7 +230,7 @@
     "hasVideo": true,
     "customButton": {
       "enabled": true,
-      "name": "Télécharger sur Itch.io",
+      "name": "Page Itch.io",
       "link": "https://atone-master-hic.itch.io/atone"
     },
     "credits": [
@@ -412,7 +412,7 @@
     "hasVideo": false,
     "customButton": {
       "enabled": true,
-      "name": "Télécharger sur Itch.io",
+      "name": "Page Itch.io",
       "link": "https://eddyboreal.itch.io/the-morrigan"
     },
     "credits": [
@@ -440,7 +440,7 @@
     "hasVideo": true,
     "customButton": {
       "enabled": true,
-      "name": "Télécharger sur Itch.io",
+      "name": "Page Itch.io",
       "link": "https://eddyboreal.itch.io/anirya"
     },
     "credits": [
@@ -495,7 +495,7 @@
     "hasVideo": true,
     "customButton": {
       "enabled": true,
-      "name": "Télécharger sur Itch.io",
+      "name": "Page Itch.io",
       "link": "https://raion-eru.itch.io/snap"
     },
     "credits": [
@@ -523,7 +523,7 @@
     "hasVideo": true,
     "customButton": {
       "enabled": true,
-      "name": "Télécharger sur Itch.io",
+      "name": "Page Itch.io",
       "link": "https://raion-eru.itch.io/cafardage-arena"
     },
     "credits": [
@@ -570,7 +570,7 @@
     "hasVideo": false,
     "customButton": {
       "enabled": true,
-      "name": "Jouer sur Itch.io",
+      "name": "Page Itch.io",
       "link": "https://jessymonrocq.itch.io/project-astra-chronos-terminal"
     },
     "credits": [
@@ -604,7 +604,7 @@
     "hasVideo": true,
     "customButton": {
       "enabled": true,
-      "name": "Jouer sur Itch.io",
+      "name": "Page Itch.io",
       "link": "https://robin-lefebvre.itch.io/qbt"
     },
     "credits": [
@@ -634,7 +634,7 @@
     "hasVideo": false,
     "customButton": {
       "enabled": true,
-      "name": "Télécharger sur Itch.io",
+      "name": "Page Itch.io",
       "link": "https://rukoy.itch.io/la-bergre-de-nuages"
     },
     "credits": [
@@ -666,7 +666,7 @@
     "hasVideo": false,
     "customButton": {
       "enabled": true,
-      "name": "Télécharger sur Itch.io",
+      "name": "Page Itch.io",
       "link": "https://team-seacret.itch.io/seacret"
     },
     "credits": [
@@ -695,7 +695,7 @@
     "hasVideo": false,
     "customButton": {
       "enabled": true,
-      "name": "Télécharger sur Itch.io",
+      "name": "Page Itch.io",
       "link": "https://synthopolis.itch.io/synthopolis"
     },
     "credits": [
@@ -759,7 +759,7 @@
     "youtubeUrl": "https://youtu.be/-SVGjZlri2g",
     "customButton": {
       "enabled": true,
-      "name": "Notre Itch.io",
+      "name": "Page Itch.io",
       "link": "https://ouichsana.itch.io/val153"
     },
     "credits": [
@@ -781,6 +781,76 @@
       { "firstName": "Zoé", "lastName": "COIA", "roles": ["Scénariste"] },
       { "firstName": "Raphaël", "lastName": "UMAROV", "roles": ["Développeur"] },
       { "firstName": "Quentin", "lastName": "ESCUDIER", "roles": ["Développeur Prototype"] }
+    ],
+    "featured": false
+  },
+  {
+    "id": 27,
+    "title": "Mindoor",
+    "longDescription": "Mindoor est un jeu narratif à choix multiple à la troisième personne dans lequel vous incarnez Maylee, une jeune femme marquée par la perte traumatisante de sa meilleure amie. Pour découvrir la vérité enfouie dans ses souvenirs fragmentés, une seule voie s'offre à vous : naviguer entre réalité et espace mental, faire des choix décisifs et reconstituer le passé — ou s'y perdre à jamais.",
+    "genres": ["Narratif", "3D"],
+    "year": 2026,
+    "contentFolder": "/games/mindoor",
+    "imageCount": 5,
+    "hasVideo": false,
+    "customButton": {
+      "enabled": true,
+      "name": "Page Itch.io",
+      "link": "https://kimiru.itch.io/mindoor"
+    },
+    "credits": [
+      { "firstName": "Zoé", "lastName": "BELKHADRA PIRES", "roles": ["Producer", "Narrative Designer", "Casting Director", "Voice Actor"] },
+      { "firstName": "Maggie", "lastName": "LOUIS FABRE WAGNER", "roles": [] },
+      { "firstName": "Robyn", "lastName": "DROUIN", "roles": ["Producer", "Tech UI/UX Artist", "Programmer", "3D/Texturing Artist"] },
+      { "firstName": "Vincent", "lastName": "STENGER", "roles": ["Coordinator", "Lead Programmer", "Lead Narrative Designer", "Cinematic Creator", "Casting Director", "Voice Actor"] },
+      { "firstName": "Kieran", "lastName": "MIGNON", "roles": ["Coordinator", "Lead Game Designer", "Scriptwriter", "3D Animation Artist"] },
+      { "firstName": "Noa", "lastName": "SECOND", "roles": ["Lead Assistant Game Designer", "Level Designer", "Lead QA"] },
+      { "firstName": "Antoine", "lastName": "FASQUEL", "roles": ["Game Designer", "Narrative Designer"] },
+      { "firstName": "Valentin", "lastName": "FAGUET", "roles": ["Game Designer", "Level Designer", "Lighting/Level Artist"] },
+      { "firstName": "Margaux", "lastName": "HADDAD", "roles": ["Lead 2D Artist", "Concept Artist", "Texturing Artist"] },
+      { "firstName": "Ariane", "lastName": "LESTRADE", "roles": ["2D Artist", "Concept Artist", "Texturing Artist"] },
+      { "firstName": "Channia", "lastName": "CHAN HAOR KING", "roles": ["Lead 3D Artist", "3D Character Artist", "Texturing Artist"] },
+      { "firstName": "Damien Tristan Arlequin", "lastName": "CARLEVAN, AMAGOLA", "roles": ["3D Artist"] },
+      { "firstName": "Rita", "lastName": "VEIGA", "roles": ["Lead Sound Designer"] },
+      { "firstName": "Hana", "lastName": "DERAR", "roles": ["Sound Designer", "Music Composition", "Voice Actor"] },
+      { "firstName": "Ana", "lastName": "SIKHARULIDZE", "roles": ["Music Composition"] },
+      { "firstName": "Charlie", "lastName": "DANNEELS", "roles": ["Music Composition"] },
+      { "firstName": "Valentin", "lastName": "ROEDER", "roles": ["Casting Director"] },
+      { "firstName": "Sana", "lastName": "OUICHOUANI", "roles": ["Concept and Character Artist"] }
+    ],
+    "featured": false
+  },
+  {
+    "id": 28,
+    "title": "Beetle Quest",
+    "longDescription": "Beetle Quest est un jeu d'action et d'exploration dans un monde coloré peuplé d'insectes développé sur Unity. Vous y incarnez Ari, petit scarabée qui doit se battre contre la terrible armée des guêpes et des moustiques qui a envahi le royaume, et dont il est le dernier survivant. Explorez, combattez, et améliorez votre personnage dans ce twin-stick shooter low-poly semi open world aux éléments de rogue, et avec sa carte générée procéduralement, et son univers mignon mais périlleux.",
+    "genres": ["Action", "Aventure", "Rogue Like", "3D", "Isométrique"],
+    "year": 2026,
+    "contentFolder": "/games/beetle-quest",
+    "imageCount": 3,
+    "hasVideo": false,
+    "customButton": {
+      "enabled": true,
+      "name": "Page Itch.io",
+      "link": "https://loryravily.itch.io/beetle-quest"
+    },
+    "credits": [
+      { "firstName": "Lory", "lastName": "RAVILY", "roles": ["Producer"] },
+      { "firstName": "Mahdi", "lastName": "MIGHRI", "roles": ["Narrative Designer"] },
+      { "firstName": "Romain", "lastName": "BRIEUSSEL", "roles": ["Game Designer", "Level Designer", "VFX Artist"] },
+      { "firstName": "Louka", "lastName": "GULDE", "roles": ["Game Designer", "Level Designer", "QA"] },
+      { "firstName": "Simon", "lastName": "CABUCHE", "roles": ["Game Designer", "Level Designer"] },
+      { "firstName": "Nicolas", "lastName": "GIRY", "roles": ["Developer"] },
+      { "firstName": "Victor", "lastName": "VIEUX-MELCHIOR", "roles": ["Developer"] },
+      { "firstName": "Sami", "lastName": "SAOUD", "roles": ["Developer"] },
+      { "firstName": "Virginie", "lastName": "PASQUALICCHIO", "roles": ["Concept Artist", "UI Artist"] },
+      { "firstName": "Massinissa", "lastName": "STOUTAH", "roles": ["Concept Artist", "Animateur 3D"] },
+      { "firstName": "Amina", "lastName": "ACHOUR", "roles": ["Concept Artist", "3D Artist"] },
+      { "firstName": "Hugo", "lastName": "AVIRON-VIOLET", "roles": ["3D Artist"] },
+      { "firstName": "James", "lastName": "CRUZALEGUI", "roles": ["Sound Designer"] },
+      { "firstName": "Lucas", "lastName": "KLEFFERT", "roles": ["Sound Designer"] },
+      { "firstName": "Nidhi", "lastName": "SAMUEL", "roles": ["Sound Designer"] },
+      { "firstName": "Emre", "lastName": "DOGU", "roles": ["Sound Designer"] }
     ],
     "featured": false
   }
