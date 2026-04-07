@@ -32,7 +32,7 @@ Pages are **server components** (for metadata + SEO + JSON-LD), which pass data 
 
 ### Deployment
 
-Hosted on Railway (persistent Node.js server, required for SSE real-time features). Railway auto-detects Next.js and runs `pnpm install` → `pnpm build` → `pnpm start` on each push. Not compatible with Vercel's serverless model due to in-memory state and long-lived SSE connections.
+Self-hosted on VPS via Docker. GitHub Actions auto-deploys on push to `main` (SSH into VPS → git pull → docker compose build → up). Next.js runs in standalone mode behind Docker. The persistent Node.js server is required for SSE real-time features (bingodir in-memory state).
 
 ### Route Structure
 
