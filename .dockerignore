@@ -1,0 +1,10 @@
+node_modules
+.next
+.git
+.github
+.vercel
+.claude
+.env*
+*.md
+LICENSE
+lighthouse-reports
