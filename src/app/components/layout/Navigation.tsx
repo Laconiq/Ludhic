@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { scrollToSection } from '@/lib/scroll';
@@ -61,10 +61,10 @@ export default function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNavClick = useCallback((sectionId: string) => {
+  const handleNavClick = (sectionId: string) => {
     scrollToSection(sectionId, true);
     setIsMobileMenuOpen(false);
-  }, []);
+  };
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-[200] transition-all duration-300 bg-[var(--bg-primary)]/95 backdrop-blur-[20px] border-b border-[var(--border-primary)] ${

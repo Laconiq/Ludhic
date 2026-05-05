@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface ModalProps {
   isOpen: boolean;
@@ -18,27 +18,6 @@ export default function Modal({ isOpen, onClose, titleId, title, closeLabel, chi
   const triggerRef = useRef<HTMLElement | null>(null);
   const prevIsOpenRef = useRef(false);
 
-  const handleKeyDown = useCallback((e: KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      onClose();
-      return;
-    }
-    if (e.key === 'Tab' && modalRef.current) {
-      const focusable = modalRef.current.querySelectorAll<HTMLElement>(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-      );
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
-      }
-    }
-  }, [onClose]);
-
   useEffect(() => {
     if (isOpen && !prevIsOpenRef.current) {
       triggerRef.current = document.activeElement as HTMLElement | null;
@@ -55,6 +34,27 @@ export default function Modal({ isOpen, onClose, titleId, title, closeLabel, chi
     const overlay = overlayRef.current;
     const modal = modalRef.current;
 
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+        return;
+      }
+      if (e.key === 'Tab' && modalRef.current) {
+        const focusable = modalRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+
     const blockScroll = (e: WheelEvent | TouchEvent) => {
       if (modal && modal.contains(e.target as Node)) return;
       e.preventDefault();
@@ -70,7 +70,7 @@ export default function Modal({ isOpen, onClose, titleId, title, closeLabel, chi
       overlay?.removeEventListener('wheel', blockScroll);
       overlay?.removeEventListener('touchmove', blockScroll);
     };
-  }, [isOpen, handleKeyDown]);
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
