@@ -1,22 +1,63 @@
-name: Deploy to VPS
+# Modèle de déploiement Dokploy — image GHCR + webhook.
+# Remplacer ludhic par le nom de l'image (ex. mon-api). Poser le secret
+# DOKPLOY_REFRESH_TOKEN sur le repo. L'app Dokploy doit être en source Docker +
+# Auto Deploy activé (cf. SKILL.md).
+name: "Build & deploy ludhic"
 
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - "**.md"
+      - ".gitignore"
+  workflow_dispatch:
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  REGISTRY: ghcr.io
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      packages: write
     steps:
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1
+      - uses: actions/checkout@v4
+
+      - name: Lowercase image owner
+        id: img
+        run: echo "owner=$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')" >> "$GITHUB_OUTPUT"
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
         with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          script: |
-            cd ~/ludhic
-            git pull origin main
-            docker compose build --no-cache
-            docker compose up -d
-            docker image prune -f
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build & push image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Dockerfile
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ steps.img.outputs.owner }}/ludhic:latest
+            ${{ env.REGISTRY }}/${{ steps.img.outputs.owner }}/ludhic:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          platforms: linux/amd64
+
+      # Redeploy via le webhook Dokploy (domaine public HTTPS — le port 3000 est
+      # firewallé en externe). Le refreshToken est le seul secret, côté GitHub.
+      - name: Trigger Dokploy redeploy
+        run: >-
+          curl -fsS --retry 3 --retry-delay 5 -X POST
+          "https://dokploy.bastienokonski.fr/api/deploy/${{ secrets.DOKPLOY_REFRESH_TOKEN }}"
