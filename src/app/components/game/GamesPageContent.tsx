@@ -19,7 +19,7 @@ export default function GamesPageContent({ games, initialGenre = '', initialYear
             TOUS LES JEUX ÉTUDIANTS
           </h1>
         </div>
-        <GameGrid key={`${initialGenre}-${initialYear}`} games={games} initialGenre={initialGenre} initialYear={initialYear} />
+        <GameGrid key={`${initialGenre}-${initialYear}`} games={games} initialGenre={initialGenre} initialYear={initialYear} showAllByDefault />
       </main>
       <Footer />
     </div>

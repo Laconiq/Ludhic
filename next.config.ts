@@ -22,7 +22,20 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        source: '/:dir(games|images|videos|fonts)/:path*',
+        // Dossiers de `public/` qui ne contiennent que des fichiers statiques.
+        source: '/:dir(images|videos|fonts)/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        // Sous `/games`, seuls les fichiers d'assets sont immuables : les pages
+        // `/games`, `/games/[title]` et `/games/year/[year]` doivent rester
+        // revalidables, sinon un visiteur garde un an une page périmée.
+        source: '/games/:slug/:file(.+\\.(?:webp|avif|png|jpe?g|gif|svg|webm|mp4))',
         headers: [
           {
             key: 'Cache-Control',

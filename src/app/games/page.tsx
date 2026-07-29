@@ -7,7 +7,7 @@ import GamesPageContent from '@/app/components/game/GamesPageContent';
 import JsonLd from '@/app/components/seo/JsonLd';
 
 export const metadata: Metadata = {
-  title: 'Tous les jeux étudiants | Ludhic - Master HIC',
+  title: 'Tous les jeux étudiants',
   description: `Explorez les ${gamesData.length} jeux vidéo créés par les étudiants du Master Humanités et Industries Créatives (HIC). Portfolio complet de créations interactives étudiantes.`,
   keywords: [
     'jeux étudiants',

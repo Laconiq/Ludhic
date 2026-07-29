@@ -6,3 +6,5 @@ node_modules
 .env*
 *.md
 LICENSE
+.playwright-mcp
+public/games/val-153/video.webm

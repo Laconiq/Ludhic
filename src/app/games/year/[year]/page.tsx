@@ -18,17 +18,17 @@ function getGamesOfYear(year: number) {
 export async function generateMetadata({ params }: { params: Promise<{ year: string }> }): Promise<Metadata> {
   const { year: yearParam } = await params;
   const year = parseInt(yearParam, 10);
-  if (isNaN(year)) return { title: 'Année non trouvée | Ludhic' };
+  if (isNaN(year)) return { title: 'Année non trouvée' };
 
   const gamesOfYear = getGamesOfYear(year);
-  if (gamesOfYear.length === 0) return { title: 'Année non trouvée | Ludhic' };
+  if (gamesOfYear.length === 0) return { title: 'Année non trouvée' };
 
   const allGenres = [...new Set(gamesOfYear.flatMap(g => g.genres))];
   const description = `Découvrez les ${gamesOfYear.length} jeux vidéo créés par les étudiants du Master HIC en ${year}. Projets étudiants en ${allGenres.slice(0, 3).join(', ')}.`;
   const firstGameImage = `${SITE_URL}${getMainImageUrl(gamesOfYear[0].contentFolder)}`;
 
   return {
-    title: `Jeux étudiants ${year} | Ludhic - Master HIC`,
+    title: `Jeux étudiants ${year}`,
     description,
     keywords: [
       `jeux ${year}`,

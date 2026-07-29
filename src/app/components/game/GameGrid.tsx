@@ -13,15 +13,17 @@ interface AllGamesProps {
   games: GameData[];
   initialGenre?: string;
   initialYear?: number | null;
+  /** Affiche tout le catalogue d'emblée, sans passer par « voir le portfolio complet ». */
+  showAllByDefault?: boolean;
 }
 
-export default function GameGrid({ games, initialGenre = '', initialYear = null }: AllGamesProps) {
+export default function GameGrid({ games, initialGenre = '', initialYear = null, showAllByDefault = false }: AllGamesProps) {
   const [filters, setFilters] = useState<GameFilters>({
     searchTerm: '',
     selectedGenre: initialGenre,
     selectedYear: initialYear ?? null
   });
-  const [showAllGames, setShowAllGames] = useState(false);
+  const [showAllGames, setShowAllGames] = useState(showAllByDefault);
 
   const filteredGames = filterGames(games, filters);
 
@@ -39,7 +41,7 @@ export default function GameGrid({ games, initialGenre = '', initialYear = null 
 
   const handleFiltersChange = (newFilters: GameFilters) => {
     setFilters(newFilters);
-    setShowAllGames(false);
+    setShowAllGames(showAllByDefault);
   };
 
   return (
@@ -84,7 +86,7 @@ export default function GameGrid({ games, initialGenre = '', initialYear = null 
                   </h3>
                 )}
 
-                {!hasActiveFilters && showAllGames && (
+                {!hasActiveFilters && showAllGames && !showAllByDefault && (
                   <h3 className="text-2xl font-gaming text-purple-400 mb-8 tracking-wider animate-fadeIn">
                     🎮 PORTFOLIO COMPLET
                   </h3>
@@ -117,7 +119,7 @@ export default function GameGrid({ games, initialGenre = '', initialYear = null 
                 </div>
               )}
 
-              {showAllGames && sortedGames.length > featuredGames.length && (
+              {showAllGames && !showAllByDefault && sortedGames.length > featuredGames.length && (
                 <div className="text-center py-8">
                   <div className="text-white/60 font-gaming text-sm">
                     ✨ Portfolio complet affiché ({sortedGames.length} jeux)

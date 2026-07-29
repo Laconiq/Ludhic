@@ -35,12 +35,12 @@ export async function generateMetadata({ params }: { params: Promise<{ title: st
 
   if (!game) {
     return {
-      title: 'Jeu non trouvé | Ludhic',
+      title: 'Jeu non trouvé',
     };
   }
 
   return {
-    title: `${game.title} | Ludhic - Master HIC`,
+    title: game.title,
     description: `${game.longDescription.slice(0, 160)}...`,
     keywords: [
       game.title,
