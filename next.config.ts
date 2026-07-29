@@ -10,40 +10,19 @@ const nextConfig: NextConfig = {
     minimumCacheTTL: 60 * 60 * 24 * 30,
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-    unoptimized: false,
-    loader: 'default',
   },
 
   compress: true,
 
   experimental: {
     optimizeCss: true,
-    optimizePackageImports: ['motion'],
     viewTransition: true,
   },
 
   async headers() {
     return [
       {
-        source: '/games/:path*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-      {
-        source: '/images/:path*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-      {
-        source: '/public/:path*',
+        source: '/:dir(games|images|videos|fonts)/:path*',
         headers: [
           {
             key: 'Cache-Control',

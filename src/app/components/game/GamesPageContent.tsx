@@ -1,5 +1,3 @@
-'use client';
-
 import Navigation from '@/app/components/layout/Navigation';
 import Footer from '@/app/components/layout/Footer';
 import GameGrid from '@/app/components/game/GameGrid';

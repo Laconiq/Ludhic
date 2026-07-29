@@ -93,14 +93,13 @@ export default function FilterBar({ games, onFiltersChange, currentFilters, filt
       selectedGenre: newGenre,
       selectedYear: newYear
     });
-
-    scrollToSection('games');
   };
 
   const resetFilters = () => {
     updateFilters('', '', null);
     setIsGenreOpen(false);
     setIsYearOpen(false);
+    scrollToSection('games');
   };
 
   const hasActiveFilters = searchTerm || selectedGenre || selectedYear !== null;
@@ -118,12 +117,53 @@ export default function FilterBar({ games, onFiltersChange, currentFilters, filt
   const handleGenreSelect = (value: string | number | null) => {
     updateFilters(searchTerm, value as string ?? '', selectedYear);
     setIsGenreOpen(false);
+    scrollToSection('games');
   };
 
   const handleYearSelect = (value: string | number | null) => {
     updateFilters(searchTerm, selectedGenre, value as number | null);
     setIsYearOpen(false);
+    scrollToSection('games');
   };
+
+  /** Paire de menus déroulants, rendue à l'identique en desktop (md) et mobile (sm). */
+  const dropdowns = (size: 'sm' | 'md') => (
+    <>
+      <DropdownFilter
+        label="GENRE"
+        value={selectedGenre || null}
+        options={ALL_GENRES}
+        isOpen={isGenreOpen}
+        onToggle={handleGenreToggle}
+        onSelect={handleGenreSelect}
+        resetLabel="Tous les genres"
+        size={size}
+        dropdownWidth="w-48"
+      />
+      <DropdownFilter
+        label="ANNEE"
+        value={selectedYear}
+        options={availableYears}
+        isOpen={isYearOpen}
+        onToggle={handleYearToggle}
+        onSelect={handleYearSelect}
+        resetLabel="Toutes les annees"
+        size={size}
+        dropdownWidth="w-36"
+      />
+    </>
+  );
+
+  const resetButton = (textSize: string) =>
+    hasActiveFilters && (
+      <button
+        onClick={resetFilters}
+        aria-label="Reinitialiser tous les filtres"
+        className={`text-white/70 hover:text-cyan-300 transition-colors ${textSize} font-gaming tracking-wider cursor-pointer`}
+      >
+        RESET
+      </button>
+    );
 
   return (
     <div className="sticky top-16 z-50 mb-8">
@@ -151,79 +191,19 @@ export default function FilterBar({ games, onFiltersChange, currentFilters, filt
               </div>
             </div>
 
-            <div className="flex gap-4 items-center">
-              <DropdownFilter
-                label="GENRE"
-                value={selectedGenre || null}
-                options={ALL_GENRES}
-                isOpen={isGenreOpen}
-                onToggle={handleGenreToggle}
-                onSelect={handleGenreSelect}
-                resetLabel="Tous les genres"
-                size="md"
-                dropdownWidth="w-48"
-              />
-              <DropdownFilter
-                label="ANNEE"
-                value={selectedYear}
-                options={availableYears}
-                isOpen={isYearOpen}
-                onToggle={handleYearToggle}
-                onSelect={handleYearSelect}
-                resetLabel="Toutes les annees"
-                size="md"
-                dropdownWidth="w-36"
-              />
-            </div>
+            <div className="flex gap-4 items-center">{dropdowns('md')}</div>
 
             <div className="flex items-center gap-4">
               <div className="text-white/80 font-gaming text-sm">
                 <span className="text-cyan-300">{filteredCount}</span> jeu{filteredCount !== 1 ? 'x' : ''}
               </div>
-              {hasActiveFilters && (
-                <button
-                  onClick={resetFilters}
-                  aria-label="Reinitialiser tous les filtres"
-                  className="text-white/70 hover:text-cyan-300 transition-colors text-sm font-gaming tracking-wider cursor-pointer"
-                >
-                  RESET
-                </button>
-              )}
+              {resetButton('text-sm')}
             </div>
           </div>
 
           <div className="lg:hidden flex items-center justify-center gap-3">
-            <DropdownFilter
-              label="GENRE"
-              value={selectedGenre || null}
-              options={ALL_GENRES}
-              isOpen={isGenreOpen}
-              onToggle={handleGenreToggle}
-              onSelect={handleGenreSelect}
-              resetLabel="Tous les genres"
-              size="sm"
-              dropdownWidth="w-48"
-            />
-            <DropdownFilter
-              label="ANNEE"
-              value={selectedYear}
-              options={availableYears}
-              isOpen={isYearOpen}
-              onToggle={handleYearToggle}
-              onSelect={handleYearSelect}
-              resetLabel="Toutes les annees"
-              size="sm"
-              dropdownWidth="w-36"
-            />
-            {hasActiveFilters && (
-              <button
-                onClick={resetFilters}
-                aria-label="Reinitialiser tous les filtres"
-                className="text-white/70 hover:text-cyan-300 transition-colors text-xs font-gaming tracking-wider cursor-pointer"
-              >
-                RESET
-              </button>
-            )}
+            {dropdowns('sm')}
+            {resetButton('text-xs')}
           </div>
         </div>
       </div>

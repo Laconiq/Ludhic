@@ -1,9 +1,8 @@
-'use client';
-
 import { createSlug } from '@/lib/slug';
 import { SITE_URL } from '@/constants/site';
 import { createBreadcrumbSchema } from '@/lib/schemas';
 import type { JsonLdSchema } from '@/types/game';
+import JsonLd from '@/app/components/seo/JsonLd';
 
 interface SEOSchemaProps {
   games?: Array<{ title: string }>;
@@ -140,17 +139,5 @@ export default function SEOSchema({ games = [] }: SEOSchemaProps) {
     faqSchema
   ];
 
-  return (
-    <>
-      {allSchemas.map((schema, index) => (
-        <script
-          key={index}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(schema, null, 2)
-          }}
-        />
-      ))}
-    </>
-  );
+  return <JsonLd schema={allSchemas} />;
 }

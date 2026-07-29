@@ -7,6 +7,7 @@ import Footer from '@/app/components/layout/Footer';
 import { createSlug } from '@/lib/slug';
 import { SITE_URL } from '@/constants/site';
 import { createBreadcrumbSchema, createVideoGameSchema } from '@/lib/schemas';
+import JsonLd from '@/app/components/seo/JsonLd';
 import { GameData } from '@/types/game';
 
 function findGameBySlug(slug: string) {
@@ -102,18 +103,7 @@ export default async function Page({ params }: { params: Promise<{ title: string
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(gameSchema, null, 2)
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(breadcrumbSchema, null, 2)
-        }}
-      />
+      <JsonLd schema={[gameSchema, breadcrumbSchema]} />
       <div className="min-h-screen bg-[var(--bg-primary)] flex flex-col">
         <GamePageContent game={game} />
         <RelatedGames games={relatedGames} />

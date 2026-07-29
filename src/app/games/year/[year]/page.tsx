@@ -9,6 +9,7 @@ import { getMainImageUrl, getLogoUrl } from '@/lib/images';
 import { createSlug } from '@/lib/slug';
 import { SITE_URL } from '@/constants/site';
 import { createBreadcrumbSchema } from '@/lib/schemas';
+import JsonLd from '@/app/components/seo/JsonLd';
 
 function getGamesOfYear(year: number) {
   return gamesData.filter(game => game.year === year);
@@ -104,28 +105,22 @@ export default async function Page({ params }: { params: Promise<{ year: string 
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
-      />
+      <JsonLd schema={[breadcrumbSchema, itemListSchema]} />
       <div className="min-h-screen bg-[var(--bg-primary)] flex flex-col">
         <Navigation />
         <section className="relative w-full py-16 md:py-24 bg-[var(--bg-primary)] mb-0 overflow-hidden">
           <div className="absolute inset-0 w-full h-full flex">
-            {gamesOfYear.map(game => (
+            {gamesOfYear.map((game, index) => (
               <div key={game.id} className="relative flex-1 h-full min-w-0">
                 <Image
                   src={getMainImageUrl(game.contentFolder)}
-                  alt={game.title + ' Banner'}
+                  alt=""
+                  aria-hidden
                   fill
                   className="object-cover w-full h-full blur-sm opacity-70"
-                  sizes="(max-width: 768px) 100vw, 1800px"
-                  quality={60}
-                  priority
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                  quality={50}
+                  priority={index === 0}
                 />
               </div>
             ))}
@@ -156,15 +151,8 @@ export default async function Page({ params }: { params: Promise<{ year: string 
 
         <div className="max-w-7xl mx-auto px-4 pb-16 pt-12 w-full">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 auto-rows-fr">
-            {gamesOfYear.map(game => (
-              <GameCard
-                key={game.id}
-                title={game.title}
-                longDescription={game.longDescription}
-                genres={game.genres}
-                contentFolder={game.contentFolder}
-                year={game.year}
-              />
+            {gamesOfYear.map((game, index) => (
+              <GameCard key={game.id} game={game} priority={index < 4} />
             ))}
           </div>
         </div>

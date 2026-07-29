@@ -1,31 +1,20 @@
-'use client';
-
 import Image from 'next/image';
 import Link from 'next/link';
 import { getMainImageUrl, getLogoUrl } from '@/lib/images';
 import { createSlug } from '@/lib/slug';
 import GenreBadge from '@/app/components/ui/GenreBadge';
+import { GameData } from '@/types/game';
 
 const DESCRIPTION_MAX_LENGTH = 140;
 const MAX_VISIBLE_GENRES = 3;
 
-interface GameProps {
-  title: string;
-  longDescription: string;
-  genres: string[];
-  contentFolder: string;
-  year: number;
+interface GameCardProps {
+  game: GameData;
   priority?: boolean;
 }
 
-export default function GameCard({
-  title,
-  longDescription,
-  genres,
-  contentFolder,
-  year,
-  priority = false,
-}: GameProps) {
+export default function GameCard({ game, priority = false }: GameCardProps) {
+  const { title, longDescription, genres, contentFolder, year } = game;
 
   return (
     <Link 

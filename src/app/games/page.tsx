@@ -4,6 +4,7 @@ import { SITE_URL } from '@/constants/site';
 import { createBreadcrumbSchema } from '@/lib/schemas';
 import { createSlug } from '@/lib/slug';
 import GamesPageContent from '@/app/components/game/GamesPageContent';
+import JsonLd from '@/app/components/seo/JsonLd';
 
 export const metadata: Metadata = {
   title: 'Tous les jeux étudiants | Ludhic - Master HIC',
@@ -62,14 +63,7 @@ export default function GamesPage() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
-      />
+      <JsonLd schema={[breadcrumbSchema, itemListSchema]} />
       <GamesPageContent games={gamesData} />
     </>
   );

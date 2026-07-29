@@ -1,9 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import dynamic from 'next/dynamic';
-
-const FadeInView = dynamic(() => import('@/app/components/ui/FadeInView'), { ssr: false });
+import FadeInView from '@/app/components/ui/FadeInView';
 
 const faqData = [
   {
@@ -41,7 +39,7 @@ export default function FAQ() {
 
         <div className="space-y-6">
           {faqData.map((item, index) => (
-            <FadeInView key={index} delay={index * 0.1}>
+            <FadeInView key={index}>
             <div
               className="gaming-card overflow-hidden"
             >
