@@ -32,7 +32,7 @@ Pages are **server components** (for metadata + SEO + JSON-LD), which pass data 
 
 ### Deployment
 
-Self-hosted on VPS via Docker. GitHub Actions auto-deploys on push to `main` (SSH into VPS → git pull → docker compose build → up). Next.js runs in standalone mode behind Docker. The persistent Node.js server is required for SSE real-time features (bingodir in-memory state).
+Self-hosted on VPS via Dokploy. GitHub Actions auto-deploys on push to `main`: build the Docker image → push to GHCR → POST the Dokploy redeploy webhook (`.github/workflows/deploy.yml`). No SSH key, no secret on the server — only `DOKPLOY_REFRESH_TOKEN` on the repo. Next.js runs in standalone mode behind Docker.
 
 ### Route Structure
 
@@ -50,8 +50,8 @@ Self-hosted on VPS via Docker. GitHub Actions auto-deploys on push to `main` (SS
 - **`src/lib/schemas.ts`**: JSON-LD schema generators (`createBreadcrumbSchema()`, `createVideoGameSchema()`)
 - **`src/lib/scroll.ts`**: `scrollToSection()` — handles same-page and cross-page smooth scrolling
 - **`src/lib/filters.ts`**: Game filtering logic (`filterGames()`, `getAvailableYears()`)
-- **`src/lib/validation.ts`**: Dev-only genre validation (console warnings)
-- **`src/constants/site.ts`**: `SITE_URL`, `SITE_NAME`, `FEATURED_YEAR` — update `FEATURED_YEAR` annually to feature new cohort on homepage
+- **`scripts/validate-games.ts`**: Build-time validation of `games.json` (required fields, genres, slug collisions, asset existence) — runs before `next build` and fails it on error
+- **`src/constants/site.ts`**: `SITE_URL`, `FEATURED_YEAR` — update `FEATURED_YEAR` annually to feature new cohort on homepage
 - **`src/app/api/bingodir/state.ts`**: In-memory shared state (players, chat messages, SSE clients) via `globalThis` — persists across requests on Railway, NOT on serverless
 - **`src/app/api/bingodir/`**: SSE events (`events/`), chat (`chat/`), player management (`players/`) — all `force-dynamic`
 

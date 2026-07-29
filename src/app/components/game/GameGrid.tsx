@@ -1,13 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import dynamic from 'next/dynamic';
+import { useState } from 'react';
 import GameCard from './GameCard';
 import GamingButton from '@/app/components/ui/GamingButton';
 import FilterBar from './FilterBar';
-import { logValidationErrors } from '@/lib/validation';
-
-const FadeInView = dynamic(() => import('@/app/components/ui/FadeInView'), { ssr: false });
+import FadeInView from '@/app/components/ui/FadeInView';
 import { GameData } from '@/types/game';
 import { GameFilters, filterGames } from '@/lib/filters';
 import { FEATURED_YEAR } from '@/constants/site';
@@ -16,19 +13,17 @@ interface AllGamesProps {
   games: GameData[];
   initialGenre?: string;
   initialYear?: number | null;
+  /** Affiche tout le catalogue d'emblée, sans passer par « voir le portfolio complet ». */
+  showAllByDefault?: boolean;
 }
 
-export default function GameGrid({ games, initialGenre = '', initialYear = null }: AllGamesProps) {
+export default function GameGrid({ games, initialGenre = '', initialYear = null, showAllByDefault = false }: AllGamesProps) {
   const [filters, setFilters] = useState<GameFilters>({
     searchTerm: '',
     selectedGenre: initialGenre,
     selectedYear: initialYear ?? null
   });
-  const [showAllGames, setShowAllGames] = useState(false);
-
-  useEffect(() => {
-    logValidationErrors(games);
-  }, [games]);
+  const [showAllGames, setShowAllGames] = useState(showAllByDefault);
 
   const filteredGames = filterGames(games, filters);
 
@@ -40,14 +35,13 @@ export default function GameGrid({ games, initialGenre = '', initialYear = null 
   });
 
   const featuredGames = sortedGames.filter(game => game.year === FEATURED_YEAR);
-  const allSortedGames = sortedGames;
   const hasActiveFilters = filters.searchTerm || filters.selectedGenre || filters.selectedYear !== null;
 
-  const gamesToDisplay = (showAllGames || hasActiveFilters) ? allSortedGames : featuredGames;
+  const gamesToDisplay = (showAllGames || hasActiveFilters) ? sortedGames : featuredGames;
 
   const handleFiltersChange = (newFilters: GameFilters) => {
     setFilters(newFilters);
-    setShowAllGames(false);
+    setShowAllGames(showAllByDefault);
   };
 
   return (
@@ -85,66 +79,50 @@ export default function GameGrid({ games, initialGenre = '', initialYear = null 
 
           {gamesToDisplay.length > 0 && (
             <>
-              {gamesToDisplay.length > 0 && (
-                <div className="mb-12">
-                  {!hasActiveFilters && !showAllGames && featuredGames.length > 0 && (
-                    <h3 className="text-2xl font-gaming text-cyan-400 mb-8 tracking-wider">
-                      ⭐ JEUX EN VEDETTE {FEATURED_YEAR}
-                    </h3>
-                  )}
-                  
-                  {!hasActiveFilters && showAllGames && (
-                    <h3 className="text-2xl font-gaming text-purple-400 mb-8 tracking-wider animate-fadeIn">
-                      🎮 PORTFOLIO COMPLET
-                    </h3>
-                  )}
+              <div className="mb-12">
+                {!hasActiveFilters && !showAllGames && featuredGames.length > 0 && (
+                  <h3 className="text-2xl font-gaming text-cyan-400 mb-8 tracking-wider">
+                    ⭐ JEUX EN VEDETTE {FEATURED_YEAR}
+                  </h3>
+                )}
 
-                  {hasActiveFilters && (
-                    <h3 className="text-2xl font-gaming text-purple-400 mb-8 tracking-wider">
-                      🔍 RÉSULTATS DE RECHERCHE ({gamesToDisplay.length} jeu{gamesToDisplay.length > 1 ? 'x' : ''})
-                    </h3>
-                  )}
+                {!hasActiveFilters && showAllGames && !showAllByDefault && (
+                  <h3 className="text-2xl font-gaming text-purple-400 mb-8 tracking-wider animate-fadeIn">
+                    🎮 PORTFOLIO COMPLET
+                  </h3>
+                )}
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 auto-rows-fr">
-                    {gamesToDisplay.map((game, index) => {
-                      const card = (
-                        <GameCard
-                          title={game.title}
-                          longDescription={game.longDescription}
-                          genres={game.genres}
-                          contentFolder={game.contentFolder}
-                          year={game.year}
-                          priority={index < 4}
-                        />
-                      );
-                      return index < 4 ? (
-                        <div key={game.id}>{card}</div>
-                      ) : (
-                        <FadeInView key={game.id} delay={Math.min((index - 4) * 0.05, 0.3)}>
-                          {card}
-                        </FadeInView>
-                      );
-                    })}
-                  </div>
+                {hasActiveFilters && (
+                  <h3 className="text-2xl font-gaming text-purple-400 mb-8 tracking-wider">
+                    🔍 RÉSULTATS DE RECHERCHE ({gamesToDisplay.length} jeu{gamesToDisplay.length > 1 ? 'x' : ''})
+                  </h3>
+                )}
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 auto-rows-fr">
+                  {gamesToDisplay.map((game, index) => (
+                    <FadeInView key={game.id}>
+                      <GameCard game={game} priority={index < 4} />
+                    </FadeInView>
+                  ))}
                 </div>
-              )}
+              </div>
 
-              {!showAllGames && allSortedGames.length > featuredGames.length && !hasActiveFilters && (
+              {!showAllGames && sortedGames.length > featuredGames.length && !hasActiveFilters && (
                 <div className="text-center py-12">
                   <GamingButton
                     onClick={() => setShowAllGames(true)}
                     size="lg"
                     className="hover:scale-105"
                   >
-                    VOIR LE PORTFOLIO COMPLET ({allSortedGames.length - featuredGames.length} autres jeux)
+                    VOIR LE PORTFOLIO COMPLET ({sortedGames.length - featuredGames.length} autres jeux)
                   </GamingButton>
                 </div>
               )}
 
-              {showAllGames && allSortedGames.length > featuredGames.length && (
+              {showAllGames && !showAllByDefault && sortedGames.length > featuredGames.length && (
                 <div className="text-center py-8">
                   <div className="text-white/60 font-gaming text-sm">
-                    ✨ Portfolio complet affiché ({allSortedGames.length} jeux)
+                    ✨ Portfolio complet affiché ({sortedGames.length} jeux)
                   </div>
                 </div>
               )}

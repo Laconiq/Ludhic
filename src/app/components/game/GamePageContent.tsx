@@ -1,5 +1,3 @@
-'use client';
-
 import Link from 'next/link';
 import Navigation from '@/app/components/layout/Navigation';
 import { GameData } from '@/types/game';
@@ -10,9 +8,7 @@ import GameCredits from '@/app/components/game/GameCredits';
 import GameHero from '@/app/components/game/GameHero';
 import GameVideo from '@/app/components/game/GameVideo';
 import ImageCarousel from '@/app/components/game/ImageCarousel';
-import dynamic from 'next/dynamic';
-
-const FadeInView = dynamic(() => import('@/app/components/ui/FadeInView'), { ssr: false });
+import FadeInView from '@/app/components/ui/FadeInView';
 
 interface GamePageContentProps {
   game: GameData;
@@ -82,18 +78,18 @@ export default function GamePageContent({ game }: GamePageContentProps) {
         </FadeInView>
 
         {game.imageCount > 1 && (
-          <FadeInView delay={0.1}>
+          <FadeInView>
             <ImageCarousel images={allImages} title={game.title} />
           </FadeInView>
         )}
 
         {(game.hasVideo || game.youtubeUrl) && (
-          <FadeInView delay={0.2}>
+          <FadeInView>
             <GameVideo key={game.contentFolder} contentFolder={game.contentFolder} youtubeUrl={game.youtubeUrl} />
           </FadeInView>
         )}
 
-        <FadeInView delay={0.3}>
+        <FadeInView>
           <GameCredits credits={game.credits} />
         </FadeInView>
       </div>

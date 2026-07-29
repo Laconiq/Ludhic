@@ -98,6 +98,20 @@ p {
   animation: fadeIn 0.5s ease-out forwards;
 }
 
+/* Fondu à l'apparition piloté par le scroll. Progressive enhancement : sans
+   support de `animation-timeline`, le contenu reste simplement visible. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .fade-in-view {
+      animation: fadeIn linear both;
+      animation-timeline: view();
+      /* Plage courte : tout bloc entré dans le viewport atteint l'opacité pleine,
+         y compris le dernier de la page où le scroll restant est limité. */
+      animation-range: entry 0% cover 15%;
+    }
+  }
+}
+
 .animate-grid-move {
   animation: grid-move 20s linear infinite;
 }

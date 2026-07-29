@@ -1,5 +1,3 @@
-'use client';
-
 import Navigation from '@/app/components/layout/Navigation';
 import Footer from '@/app/components/layout/Footer';
 import GameGrid from '@/app/components/game/GameGrid';
@@ -21,7 +19,7 @@ export default function GamesPageContent({ games, initialGenre = '', initialYear
             TOUS LES JEUX ÉTUDIANTS
           </h1>
         </div>
-        <GameGrid key={`${initialGenre}-${initialYear}`} games={games} initialGenre={initialGenre} initialYear={initialYear} />
+        <GameGrid key={`${initialGenre}-${initialYear}`} games={games} initialGenre={initialGenre} initialYear={initialYear} showAllByDefault />
       </main>
       <Footer />
     </div>

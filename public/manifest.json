@@ -49,10 +49,10 @@
       ]
     },
     {
-      "name": "Master HIC",
-      "short_name": "Master",
-      "description": "En savoir plus sur le Master HIC",
-      "url": "https://univ-cotedazur.fr/formation/offre-de-formation/majic-master-jeux-video-image-et-creativite",
+      "name": "Tous les jeux",
+      "short_name": "Catalogue",
+      "description": "Parcourir le catalogue complet des jeux étudiants",
+      "url": "/games",
       "icons": [
         {
           "src": "/images/logo.png",

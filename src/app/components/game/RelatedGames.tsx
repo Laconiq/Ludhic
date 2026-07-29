@@ -16,14 +16,7 @@ export default function RelatedGames({ games }: RelatedGamesProps) {
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 auto-rows-fr">
           {games.map(game => (
-            <GameCard
-              key={game.id}
-              title={game.title}
-              longDescription={game.longDescription}
-              genres={game.genres}
-              contentFolder={game.contentFolder}
-              year={game.year}
-            />
+            <GameCard key={game.id} game={game} />
           ))}
         </div>
       </div>

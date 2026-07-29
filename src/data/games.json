@@ -67,7 +67,7 @@
     "genres": ["Action", "Plateforme", "Narratif", "2D"],
     "year": 2024,
     "contentFolder": "/games/genesis",
-    "imageCount": 3,
+    "imageCount": 4,
     "hasVideo": false,
     "customButton": {
       "enabled": true,

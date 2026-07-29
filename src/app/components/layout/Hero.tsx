@@ -1,32 +1,44 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { scrollToSection } from '@/lib/scroll';
 import GamingButton from '@/app/components/ui/GamingButton';
 
-interface HeroProps {
-  videoIndex?: number;
-}
+const BACKGROUND_VIDEO_COUNT = 3;
+const DEFAULT_BACKGROUND_VIDEO = '/videos/background-1.webm';
 
-export default function Hero({ videoIndex }: HeroProps) {
-  const [bgVideo] = useState(() => {
-    const idx = videoIndex || Math.floor(Math.random() * 3) + 1;
-    return `/videos/background-${idx}.webm`;
-  });
+export default function Hero() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // La page est pré-rendue au build : tirer le fond au sort pendant le rendu
+  // figerait le HTML sur une seule vidéo et casserait l'hydratation. Le tirage
+  // se fait donc après montage, directement sur l'élément — le HTML servi garde
+  // le fond par défaut.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const src = `/videos/background-${Math.floor(Math.random() * BACKGROUND_VIDEO_COUNT) + 1}.webm`;
+    if (src === DEFAULT_BACKGROUND_VIDEO) return;
+
+    video.src = src;
+    video.load();
+  }, []);
 
   const scrollToGames = () => scrollToSection('games');
 
   return (
     <section id="hero" className="h-screen flex items-center justify-center relative overflow-hidden -mt-16">
       <video
+        ref={videoRef}
         autoPlay
         loop
         muted
         playsInline
         preload="none"
         className="absolute top-0 left-0 w-full h-full object-cover -z-10"
-        src={bgVideo}
+        src={DEFAULT_BACKGROUND_VIDEO}
       />
       <div className="absolute top-0 left-0 w-full h-full bg-black/50 z-0 pointer-events-none" />
 

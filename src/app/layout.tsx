@@ -110,6 +110,7 @@ export const metadata: Metadata = {
   other: {
     'theme-color': '#06b6d4',
     'color-scheme': 'dark',
+    'mobile-web-app-capable': 'yes',
     'apple-mobile-web-app-capable': 'yes',
     'apple-mobile-web-app-status-bar-style': 'black-translucent',
     'apple-mobile-web-app-title': 'Ludhic',

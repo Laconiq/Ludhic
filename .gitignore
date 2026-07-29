@@ -10,10 +10,6 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
-/coverage
-/lighthouse-reports
-
 # next.js
 /.next/
 /out/
@@ -34,9 +30,6 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
-# vercel
-.vercel
-
 # typescript
 *.tsbuildinfo
 next-env.d.ts
@@ -44,3 +37,7 @@ next-env.d.ts
 # claude code local settings & hooks
 .claude/settings.local.json
 .claude/hooks/
+.playwright-mcp/
+
+# master source video (372 Mo) : VAL 153 est diffusé via YouTube, pas ce fichier
+/public/games/val-153/video.webm

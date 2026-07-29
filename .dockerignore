@@ -2,9 +2,9 @@ node_modules
 .next
 .git
 .github
-.vercel
 .claude
 .env*
 *.md
 LICENSE
-lighthouse-reports
+.playwright-mcp
+public/games/val-153/video.webm
