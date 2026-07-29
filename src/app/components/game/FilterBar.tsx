@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useCallback } from 'react';
+import { useState } from 'react';
 import { ALL_GENRES } from '@/lib/genres';
 import { GameData } from '@/types/game';
 import { scrollToSection } from '@/lib/scroll';
@@ -85,11 +85,9 @@ export default function FilterBar({ games, onFiltersChange, currentFilters, filt
   const [isGenreOpen, setIsGenreOpen] = useState(false);
   const [isYearOpen, setIsYearOpen] = useState(false);
 
-  const availableYears = useMemo(() => {
-    return getAvailableYears(games);
-  }, [games]);
+  const availableYears = getAvailableYears(games);
 
-  const updateFilters = useCallback((newSearchTerm: string, newGenre: string, newYear: number | null) => {
+  const updateFilters = (newSearchTerm: string, newGenre: string, newYear: number | null) => {
     onFiltersChange({
       searchTerm: newSearchTerm,
       selectedGenre: newGenre,
@@ -97,35 +95,35 @@ export default function FilterBar({ games, onFiltersChange, currentFilters, filt
     });
 
     scrollToSection('games');
-  }, [onFiltersChange]);
+  };
 
-  const resetFilters = useCallback(() => {
+  const resetFilters = () => {
     updateFilters('', '', null);
     setIsGenreOpen(false);
     setIsYearOpen(false);
-  }, [updateFilters]);
+  };
 
   const hasActiveFilters = searchTerm || selectedGenre || selectedYear !== null;
 
-  const handleGenreToggle = useCallback(() => {
+  const handleGenreToggle = () => {
     setIsGenreOpen(prev => !prev);
     setIsYearOpen(false);
-  }, []);
+  };
 
-  const handleYearToggle = useCallback(() => {
+  const handleYearToggle = () => {
     setIsYearOpen(prev => !prev);
     setIsGenreOpen(false);
-  }, []);
+  };
 
-  const handleGenreSelect = useCallback((value: string | number | null) => {
+  const handleGenreSelect = (value: string | number | null) => {
     updateFilters(searchTerm, value as string ?? '', selectedYear);
     setIsGenreOpen(false);
-  }, [updateFilters, searchTerm, selectedYear]);
+  };
 
-  const handleYearSelect = useCallback((value: string | number | null) => {
+  const handleYearSelect = (value: string | number | null) => {
     updateFilters(searchTerm, selectedGenre, value as number | null);
     setIsYearOpen(false);
-  }, [updateFilters, searchTerm, selectedGenre]);
+  };
 
   return (
     <div className="sticky top-16 z-50 mb-8">

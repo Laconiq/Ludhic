@@ -1,6 +1,5 @@
 'use client';
 
-import { memo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getMainImageUrl, getLogoUrl } from '@/lib/images';
@@ -19,7 +18,7 @@ interface GameProps {
   priority?: boolean;
 }
 
-export default memo(function GameCard({
+export default function GameCard({
   title,
   longDescription,
   genres,
@@ -86,4 +85,4 @@ export default memo(function GameCard({
       </div>
     </Link>
   );
-});
+}

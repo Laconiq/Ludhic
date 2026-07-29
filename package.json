@@ -12,26 +12,27 @@
     "generate-videos": "node scripts/generate-videos.js"
   },
   "dependencies": {
-    "motion": "^12.36.0",
+    "motion": "^12.38.0",
     "next": "16.1.6",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4"
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
   },
   "devDependencies": {
-    "@playwright/test": "^1.58.2",
-    "@tailwindcss/postcss": "^4.2.1",
-    "@types/node": "^25.5.0",
+    "@playwright/test": "^1.59.1",
+    "@tailwindcss/postcss": "^4.2.4",
+    "@types/node": "^25.6.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "babel-plugin-react-compiler": "^1.0.0",
     "chrome-launcher": "^1.2.1",
-    "eslint": "^9.39.2",
+    "eslint": "^9.39.4",
     "eslint-config-next": "16.1.6",
-    "lighthouse": "^13.0.3",
+    "lighthouse": "^13.2.0",
     "playwright-lighthouse": "^4.0.0",
-    "postcss": "^8.5.8",
-    "tailwindcss": "^4.2.1",
+    "postcss": "^8.5.14",
+    "tailwindcss": "^4.2.4",
     "tsx": "^4.21.0",
-    "typescript": "~5.9.3",
+    "typescript": "~6.0.3",
     "wawoff2": "^2.0.1"
   },
   "packageManager": "pnpm@10.30.3"

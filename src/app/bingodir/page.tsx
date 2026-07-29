@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import bingoData from '@/data/bingoData.json';
@@ -181,16 +181,16 @@ export default function BingoDir() {
     });
   }, [messages]);
 
-  const joinChat = useCallback((e: React.FormEvent) => {
+  const joinChat = (e: React.FormEvent) => {
     e.preventDefault();
     const name = pseudoInput.trim() || 'Anonyme';
     setPseudo(name);
     localStorage.setItem(PSEUDO_KEY, name);
-  }, [pseudoInput]);
+  };
 
-  const regenerate = useCallback(() => setBingoGrid(buildGrid()), []);
+  const regenerate = () => setBingoGrid(buildGrid());
 
-  const toggleCell = useCallback((row: number, col: number) => {
+  const toggleCell = (row: number, col: number) => {
     setBingoGrid(prev =>
       prev.map((r, ri) =>
         r.map((cell, ci) =>
@@ -200,9 +200,9 @@ export default function BingoDir() {
         )
       )
     );
-  }, []);
+  };
 
-  const sendMessage = useCallback(() => {
+  const sendMessage = () => {
     const trimmed = chatInput.trim();
     if (!trimmed || !pseudo) return;
 
@@ -215,7 +215,7 @@ export default function BingoDir() {
     });
     setChatInput('');
     chatInputRef.current?.focus();
-  }, [chatInput, pseudo]);
+  };
 
   const sortedPlayers = [
     { id: myId, pseudo: pseudo || '', checkedCount: countChecked(bingoGrid) },

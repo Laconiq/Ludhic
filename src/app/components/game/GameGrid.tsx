@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import GameCard from './GameCard';
 import GamingButton from '@/app/components/ui/GamingButton';
@@ -30,18 +30,14 @@ export default function GameGrid({ games, initialGenre = '', initialYear = null 
     logValidationErrors(games);
   }, [games]);
 
-  const filteredGames = useMemo(() => {
-    return filterGames(games, filters);
-  }, [games, filters]);
+  const filteredGames = filterGames(games, filters);
 
-  const sortedGames = useMemo(() => {
-    return [...filteredGames].sort((a, b) => {
-      if (a.year !== b.year) {
-        return b.year - a.year;
-      }
-      return a.title.localeCompare(b.title);
-    });
-  }, [filteredGames]);
+  const sortedGames = [...filteredGames].sort((a, b) => {
+    if (a.year !== b.year) {
+      return b.year - a.year;
+    }
+    return a.title.localeCompare(b.title);
+  });
 
   const featuredGames = sortedGames.filter(game => game.year === FEATURED_YEAR);
   const allSortedGames = sortedGames;

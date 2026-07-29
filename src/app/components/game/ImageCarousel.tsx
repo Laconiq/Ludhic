@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 
 const CAROUSEL_INTERVAL_MS = 4000;
@@ -28,7 +28,7 @@ export default function ImageCarousel({ images, title }: ImageCarouselProps) {
     return () => clearInterval(interval);
   }, [imageCount, isHovered]);
 
-  const changeImage = useCallback((direction: 'prev' | 'next') => {
+  const changeImage = (direction: 'prev' | 'next') => {
     if (isTransitioningRef.current) return;
 
     isTransitioningRef.current = true;
@@ -45,18 +45,21 @@ export default function ImageCarousel({ images, title }: ImageCarouselProps) {
       isTransitioningRef.current = false;
       setIsTransitioning(false);
     }, 500);
-  }, [imageCount]);
+  };
 
-  const goToImage = useCallback((index: number) => {
-    if (isTransitioningRef.current || index === currentImageIndex) return;
-    isTransitioningRef.current = true;
-    setIsTransitioning(true);
-    setCurrentImageIndex(index);
-    setTimeout(() => {
-      isTransitioningRef.current = false;
-      setIsTransitioning(false);
-    }, 500);
-  }, [currentImageIndex]);
+  const goToImage = (index: number) => {
+    if (isTransitioningRef.current) return;
+    setCurrentImageIndex((prev) => {
+      if (index === prev) return prev;
+      isTransitioningRef.current = true;
+      setIsTransitioning(true);
+      setTimeout(() => {
+        isTransitioningRef.current = false;
+        setIsTransitioning(false);
+      }, 500);
+      return index;
+    });
+  };
 
   return (
     <div className="mb-16">
