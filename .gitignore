@@ -10,10 +10,6 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
-/coverage
-/lighthouse-reports
-
 # next.js
 /.next/
 /out/
@@ -34,7 +30,7 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
-# vercel
+# vercel (legacy local artifacts, project is deployed via Dokploy)
 .vercel
 
 # typescript

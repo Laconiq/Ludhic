@@ -1,11 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import GameCard from './GameCard';
 import GamingButton from '@/app/components/ui/GamingButton';
 import FilterBar from './FilterBar';
-import { logValidationErrors } from '@/lib/validation';
 
 const FadeInView = dynamic(() => import('@/app/components/ui/FadeInView'), { ssr: false });
 import { GameData } from '@/types/game';
@@ -25,10 +24,6 @@ export default function GameGrid({ games, initialGenre = '', initialYear = null 
     selectedYear: initialYear ?? null
   });
   const [showAllGames, setShowAllGames] = useState(false);
-
-  useEffect(() => {
-    logValidationErrors(games);
-  }, [games]);
 
   const filteredGames = filterGames(games, filters);
 

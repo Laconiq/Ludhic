@@ -6,25 +6,7 @@ import { createBreadcrumbSchema } from '@/lib/schemas';
 import type { JsonLdSchema } from '@/types/game';
 
 interface SEOSchemaProps {
-  games?: Array<{
-    id: number;
-    title: string;
-    longDescription: string;
-    year: number;
-    genres: string[];
-    contentFolder: string;
-    credits: Array<{
-      firstName: string;
-      lastName: string;
-      roles: string[];
-    }>;
-    featured?: boolean;
-    customButton?: {
-      enabled: boolean;
-      name: string;
-      link: string;
-    };
-  }>;
+  games?: Array<{ title: string }>;
 }
 
 export default function SEOSchema({ games = [] }: SEOSchemaProps) {

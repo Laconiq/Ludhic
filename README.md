@@ -65,7 +65,7 @@ src/
 │   ├── robots.ts           # /robots.txt (dynamique)
 │   ├── sitemap.ts          # /sitemap.xml (dynamique, avec images)
 │   └── globals.css         # Styles globaux + thème gaming
-├── constants/              # SITE_URL, SITE_NAME, FEATURED_YEAR
+├── constants/              # SITE_URL, FEATURED_YEAR
 ├── data/                   # games.json
 ├── lib/                    # slug, images, schemas, filters, genres, validation, scroll
 └── types/                  # GameData, Credit, JsonLdSchema

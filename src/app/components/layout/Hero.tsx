@@ -5,13 +5,9 @@ import { useState } from 'react';
 import { scrollToSection } from '@/lib/scroll';
 import GamingButton from '@/app/components/ui/GamingButton';
 
-interface HeroProps {
-  videoIndex?: number;
-}
-
-export default function Hero({ videoIndex }: HeroProps) {
+export default function Hero() {
   const [bgVideo] = useState(() => {
-    const idx = videoIndex || Math.floor(Math.random() * 3) + 1;
+    const idx = Math.floor(Math.random() * 3) + 1;
     return `/videos/background-${idx}.webm`;
   });
 

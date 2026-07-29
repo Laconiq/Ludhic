@@ -16,6 +16,3 @@ public/images/
 pnpm-lock.yaml
 next-env.d.ts
 *.tsbuildinfo
-
-# Deployment
-.vercel/
