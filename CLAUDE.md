@@ -34,6 +34,8 @@ Pages are **server components** (for metadata + SEO + JSON-LD), which pass data 
 
 Self-hosted on VPS via Dokploy. GitHub Actions auto-deploys on push to `main`: build the Docker image → push to GHCR → POST the Dokploy redeploy webhook (`.github/workflows/deploy.yml`). No SSH key, no secret on the server — only `DOKPLOY_REFRESH_TOKEN` on the repo. Next.js runs in standalone mode behind Docker.
 
+**Image optimizer cache**: the Dokploy app mounts the named volume `ludhic-image-cache` on `/app/.next/cache/images` (mirrored in `docker-compose.yml` for local runs). Without it the cache is wiped on every redeploy and the first visitor re-pays the encode — measured at ~690 ms per image on the VPS, against ~75 ms once cached. The `chown` in the Dockerfile matters just as much: a fresh volume inherits the ownership of the directory it covers, so if `/app/.next/cache/images` were root-owned the server (uid 1001) would silently fail to write and re-encode on every single request.
+
 ### Route Structure
 
 - `/` — Homepage with hero, game grid (featured year only by default), FAQ
