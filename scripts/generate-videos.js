@@ -8,8 +8,14 @@ const { execSync } = require('child_process');
 const GAMES_DIR = 'public/games';
 const OUTPUT_DIR = 'public/videos';
 const CLIP_DURATION = 5; // secondes par jeu
-const WIDTH = 1920;
-const HEIGHT = 1080;
+// Ces compilations servent de fond au hero, en plein écran mais sous un calque
+// noir à 50 % et deux grilles. Elles sont chargées à chaque visite de l'accueil
+// et pesaient ~19 Mo pièce en 1080p : le 720p à CRF 45 est indiscernable une
+// fois le calque appliqué, pour un cinquième du poids.
+const WIDTH = 1280;
+const HEIGHT = 720;
+const FPS = 24;
+const CRF = 45;
 const NUM_VIDEOS = 3;
 
 // Créer le dossier de sortie s'il n'existe pas
@@ -54,12 +60,14 @@ function generateCompilationVideo(videoNumber, videos) {
   const videoFilter = videos.map((video, index) => {
     const maxStart = Math.max(0, video.duration - CLIP_DURATION - 1);
     const startTime = Math.floor(Math.random() * maxStart);
-    return `[${index}:v]trim=start=${startTime}:duration=${CLIP_DURATION},setpts=PTS-STARTPTS,scale=${WIDTH}:${HEIGHT}:force_original_aspect_ratio=decrease,pad=${WIDTH}:${HEIGHT}:(ow-iw)/2:(oh-ih)/2,setsar=1:1,fade=t=in:st=0:d=1,fade=t=out:st=${CLIP_DURATION-1}:d=1[v${index}];[${index}:a]atrim=start=${startTime}:duration=${CLIP_DURATION},asetpts=PTS-STARTPTS,afade=t=in:st=0:d=1,afade=t=out:st=${CLIP_DURATION-1}:d=1[a${index}]`;
+    return `[${index}:v]trim=start=${startTime}:duration=${CLIP_DURATION},setpts=PTS-STARTPTS,scale=${WIDTH}:${HEIGHT}:force_original_aspect_ratio=decrease,pad=${WIDTH}:${HEIGHT}:(ow-iw)/2:(oh-ih)/2,setsar=1:1,fps=${FPS},fade=t=in:st=0:d=1,fade=t=out:st=${CLIP_DURATION-1}:d=1[v${index}]`;
   }).join(';');
 
-  const concatFilter = `[${videos.map((_, i) => `v${i}`).join('][')}]concat=n=${videos.length}:v=1:a=0[outv];[${videos.map((_, i) => `a${i}`).join('][')}]concat=n=${videos.length}:v=0:a=1[outa]`;
+  const concatFilter = `[${videos.map((_, i) => `v${i}`).join('][')}]concat=n=${videos.length}:v=1:a=0[outv]`;
 
-  const command = `ffmpeg ${inputs} -filter_complex "${videoFilter};${concatFilter}" -map "[outv]" -map "[outa]" -c:v libvpx-vp9 -crf 30 -b:v 0 -c:a libopus -b:a 128k -shortest -y "${outputPath}"`;
+  // `-an` : le hero rend ces vidéos en `muted`, la piste Opus n'était jamais
+  // écoutée et pesait tout de même dans le téléchargement.
+  const command = `ffmpeg ${inputs} -filter_complex "${videoFilter};${concatFilter}" -map "[outv]" -an -c:v libvpx-vp9 -crf ${CRF} -b:v 0 -row-mt 1 -cpu-used 3 -g 240 -y "${outputPath}"`;
 
   try {
     execSync(command, { stdio: 'inherit' });
