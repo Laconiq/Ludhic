@@ -77,11 +77,10 @@ export default function Navigation() {
               <Image
                 src="/images/logo.png"
                 alt="Ludhic Logo"
-                fill
-                className="object-contain"
+                width={40}
+                height={40}
+                className="w-full h-full object-contain"
                 priority
-                quality={90}
-                sizes="40px"
               />
             </div>
             <span className="font-gaming text-xl foil-effect">

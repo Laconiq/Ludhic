@@ -28,10 +28,13 @@ export default function GameCard({ game, priority = false }: GameCardProps) {
           alt={title}
           fill
           className="object-cover"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          // La carte ne dépasse jamais ~350 px hors mobile (grilles 3 et 4
+          // colonnes dans un conteneur max-w-7xl). L'ancien « 33vw » annonçait
+          // 634 px sur un écran 1920 et faisait donc télécharger la variante la
+          // plus large pour une vignette de 288 px.
+          sizes="(max-width: 639px) 100vw, (max-width: 767px) 640px, (max-width: 1023px) 352px, 320px"
           priority={priority}
           loading={priority ? undefined : 'lazy'}
-          quality={80}
         />
         
         <div className="absolute top-2 right-2 bg-black/60 backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full font-semibold">
@@ -45,9 +48,10 @@ export default function GameCard({ game, priority = false }: GameCardProps) {
             width={64}
             height={32}
             className="max-h-full w-auto object-contain drop-shadow-md"
-            sizes="64px"
+            // Pas de `sizes` volontairement : sur une image de largeur fixe,
+            // Next se limite alors aux variantes 1x et 2x. Un `sizes` en px
+            // sans unité vw lui ferait au contraire générer toute la gamme.
             loading="lazy"
-            quality={90}
           />
         </div>
       </div>

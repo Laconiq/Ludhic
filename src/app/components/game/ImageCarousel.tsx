@@ -90,10 +90,9 @@ export default function ImageCarousel({ images, title }: ImageCarouselProps) {
                   alt={`${title} - Screenshot ${index + 1}`}
                   fill
                   className="object-cover w-full h-full"
-                  sizes="(max-width: 768px) 100vw, 1200px"
+                  sizes="(max-width: 768px) 100vw, 1080px"
                   loading={index === 0 ? "eager" : "lazy"}
                   priority={index === 0}
-                  quality={85}
                 />
               </div>
             ))}

@@ -119,12 +119,15 @@ export const metadata: Metadata = {
     'msapplication-config': '/browserconfig.xml',
   },
   icons: {
+    // Ne pas référencer logo.png ici : `sizes="any"` le fait préférer aux
+    // déclinaisons, et les navigateurs téléchargeaient donc l'original de
+    // 1024x1024 comme favicon sur chaque page.
     icon: [
-      { url: "/images/logo.png", sizes: "any" },
+      { url: "/images/logo-120x120.png", sizes: "120x120", type: "image/png" },
       { url: "/images/logo-32x32.png", sizes: "32x32", type: "image/png" },
       { url: "/images/logo-16x16.png", sizes: "16x16", type: "image/png" },
     ],
-    shortcut: "/images/logo.png",
+    shortcut: "/images/logo-32x32.png",
     apple: [
       { url: "/images/logo-180x180.png", sizes: "180x180", type: "image/png" },
       { url: "/images/logo-152x152.png", sizes: "152x152", type: "image/png" },
