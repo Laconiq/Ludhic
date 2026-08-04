@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { scrollToSection } from '@/lib/scroll';
@@ -21,6 +22,7 @@ const navItemClass = (isActive: boolean) =>
     : 'text-[var(--text-primary)]/85 hover:text-[var(--primary-blue)] hover:[text-shadow:0_0_20px_currentColor]';
 
 export default function Navigation() {
+  const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
@@ -62,7 +64,11 @@ export default function Navigation() {
   }, []);
 
   const handleNavClick = (sectionId: string) => {
-    scrollToSection(sectionId, true);
+    // Depuis une page jeu, la section n'existe pas : on rejoint l'ancre de
+    // l'accueil par le routeur plutôt que par un rechargement de page.
+    if (!scrollToSection(sectionId)) {
+      router.push(`/#${sectionId}`);
+    }
     setIsMobileMenuOpen(false);
   };
 

@@ -1,12 +1,16 @@
 /**
  * Scroll vers une section de la page par son ID.
- * Si l'élément n'existe pas et fallbackNavigate est true, redirige vers /#sectionId.
+ *
+ * Retourne `false` si la section est absente de la page courante. C'est au
+ * caller de décider quoi faire — naviguer, ignorer — parce que la navigation
+ * relève du routeur Next et non d'un utilitaire DOM : y appeler
+ * `window.location.href` provoquerait un rechargement complet, et donc le
+ * retéléchargement de la vidéo de fond, des images et des polices.
  */
-export function scrollToSection(sectionId: string, fallbackNavigate = false): void {
+export function scrollToSection(sectionId: string): boolean {
   const element = document.getElementById(sectionId);
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth' });
-  } else if (fallbackNavigate) {
-    window.location.href = `/#${sectionId}`;
-  }
+  if (!element) return false;
+
+  element.scrollIntoView({ behavior: 'smooth' });
+  return true;
 }
