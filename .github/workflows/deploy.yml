@@ -10,6 +10,10 @@ on:
     paths-ignore:
       - "**.md"
       - ".gitignore"
+      # Outillage Claude Code : exclu de l'image par .dockerignore, donc un
+      # commit qui n'y touche que ça reconstruirait une image identique — et
+      # consomme le quota de push GHCR pour rien.
+      - ".claude/**"
   workflow_dispatch:
 
 concurrency:
