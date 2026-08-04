@@ -3,20 +3,38 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   output: 'standalone',
   reactCompiler: true,
+
+  // `pnpm-workspace.yaml` fait croire à Turbopack qu'on est dans un monorepo et
+  // lui fait inférer une racine erronée. On la fixe explicitement.
+  turbopack: {
+    root: import.meta.dirname,
+  },
+
   images: {
-    formats: ['image/webp', 'image/avif'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    // AVIF coûte plusieurs fois le CPU de WebP à l'encodage, pour un gain nul
+    // ici : les sources sont déjà des WebP. Un seul format = un seul encodage
+    // par variante, et un cache qui ne se dédouble pas selon le navigateur.
+    formats: ['image/webp'],
+
+    // Plafond volontaire à 1080. Les sources font 1920 px : à cette largeur
+    // l'optimiseur ne redimensionne plus et se contente de ré-encoder, ce qui
+    // produit ~717 Ko par visuel contre 73 Ko en 1080 — pour des captures
+    // affichées au plus dans 1200 px. Un écran DPR2 demande toujours le double
+    // de la taille annoncée, donc seul ce plafond borne réellement le poids.
+    deviceSizes: [640, 828, 1080],
+    imageSizes: [64, 128, 256],
+
+    // Next 16 n'autorise que les qualités listées ici (défaut : [75]) et
+    // répond 400 pour toute autre valeur. 50 sert aux visuels floutés.
+    qualities: [50, 75],
+
     minimumCacheTTL: 60 * 60 * 24 * 30,
-    dangerouslyAllowSVG: true,
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 
   compress: true,
 
   experimental: {
     optimizeCss: true,
-    viewTransition: true,
   },
 
   async headers() {

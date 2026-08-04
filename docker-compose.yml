@@ -8,3 +8,11 @@ services:
     environment:
       - NODE_ENV=production
       - HOSTNAME=0.0.0.0
+    volumes:
+      # Conserve les variantes d'images déjà encodées d'un déploiement à
+      # l'autre : sans ça, le premier visiteur après chaque mise en ligne
+      # repaie le ré-encodage de chaque image.
+      - image-cache:/app/.next/cache/images
+
+volumes:
+  image-cache:

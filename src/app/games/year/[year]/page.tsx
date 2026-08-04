@@ -118,7 +118,7 @@ export default async function Page({ params }: { params: Promise<{ year: string 
                   aria-hidden
                   fill
                   className="object-cover w-full h-full blur-sm opacity-70"
-                  sizes="(max-width: 768px) 50vw, 25vw"
+                  sizes="(max-width: 768px) 50vw, 320px"
                   quality={50}
                   priority={index === 0}
                 />
@@ -141,7 +141,6 @@ export default async function Page({ params }: { params: Promise<{ year: string 
                     height={40}
                     className="h-12 w-auto md:h-20 object-contain drop-shadow-xl"
                     style={{ maxWidth: '120px' }}
-                    quality={90}
                   />
                 </div>
               ))}

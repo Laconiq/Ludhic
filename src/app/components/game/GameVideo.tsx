@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { getMainImageUrl } from '@/lib/images';
+import { getMainImageUrl, getOptimizedImageUrl } from '@/lib/images';
 
 interface GameVideoProps {
   contentFolder: string;
@@ -44,7 +44,7 @@ export default function GameVideo({ contentFolder, youtubeUrl }: GameVideoProps)
             className="w-full h-full object-cover"
             controls
             preload="metadata"
-            poster={getMainImageUrl(contentFolder)}
+            poster={getOptimizedImageUrl(getMainImageUrl(contentFolder), 1080)}
             onError={() => setVideoError(true)}
           >
             <source src={`${contentFolder}/video.webm`} type="video/webm" />

@@ -321,7 +321,7 @@ export default function BingoDir() {
         <div className="flex items-center justify-between px-3 lg:px-6 max-w-7xl mx-auto">
           <Link href="/" className="flex items-center gap-2 hover:scale-105 transition-transform duration-200">
             <div className="relative w-8 h-8 lg:w-10 lg:h-10">
-              <Image src="/images/logo.png" alt="Ludhic Logo" fill className="object-contain" sizes="40px" />
+              <Image src="/images/logo.png" alt="Ludhic Logo" width={40} height={40} className="w-full h-full object-contain" />
             </div>
             <span className="font-gaming text-lg lg:text-xl foil-effect">LUDHIC</span>
           </Link>
