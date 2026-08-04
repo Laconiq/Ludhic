@@ -28,9 +28,15 @@ RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 nextjs
 
 # Copy standalone output
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
-COPY --from=builder /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+
+# L'optimiseur d'images écrit ses variantes dans .next/cache/images. Sans ce
+# dossier inscriptible par l'utilisateur qui exécute le serveur, l'écriture
+# échoue silencieusement et chaque requête ré-encode l'image depuis la source.
+# Monter un volume sur ce chemin pour que le cache survive aux redéploiements.
+RUN mkdir -p .next/cache/images && chown -R nextjs:nodejs .next
 
 USER nextjs
 
