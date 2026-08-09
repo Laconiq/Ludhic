@@ -1,0 +1,39 @@
+---
+import { getImage } from 'astro:assets';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navigation from '@/components/Navigation';
+import GamingButton from '@/components/GamingButton.astro';
+
+const logo = await import('@/assets/images/logo.png');
+const navLogo = await getImage({ src: logo.default, width: 40, height: 40 });
+---
+
+<BaseLayout title="Page introuvable" noIndex>
+  <Navigation client:load logoSrc={navLogo.src} />
+
+  <div class="min-h-screen bg-[var(--bg-primary)] flex items-center justify-center px-4 pt-20">
+    <div class="text-center max-w-md">
+      <h1 class="text-4xl md:text-5xl font-gaming text-cyan-400 mb-4">
+        NOCLIP DÉTECTÉ
+      </h1>
+
+      <p class="text-white/80 mb-2 text-lg">
+        Oops ! Tu as noclip dans les <span class="text-yellow-400 font-semibold">Backrooms</span>
+      </p>
+
+      <p class="text-white/60 mb-8 text-sm">
+        Cette page n'existe pas... ou peut-être qu'elle est dans un autre niveau ? 🤔
+      </p>
+
+      <div class="space-y-4">
+        <GamingButton href="/" size="md" class="block w-fit mx-auto">
+          🚪 RETOUR À LA RÉALITÉ
+        </GamingButton>
+
+        <div class="text-xs text-white/40">
+          <p>Conseil : Évitez de regarder derrière vous... 👁️</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
