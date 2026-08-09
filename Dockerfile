@@ -1,6 +1,5 @@
 FROM node:22-alpine AS base
 
-# Install pnpm
 RUN corepack enable && corepack prepare pnpm@10.30.3 --activate
 
 # --- Dependencies ---
@@ -17,29 +16,14 @@ COPY . .
 RUN pnpm build
 
 # --- Production ---
-FROM node:22-alpine AS runner
-WORKDIR /app
+# Sortie 100% statique : pas de serveur Node, pas de cache d'optimiseur
+# d'images à faire survivre aux redéploiements (astro:assets traite les
+# images au build, cf. src/lib/assetImages.ts). nginx sert dist/ tel quel.
+FROM nginx:1.27-alpine AS runner
 
-ENV NODE_ENV=production
-ENV HOSTNAME=0.0.0.0
-ENV PORT=3000
-
-RUN addgroup --system --gid 1001 nodejs && \
-    adduser --system --uid 1001 nextjs
-
-# Copy standalone output
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-COPY --from=builder --chown=nextjs:nodejs /app/public ./public
-
-# L'optimiseur d'images écrit ses variantes dans .next/cache/images. Sans ce
-# dossier inscriptible par l'utilisateur qui exécute le serveur, l'écriture
-# échoue silencieusement et chaque requête ré-encode l'image depuis la source.
-# Monter un volume sur ce chemin pour que le cache survive aux redéploiements.
-RUN mkdir -p .next/cache/images && chown -R nextjs:nodejs .next
-
-USER nextjs
+COPY --from=builder /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 3000
 
-CMD ["node", "server.js"]
+CMD ["nginx", "-g", "daemon off;"]

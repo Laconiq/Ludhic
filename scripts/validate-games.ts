@@ -8,6 +8,9 @@ import { ALL_GENRES, isValidGenre } from '../src/lib/genres';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const GAMES_PATH = path.join(__dirname, '..', 'src', 'data', 'games.json');
+// Les captures et logos vivent sous src/assets (traités au build par
+// astro:assets) ; seule la vidéo, servie telle quelle, reste sous public.
+const ASSETS_PATH = path.join(__dirname, '..', 'src', 'assets');
 const PUBLIC_PATH = path.join(__dirname, '..', 'public');
 
 const REQUIRED_FIELDS = ['id', 'title', 'longDescription', 'genres', 'year', 'contentFolder', 'imageCount', 'hasVideo', 'customButton', 'credits', 'featured'];
@@ -110,7 +113,7 @@ for (const game of games) {
   const contentFolder = game.contentFolder as string | undefined;
   if (!contentFolder) continue;
 
-  const assetDir = path.join(PUBLIC_PATH, contentFolder);
+  const assetDir = path.join(ASSETS_PATH, contentFolder);
   if (!fs.existsSync(assetDir)) {
     error(`Asset directory not found: ${contentFolder}`);
     continue;
@@ -136,7 +139,8 @@ for (const game of games) {
   }
 
   if (game.hasVideo) {
-    const videoPath = path.join(assetDir, 'video.webm');
+    // La vidéo, elle, reste servie brute depuis public/.
+    const videoPath = path.join(PUBLIC_PATH, contentFolder, 'video.webm');
     if (!fs.existsSync(videoPath)) {
       error(`hasVideo is true but ${contentFolder}/video.webm is missing`);
     }

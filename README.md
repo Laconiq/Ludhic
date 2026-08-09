@@ -5,7 +5,7 @@ Portfolio interactif des projets de jeux vidéo créés par les étudiants du Ma
 ## Démarrage Rapide
 
 ### Prérequis
-- Node.js 18+
+- Node.js 22+
 - pnpm
 
 ### Installation
@@ -16,7 +16,7 @@ pnpm install
 ### Développement
 ```bash
 pnpm dev
-# http://localhost:3000
+# http://localhost:4321
 ```
 
 ### Production
@@ -29,53 +29,63 @@ pnpm start
 
 ```bash
 pnpm dev              # Serveur de développement
-pnpm build            # Build de production (génération statique)
-pnpm start            # Serveur de production
+pnpm build            # Valide games.json puis build de production (génération statique)
+pnpm start            # Prévisualise le build de production en local
 pnpm lint             # ESLint
-pnpm type-check       # Vérification TypeScript (tsc --noEmit)
+pnpm type-check       # Vérification TypeScript (astro check)
 pnpm generate-videos  # Génère les vidéos d'arrière-plan (nécessite FFmpeg)
+pnpm optimize-images  # Normalise les images surdimensionnées dans public/games/
 ```
 
 ## Architecture
 
-- **Framework** : Next.js 15 (App Router), React 19, TypeScript
+- **Framework** : Astro 7 (sortie 100% statique), îlots Preact pour l'interactivité, TypeScript
 - **Styling** : Tailwind CSS 4
-- **Polices** : Plus Jakarta Sans + Pixelify Sans (locales)
+- **Polices** : Plus Jakarta Sans + Pixelify Sans (locales, via `@font-face`)
 - **Données** : `src/data/games.json` (source unique, pas de base de données)
-- **Génération** : Pages pré-rendues statiquement (sauf `/bingodir` — temps réel via SSE)
+- **Génération** : Toutes les pages sont pré-rendues au build — aucun serveur au runtime (`/bingodir` est un stub statique, la fonctionnalité temps réel a été désactivée avant la migration)
 
 ### Structure
 
 ```
 src/
-├── app/
-│   ├── components/
-│   │   ├── game/           # GameCard, GameGrid, GameHero, GameCredits, GamePageContent,
-│   │   │                   # GamesPageContent, ImageCarousel, GameVideo, FilterBar, RelatedGames
-│   │   ├── layout/         # Navigation, Hero, FAQ, Footer
-│   │   ├── legal/          # Modal, CGUModal, PrivacyModal
-│   │   ├── seo/            # SEOSchema (JSON-LD homepage)
-│   │   └── ui/             # GamingButton, GenreBadge
-│   ├── games/
-│   │   ├── page.tsx        # /games — Catalogue complet
-│   │   ├── [title]/        # /games/[slug] — Page individuelle
-│   │   └── year/[year]/    # /games/year/[year] — Filtre par année
-│   ├── layout.tsx          # Layout racine
-│   ├── page.tsx            # Page d'accueil
-│   ├── robots.ts           # /robots.txt (dynamique)
-│   ├── sitemap.ts          # /sitemap.xml (dynamique, avec images)
-│   └── globals.css         # Styles globaux + thème gaming
-├── constants/              # SITE_URL, FEATURED_YEAR
-├── data/                   # games.json
-├── lib/                    # slug, images, schemas, filters, genres, validation, scroll
-└── types/                  # GameData, Credit, JsonLdSchema
+├── components/          # Composants .astro (statiques) et .tsx (îlots Preact) à plat
+│   ├── GameCard.astro / GameCardIsland.tsx     # statique (RelatedGames, year) vs. dynamique (GameGrid filtré)
+│   ├── GamingButton.astro / GamingButtonIsland.tsx
+│   ├── GenreBadge.astro / GenreBadgeIsland.tsx
+│   ├── Navigation.tsx, Hero.tsx, FAQ.tsx, Footer.tsx, Modal.tsx, CGUModal.tsx, PrivacyModal.tsx
+│   ├── FilterBar.tsx, GameGrid.tsx, ImageCarousel.tsx, GameVideo.tsx
+│   ├── GameHero.astro, GameCredits.astro, RelatedGames.astro
+│   └── SEOSchema.astro, JsonLd.astro
+├── layouts/
+│   └── BaseLayout.astro # <head> : title, meta, OG, Twitter, favicons, JSON-LD host
+├── pages/
+│   ├── index.astro          # /
+│   ├── games/index.astro    # /games — Catalogue complet
+│   ├── games/[slug].astro   # /games/[slug] — Page individuelle
+│   ├── games/year/[year].astro
+│   ├── bingodir/index.astro # stub désactivé
+│   ├── sitemap.xml.ts       # /sitemap.xml (endpoint statique, avec images)
+│   ├── robots.txt.ts        # /robots.txt (endpoint statique)
+│   └── 404.astro
+├── styles/global.css    # Styles globaux + thème gaming + @font-face
+├── constants/           # SITE_URL, FEATURED_YEAR
+├── data/                # games.json, bingoData.json
+├── lib/                 # slug, images (chemins), assetImages (résolution astro:assets),
+│                         # gameImages (pré-résolution pour les îlots), schemas, filters, genres
+├── types/                # GameData, Credit, JsonLdSchema
+└── assets/
+    ├── games/            # symlink -> ../../public/games (voir plus bas)
+    └── images/logo.png   # symlink -> ../../../public/images/logo.png
 
 public/
-├── games/                  # Assets des jeux (images, vidéos, logos)
-├── images/                 # Images du site
-├── fonts/                  # Polices locales
-└── videos/                 # Vidéos d'arrière-plan générées
+├── games/                # Assets des jeux (vraie source : images + vidéos + logos)
+├── images/               # Images du site (favicons, logo)
+├── fonts/                # Polices locales
+└── videos/               # Vidéos d'arrière-plan générées
 ```
+
+`src/assets/games` est un lien symbolique vers `public/games` : il n'existe qu'une seule copie de chaque image sur le disque. Le lien sert uniquement à ce qu'`astro:assets` (qui ne traite que les fichiers sous `src/`) puisse les optimiser au build. `public/games` reste la source que lisent `optimize-images.ts`, `generate-videos.js` et `validate-games.ts` (pour la vidéo) — ajouter un jeu ne demande donc aucune adaptation à ces scripts.
 
 ## Ajout d'un Nouveau Jeu
 
@@ -107,7 +117,7 @@ public/
    - `1.webp`, `2.webp`, ... — Screenshots (nombre = `imageCount`)
    - `video.webm` — Vidéo optionnelle (si `hasVideo: true`)
 
-3. Rebuild : `pnpm build`
+3. Rebuild : `pnpm build` (valide `games.json` puis génère le site)
 
 ## Génération des Vidéos d'Arrière-plan
 
@@ -129,21 +139,14 @@ const TOTAL_VIDEOS = 3;           // Nombre de vidéos à générer
 
 - Metadata dynamiques sur toutes les pages (title, description, OG, Twitter, canonical)
 - JSON-LD : VideoGame, BreadcrumbList, ItemList, FAQPage, EducationalOrganization
-- Sitemap avec images pour chaque jeu
-- robots.ts dynamique
+- Sitemap avec images pour chaque jeu (`src/pages/sitemap.xml.ts`)
+- `src/pages/robots.txt.ts`
 - `<h1>` textuel sur toutes les pages
 - Maillage interne via la section "Jeux similaires"
 
 ## Déploiement
 
-Hébergé sur [Railway](https://railway.com/) (serveur Node.js persistant, nécessaire pour le SSE temps réel du Bingodir).
-
-```bash
-pnpm build
-pnpm start
-```
-
-Railway détecte automatiquement Next.js et lance `pnpm install` → `pnpm build` → `pnpm start` à chaque push.
+Auto-hébergé sur un VPS via Dokploy. GitHub Actions build l'image Docker (nginx servant la sortie statique d'Astro) → push sur GHCR → webhook de redéploiement Dokploy à chaque push sur `main`. Voir `CLAUDE.md` pour le détail de l'infra (headers, pas de cache runtime).
 
 ## Contact
 

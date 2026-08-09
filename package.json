@@ -2,34 +2,32 @@
   "name": "ludhic",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "next dev",
+    "dev": "astro dev",
     "validate-games": "tsx scripts/validate-games.ts",
-    "build": "tsx scripts/validate-games.ts && next build",
-    "start": "next start",
+    "build": "tsx scripts/validate-games.ts && astro build",
+    "start": "astro preview",
     "lint": "eslint .",
-    "type-check": "tsc --noEmit",
+    "type-check": "astro check",
     "generate-videos": "node scripts/generate-videos.js",
     "optimize-images": "tsx scripts/optimize-images.ts"
   },
   "dependencies": {
-    "next": "16.3.0",
-    "react": "^19.2.8",
-    "react-dom": "^19.2.8"
+    "@astrojs/preact": "^6.0.2",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.2.0",
+    "preact": "^10.29.8",
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.3.3",
-    "@types/node": "^26.1.2",
-    "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.4",
-    "babel-plugin-react-compiler": "^1.0.0",
+    "@astrojs/check": "^0.9.4",
+    "@types/node": "^26.2.0",
     "eslint": "^9.39.5",
-    "eslint-config-next": "16.3.0",
-    "postcss": "^8.5.25",
+    "eslint-plugin-astro": "^3.1.0",
     "sharp": "^0.35.3",
-    "tailwindcss": "^4.3.3",
     "tsx": "^4.23.5",
-    "typescript": "~6.0.3"
-  },
-  "packageManager": "pnpm@10.30.3"
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.66.0"
+  }
 }

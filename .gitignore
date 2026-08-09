@@ -10,12 +10,10 @@
 !.yarn/releases
 !.yarn/versions
 
-# next.js
-/.next/
-/out/
-
-# production
-/build
+# astro
+/dist/
+/.astro/
+pnpm-workspace.yaml
 
 # misc
 .DS_Store
@@ -32,7 +30,6 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
 
 # claude code local settings & hooks
 .claude/settings.local.json

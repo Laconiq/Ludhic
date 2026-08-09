@@ -1,4 +1,4 @@
-import { GameData } from '@/types/game';
+import type { GameData } from '@/types/game';
 
 export interface GameFilters {
   searchTerm: string;

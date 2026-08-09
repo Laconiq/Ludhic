@@ -7,12 +7,6 @@ services:
       - "3002:3000"
     environment:
       - NODE_ENV=production
-      - HOSTNAME=0.0.0.0
-    volumes:
-      # Conserve les variantes d'images déjà encodées d'un déploiement à
-      # l'autre : sans ça, le premier visiteur après chaque mise en ligne
-      # repaie le ré-encodage de chaque image.
-      - image-cache:/app/.next/cache/images
-
-volumes:
-  image-cache:
+    # Pas de volume : la sortie est statique, nginx ne réencode ni ne met en
+    # cache d'images à la volée. Contrairement à la version Next, un
+    # redéploiement ne perd donc rien qui vaille la peine d'être conservé.
