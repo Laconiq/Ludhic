@@ -1,0 +1,30 @@
+---
+import { getImage } from 'astro:assets';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navigation from '@/components/Navigation';
+import Hero from '@/components/Hero';
+import GameGrid from '@/components/GameGrid';
+import FAQ from '@/components/FAQ';
+import Footer from '@/components/Footer';
+import SEOSchema from '@/components/SEOSchema.astro';
+import gamesData from '@/data/games.json';
+import { withResolvedImages } from '@/lib/gameImages';
+import type { GameData } from '@/types/game';
+
+const logo = await import('@/assets/images/logo.png');
+const navLogo = await getImage({ src: logo.default, width: 40, height: 40 });
+const heroLogo = await getImage({ src: logo.default, width: 128, height: 128 });
+
+const gamesWithImages = await withResolvedImages(gamesData as GameData[]);
+---
+
+<BaseLayout>
+  <SEOSchema games={gamesData} />
+  <Navigation client:load logoSrc={navLogo.src} />
+  <main>
+    <Hero client:load logoSrc={heroLogo.src} />
+    <GameGrid client:visible games={gamesWithImages} />
+    <FAQ client:visible />
+  </main>
+  <Footer client:visible />
+</BaseLayout>

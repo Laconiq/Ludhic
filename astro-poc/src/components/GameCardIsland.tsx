@@ -1,0 +1,82 @@
+import { createSlug } from '@/lib/slug';
+import GenreBadgeIsland from './GenreBadgeIsland';
+import type { GameData } from '@/types/game';
+
+const DESCRIPTION_MAX_LENGTH = 140;
+const MAX_VISIBLE_GENRES = 3;
+
+export interface ResolvedImage {
+  src: string;
+  width: number;
+  height: number;
+}
+
+interface GameCardProps {
+  game: GameData;
+  mainImage: ResolvedImage;
+  logoImage: ResolvedImage;
+  priority?: boolean;
+}
+
+// Variante Preact de GameCard.astro : nécessaire dans GameGrid, dont le
+// contenu change entièrement côté client au fil des filtres. Les URL
+// d'image sont pré-résolues au build (cf. lib/gameImages.ts) et passées en
+// props — seul le HTML autour reste dynamique.
+export default function GameCard({ game, mainImage, logoImage, priority = false }: GameCardProps) {
+  const { title, longDescription, genres, year } = game;
+
+  return (
+    <a
+      href={`/games/${createSlug(title)}`}
+      class="gaming-card cursor-pointer h-full flex flex-col overflow-hidden block"
+      aria-label={`Voir les détails du jeu ${title}`}
+    >
+      <div class="relative w-full h-48 flex-shrink-0">
+        <img
+          src={mainImage.src}
+          width={mainImage.width}
+          height={mainImage.height}
+          alt={title}
+          loading={priority ? 'eager' : 'lazy'}
+          class="absolute inset-0 w-full h-full object-cover"
+        />
+
+        <div class="absolute top-2 right-2 bg-black/60 backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full font-semibold">
+          {year}
+        </div>
+
+        <div class="absolute bottom-2 left-2 h-8 max-w-16 flex items-center opacity-90">
+          <img
+            src={logoImage.src}
+            width={logoImage.width}
+            height={logoImage.height}
+            alt={`${title} Logo`}
+            loading="lazy"
+            class="max-h-full w-auto object-contain drop-shadow-md"
+          />
+        </div>
+      </div>
+
+      <div class="p-4 flex-grow flex flex-col">
+        <h3 class="text-lg font-sans font-bold text-[var(--text-primary)] mb-3 line-clamp-2">
+          {title}
+        </h3>
+
+        <div class="flex flex-wrap gap-2 mb-3 flex-shrink-0">
+          {genres.slice(0, MAX_VISIBLE_GENRES).map((genre) => (
+            <GenreBadgeIsland key={genre} genre={genre} variant="card" />
+          ))}
+          {genres.length > MAX_VISIBLE_GENRES && (
+            <GenreBadgeIsland genre={`+${genres.length - MAX_VISIBLE_GENRES}`} variant="card" showHash={false} />
+          )}
+        </div>
+
+        <p class="text-white/85 text-sm flex-grow">
+          {longDescription.length > DESCRIPTION_MAX_LENGTH
+            ? longDescription.slice(0, DESCRIPTION_MAX_LENGTH) + '...'
+            : longDescription}
+        </p>
+      </div>
+    </a>
+  );
+}

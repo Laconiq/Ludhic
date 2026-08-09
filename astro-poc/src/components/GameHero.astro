@@ -1,0 +1,37 @@
+---
+import { Image } from 'astro:assets';
+import { resolveGameImage } from '@/lib/assetImages';
+import { getMainImageUrl, getLogoUrl } from '@/lib/images';
+
+interface Props {
+  title: string;
+  contentFolder: string;
+}
+
+const { title, contentFolder } = Astro.props;
+const mainImage = resolveGameImage(getMainImageUrl(contentFolder));
+const logoImage = resolveGameImage(getLogoUrl(contentFolder));
+---
+
+<div class="relative w-full h-48 md:h-64 overflow-hidden">
+  <Image
+    src={mainImage}
+    alt={title}
+    widths={[320]}
+    sizes="320px"
+    quality={50}
+    class="absolute inset-0 w-full h-full object-cover blur-lg scale-110"
+  />
+  <div class="absolute inset-0 bg-black/60" />
+  <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+  <div class="absolute inset-0 bg-gradient-to-br from-cyan-400/10 via-transparent to-purple-600/10" />
+  <div class="absolute inset-0 flex items-center justify-center px-4 py-6 md:py-10">
+    <Image
+      src={logoImage}
+      alt={`${title} Logo`}
+      width={900}
+      height={200}
+      class="max-h-full w-auto max-w-full object-contain drop-shadow-2xl"
+    />
+  </div>
+</div>

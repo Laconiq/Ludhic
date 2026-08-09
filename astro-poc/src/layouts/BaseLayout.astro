@@ -1,0 +1,86 @@
+---
+import '@/styles/global.css';
+import { SITE_URL } from '@/constants/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  keywords?: string[];
+  canonical?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  noIndex?: boolean;
+}
+
+const DEFAULT_TITLE = 'Ludhic - Portfolio Jeux Étudiants Master HIC | Association Jeux Vidéo';
+const DEFAULT_DESCRIPTION =
+  "Découvrez les projets de jeux vidéo créés par les étudiants du Master Humanités et Industries Créatives (HIC). Portfolio interactif, association étudiante, créations originales. Anciennement MAJIC. Explorez des jeux uniques et innovants.";
+
+const {
+  title,
+  description = DEFAULT_DESCRIPTION,
+  keywords = [],
+  canonical = SITE_URL,
+  ogImage = '/images/logo.png',
+  ogType = 'website',
+  noIndex = false,
+} = Astro.props;
+
+const fullTitle = title ? `${title} | Ludhic - Master HIC` : DEFAULT_TITLE;
+const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${SITE_URL}${ogImage}`;
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="dns-prefetch" href="https://ludhic.fr" />
+
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    {keywords.length > 0 && <meta name="keywords" content={keywords.join(', ')} />}
+    <meta name="author" content="Association Ludhic" />
+    <link rel="canonical" href={canonical} />
+
+    <meta name="robots" content={noIndex ? 'noindex, nofollow' : 'index, follow'} />
+    <meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1" />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content="Ludhic - Association Master HIC" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:creator" content="@LudhicFr" />
+    <meta name="twitter:site" content="@LudhicFr" />
+
+    <meta name="theme-color" content="#06b6d4" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Ludhic" />
+    <meta name="application-name" content="Ludhic" />
+    <meta name="msapplication-TileColor" content="#06b6d4" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+
+    <link rel="icon" href="/images/logo-120x120.png" sizes="120x120" type="image/png" />
+    <link rel="icon" href="/images/logo-32x32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/images/logo-16x16.png" sizes="16x16" type="image/png" />
+    <link rel="shortcut icon" href="/images/logo-32x32.png" />
+    <link rel="apple-touch-icon" href="/images/logo-180x180.png" sizes="180x180" />
+    <link rel="apple-touch-icon" href="/images/logo-152x152.png" sizes="152x152" />
+    <link rel="apple-touch-icon" href="/images/logo-120x120.png" sizes="120x120" />
+    <link rel="manifest" href="/manifest.json" />
+  </head>
+  <body class="bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased">
+    <slot />
+  </body>
+</html>

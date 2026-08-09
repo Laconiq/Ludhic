@@ -1,0 +1,233 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("/fonts/PlusJakartaSans-VariableFont_wght.woff2") format("woff2");
+  font-weight: 200 800;
+  font-display: optional;
+}
+
+@font-face {
+  font-family: "Pixelify Sans";
+  src: url("/fonts/PixelifySans-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pixelify Sans";
+  src: url("/fonts/PixelifySans-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+
+:root {
+  --font-body: "Plus Jakarta Sans";
+  --font-pixel: "Pixelify Sans";
+  --bg-primary: #0a0e1a;
+  --bg-secondary: #141829;
+  --bg-tertiary: #1e2438;
+  --primary-blue: #314680;
+  --text-primary: #F2F4F3;
+  --border-primary: #2a2f3f;
+  --shadow-glow: 0 0 20px rgba(49, 70, 128, 0.3);
+  --shadow-dark: 0 8px 25px rgba(10, 14, 26, 0.8);
+}
+
+@theme inline {
+  --color-background: var(--bg-primary);
+  --color-foreground: var(--text-primary);
+  --font-sans: var(--font-body), system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-pixel), monospace;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body), system-ui, -apple-system, sans-serif;
+  padding-top: 64px;
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(49, 70, 128, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(236, 11, 67, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(242, 244, 243, 0.03) 0%, transparent 50%);
+  background-attachment: fixed;
+}
+
+p {
+  font-family: var(--font-body), system-ui, -apple-system, sans-serif;
+  font-weight: 400;
+  line-height: 1.65;
+  letter-spacing: -0.01em;
+  font-feature-settings: 'kern' 1, 'liga' 1;
+}
+
+.font-gaming {
+  font-family: var(--font-pixel), monospace !important;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-slide-down {
+  from { transform: translateY(-20px); }
+  to { transform: translateY(0); }
+}
+
+@keyframes hero-slide-up {
+  from { transform: translateY(20px); }
+  to { transform: translateY(0); }
+}
+
+.hero-animate-title {
+  animation: hero-slide-down 0.5s ease-out both;
+}
+
+.hero-animate-text {
+  animation: hero-slide-up 0.5s ease-out 0.2s both;
+}
+
+.hero-animate-buttons {
+  animation: hero-slide-up 0.5s ease-out 0.4s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-animate-title,
+  .hero-animate-text,
+  .hero-animate-buttons {
+    animation: none;
+  }
+}
+
+@keyframes grid-move {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(50px, 50px);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .fade-in-view {
+      animation: fadeIn linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 15%;
+    }
+  }
+}
+
+.animate-grid-move {
+  animation: grid-move 20s linear infinite;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-blue);
+  box-shadow: 0 0 10px var(--primary-blue);
+}
+
+.foil-effect {
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    rgba(49, 70, 128, 0.8) 0%,
+    rgba(242, 244, 243, 0.9) 25%,
+    rgba(236, 11, 67, 0.8) 50%,
+    rgba(242, 244, 243, 0.9) 75%,
+    rgba(49, 70, 128, 0.8) 100%
+  );
+  background-size: 300% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 25px rgba(242, 244, 243, 0.45));
+}
+
+.foil-logo {
+  position: relative;
+  filter: drop-shadow(0 0 10px rgba(242, 244, 243, 0.2));
+}
+
+.foil-container {
+  cursor: default;
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease;
+}
+
+.gaming-card {
+  background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+  border: 1px solid var(--border-primary);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s;
+  border-radius: 0.75rem;
+}
+.gaming-card:hover {
+  border-color: var(--primary-blue);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-0.5rem) scale(1.02);
+}
+
+.gaming-grid-bg {
+  background-image:
+    linear-gradient(rgba(45, 66, 126, 0.3) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(45, 66, 126, 0.3) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+}
+
+.gaming-grid-bg-fine {
+  background-image:
+    linear-gradient(rgba(45, 66, 126, 0.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(45, 66, 126, 0.2) 1px, transparent 1px);
+  background-size: 10px 10px;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.25s;
+  animation-timing-function: ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}

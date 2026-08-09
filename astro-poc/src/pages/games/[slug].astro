@@ -1,0 +1,156 @@
+---
+import { getImage } from 'astro:assets';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navigation from '@/components/Navigation';
+import GameHero from '@/components/GameHero.astro';
+import GamingButton from '@/components/GamingButton.astro';
+import GenreBadge from '@/components/GenreBadge.astro';
+import FadeInView from '@/components/FadeInView.astro';
+import ImageCarousel from '@/components/ImageCarousel';
+import GameVideo from '@/components/GameVideo';
+import GameCredits from '@/components/GameCredits.astro';
+import RelatedGames from '@/components/RelatedGames.astro';
+import Footer from '@/components/Footer';
+import JsonLd from '@/components/JsonLd.astro';
+import gamesData from '@/data/games.json';
+import { createSlug } from '@/lib/slug';
+import { getAllImageUrls, getMainImageUrl } from '@/lib/images';
+import { resolveGameImage } from '@/lib/assetImages';
+import { createBreadcrumbSchema, createVideoGameSchema } from '@/lib/schemas';
+import { SITE_URL } from '@/constants/site';
+import type { GameData } from '@/types/game';
+
+// POC : limité aux 5 jeux dont les visuels ont été portés dans src/assets
+// (le jeu ciblé + ses 4 jeux liés). La version migrée générerait les 28
+// pages comme le fait `generateStaticParams` aujourd'hui.
+export async function getStaticPaths() {
+  const pocSlugs = ['anthares', 'hebald-forest', 'aeon', 'atone', 'the-morrigan'];
+  return (gamesData as GameData[])
+    .filter((game) => pocSlugs.includes(createSlug(game.title)))
+    .map((game) => ({ params: { slug: createSlug(game.title) } }));
+}
+
+const POC_SLUGS = ['anthares', 'hebald-forest', 'aeon', 'atone', 'the-morrigan'];
+
+const { slug } = Astro.params;
+const game = (gamesData as GameData[]).find((g) => createSlug(g.title) === slug)!;
+
+function getRelatedGames(target: GameData, limit = 4): GameData[] {
+  const others = (gamesData as GameData[]).filter((g) => g.id !== target.id);
+  const scored = others.map((g) => {
+    let score = 0;
+    const common = g.genres.filter((genre) => target.genres.includes(genre));
+    score += common.length * 3;
+    if (g.year === target.year) score += 1;
+    return { game: g, score };
+  });
+  scored.sort((a, b) => b.score - a.score);
+  return scored.slice(0, limit).map((s) => s.game);
+}
+
+const relatedGames = getRelatedGames(game).filter((g) => POC_SLUGS.includes(createSlug(g.title)));
+
+const gameSchema = createVideoGameSchema(game);
+const breadcrumbSchema = createBreadcrumbSchema([
+  { name: 'Accueil', url: SITE_URL },
+  { name: 'Jeux', url: `${SITE_URL}/games` },
+  { name: game.title, url: `${SITE_URL}/games/${createSlug(game.title)}` },
+]);
+
+// Les URL d'images consommées par les îlots Preact sont résolues au build,
+// via le service d'images d'Astro — c'est ce qui remplace l'optimiseur à la
+// volée de Next et son cache runtime.
+const navLogo = await getImage({ src: (await import('@/assets/images/logo.png')).default, width: 40, height: 40 });
+
+const allImagePaths = getAllImageUrls(game.contentFolder, game.imageCount);
+const carouselImages = await Promise.all(
+  allImagePaths.map(async (path) => {
+    const optimized = await getImage({ src: resolveGameImage(path), width: 1080, format: 'webp' });
+    return { src: optimized.src, width: optimized.attributes.width as number, height: optimized.attributes.height as number };
+  })
+);
+
+const posterImage = await getImage({ src: resolveGameImage(getMainImageUrl(game.contentFolder)), width: 1080, quality: 50, format: 'webp' });
+const ogImage = await getImage({ src: resolveGameImage(getMainImageUrl(game.contentFolder)), width: 1200, format: 'webp' });
+---
+
+<BaseLayout
+  title={game.title}
+  description={`${game.longDescription.slice(0, 160)}...`}
+  keywords={[game.title, ...game.genres, `jeu ${game.year}`, 'Master HIC', 'étudiant', 'projet', ...game.credits.map((c) => `${c.firstName} ${c.lastName}`)]}
+  canonical={`${SITE_URL}/games/${createSlug(game.title)}`}
+  ogImage={ogImage.src}
+  ogType="article"
+>
+  <JsonLd schema={[gameSchema, breadcrumbSchema]} />
+  <div class="min-h-screen bg-[var(--bg-primary)] flex flex-col">
+    <Navigation client:load logoSrc={navLogo.src} />
+
+    <GameHero title={game.title} contentFolder={game.contentFolder} />
+
+    <div class="w-full max-w-4xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16 py-16">
+      <nav aria-label="Fil d'Ariane" class="mb-8">
+        <ol class="flex items-center gap-2 text-sm text-white/60">
+          <li><a href="/" class="hover:text-cyan-300 transition-colors">Accueil</a></li>
+          <li aria-hidden="true" class="text-white/30">/</li>
+          <li><a href="/#games" class="hover:text-cyan-300 transition-colors">Jeux</a></li>
+          <li aria-hidden="true" class="text-white/30">/</li>
+          <li class="text-cyan-300 font-medium truncate" aria-current="page">{game.title}</li>
+        </ol>
+      </nav>
+
+      <h1 class="text-2xl md:text-4xl font-gaming foil-effect text-center mb-6">
+        {game.title.toUpperCase()}
+      </h1>
+
+      <div class="flex flex-col items-center gap-y-2 mb-8">
+        <div class="flex flex-wrap gap-2 justify-center">
+          <span class="font-gaming bg-black/50 backdrop-blur-sm rounded-full border border-cyan-400/30 text-cyan-400 text-xs px-2 py-0.5 sm:text-base sm:px-3 sm:py-1">
+            ANNÉE {game.year}
+          </span>
+          {game.genres.map((genre) => (
+            <GenreBadge genre={genre} variant="detail" href={`/games?genre=${encodeURIComponent(genre)}`} />
+          ))}
+        </div>
+        {game.customButton.enabled && (
+          <GamingButton href={game.customButton.link} external size="sm" class="mt-4 block mx-auto w-auto hover:scale-105">
+            {game.customButton.name}
+          </GamingButton>
+        )}
+      </div>
+
+      <FadeInView>
+        <div class="mb-12 w-full">
+          <h2 class="text-xl md:text-2xl font-gaming text-cyan-400 mb-6 tracking-wider w-full">
+            A PROPOS DU JEU
+          </h2>
+          <p class="text-white/90 text-base leading-relaxed w-full">{game.longDescription}</p>
+        </div>
+      </FadeInView>
+
+      {game.imageCount > 1 && (
+        <FadeInView>
+          <ImageCarousel client:visible images={carouselImages} title={game.title} />
+        </FadeInView>
+      )}
+
+      {(game.hasVideo || game.youtubeUrl) && (
+        <FadeInView>
+          <GameVideo
+            client:visible
+            contentFolder={game.contentFolder}
+            posterSrc={posterImage.src}
+            youtubeUrl={game.youtubeUrl}
+          />
+        </FadeInView>
+      )}
+
+      <FadeInView>
+        <GameCredits credits={game.credits} />
+      </FadeInView>
+    </div>
+
+    <RelatedGames games={relatedGames} />
+    <Footer client:visible />
+  </div>
+</BaseLayout>
