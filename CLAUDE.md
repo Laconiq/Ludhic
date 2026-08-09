@@ -15,7 +15,7 @@ pnpm start            # Preview the production build locally
 pnpm lint             # Run ESLint (eslint-plugin-astro + typescript-eslint)
 pnpm type-check       # Run astro check
 pnpm generate-videos  # Generate background videos from game videos (requires FFmpeg)
-pnpm optimize-images  # Normalize oversized game images in public/games/ (requires sharp, already a devDependency)
+pnpm optimize-images  # Normalize oversized game images in src/assets/games/ (requires sharp, already a devDependency)
 ```
 
 ## Architecture
@@ -99,3 +99,5 @@ src/assets/games/[slug]/
 ```
 
 Images and video are deliberately split across two directories, not just by convention but physically: `astro:assets`' `import.meta.glob` only processes files under `src/`, and Astro copies the entire `public/` directory verbatim into the build output. Putting images under `public/games/` (as the old Next.js convention did) would ship both the build-time-optimized `_astro/*` variant *and* the untouched multi-megabyte source next to it — that regression is exactly why this split exists. `optimize-images.ts` was updated accordingly to operate on `src/assets/games/`; `generate-videos.js` still reads `public/games/*/video.webm`, unchanged.
+
+**Trap to avoid**: `getMainImageUrl()`/`getLogoUrl()`/`getAllImageUrls()` (in `src/lib/images.ts`) return the *convention path* (`/games/<slug>/1.webp`) — since images moved out of `public/`, that path is no longer a real file. It's only ever meant to be fed into `resolveGameImage()` + `astro:assets`' `getImage()`/`<Image>`, which return the actual built URL. Never embed the raw convention path directly into HTML, JSON-LD, or the sitemap — that exact mistake shipped once (sitemap `<image:loc>` and every game page's JSON-LD silently 404ing, since nothing renders those URLs as a visible `<img>` for QA to catch) and was fixed by routing `sitemap.xml.ts` and `createVideoGameSchema()` through resolved image URLs instead.

@@ -34,7 +34,7 @@ pnpm start            # Prévisualise le build de production en local
 pnpm lint             # ESLint
 pnpm type-check       # Vérification TypeScript (astro check)
 pnpm generate-videos  # Génère les vidéos d'arrière-plan (nécessite FFmpeg)
-pnpm optimize-images  # Normalise les images surdimensionnées dans public/games/
+pnpm optimize-images  # Normalise les images surdimensionnées dans src/assets/games/
 ```
 
 ## Architecture
