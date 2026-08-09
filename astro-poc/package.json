@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "validate-games": "tsx scripts/validate-games.ts",
+    "build": "tsx scripts/validate-games.ts && astro build",
     "preview": "astro preview"
   },
   "dependencies": {
@@ -14,5 +15,9 @@
     "@tailwindcss/vite": "^4.3.3",
     "preact": "^10.29.8",
     "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.3",
+    "tsx": "^4.23.5"
   }
 }

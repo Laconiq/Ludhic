@@ -1,0 +1,12 @@
+services:
+  ludhic:
+    build: .
+    container_name: ludhic
+    restart: unless-stopped
+    ports:
+      - "3002:3000"
+    environment:
+      - NODE_ENV=production
+    # Pas de volume : la sortie est statique, nginx ne réencode ni ne met en
+    # cache d'images à la volée. Contrairement à la version Next, un
+    # redéploiement ne perd donc rien qui vaille la peine d'être conservé.
