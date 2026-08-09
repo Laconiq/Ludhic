@@ -76,7 +76,7 @@ src/
 ├── types/                # GameData, Credit, JsonLdSchema
 └── assets/
     ├── games/            # captures + logos de chaque jeu (traités par astro:assets au build)
-    └── images/logo.png   # symlink -> ../../../public/images/logo.png (variantes nav/hero)
+    └── images/logo.png   # copie de public/images/logo.png, pour les variantes nav/hero traitées par astro:assets
 
 public/
 ├── games/                # UNIQUEMENT video.webm par jeu — servie telle quelle
