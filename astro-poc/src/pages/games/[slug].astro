@@ -20,17 +20,9 @@ import { createBreadcrumbSchema, createVideoGameSchema } from '@/lib/schemas';
 import { SITE_URL } from '@/constants/site';
 import type { GameData } from '@/types/game';
 
-// POC : limité aux 5 jeux dont les visuels ont été portés dans src/assets
-// (le jeu ciblé + ses 4 jeux liés). La version migrée générerait les 28
-// pages comme le fait `generateStaticParams` aujourd'hui.
 export async function getStaticPaths() {
-  const pocSlugs = ['anthares', 'hebald-forest', 'aeon', 'atone', 'the-morrigan'];
-  return (gamesData as GameData[])
-    .filter((game) => pocSlugs.includes(createSlug(game.title)))
-    .map((game) => ({ params: { slug: createSlug(game.title) } }));
+  return (gamesData as GameData[]).map((game) => ({ params: { slug: createSlug(game.title) } }));
 }
-
-const POC_SLUGS = ['anthares', 'hebald-forest', 'aeon', 'atone', 'the-morrigan'];
 
 const { slug } = Astro.params;
 const game = (gamesData as GameData[]).find((g) => createSlug(g.title) === slug)!;
@@ -48,7 +40,7 @@ function getRelatedGames(target: GameData, limit = 4): GameData[] {
   return scored.slice(0, limit).map((s) => s.game);
 }
 
-const relatedGames = getRelatedGames(game).filter((g) => POC_SLUGS.includes(createSlug(g.title)));
+const relatedGames = getRelatedGames(game);
 
 const gameSchema = createVideoGameSchema(game);
 const breadcrumbSchema = createBreadcrumbSchema([

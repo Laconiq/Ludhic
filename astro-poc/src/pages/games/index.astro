@@ -1,0 +1,54 @@
+---
+import { getImage } from 'astro:assets';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Navigation from '@/components/Navigation';
+import GameGrid from '@/components/GameGrid';
+import Footer from '@/components/Footer';
+import JsonLd from '@/components/JsonLd.astro';
+import gamesData from '@/data/games.json';
+import { createSlug } from '@/lib/slug';
+import { withResolvedImages } from '@/lib/gameImages';
+import { SITE_URL } from '@/constants/site';
+import type { GameData } from '@/types/game';
+
+const logo = await import('@/assets/images/logo.png');
+const navLogo = await getImage({ src: logo.default, width: 40, height: 40 });
+
+const gamesWithImages = await withResolvedImages(gamesData as GameData[]);
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: SITE_URL },
+    { '@type': 'ListItem', position: 2, name: 'Jeux', item: `${SITE_URL}/games` },
+  ],
+};
+
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Tous les jeux étudiants Ludhic',
+  numberOfItems: gamesData.length,
+  itemListElement: gamesData.map((game, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: game.title,
+    url: `${SITE_URL}/games/${createSlug(game.title)}`,
+  })),
+};
+---
+
+<BaseLayout
+  title="Tous les jeux étudiants"
+  description={`Explorez les ${gamesData.length} jeux vidéo créés par les étudiants du Master Humanités et Industries Créatives (HIC). Portfolio complet de créations interactives étudiantes.`}
+  keywords={['jeux étudiants', 'portfolio jeux vidéo', 'Master HIC', 'créations interactives', 'Ludhic', 'game design étudiant']}
+  canonical={`${SITE_URL}/games`}
+>
+  <JsonLd schema={[breadcrumbSchema, itemListSchema]} />
+  <Navigation client:load logoSrc={navLogo.src} />
+  <div class="pt-16">
+    <GameGrid client:load games={gamesWithImages} showAllByDefault />
+  </div>
+  <Footer client:visible />
+</BaseLayout>
