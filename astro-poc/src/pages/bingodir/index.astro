@@ -1,0 +1,28 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+// La fonctionnalité est désactivée côté serveur depuis src/app/api/bingodir/state.ts
+// (BINGODIR_DISABLED = true, pour limiter la charge serveur) : les routes API
+// répondent déjà 503 sur le site actuel. Le composant React d'origine (475
+// lignes : grille de bingo, chat, SSE temps réel) n'est donc pas porté ici —
+// ce serait porter une fonctionnalité éteinte. S'il est un jour réactivé, le
+// code source reste disponible dans l'historique git de l'app Next et
+// nécessitera un adapter SSR (@astrojs/node, route en `prerender = false`)
+// puisque le SSE exige un serveur, pas une génération statique.
+---
+
+<BaseLayout title="Bingodir" noIndex>
+  <div class="min-h-screen bg-[var(--bg-primary)] flex items-center justify-center px-4">
+    <div class="text-center max-w-md">
+      <h1 class="text-3xl md:text-4xl font-gaming text-cyan-400 mb-4">
+        BINGODIR
+      </h1>
+      <p class="text-white/80 text-lg mb-2">
+        Cette fonctionnalité est temporairement désactivée.
+      </p>
+      <p class="text-white/50 text-sm">
+        Revenez plus tard, ou contactez l'association si vous pensez qu'il s'agit d'une erreur.
+      </p>
+    </div>
+  </div>
+</BaseLayout>
