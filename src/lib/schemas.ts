@@ -1,6 +1,5 @@
 import { SITE_URL } from '@/constants/site';
 import { createSlug } from '@/lib/slug';
-import { getAllImageUrls, getLogoUrl } from '@/lib/images';
 import type { JsonLdSchema } from '@/types/game';
 
 interface BreadcrumbItem {
@@ -27,7 +26,6 @@ interface GameSchemaInput {
   contentFolder: string;
   year: number;
   genres: string[];
-  imageCount: number;
   hasVideo: boolean;
   credits: Array<{
     firstName: string;
@@ -36,20 +34,28 @@ interface GameSchemaInput {
   }>;
 }
 
-export function createVideoGameSchema(game: GameSchemaInput) {
-  const screenshots = getAllImageUrls(game.contentFolder, game.imageCount).map(
-    (url) => `${SITE_URL}${url}`
-  );
+interface GameSchemaImages {
+  /** URL absolue de la première capture, déjà résolue via astro:assets. */
+  main: string;
+  /** URL absolue du logo, déjà résolue via astro:assets. */
+  logo: string;
+  /** URL absolues de toutes les captures, déjà résolues via astro:assets. */
+  screenshots: string[];
+}
 
+// Les URL d'images sont résolues par l'appelant (astro:assets ne tourne
+// qu'au build/SSR) et passées ici déjà prêtes — cette fonction reste une
+// fonction pure, sans dépendance à Astro.
+export function createVideoGameSchema(game: GameSchemaInput, images: GameSchemaImages) {
   const schema: JsonLdSchema = {
     "@context": "https://schema.org",
     "@type": "VideoGame",
     "name": game.title,
     "description": game.longDescription,
     "url": `${SITE_URL}/games/${createSlug(game.title)}`,
-    "image": `${SITE_URL}${game.contentFolder}/1.webp`,
-    "screenshot": screenshots,
-    "thumbnailUrl": `${SITE_URL}${getLogoUrl(game.contentFolder)}`,
+    "image": images.main,
+    "screenshot": images.screenshots,
+    "thumbnailUrl": images.logo,
     "dateCreated": `${game.year}`,
     "datePublished": `${game.year}-01-01`,
     "genre": game.genres,
@@ -80,7 +86,7 @@ export function createVideoGameSchema(game: GameSchemaInput) {
       "name": `${game.title} - Gameplay`,
       "description": `Vidéo de gameplay du jeu ${game.title}`,
       "contentUrl": `${SITE_URL}${game.contentFolder}/video.webm`,
-      "thumbnailUrl": `${SITE_URL}${game.contentFolder}/1.webp`,
+      "thumbnailUrl": images.main,
       "uploadDate": `${game.year}-01-01`
     };
   }

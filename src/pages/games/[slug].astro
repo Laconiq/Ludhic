@@ -14,7 +14,7 @@ import Footer from '@/components/Footer';
 import JsonLd from '@/components/JsonLd.astro';
 import gamesData from '@/data/games.json';
 import { createSlug } from '@/lib/slug';
-import { getAllImageUrls, getMainImageUrl } from '@/lib/images';
+import { getAllImageUrls, getMainImageUrl, getLogoUrl } from '@/lib/images';
 import { resolveGameImage } from '@/lib/assetImages';
 import { createBreadcrumbSchema, createVideoGameSchema } from '@/lib/schemas';
 import { SITE_URL } from '@/constants/site';
@@ -42,16 +42,18 @@ function getRelatedGames(target: GameData, limit = 4): GameData[] {
 
 const relatedGames = getRelatedGames(game);
 
-const gameSchema = createVideoGameSchema(game);
 const breadcrumbSchema = createBreadcrumbSchema([
   { name: 'Accueil', url: SITE_URL },
   { name: 'Jeux', url: `${SITE_URL}/games` },
   { name: game.title, url: `${SITE_URL}/games/${createSlug(game.title)}` },
 ]);
 
-// Les URL d'images consommées par les îlots Preact sont résolues au build,
-// via le service d'images d'Astro — c'est ce qui remplace l'optimiseur à la
-// volée de Next et son cache runtime.
+// Les URL d'images consommées par les îlots Preact et le JSON-LD sont
+// résolues au build, via le service d'images d'Astro — c'est ce qui
+// remplace l'optimiseur à la volée de Next et son cache runtime. Les
+// chemins de convention (`/games/<slug>/1.webp`) ne pointent plus vers un
+// fichier réel une fois construits : toute URL exposée doit passer par
+// `getImage()`.
 const navLogo = await getImage({ src: (await import('@/assets/images/logo.png')).default, width: 40, height: 40 });
 
 const allImagePaths = getAllImageUrls(game.contentFolder, game.imageCount);
@@ -64,6 +66,13 @@ const carouselImages = await Promise.all(
 
 const posterImage = await getImage({ src: resolveGameImage(getMainImageUrl(game.contentFolder)), width: 1080, quality: 50, format: 'webp' });
 const ogImage = await getImage({ src: resolveGameImage(getMainImageUrl(game.contentFolder)), width: 1200, format: 'webp' });
+const schemaLogo = await getImage({ src: resolveGameImage(getLogoUrl(game.contentFolder)), width: 512, format: 'webp' });
+
+const gameSchema = createVideoGameSchema(game, {
+  main: `${SITE_URL}${ogImage.src}`,
+  logo: `${SITE_URL}${schemaLogo.src}`,
+  screenshots: carouselImages.map((img) => `${SITE_URL}${img.src}`),
+});
 ---
 
 <BaseLayout
