@@ -75,17 +75,17 @@ src/
 │                         # gameImages (pré-résolution pour les îlots), schemas, filters, genres
 ├── types/                # GameData, Credit, JsonLdSchema
 └── assets/
-    ├── games/            # symlink -> ../../public/games (voir plus bas)
-    └── images/logo.png   # symlink -> ../../../public/images/logo.png
+    ├── games/            # captures + logos de chaque jeu (traités par astro:assets au build)
+    └── images/logo.png   # symlink -> ../../../public/images/logo.png (variantes nav/hero)
 
 public/
-├── games/                # Assets des jeux (vraie source : images + vidéos + logos)
-├── images/               # Images du site (favicons, logo)
+├── games/                # UNIQUEMENT video.webm par jeu — servie telle quelle
+├── images/               # Images du site (favicons, logo.png en taille originale)
 ├── fonts/                # Polices locales
 └── videos/               # Vidéos d'arrière-plan générées
 ```
 
-`src/assets/games` est un lien symbolique vers `public/games` : il n'existe qu'une seule copie de chaque image sur le disque. Le lien sert uniquement à ce qu'`astro:assets` (qui ne traite que les fichiers sous `src/`) puisse les optimiser au build. `public/games` reste la source que lisent `optimize-images.ts`, `generate-videos.js` et `validate-games.ts` (pour la vidéo) — ajouter un jeu ne demande donc aucune adaptation à ces scripts.
+Les captures et logos vivent sous `src/assets/games/` (traités par `astro:assets` au build) et non sous `public/` : Astro copie `public/` tel quel dans la sortie, donc y laisser les sources brutes aurait doublé le poids déployé — la variante optimisée dans `_astro/` *et* l'original à côté. Seule la vidéo, servie sans traitement, reste sous `public/games/`. `optimize-images.ts` lit et réécrit `src/assets/games/`, `generate-videos.js` continue de lire `public/games/*/video.webm`.
 
 ## Ajout d'un Nouveau Jeu
 
@@ -112,10 +112,11 @@ public/
    }
    ```
 
-2. Créer le dossier `public/games/mon-nouveau-jeu/` avec :
+2. Créer le dossier `src/assets/games/mon-nouveau-jeu/` avec :
    - `logo.webp` — Logo du jeu
    - `1.webp`, `2.webp`, ... — Screenshots (nombre = `imageCount`)
-   - `video.webm` — Vidéo optionnelle (si `hasVideo: true`)
+
+   Et, si `hasVideo: true`, `public/games/mon-nouveau-jeu/video.webm` — la vidéo est servie telle quelle, elle ne va pas avec les images.
 
 3. Rebuild : `pnpm build` (valide `games.json` puis génère le site)
 

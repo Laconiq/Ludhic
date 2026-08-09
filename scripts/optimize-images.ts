@@ -1,6 +1,7 @@
 #!/usr/bin/env tsx
 /**
- * Normalise les images sources de `public/games/`.
+ * Normalise les images sources de `src/assets/games/` (captures et logos —
+ * la vidéo, elle, reste sous `public/games/`, servie telle quelle).
  *
  * Deux problèmes distincts :
  *
@@ -21,7 +22,7 @@ import { readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import sharp from 'sharp';
 
-const GAMES_DIR = 'public/games';
+const GAMES_DIR = 'src/assets/games';
 
 // Au-delà, on ne fait que payer du décodage : aucune variante servie ne dépasse
 // 1080 px (cf. `images.deviceSizes` dans next.config.ts).

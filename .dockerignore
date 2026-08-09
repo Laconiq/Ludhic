@@ -8,3 +8,6 @@ dist
 *.md
 LICENSE
 .playwright-mcp
+
+# master source video (372 Mo) : VAL 153 est diffusé via YouTube, pas ce fichier
+public/games/val-153/video.webm

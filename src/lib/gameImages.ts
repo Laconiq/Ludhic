@@ -19,12 +19,15 @@ export async function withResolvedImages(games: GameData[]): Promise<GameWithIma
     games.map(async (game) => {
       const [main, logo] = await Promise.all([
         getImage({ src: resolveGameImage(getMainImageUrl(game.contentFolder)), width: 640, format: 'webp' }),
-        getImage({ src: resolveGameImage(getLogoUrl(game.contentFolder)), width: 64, height: 32, format: 'webp' }),
+        // Hauteur seule : la contrainte CSS dominante du badge (GameCardIsland)
+        // est `h-8`/`max-h-full`. Forcer width+height distordrait les logos
+        // dont le ratio source ne colle pas à 64:32.
+        getImage({ src: resolveGameImage(getLogoUrl(game.contentFolder)), height: 32, format: 'webp' }),
       ]);
       return {
         ...game,
         mainImage: { src: main.src, width: main.attributes.width as number, height: main.attributes.height as number },
-        logoImage: { src: logo.src, width: 64, height: 32 },
+        logoImage: { src: logo.src, width: logo.attributes.width as number, height: 32 },
       };
     })
   );

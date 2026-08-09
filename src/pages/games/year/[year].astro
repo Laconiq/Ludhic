@@ -31,8 +31,11 @@ const navLogo = await getImage({ src: logo.default, width: 40, height: 40 });
 const backgroundImages = await Promise.all(
   gamesOfYear.map((game) => getImage({ src: resolveGameImage(getMainImageUrl(game.contentFolder)), width: 320, quality: 50, format: 'webp' }))
 );
+// Hauteur seule : la contrainte CSS dominante (h-12 / md:h-20) est la
+// hauteur ; forcer les deux dimensions distordrait les logos dont le ratio
+// source ne colle pas à 100:40 (cf. GameHero pour le même correctif).
 const logoImages = await Promise.all(
-  gamesOfYear.map((game) => getImage({ src: resolveGameImage(getLogoUrl(game.contentFolder)), width: 100, height: 40, format: 'webp' }))
+  gamesOfYear.map((game) => getImage({ src: resolveGameImage(getLogoUrl(game.contentFolder)), height: 80, format: 'webp' }))
 );
 
 const allGenres = [...new Set(gamesOfYear.flatMap((g) => g.genres))];
