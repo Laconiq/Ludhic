@@ -10,27 +10,34 @@
   "scope": "/",
   "lang": "fr-FR",
   "dir": "ltr",
-  "categories": ["education", "games", "portfolio", "entertainment"],
-  "screenshots": [
-    {
-      "src": "/images/screenshot-wide.jpg",
-      "sizes": "1280x720",
-      "type": "image/jpeg",
-      "form_factor": "wide",
-      "label": "Page d'accueil Ludhic - Vue desktop"
-    },
-    {
-      "src": "/images/screenshot-narrow.jpg", 
-      "sizes": "720x1280",
-      "type": "image/jpeg",
-      "form_factor": "narrow",
-      "label": "Page d'accueil Ludhic - Vue mobile"
-    }
+  "categories": [
+    "education",
+    "games",
+    "portfolio",
+    "entertainment"
   ],
   "icons": [
     {
       "src": "/images/logo.png",
-      "sizes": "any",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/logo-180x180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/logo-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/logo-120x120.png",
+      "sizes": "120x120",
       "type": "image/png",
       "purpose": "any"
     }
@@ -43,8 +50,9 @@
       "url": "/#games",
       "icons": [
         {
-          "src": "/images/logo.png",
-          "sizes": "any"
+          "src": "/images/logo-180x180.png",
+          "sizes": "180x180",
+          "type": "image/png"
         }
       ]
     },
@@ -52,28 +60,17 @@
       "name": "Tous les jeux",
       "short_name": "Catalogue",
       "description": "Parcourir le catalogue complet des jeux étudiants",
-      "url": "/games",
+      "url": "/games/",
       "icons": [
         {
-          "src": "/images/logo.png",
-          "sizes": "any"
+          "src": "/images/logo-180x180.png",
+          "sizes": "180x180",
+          "type": "image/png"
         }
       ]
     }
   ],
-  "related_applications": [],
-  "prefer_related_applications": false,
-  "edge_side_panel": {
-    "preferred_width": 400
-  },
   "launch_handler": {
     "client_mode": "navigate-existing"
-  },
-  "handle_links": "preferred",
-  "protocol_handlers": [
-    {
-      "protocol": "web+game",
-      "url": "/games/%s"
-    }
-  ]
-} 
+  }
+}
