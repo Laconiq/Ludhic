@@ -1,6 +1,6 @@
-FROM node:22-alpine AS base
+FROM node:24-alpine AS base
 
-RUN corepack enable && corepack prepare pnpm@10.30.3 --activate
+RUN corepack enable && corepack prepare pnpm@10.34.5 --activate
 
 # --- Dependencies ---
 FROM base AS deps
@@ -19,7 +19,7 @@ RUN pnpm build
 # Sortie 100% statique : pas de serveur Node, pas de cache d'optimiseur
 # d'images à faire survivre aux redéploiements (astro:assets traite les
 # images au build, cf. src/lib/assetImages.ts). nginx sert dist/ tel quel.
-FROM nginx:1.27-alpine AS runner
+FROM nginx:1.30-alpine AS runner
 
 COPY --from=builder /app/dist /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
