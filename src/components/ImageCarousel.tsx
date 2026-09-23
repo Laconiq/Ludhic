@@ -127,17 +127,24 @@ export default function ImageCarousel({ images, title }: ImageCarouselProps) {
             </svg>
           </button>
 
-          <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+          {/* Pastilles de 12px, mais zone cliquable de 24px : le minimum
+              recommandé pour une cible tactile (WCAG 2.5.8). */}
+          <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex">
             {images.map((image, index) => (
               <button
                 key={image.src}
                 onClick={() => goToImage(index)}
                 disabled={isTransitioning}
                 aria-label={`Aller à l'image ${index + 1}`}
-                class={`w-3 h-3 rounded-full transition-all duration-200 cursor-pointer ${
-                  index === currentImageIndex ? 'bg-cyan-300 scale-125' : 'bg-white/70 hover:bg-white/90'
-                }`}
-              />
+                class="group w-6 h-6 flex items-center justify-center cursor-pointer"
+              >
+                <span
+                  aria-hidden="true"
+                  class={`w-3 h-3 rounded-full transition-all duration-200 ${
+                    index === currentImageIndex ? 'bg-cyan-300 scale-125' : 'bg-white/70 group-hover:bg-white/90'
+                  }`}
+                />
+              </button>
             ))}
           </div>
         </div>

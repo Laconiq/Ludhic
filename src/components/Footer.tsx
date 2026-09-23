@@ -14,7 +14,7 @@ export default function Footer() {
         <div class="max-w-7xl mx-auto px-4 py-12">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div class="space-y-4">
-              <h4 class="text-lg font-gaming text-white mb-4">LIENS UTILES</h4>
+              <h2 class="text-lg font-gaming text-white mb-4">LIENS UTILES</h2>
               <div class="space-y-3">
                 <a
                   href="https://univ-cotedazur.fr/formation/offre-de-formation/majic-master-jeux-video-image-et-creativite"
@@ -42,7 +42,7 @@ export default function Footer() {
             </div>
 
             <div class="space-y-4">
-              <h4 class="text-lg font-gaming text-white mb-4">CONTACT</h4>
+              <h2 class="text-lg font-gaming text-white mb-4">CONTACT</h2>
               <div class="space-y-3 text-sm">
                 <div class="text-white/80">
                   <div class="font-gaming text-cyan-300 mb-1">ASSOCIATION</div>

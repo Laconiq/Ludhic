@@ -112,7 +112,7 @@ export default function GameGrid({ games, initialGenre = '', initialYear = null,
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 auto-rows-fr">
                   {gamesToDisplay.map((game, index) => (
-                    <GameCard key={game.id} game={game} mainImage={game.mainImage} logoImage={game.logoImage} priority={index < 4} />
+                    <GameCard key={game.id} game={game} mainImage={game.mainImage} logoImage={game.logoImage} priority={index < 4} headingLevel={headingLevel === 'h1' ? 'h2' : 'h3'} />
                   ))}
                 </div>
               </div>

@@ -9,12 +9,14 @@ import type { GameData } from '@/types/game';
 interface Props {
   game: GameData;
   priority?: boolean;
+  /** Un niveau sous le titre de la section : h3 sous un h2, h2 sous un h1. */
+  headingLevel?: 'h2' | 'h3';
 }
 
 const DESCRIPTION_MAX_LENGTH = 140;
 const MAX_VISIBLE_GENRES = 3;
 
-const { game, priority = false } = Astro.props;
+const { game, priority = false, headingLevel: Heading = 'h3' } = Astro.props;
 const { title, longDescription, genres, contentFolder, year } = game;
 const mainImage = resolveGameImage(getMainImageUrl(contentFolder));
 const logoImage = resolveGameImage(getLogoUrl(contentFolder));
@@ -23,7 +25,6 @@ const logoImage = resolveGameImage(getLogoUrl(contentFolder));
 <a
   href={gamePath(title)}
   class="gaming-card cursor-pointer h-full flex flex-col overflow-hidden block"
-  aria-label={`Voir les détails du jeu ${title}`}
 >
   <div class="relative w-full h-48 flex-shrink-0">
     <Image
@@ -51,9 +52,9 @@ const logoImage = resolveGameImage(getLogoUrl(contentFolder));
   </div>
 
   <div class="p-4 flex-grow flex flex-col">
-    <h3 class="text-lg font-sans font-bold text-[var(--text-primary)] mb-3 line-clamp-2">
+    <Heading class="text-lg font-sans font-bold text-[var(--text-primary)] mb-3 line-clamp-2">
       {title}
-    </h3>
+    </Heading>
 
     <div class="flex flex-wrap gap-2 mb-3 flex-shrink-0">
       {genres.slice(0, MAX_VISIBLE_GENRES).map((genre) => (
