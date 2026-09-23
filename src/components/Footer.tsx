@@ -50,6 +50,17 @@ export default function Footer() {
                   </a>
                 </div>
                 <div class="text-white/80">
+                  <div class="font-gaming text-cyan-300 mb-1">RÉSEAUX</div>
+                  <a
+                    href="https://www.linkedin.com/company/bde-ludhic/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="hover:text-cyan-300 transition-colors"
+                  >
+                    LinkedIn →
+                  </a>
+                </div>
+                <div class="text-white/80">
                   <div class="font-gaming text-cyan-300 mb-1">LOCALISATION</div>
                   <div>Campus de Cannes</div>
                   <div>Université Côte d&apos;Azur</div>
