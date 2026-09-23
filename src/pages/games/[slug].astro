@@ -16,6 +16,7 @@ import gamesData from '@/data/games.json';
 import { createSlug } from '@/lib/slug';
 import { getAllImageUrls, getMainImageUrl, getLogoUrl } from '@/lib/images';
 import { resolveGameImage } from '@/lib/assetImages';
+import { createOgImage } from '@/lib/ogImage';
 import { createBreadcrumbSchema, createVideoGameSchema } from '@/lib/schemas';
 import { SITE_URL } from '@/constants/site';
 import type { GameData } from '@/types/game';
@@ -75,11 +76,12 @@ const carouselImages = await Promise.all(
 );
 
 const posterImage = await getImage({ src: resolveGameImage(getMainImageUrl(game.contentFolder)), width: 1080, quality: 50, format: 'webp' });
-const ogImage = await getImage({ src: resolveGameImage(getMainImageUrl(game.contentFolder)), width: 1200, format: 'webp' });
+const schemaImage = await getImage({ src: resolveGameImage(getMainImageUrl(game.contentFolder)), width: 1200, format: 'webp' });
+const ogImage = await createOgImage(resolveGameImage(getMainImageUrl(game.contentFolder)), `${game.title}, capture du jeu`);
 const schemaLogo = await getImage({ src: resolveGameImage(getLogoUrl(game.contentFolder)), width: 512, format: 'webp' });
 
 const gameSchema = createVideoGameSchema(game, {
-  main: `${SITE_URL}${ogImage.src}`,
+  main: `${SITE_URL}${schemaImage.src}`,
   logo: `${SITE_URL}${schemaLogo.src}`,
   screenshots: carouselImages.map((img) => `${SITE_URL}${img.src}`),
 });
@@ -90,7 +92,7 @@ const gameSchema = createVideoGameSchema(game, {
   description={truncateAtWord(game.longDescription, 155)}
   keywords={[game.title, ...game.genres, `jeu ${game.year}`, 'Master HIC', 'étudiant', 'projet', ...game.credits.map((c) => `${c.firstName} ${c.lastName}`)]}
   canonical={absoluteUrl(gamePath(game.title))}
-  ogImage={ogImage.src}
+  ogImage={ogImage}
   ogType="article"
 >
   <JsonLd schema={[gameSchema, breadcrumbSchema]} />
