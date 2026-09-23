@@ -97,6 +97,7 @@ const gameSchema = createVideoGameSchema(game, {
   <div class="min-h-screen bg-[var(--bg-primary)] flex flex-col">
     <Navigation client:load logoSrc={navLogo.src} />
 
+    <main class="flex flex-col w-full">
     <GameHero title={game.title} contentFolder={game.contentFolder} />
 
     <div class="w-full max-w-4xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16 py-16">
@@ -165,6 +166,7 @@ const gameSchema = createVideoGameSchema(game, {
     </div>
 
     <RelatedGames games={relatedGames} />
+    </main>
     <Footer client:visible />
   </div>
 </BaseLayout>

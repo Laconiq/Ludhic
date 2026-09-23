@@ -75,6 +75,7 @@ const itemListSchema = {
   <JsonLd schema={[breadcrumbSchema, itemListSchema]} />
   <div class="min-h-screen bg-[var(--bg-primary)] flex flex-col">
     <Navigation client:load logoSrc={navLogo.src} />
+    <main class="flex flex-col w-full">
     <section class="relative w-full py-16 md:py-24 bg-[var(--bg-primary)] mb-0 overflow-hidden">
       <div class="absolute inset-0 w-full h-full flex">
         {gamesOfYear.map((_game, index) => (
@@ -117,6 +118,7 @@ const itemListSchema = {
         ))}
       </div>
     </div>
+    </main>
     <Footer client:visible />
   </div>
 </BaseLayout>

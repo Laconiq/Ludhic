@@ -46,8 +46,8 @@ const itemListSchema = {
 >
   <JsonLd schema={[breadcrumbSchema, itemListSchema]} />
   <Navigation client:load logoSrc={navLogo.src} />
-  <div class="pt-16">
-    <GameGrid client:load games={gamesWithImages} showAllByDefault />
-  </div>
+  <main class="pt-16">
+    <GameGrid client:load games={gamesWithImages} showAllByDefault headingLevel="h1" />
+  </main>
   <Footer client:visible />
 </BaseLayout>

@@ -13,9 +13,12 @@ interface GameGridProps {
   initialYear?: number | null;
   /** Affiche tout le catalogue d'emblée, sans passer par « voir le portfolio complet ». */
   showAllByDefault?: boolean;
+  /** h1 sur /games/, dont c'est le titre de page ; h2 sous le Hero de l'accueil. */
+  headingLevel?: 'h1' | 'h2';
 }
 
-export default function GameGrid({ games, initialGenre = '', initialYear = null, showAllByDefault = false }: GameGridProps) {
+export default function GameGrid({ games, initialGenre = '', initialYear = null, showAllByDefault = false, headingLevel = 'h2' }: GameGridProps) {
+  const Heading = headingLevel;
   const [filters, setFilters] = useState<GameFilters>({
     searchTerm: '',
     selectedGenre: initialGenre,
@@ -57,9 +60,9 @@ export default function GameGrid({ games, initialGenre = '', initialYear = null,
     <section id="games" class="py-16 px-4 bg-[var(--bg-primary)]">
       <div class="max-w-7xl mx-auto">
         <div class="text-center mb-12">
-          <h2 class="text-4xl md:text-5xl font-gaming foil-effect mb-4">
+          <Heading class="text-4xl md:text-5xl font-gaming foil-effect mb-4">
             JEUX ÉTUDIANTS
-          </h2>
+          </Heading>
           <p class="text-white/70 text-lg max-w-2xl mx-auto">
             Explorez les créations interactives des étudiants Master HIC
           </p>
