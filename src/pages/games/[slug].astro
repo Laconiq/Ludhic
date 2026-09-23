@@ -43,6 +43,15 @@ function getRelatedGames(target: GameData, limit = 4): GameData[] {
 
 const relatedGames = getRelatedGames(game);
 
+// Meta description : sauts de ligne aplatis, coupe sur une frontière de mot
+// plutôt qu'en plein milieu (« prenant pla... »).
+function truncateAtWord(raw: string, max: number): string {
+  const text = raw.replace(/\s+/g, ' ').trim();
+  if (text.length <= max) return text;
+  const cut = text.slice(0, max - 1);
+  return `${cut.slice(0, cut.lastIndexOf(' ')).replace(/[\s,;:.]+$/, '')}…`;
+}
+
 const breadcrumbSchema = createBreadcrumbSchema([
   { name: 'Accueil', url: absoluteUrl(HOME_PATH) },
   { name: 'Jeux', url: absoluteUrl(GAMES_PATH) },
@@ -78,7 +87,7 @@ const gameSchema = createVideoGameSchema(game, {
 
 <BaseLayout
   title={game.title}
-  description={`${game.longDescription.slice(0, 160)}...`}
+  description={truncateAtWord(game.longDescription, 155)}
   keywords={[game.title, ...game.genres, `jeu ${game.year}`, 'Master HIC', 'étudiant', 'projet', ...game.credits.map((c) => `${c.firstName} ${c.lastName}`)]}
   canonical={absoluteUrl(gamePath(game.title))}
   ogImage={ogImage.src}

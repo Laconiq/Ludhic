@@ -14,8 +14,9 @@ interface Props {
 }
 
 const DEFAULT_TITLE = 'Ludhic - Portfolio Jeux Étudiants Master HIC | Association Jeux Vidéo';
+// Google tronque au-delà d'environ 155 caractères.
 const DEFAULT_DESCRIPTION =
-  "Découvrez les projets de jeux vidéo créés par les étudiants du Master Humanités et Industries Créatives (HIC). Portfolio interactif, association étudiante, créations originales. Anciennement MAJIC. Explorez des jeux uniques et innovants.";
+  "Les jeux vidéo créés par les étudiants du Master Humanités et Industries Créatives (HIC, ex-MAJIC) : le portfolio de l'association Ludhic.";
 
 const {
   title,
@@ -42,10 +43,11 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${SITE_URL}${ogImage}
     <meta name="description" content={description} />
     {keywords.length > 0 && <meta name="keywords" content={keywords.join(', ')} />}
     <meta name="author" content="Association Ludhic" />
-    <link rel="canonical" href={canonical} />
+    {!noIndex && <link rel="canonical" href={canonical} />}
 
-    <meta name="robots" content={noIndex ? 'noindex, nofollow' : 'index, follow'} />
-    <meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1" />
+    {/* Googlebot lit sa propre balise en priorité sur `robots` : elle doit
+        porter le noindex elle aussi, sinon la 404 restait indexable. */}
+    <meta name="robots" content={noIndex ? 'noindex, follow' : 'index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1'} />
 
     <meta property="og:type" content={ogType} />
     <meta property="og:locale" content="fr_FR" />
@@ -59,8 +61,6 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${SITE_URL}${ogImage}
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
-    <meta name="twitter:creator" content="@LudhicFr" />
-    <meta name="twitter:site" content="@LudhicFr" />
 
     <meta name="theme-color" content="#06b6d4" />
     <meta name="color-scheme" content="dark" />
