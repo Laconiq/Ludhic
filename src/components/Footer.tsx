@@ -1,6 +1,7 @@
 import { useState } from 'preact/hooks';
 import CGUModal from './CGUModal';
 import PrivacyModal from './PrivacyModal';
+import { GAMES_PATH } from '@/lib/urls';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -31,10 +32,10 @@ export default function Footer() {
                 >
                   Université Côte d&apos;Azur →
                 </a>
-                <a href="#games" class="block text-white/80 hover:text-cyan-300 transition-colors text-sm font-gaming">
-                  Portfolio Jeux →
+                <a href={GAMES_PATH} class="block text-white/80 hover:text-cyan-300 transition-colors text-sm font-gaming">
+                  Tous les jeux →
                 </a>
-                <a href="#faq" class="block text-white/80 hover:text-cyan-300 transition-colors text-sm font-gaming">
+                <a href="/#faq" class="block text-white/80 hover:text-cyan-300 transition-colors text-sm font-gaming">
                   FAQ →
                 </a>
               </div>

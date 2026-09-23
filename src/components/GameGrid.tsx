@@ -1,9 +1,10 @@
-import { useState } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
 import GameCard from './GameCardIsland';
 import GamingButton from './GamingButtonIsland';
 import FilterBar from './FilterBar';
 import { type GameFilters, filterGames } from '@/lib/filters';
 import { FEATURED_YEAR } from '@/constants/site';
+import { isValidGenre } from '@/lib/genres';
 import type { GameWithImages } from '@/lib/gameImages';
 
 interface GameGridProps {
@@ -21,6 +22,17 @@ export default function GameGrid({ games, initialGenre = '', initialYear = null,
     selectedYear: initialYear ?? null,
   });
   const [showAllGames, setShowAllGames] = useState(showAllByDefault);
+
+  // Les badges de genre des pages jeu pointent vers `/games/?genre=<genre>`.
+  // La page est statique : le paramètre ne peut être lu qu'au montage, côté
+  // client (le lire dans l'état initial ferait diverger l'hydratation du HTML
+  // prérendu, qui affiche tout le catalogue).
+  useEffect(() => {
+    const genre = new URLSearchParams(window.location.search).get('genre');
+    if (genre && isValidGenre(genre)) {
+      setFilters((prev) => ({ ...prev, selectedGenre: genre }));
+    }
+  }, []);
 
   const filteredGames = filterGames(games, filters) as GameWithImages[];
 

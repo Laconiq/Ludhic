@@ -19,7 +19,7 @@ import { resolveGameImage } from '@/lib/assetImages';
 import { createBreadcrumbSchema, createVideoGameSchema } from '@/lib/schemas';
 import { SITE_URL } from '@/constants/site';
 import type { GameData } from '@/types/game';
-import { HOME_PATH, GAMES_PATH, gamePath, absoluteUrl } from '@/lib/urls';
+import { HOME_PATH, GAMES_PATH, gamePath, yearPath, absoluteUrl } from '@/lib/urls';
 
 export async function getStaticPaths() {
   return (gamesData as GameData[]).map((game) => ({ params: { slug: createSlug(game.title) } }));
@@ -95,7 +95,7 @@ const gameSchema = createVideoGameSchema(game, {
         <ol class="flex items-center gap-2 text-sm text-white/60">
           <li><a href="/" class="hover:text-cyan-300 transition-colors">Accueil</a></li>
           <li aria-hidden="true" class="text-white/30">/</li>
-          <li><a href="/#games" class="hover:text-cyan-300 transition-colors">Jeux</a></li>
+          <li><a href={GAMES_PATH} class="hover:text-cyan-300 transition-colors">Jeux</a></li>
           <li aria-hidden="true" class="text-white/30">/</li>
           <li class="text-cyan-300 font-medium truncate" aria-current="page">{game.title}</li>
         </ol>
@@ -107,9 +107,12 @@ const gameSchema = createVideoGameSchema(game, {
 
       <div class="flex flex-col items-center gap-y-2 mb-8">
         <div class="flex flex-wrap gap-2 justify-center">
-          <span class="font-gaming bg-black/50 backdrop-blur-sm rounded-full border border-cyan-400/30 text-cyan-400 text-xs px-2 py-0.5 sm:text-base sm:px-3 sm:py-1">
+          <a
+            href={yearPath(game.year)}
+            class="font-gaming bg-black/50 backdrop-blur-sm rounded-full border border-cyan-400/30 text-cyan-400 text-xs px-2 py-0.5 sm:text-base sm:px-3 sm:py-1 hover:border-cyan-300 hover:text-cyan-300 transition-colors"
+          >
             ANNÉE {game.year}
-          </span>
+          </a>
           {game.genres.map((genre) => (
             <GenreBadge genre={genre} variant="detail" href={`${GAMES_PATH}?genre=${encodeURIComponent(genre)}`} />
           ))}
