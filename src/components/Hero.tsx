@@ -24,6 +24,11 @@ export default function Hero({ logoSrc }: HeroProps) {
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
+    // Économie de données activée (Save-Data) : on s'épargne les 2,7 à 3,8 Mo de
+    // la vidéo, le fond reste la grille animée. API absente de Firefox et
+    // Safari, d'où l'accès prudent.
+    const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+    if (connection?.saveData) return;
 
     video.src = `/videos/background-${Math.floor(Math.random() * BACKGROUND_VIDEO_COUNT) + 1}.webm`;
     video.load();
