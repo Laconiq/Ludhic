@@ -70,8 +70,15 @@ const navLogo = await getImage({ src: (await import('@/assets/images/logo.png'))
 const allImagePaths = getAllImageUrls(game.contentFolder, game.imageCount);
 const carouselImages = await Promise.all(
   allImagePaths.map(async (path) => {
-    const optimized = await getImage({ src: resolveGameImage(path), width: 1080, format: 'webp' });
-    return { src: optimized.src, width: optimized.attributes.width as number, height: optimized.attributes.height as number };
+    // srcset : le carrousel occupe ~380px de large sur mobile, 768px au plus
+    // sur desktop ; servir 1080px partout gaspillait ~70 Ko par capture.
+    const optimized = await getImage({ src: resolveGameImage(path), width: 1080, widths: [640, 828, 1080], format: 'webp' });
+    return {
+      src: optimized.src,
+      srcSet: optimized.srcSet.attribute,
+      width: optimized.attributes.width as number,
+      height: optimized.attributes.height as number,
+    };
   })
 );
 

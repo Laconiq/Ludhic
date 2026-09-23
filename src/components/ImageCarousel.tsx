@@ -4,6 +4,7 @@ const CAROUSEL_INTERVAL_MS = 4000;
 
 interface CarouselImage {
   src: string;
+  srcSet?: string;
   width: number;
   height: number;
 }
@@ -90,6 +91,8 @@ export default function ImageCarousel({ images, title }: ImageCarouselProps) {
               >
                 <img
                   src={image.src}
+                  srcset={image.srcSet}
+                  sizes="(max-width: 895px) calc(100vw - 32px), 768px"
                   width={image.width}
                   height={image.height}
                   alt={`${title} - Screenshot ${index + 1}`}
