@@ -1,16 +1,10 @@
 import { useState } from 'preact/hooks';
 import GameCard from './GameCardIsland';
-import type { ResolvedImage } from './GameCardIsland';
 import GamingButton from './GamingButtonIsland';
 import FilterBar from './FilterBar';
 import { type GameFilters, filterGames } from '@/lib/filters';
 import { FEATURED_YEAR } from '@/constants/site';
-import type { GameData } from '@/types/game';
-
-export interface GameWithImages extends GameData {
-  mainImage: ResolvedImage;
-  logoImage: ResolvedImage;
-}
+import type { GameWithImages } from '@/lib/gameImages';
 
 interface GameGridProps {
   games: GameWithImages[];
