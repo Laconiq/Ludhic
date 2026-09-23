@@ -1,14 +1,10 @@
 import { useState } from 'preact/hooks';
+import { getYoutubeEmbedUrl } from '@/lib/youtube';
 
 interface GameVideoProps {
   contentFolder: string;
   posterSrc: string;
   youtubeUrl?: string;
-}
-
-function getYoutubeEmbedUrl(url: string): string | null {
-  const match = url.match(/(?:youtu\.be\/|youtube\.com\/watch\?v=|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/);
-  return match ? `https://www.youtube.com/embed/${match[1]}` : null;
 }
 
 export default function GameVideo({ contentFolder, posterSrc, youtubeUrl }: GameVideoProps) {
