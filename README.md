@@ -70,7 +70,7 @@ src/
 │   └── 404.astro
 ├── styles/global.css    # Styles globaux + thème gaming + @font-face
 ├── constants/           # SITE_URL, FEATURED_YEAR
-├── data/                # games.json, bingoData.json
+├── data/                # games.json
 ├── lib/                 # slug, images (chemins), assetImages (résolution astro:assets),
 │                         # gameImages (pré-résolution pour les îlots), schemas, filters, genres
 ├── types/                # GameData, Credit, JsonLdSchema

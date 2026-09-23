@@ -73,7 +73,7 @@ Self-hosted on VPS via Dokploy. GitHub Actions auto-deploys on push to `main`: b
 
 ### Dormant / deliberately-not-ported features
 
-- **`/bingodir`**: real-time bingo + chat over SSE. Already disabled server-side pre-migration; the 475-line Next component (grid generation, SSE client, localStorage pseudo) lives in git history on the pre-migration commits, not in this tree. Reactivating it needs an SSR adapter (`@astrojs/node`, `prerender = false` on those routes) since SSE requires a live server — Astro's static output can't serve it.
+- **`/bingodir`**: real-time bingo + chat over SSE. Already disabled server-side pre-migration; the 475-line Next component (grid generation, SSE client, localStorage pseudo) lives in git history on the pre-migration commits, and its `src/data/bingoData.json` until later (`git log --diff-filter=D -- src/data/bingoData.json` finds its removal) — neither is in this tree. Reactivating it needs an SSR adapter (`@astrojs/node`, `prerender = false` on those routes) since SSE requires a live server — Astro's static output can't serve it.
 - **`error.tsx`-style error boundary**: Next's App Router had a client error boundary for route-segment runtime errors. A fully static site has no per-request render to fail at runtime — build errors fail the build instead. No equivalent needed.
 - **`loading.tsx`/`SkeletonGrid`/`SkeletonCard`**: solved Next's streaming-SSR loading-state flash. Astro's static islands hydrate over already-rendered HTML, so there's no fetch-latency gap to skeleton over.
 
