@@ -1,4 +1,4 @@
-import { createSlug } from '@/lib/slug';
+import { gamePath } from '@/lib/urls';
 import GenreBadgeIsland from './GenreBadgeIsland';
 import type { GameData } from '@/types/game';
 
@@ -27,7 +27,7 @@ export default function GameCard({ game, mainImage, logoImage, priority = false 
 
   return (
     <a
-      href={`/games/${createSlug(title)}`}
+      href={gamePath(title)}
       class="gaming-card cursor-pointer h-full flex flex-col overflow-hidden block"
       aria-label={`Voir les détails du jeu ${title}`}
     >

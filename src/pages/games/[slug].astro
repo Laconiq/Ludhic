@@ -19,6 +19,7 @@ import { resolveGameImage } from '@/lib/assetImages';
 import { createBreadcrumbSchema, createVideoGameSchema } from '@/lib/schemas';
 import { SITE_URL } from '@/constants/site';
 import type { GameData } from '@/types/game';
+import { HOME_PATH, GAMES_PATH, gamePath, absoluteUrl } from '@/lib/urls';
 
 export async function getStaticPaths() {
   return (gamesData as GameData[]).map((game) => ({ params: { slug: createSlug(game.title) } }));
@@ -43,9 +44,9 @@ function getRelatedGames(target: GameData, limit = 4): GameData[] {
 const relatedGames = getRelatedGames(game);
 
 const breadcrumbSchema = createBreadcrumbSchema([
-  { name: 'Accueil', url: SITE_URL },
-  { name: 'Jeux', url: `${SITE_URL}/games` },
-  { name: game.title, url: `${SITE_URL}/games/${createSlug(game.title)}` },
+  { name: 'Accueil', url: absoluteUrl(HOME_PATH) },
+  { name: 'Jeux', url: absoluteUrl(GAMES_PATH) },
+  { name: game.title, url: absoluteUrl(gamePath(game.title)) },
 ]);
 
 // Les URL d'images consommées par les îlots Preact et le JSON-LD sont
@@ -79,7 +80,7 @@ const gameSchema = createVideoGameSchema(game, {
   title={game.title}
   description={`${game.longDescription.slice(0, 160)}...`}
   keywords={[game.title, ...game.genres, `jeu ${game.year}`, 'Master HIC', 'étudiant', 'projet', ...game.credits.map((c) => `${c.firstName} ${c.lastName}`)]}
-  canonical={`${SITE_URL}/games/${createSlug(game.title)}`}
+  canonical={absoluteUrl(gamePath(game.title))}
   ogImage={ogImage.src}
   ogType="article"
 >
@@ -110,7 +111,7 @@ const gameSchema = createVideoGameSchema(game, {
             ANNÉE {game.year}
           </span>
           {game.genres.map((genre) => (
-            <GenreBadge genre={genre} variant="detail" href={`/games?genre=${encodeURIComponent(genre)}`} />
+            <GenreBadge genre={genre} variant="detail" href={`${GAMES_PATH}?genre=${encodeURIComponent(genre)}`} />
           ))}
         </div>
         {game.customButton.enabled && (

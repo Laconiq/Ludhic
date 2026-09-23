@@ -1,6 +1,7 @@
 ---
 import '@/styles/global.css';
 import { SITE_URL } from '@/constants/site';
+import { HOME_PATH, absoluteUrl } from '@/lib/urls';
 
 interface Props {
   title?: string;
@@ -20,7 +21,7 @@ const {
   title,
   description = DEFAULT_DESCRIPTION,
   keywords = [],
-  canonical = SITE_URL,
+  canonical = absoluteUrl(HOME_PATH),
   ogImage = '/images/logo.png',
   ogType = 'website',
   noIndex = false,

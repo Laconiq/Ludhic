@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getImage } from 'astro:assets';
 import gamesData from '@/data/games.json';
-import { createSlug } from '@/lib/slug';
+import { HOME_PATH, GAMES_PATH, gamePath, yearPath, absoluteUrl } from '@/lib/urls';
 import { SITE_URL } from '@/constants/site';
 import { getAvailableYears } from '@/lib/filters';
 import { getMainImageUrl, getLogoUrl } from '@/lib/images';
@@ -25,7 +25,7 @@ export const GET: APIRoute = async () => {
         getImage({ src: resolveGameImage(getMainImageUrl(game.contentFolder)), width: 1200, format: 'webp' }),
         getImage({ src: resolveGameImage(getLogoUrl(game.contentFolder)), width: 512, format: 'webp' }),
       ]);
-      return urlEntry(`${SITE_URL}/games/${createSlug(game.title)}`, 'monthly', 0.9, [
+      return urlEntry(absoluteUrl(gamePath(game.title)), 'monthly', 0.9, [
         `${SITE_URL}${main.src}`,
         `${SITE_URL}${logo.src}`,
       ]);
@@ -33,10 +33,10 @@ export const GET: APIRoute = async () => {
   );
 
   const entries = [
-    urlEntry(SITE_URL, 'weekly', 1),
-    urlEntry(`${SITE_URL}/games`, 'weekly', 0.9),
+    urlEntry(absoluteUrl(HOME_PATH), 'weekly', 1),
+    urlEntry(absoluteUrl(GAMES_PATH), 'weekly', 0.9),
     ...gameEntries,
-    ...getAvailableYears(gamesData).map((year) => urlEntry(`${SITE_URL}/games/year/${year}`, 'monthly', 0.7)),
+    ...getAvailableYears(gamesData).map((year) => urlEntry(absoluteUrl(yearPath(year)), 'monthly', 0.7)),
   ];
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${entries.join('\n')}\n</urlset>`;
