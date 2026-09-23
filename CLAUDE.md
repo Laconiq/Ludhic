@@ -52,11 +52,13 @@ Self-hosted on VPS via Dokploy. GitHub Actions auto-deploys on push to `main`: b
 ### Key Modules
 
 - **`src/lib/slug.ts`**: `createSlug()` — Unicode normalization, strips accents, kebab-case
+- **`src/lib/urls.ts`**: `gamePath()`, `yearPath()`, `GAMES_PATH`, `HOME_PATH`, `absoluteUrl()` — the only place page URLs are built. Every path ends with `/` (see the trailing-slash trap below).
 - **`src/lib/genres.ts`**: `ALL_GENRES` const array + `isValidGenre()` type guard. Add new genres here before using in JSON.
 - **`src/lib/images.ts`**: Convention-based image *path* builders (pure strings, framework-agnostic)
 - **`src/lib/assetImages.ts`**: `resolveGameImage()` — maps a convention path (`/games/<slug>/1.webp`) to the matching `astro:assets` `ImageMetadata` module, via `import.meta.glob('/src/assets/games/**/*.{webp,png,jpg,jpeg}', { eager: true })`
 - **`src/lib/gameImages.ts`**: `withResolvedImages()` — precomputes `{ mainImage, logoImage }` for a list of games, for pages that pass game data into a Preact island
-- **`src/lib/schemas.ts`**: JSON-LD schema generators (`createBreadcrumbSchema()`, `createVideoGameSchema()`)
+- **`src/lib/schemas.ts`**: JSON-LD schema generators (`createBreadcrumbSchema()`, `createVideoGameSchema()`). A game's `customButton.link` becomes its `sameAs`; a `youtubeUrl` without local video becomes a `VideoObject` (`src/lib/youtube.ts` parses it)
+- **`src/lib/ogImage.ts`**: `createOgImage()` — 1200x630 JPEG share preview; reports the real output size, since `getImage()` never upscales yet still claims the requested size
 - **`src/lib/filters.ts`**: Game filtering logic (`filterGames()`, `getAvailableYears()`)
 - **`scripts/validate-games.ts`**: Build-time validation of `games.json` (required fields, genres, slug collisions, asset existence) — runs before `astro build` and fails it on error. Checks images/logos under `src/assets/games/<slug>/`, video under `public/games/<slug>/` (see Asset Convention below).
 - **`src/constants/site.ts`**: `SITE_URL`, `FEATURED_YEAR` — update `FEATURED_YEAR` annually to feature new cohort on homepage
@@ -69,7 +71,8 @@ Self-hosted on VPS via Dokploy. GitHub Actions auto-deploys on push to `main`: b
 - **CSS variables**: Gaming theme defined in `src/styles/global.css` (`--bg-primary`, `--bg-secondary`, `--bg-tertiary`, `--primary-blue`, `--text-primary`, `--border-primary`, `--shadow-glow`, `--shadow-dark`)
 - **Fonts**: Plus Jakarta Sans (body) + PixelifySans (gaming headers, via `.font-gaming` class) — loaded via `@font-face` in `global.css` pointing at `public/fonts/*.woff2`, no Google Fonts, no `next/font` equivalent needed
 - **Related games**: On each game page, 4 related games are computed server-side (scored by shared year + genres) and rendered via the static `RelatedGames.astro` → `GameCard.astro` (no JS)
-- **Dynamic robots/sitemap**: `src/pages/robots.txt.ts` and `src/pages/sitemap.xml.ts` are Astro API routes (prerendered to static files at build, same as Next's route handlers were)
+- **Dynamic robots/sitemap**: `src/pages/robots.txt.ts` and `src/pages/sitemap.xml.ts` are Astro API routes (prerendered to static files at build, same as Next's route handlers were). robots.txt deliberately allows everything, `/_astro/` included (CSS, JS and every processed image live there)
+- **Social previews**: `BaseLayout`'s `ogImage` prop takes `{ src, width, height, alt }` (build it with `createOgImage()`); the Twitter card type follows the ratio (square logo → `summary`)
 
 ### Dormant / deliberately-not-ported features
 
@@ -101,3 +104,5 @@ src/assets/games/[slug]/
 Images and video are deliberately split across two directories, not just by convention but physically: `astro:assets`' `import.meta.glob` only processes files under `src/`, and Astro copies the entire `public/` directory verbatim into the build output. Putting images under `public/games/` (as the old Next.js convention did) would ship both the build-time-optimized `_astro/*` variant *and* the untouched multi-megabyte source next to it — that regression is exactly why this split exists. `optimize-images.ts` was updated accordingly to operate on `src/assets/games/`; `generate-videos.js` still reads `public/games/*/video.webm`, unchanged.
 
 **Trap to avoid**: `getMainImageUrl()`/`getLogoUrl()`/`getAllImageUrls()` (in `src/lib/images.ts`) return the *convention path* (`/games/<slug>/1.webp`) — since images moved out of `public/`, that path is no longer a real file. It's only ever meant to be fed into `resolveGameImage()` + `astro:assets`' `getImage()`/`<Image>`, which return the actual built URL. Never embed the raw convention path directly into HTML, JSON-LD, or the sitemap — that exact mistake shipped once (sitemap `<image:loc>` and every game page's JSON-LD silently 404ing, since nothing renders those URLs as a visible `<img>` for QA to catch) and was fixed by routing `sitemap.xml.ts` and `createVideoGameSchema()` through resolved image URLs instead.
+
+**Trailing-slash trap**: nginx serves every page at `/path/` and answers `/path` with a 301. A link, canonical, JSON-LD URL or sitemap entry without the final `/` costs visitors a redirect and tells Google the canonical URL is one that redirects — this shipped once across the whole site. Build page URLs only through `src/lib/urls.ts`; `trailingSlash: 'always'` in `astro.config.mjs` makes the dev server reject slash-less links so the mistake shows up locally.
