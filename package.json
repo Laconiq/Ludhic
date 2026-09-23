@@ -14,20 +14,20 @@
     "optimize-images": "tsx scripts/optimize-images.ts"
   },
   "dependencies": {
-    "@astrojs/preact": "^6.0.2",
+    "@astrojs/preact": "^6.0.5",
     "@tailwindcss/vite": "^4.3.3",
-    "astro": "^7.2.0",
+    "astro": "^7.3.4",
     "preact": "^10.29.8",
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.4",
-    "@types/node": "^26.2.0",
+    "@astrojs/check": "^0.9.10",
+    "@types/node": "^26.6.2",
     "eslint": "^9.39.5",
-    "eslint-plugin-astro": "^3.1.0",
-    "sharp": "^0.35.3",
-    "tsx": "^4.23.5",
+    "eslint-plugin-astro": "^3.2.1",
+    "sharp": "^0.35.4",
+    "tsx": "^4.23.15",
     "typescript": "~6.0.3",
-    "typescript-eslint": "^8.66.0"
+    "typescript-eslint": "^8.70.1"
   }
 }
