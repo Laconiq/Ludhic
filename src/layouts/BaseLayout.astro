@@ -42,7 +42,13 @@ const twitterCard = ogImage.width / ogImage.height >= 1.5 ? 'summary_large_image
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="dns-prefetch" href="https://ludhic.fr" />
+    {/* Les polices ne sont découvertes qu'après le CSS qui les déclare
+        (HTML → CSS → police) ; Plus Jakarta Sans est en `font-display:
+        optional`, donc le texte reste invisible tant qu'elle n'est pas là.
+        Les précharger les fait partir en parallèle du CSS. PixelifySans
+        SemiBold est la seule graisse utilisée par `.font-gaming`. */}
+    <link rel="preload" href="/fonts/PlusJakartaSans-VariableFont_wght.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/PixelifySans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
 
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
