@@ -1,5 +1,6 @@
 import { SITE_URL } from '@/constants/site';
-import { createSlug } from '@/lib/slug';
+import { absoluteUrl, gamePath } from '@/lib/urls';
+import { getYoutubeEmbedUrl } from '@/lib/youtube';
 import type { JsonLdSchema } from '@/types/game';
 
 interface BreadcrumbItem {
@@ -27,6 +28,8 @@ interface GameSchemaInput {
   year: number;
   genres: string[];
   hasVideo: boolean;
+  youtubeUrl?: string;
+  customButton?: { enabled: boolean; link: string };
   credits: Array<{
     firstName: string;
     lastName: string;
@@ -52,7 +55,7 @@ export function createVideoGameSchema(game: GameSchemaInput, images: GameSchemaI
     "@type": "VideoGame",
     "name": game.title,
     "description": game.longDescription,
-    "url": `${SITE_URL}/games/${createSlug(game.title)}`,
+    "url": absoluteUrl(gamePath(game.title)),
     "image": images.main,
     "screenshot": images.screenshots,
     "thumbnailUrl": images.logo,
@@ -80,12 +83,28 @@ export function createVideoGameSchema(game: GameSchemaInput, images: GameSchemaI
     "inLanguage": "fr-FR"
   };
 
+  // La page externe du jeu (itch.io, Steam, site dédié) déjà affichée en
+  // bouton sur la fiche : la déclarer en sameAs relie les deux pour les
+  // moteurs.
+  if (game.customButton?.enabled && game.customButton.link) {
+    schema["sameAs"] = [game.customButton.link];
+  }
+
   if (game.hasVideo) {
     schema["video"] = {
       "@type": "VideoObject",
       "name": `${game.title} - Gameplay`,
       "description": `Vidéo de gameplay du jeu ${game.title}`,
       "contentUrl": `${SITE_URL}${game.contentFolder}/video.webm`,
+      "thumbnailUrl": images.main,
+      "uploadDate": `${game.year}-01-01`
+    };
+  } else if (game.youtubeUrl && getYoutubeEmbedUrl(game.youtubeUrl)) {
+    schema["video"] = {
+      "@type": "VideoObject",
+      "name": `${game.title} - Gameplay`,
+      "description": `Vidéo de gameplay du jeu ${game.title}`,
+      "embedUrl": getYoutubeEmbedUrl(game.youtubeUrl),
       "thumbnailUrl": images.main,
       "uploadDate": `${game.year}-01-01`
     };

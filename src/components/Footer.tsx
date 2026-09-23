@@ -1,6 +1,7 @@
 import { useState } from 'preact/hooks';
 import CGUModal from './CGUModal';
 import PrivacyModal from './PrivacyModal';
+import { GAMES_PATH } from '@/lib/urls';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -13,7 +14,7 @@ export default function Footer() {
         <div class="max-w-7xl mx-auto px-4 py-12">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div class="space-y-4">
-              <h4 class="text-lg font-gaming text-white mb-4">LIENS UTILES</h4>
+              <h2 class="text-lg font-gaming text-white mb-4">LIENS UTILES</h2>
               <div class="space-y-3">
                 <a
                   href="https://univ-cotedazur.fr/formation/offre-de-formation/majic-master-jeux-video-image-et-creativite"
@@ -31,22 +32,33 @@ export default function Footer() {
                 >
                   Université Côte d&apos;Azur →
                 </a>
-                <a href="#games" class="block text-white/80 hover:text-cyan-300 transition-colors text-sm font-gaming">
-                  Portfolio Jeux →
+                <a href={GAMES_PATH} class="block text-white/80 hover:text-cyan-300 transition-colors text-sm font-gaming">
+                  Tous les jeux →
                 </a>
-                <a href="#faq" class="block text-white/80 hover:text-cyan-300 transition-colors text-sm font-gaming">
+                <a href="/#faq" class="block text-white/80 hover:text-cyan-300 transition-colors text-sm font-gaming">
                   FAQ →
                 </a>
               </div>
             </div>
 
             <div class="space-y-4">
-              <h4 class="text-lg font-gaming text-white mb-4">CONTACT</h4>
+              <h2 class="text-lg font-gaming text-white mb-4">CONTACT</h2>
               <div class="space-y-3 text-sm">
                 <div class="text-white/80">
                   <div class="font-gaming text-cyan-300 mb-1">ASSOCIATION</div>
                   <a href="mailto:ludhic.association@gmail.com" class="hover:text-cyan-300 transition-colors">
                     ludhic.association@gmail.com
+                  </a>
+                </div>
+                <div class="text-white/80">
+                  <div class="font-gaming text-cyan-300 mb-1">RÉSEAUX</div>
+                  <a
+                    href="https://www.linkedin.com/company/bde-ludhic/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="hover:text-cyan-300 transition-colors"
+                  >
+                    LinkedIn →
                   </a>
                 </div>
                 <div class="text-white/80">

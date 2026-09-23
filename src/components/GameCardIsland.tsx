@@ -1,4 +1,4 @@
-import { createSlug } from '@/lib/slug';
+import { gamePath } from '@/lib/urls';
 import GenreBadgeIsland from './GenreBadgeIsland';
 import type { GameData } from '@/types/game';
 
@@ -16,20 +16,22 @@ interface GameCardProps {
   mainImage: ResolvedImage;
   logoImage: ResolvedImage;
   priority?: boolean;
+  /** Un niveau sous le titre de la grille : h3 sous un h2, h2 sous un h1. */
+  headingLevel?: 'h2' | 'h3';
 }
 
 // Variante Preact de GameCard.astro : nécessaire dans GameGrid, dont le
 // contenu change entièrement côté client au fil des filtres. Les URL
 // d'image sont pré-résolues au build (cf. lib/gameImages.ts) et passées en
 // props — seul le HTML autour reste dynamique.
-export default function GameCard({ game, mainImage, logoImage, priority = false }: GameCardProps) {
+export default function GameCard({ game, mainImage, logoImage, priority = false, headingLevel = 'h3' }: GameCardProps) {
+  const Heading = headingLevel;
   const { title, longDescription, genres, year } = game;
 
   return (
     <a
-      href={`/games/${createSlug(title)}`}
+      href={gamePath(title)}
       class="gaming-card cursor-pointer h-full flex flex-col overflow-hidden block"
-      aria-label={`Voir les détails du jeu ${title}`}
     >
       <div class="relative w-full h-48 flex-shrink-0">
         <img
@@ -58,9 +60,9 @@ export default function GameCard({ game, mainImage, logoImage, priority = false 
       </div>
 
       <div class="p-4 flex-grow flex flex-col">
-        <h3 class="text-lg font-sans font-bold text-[var(--text-primary)] mb-3 line-clamp-2">
+        <Heading class="text-lg font-sans font-bold text-[var(--text-primary)] mb-3 line-clamp-2">
           {title}
-        </h3>
+        </Heading>
 
         <div class="flex flex-wrap gap-2 mb-3 flex-shrink-0">
           {genres.slice(0, MAX_VISIBLE_GENRES).map((genre) => (

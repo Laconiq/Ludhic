@@ -16,9 +16,11 @@ import gamesData from '@/data/games.json';
 import { createSlug } from '@/lib/slug';
 import { getAllImageUrls, getMainImageUrl, getLogoUrl } from '@/lib/images';
 import { resolveGameImage } from '@/lib/assetImages';
+import { createOgImage } from '@/lib/ogImage';
 import { createBreadcrumbSchema, createVideoGameSchema } from '@/lib/schemas';
 import { SITE_URL } from '@/constants/site';
 import type { GameData } from '@/types/game';
+import { HOME_PATH, GAMES_PATH, gamePath, yearPath, absoluteUrl } from '@/lib/urls';
 
 export async function getStaticPaths() {
   return (gamesData as GameData[]).map((game) => ({ params: { slug: createSlug(game.title) } }));
@@ -42,10 +44,19 @@ function getRelatedGames(target: GameData, limit = 4): GameData[] {
 
 const relatedGames = getRelatedGames(game);
 
+// Meta description : sauts de ligne aplatis, coupe sur une frontière de mot
+// plutôt qu'en plein milieu (« prenant pla... »).
+function truncateAtWord(raw: string, max: number): string {
+  const text = raw.replace(/\s+/g, ' ').trim();
+  if (text.length <= max) return text;
+  const cut = text.slice(0, max - 1);
+  return `${cut.slice(0, cut.lastIndexOf(' ')).replace(/[\s,;:.]+$/, '')}…`;
+}
+
 const breadcrumbSchema = createBreadcrumbSchema([
-  { name: 'Accueil', url: SITE_URL },
-  { name: 'Jeux', url: `${SITE_URL}/games` },
-  { name: game.title, url: `${SITE_URL}/games/${createSlug(game.title)}` },
+  { name: 'Accueil', url: absoluteUrl(HOME_PATH) },
+  { name: 'Jeux', url: absoluteUrl(GAMES_PATH) },
+  { name: game.title, url: absoluteUrl(gamePath(game.title)) },
 ]);
 
 // Les URL d'images consommées par les îlots Preact et le JSON-LD sont
@@ -59,17 +70,25 @@ const navLogo = await getImage({ src: (await import('@/assets/images/logo.png'))
 const allImagePaths = getAllImageUrls(game.contentFolder, game.imageCount);
 const carouselImages = await Promise.all(
   allImagePaths.map(async (path) => {
-    const optimized = await getImage({ src: resolveGameImage(path), width: 1080, format: 'webp' });
-    return { src: optimized.src, width: optimized.attributes.width as number, height: optimized.attributes.height as number };
+    // srcset : le carrousel occupe ~380px de large sur mobile, 768px au plus
+    // sur desktop ; servir 1080px partout gaspillait ~70 Ko par capture.
+    const optimized = await getImage({ src: resolveGameImage(path), width: 1080, widths: [640, 828, 1080], format: 'webp' });
+    return {
+      src: optimized.src,
+      srcSet: optimized.srcSet.attribute,
+      width: optimized.attributes.width as number,
+      height: optimized.attributes.height as number,
+    };
   })
 );
 
 const posterImage = await getImage({ src: resolveGameImage(getMainImageUrl(game.contentFolder)), width: 1080, quality: 50, format: 'webp' });
-const ogImage = await getImage({ src: resolveGameImage(getMainImageUrl(game.contentFolder)), width: 1200, format: 'webp' });
+const schemaImage = await getImage({ src: resolveGameImage(getMainImageUrl(game.contentFolder)), width: 1200, format: 'webp' });
+const ogImage = await createOgImage(resolveGameImage(getMainImageUrl(game.contentFolder)), `${game.title}, capture du jeu`);
 const schemaLogo = await getImage({ src: resolveGameImage(getLogoUrl(game.contentFolder)), width: 512, format: 'webp' });
 
 const gameSchema = createVideoGameSchema(game, {
-  main: `${SITE_URL}${ogImage.src}`,
+  main: `${SITE_URL}${schemaImage.src}`,
   logo: `${SITE_URL}${schemaLogo.src}`,
   screenshots: carouselImages.map((img) => `${SITE_URL}${img.src}`),
 });
@@ -77,16 +96,17 @@ const gameSchema = createVideoGameSchema(game, {
 
 <BaseLayout
   title={game.title}
-  description={`${game.longDescription.slice(0, 160)}...`}
+  description={truncateAtWord(game.longDescription, 155)}
   keywords={[game.title, ...game.genres, `jeu ${game.year}`, 'Master HIC', 'étudiant', 'projet', ...game.credits.map((c) => `${c.firstName} ${c.lastName}`)]}
-  canonical={`${SITE_URL}/games/${createSlug(game.title)}`}
-  ogImage={ogImage.src}
+  canonical={absoluteUrl(gamePath(game.title))}
+  ogImage={ogImage}
   ogType="article"
 >
   <JsonLd schema={[gameSchema, breadcrumbSchema]} />
   <div class="min-h-screen bg-[var(--bg-primary)] flex flex-col">
     <Navigation client:load logoSrc={navLogo.src} />
 
+    <main class="flex flex-col w-full">
     <GameHero title={game.title} contentFolder={game.contentFolder} />
 
     <div class="w-full max-w-4xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16 py-16">
@@ -94,7 +114,7 @@ const gameSchema = createVideoGameSchema(game, {
         <ol class="flex items-center gap-2 text-sm text-white/60">
           <li><a href="/" class="hover:text-cyan-300 transition-colors">Accueil</a></li>
           <li aria-hidden="true" class="text-white/30">/</li>
-          <li><a href="/#games" class="hover:text-cyan-300 transition-colors">Jeux</a></li>
+          <li><a href={GAMES_PATH} class="hover:text-cyan-300 transition-colors">Jeux</a></li>
           <li aria-hidden="true" class="text-white/30">/</li>
           <li class="text-cyan-300 font-medium truncate" aria-current="page">{game.title}</li>
         </ol>
@@ -106,11 +126,14 @@ const gameSchema = createVideoGameSchema(game, {
 
       <div class="flex flex-col items-center gap-y-2 mb-8">
         <div class="flex flex-wrap gap-2 justify-center">
-          <span class="font-gaming bg-black/50 backdrop-blur-sm rounded-full border border-cyan-400/30 text-cyan-400 text-xs px-2 py-0.5 sm:text-base sm:px-3 sm:py-1">
+          <a
+            href={yearPath(game.year)}
+            class="font-gaming bg-black/50 backdrop-blur-sm rounded-full border border-cyan-400/30 text-cyan-400 text-xs px-2 py-0.5 sm:text-base sm:px-3 sm:py-1 hover:border-cyan-300 hover:text-cyan-300 transition-colors"
+          >
             ANNÉE {game.year}
-          </span>
+          </a>
           {game.genres.map((genre) => (
-            <GenreBadge genre={genre} variant="detail" href={`/games?genre=${encodeURIComponent(genre)}`} />
+            <GenreBadge genre={genre} variant="detail" href={`${GAMES_PATH}?genre=${encodeURIComponent(genre)}`} />
           ))}
         </div>
         {game.customButton.enabled && (
@@ -152,6 +175,7 @@ const gameSchema = createVideoGameSchema(game, {
     </div>
 
     <RelatedGames games={relatedGames} />
+    </main>
     <Footer client:visible />
   </div>
 </BaseLayout>

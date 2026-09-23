@@ -1,7 +1,6 @@
 ---
-import { createSlug } from '@/lib/slug';
+import { HOME_PATH, gamePath, absoluteUrl } from '@/lib/urls';
 import { SITE_URL } from '@/constants/site';
-import { createBreadcrumbSchema } from '@/lib/schemas';
 import JsonLd from './JsonLd.astro';
 import type { JsonLdSchema } from '@/types/game';
 
@@ -17,7 +16,7 @@ const organizationSchema = {
   name: 'Association Ludhic',
   alternateName: 'Ludhic',
   description: "Association regroupant les étudiants et anciens étudiants du Master Humanités et Industries Créatives (HIC), spécialisée dans la création de jeux vidéo et contenus numériques.",
-  url: SITE_URL,
+  url: absoluteUrl(HOME_PATH),
   logo: `${SITE_URL}/images/logo.png`,
   image: `${SITE_URL}/images/logo.png`,
   foundingDate: '2023',
@@ -34,8 +33,8 @@ const organizationSchema = {
     availableLanguage: 'French',
   },
   sameAs: [
-    'https://ludhic.fr',
     'https://univ-cotedazur.fr/formation/offre-de-formation/majic-master-jeux-video-image-et-creativite',
+    'https://www.linkedin.com/company/bde-ludhic/',
   ],
   knowsAbout: [
     'Game Design', 'Développement Jeux Vidéo', 'Humanités Numériques', 'Industries Créatives',
@@ -51,14 +50,9 @@ const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'Ludhic - Portfolio Jeux Étudiants Master HIC',
-  url: SITE_URL,
+  url: absoluteUrl(HOME_PATH),
   description: 'Portfolio interactif présentant les créations de jeux vidéo des étudiants du Master Humanités et Industries Créatives',
   publisher: { '@type': 'Organization', name: 'Association Ludhic' },
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: { '@type': 'EntryPoint', urlTemplate: `${SITE_URL}/?search={search_term_string}` },
-    'query-input': 'required name=search_term_string',
-  },
   inLanguage: 'fr-FR',
   copyrightYear: new Date().getFullYear(),
   audience: { '@type': 'Audience', audienceType: 'Students, Game Developers, Educators, Game Enthusiasts' },
@@ -76,14 +70,9 @@ const itemListSchema = {
     '@type': 'ListItem',
     position: index + 1,
     name: game.title,
-    url: `${SITE_URL}/games/${createSlug(game.title)}`,
+    url: absoluteUrl(gamePath(game.title)),
   })),
 };
-
-const breadcrumbSchema = createBreadcrumbSchema([
-  { name: 'Accueil', url: SITE_URL },
-  { name: 'Jeux', url: `${SITE_URL}#games` },
-]);
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -116,7 +105,7 @@ const faqSchema = {
   ],
 };
 
-const allSchemas: JsonLdSchema[] = [organizationSchema, websiteSchema, itemListSchema, breadcrumbSchema, faqSchema];
+const allSchemas: JsonLdSchema[] = [organizationSchema, websiteSchema, itemListSchema, faqSchema];
 ---
 
 <JsonLd schema={allSchemas} />

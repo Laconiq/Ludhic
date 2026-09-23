@@ -11,7 +11,7 @@ const navLogo = await getImage({ src: logo.default, width: 40, height: 40 });
 <BaseLayout title="Page introuvable" noIndex>
   <Navigation client:load logoSrc={navLogo.src} />
 
-  <div class="min-h-screen bg-[var(--bg-primary)] flex items-center justify-center px-4 pt-20">
+  <main class="min-h-screen bg-[var(--bg-primary)] flex items-center justify-center px-4 pt-20">
     <div class="text-center max-w-md">
       <h1 class="text-4xl md:text-5xl font-gaming text-cyan-400 mb-4">
         NOCLIP DÉTECTÉ
@@ -35,5 +35,5 @@ const navLogo = await getImage({ src: logo.default, width: 40, height: 40 });
         </div>
       </div>
     </div>
-  </div>
+  </main>
 </BaseLayout>

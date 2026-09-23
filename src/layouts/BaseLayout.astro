@@ -1,33 +1,40 @@
 ---
 import '@/styles/global.css';
 import { SITE_URL } from '@/constants/site';
+import type { OgImage } from '@/lib/ogImage';
+import { HOME_PATH, absoluteUrl } from '@/lib/urls';
 
 interface Props {
   title?: string;
   description?: string;
   keywords?: string[];
   canonical?: string;
-  ogImage?: string;
+  ogImage?: OgImage;
   ogType?: 'website' | 'article';
   noIndex?: boolean;
 }
 
 const DEFAULT_TITLE = 'Ludhic - Portfolio Jeux Étudiants Master HIC | Association Jeux Vidéo';
+// Google tronque au-delà d'environ 155 caractères.
 const DEFAULT_DESCRIPTION =
-  "Découvrez les projets de jeux vidéo créés par les étudiants du Master Humanités et Industries Créatives (HIC). Portfolio interactif, association étudiante, créations originales. Anciennement MAJIC. Explorez des jeux uniques et innovants.";
+  "Les jeux vidéo créés par les étudiants du Master Humanités et Industries Créatives (HIC, ex-MAJIC) : le portfolio de l'association Ludhic.";
+
+// Logo carré : affiché en petite vignette (carte `summary`), pas en bannière.
+const DEFAULT_OG_IMAGE: OgImage = { src: '/images/logo.png', width: 1024, height: 1024, alt: 'Logo de Ludhic' };
 
 const {
   title,
   description = DEFAULT_DESCRIPTION,
   keywords = [],
-  canonical = SITE_URL,
-  ogImage = '/images/logo.png',
+  canonical = absoluteUrl(HOME_PATH),
+  ogImage = DEFAULT_OG_IMAGE,
   ogType = 'website',
   noIndex = false,
 } = Astro.props;
 
 const fullTitle = title ? `${title} | Ludhic - Master HIC` : DEFAULT_TITLE;
-const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${SITE_URL}${ogImage}`;
+const ogImageUrl = ogImage.src.startsWith('http') ? ogImage.src : `${SITE_URL}${ogImage.src}`;
+const twitterCard = ogImage.width / ogImage.height >= 1.5 ? 'summary_large_image' : 'summary';
 ---
 
 <!doctype html>
@@ -35,16 +42,23 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${SITE_URL}${ogImage}
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="dns-prefetch" href="https://ludhic.fr" />
+    {/* Les polices ne sont découvertes qu'après le CSS qui les déclare
+        (HTML → CSS → police) ; Plus Jakarta Sans est en `font-display:
+        optional`, donc le texte reste invisible tant qu'elle n'est pas là.
+        Les précharger les fait partir en parallèle du CSS. PixelifySans
+        SemiBold est la seule graisse utilisée par `.font-gaming`. */}
+    <link rel="preload" href="/fonts/PlusJakartaSans-VariableFont_wght.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/PixelifySans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
 
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     {keywords.length > 0 && <meta name="keywords" content={keywords.join(', ')} />}
     <meta name="author" content="Association Ludhic" />
-    <link rel="canonical" href={canonical} />
+    {!noIndex && <link rel="canonical" href={canonical} />}
 
-    <meta name="robots" content={noIndex ? 'noindex, nofollow' : 'index, follow'} />
-    <meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1" />
+    {/* Googlebot lit sa propre balise en priorité sur `robots` : elle doit
+        porter le noindex elle aussi, sinon la 404 restait indexable. */}
+    <meta name="robots" content={noIndex ? 'noindex, follow' : 'index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1'} />
 
     <meta property="og:type" content={ogType} />
     <meta property="og:locale" content="fr_FR" />
@@ -53,13 +67,15 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${SITE_URL}${ogImage}
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content={String(ogImage.width)} />
+    <meta property="og:image:height" content={String(ogImage.height)} />
+    <meta property="og:image:alt" content={ogImage.alt} />
 
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:card" content={twitterCard} />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
-    <meta name="twitter:creator" content="@LudhicFr" />
-    <meta name="twitter:site" content="@LudhicFr" />
+    <meta name="twitter:image:alt" content={ogImage.alt} />
 
     <meta name="theme-color" content="#06b6d4" />
     <meta name="color-scheme" content="dark" />

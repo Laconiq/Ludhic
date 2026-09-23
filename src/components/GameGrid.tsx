@@ -1,16 +1,11 @@
-import { useState } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
 import GameCard from './GameCardIsland';
-import type { ResolvedImage } from './GameCardIsland';
 import GamingButton from './GamingButtonIsland';
 import FilterBar from './FilterBar';
 import { type GameFilters, filterGames } from '@/lib/filters';
 import { FEATURED_YEAR } from '@/constants/site';
-import type { GameData } from '@/types/game';
-
-export interface GameWithImages extends GameData {
-  mainImage: ResolvedImage;
-  logoImage: ResolvedImage;
-}
+import { isValidGenre } from '@/lib/genres';
+import type { GameWithImages } from '@/lib/gameImages';
 
 interface GameGridProps {
   games: GameWithImages[];
@@ -18,15 +13,29 @@ interface GameGridProps {
   initialYear?: number | null;
   /** Affiche tout le catalogue d'emblée, sans passer par « voir le portfolio complet ». */
   showAllByDefault?: boolean;
+  /** h1 sur /games/, dont c'est le titre de page ; h2 sous le Hero de l'accueil. */
+  headingLevel?: 'h1' | 'h2';
 }
 
-export default function GameGrid({ games, initialGenre = '', initialYear = null, showAllByDefault = false }: GameGridProps) {
+export default function GameGrid({ games, initialGenre = '', initialYear = null, showAllByDefault = false, headingLevel = 'h2' }: GameGridProps) {
+  const Heading = headingLevel;
   const [filters, setFilters] = useState<GameFilters>({
     searchTerm: '',
     selectedGenre: initialGenre,
     selectedYear: initialYear ?? null,
   });
   const [showAllGames, setShowAllGames] = useState(showAllByDefault);
+
+  // Les badges de genre des pages jeu pointent vers `/games/?genre=<genre>`.
+  // La page est statique : le paramètre ne peut être lu qu'au montage, côté
+  // client (le lire dans l'état initial ferait diverger l'hydratation du HTML
+  // prérendu, qui affiche tout le catalogue).
+  useEffect(() => {
+    const genre = new URLSearchParams(window.location.search).get('genre');
+    if (genre && isValidGenre(genre)) {
+      setFilters((prev) => ({ ...prev, selectedGenre: genre }));
+    }
+  }, []);
 
   const filteredGames = filterGames(games, filters) as GameWithImages[];
 
@@ -51,9 +60,9 @@ export default function GameGrid({ games, initialGenre = '', initialYear = null,
     <section id="games" class="py-16 px-4 bg-[var(--bg-primary)]">
       <div class="max-w-7xl mx-auto">
         <div class="text-center mb-12">
-          <h2 class="text-4xl md:text-5xl font-gaming foil-effect mb-4">
+          <Heading class="text-4xl md:text-5xl font-gaming foil-effect mb-4">
             JEUX ÉTUDIANTS
-          </h2>
+          </Heading>
           <p class="text-white/70 text-lg max-w-2xl mx-auto">
             Explorez les créations interactives des étudiants Master HIC
           </p>
@@ -103,7 +112,7 @@ export default function GameGrid({ games, initialGenre = '', initialYear = null,
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 auto-rows-fr">
                   {gamesToDisplay.map((game, index) => (
-                    <GameCard key={game.id} game={game} mainImage={game.mainImage} logoImage={game.logoImage} priority={index < 4} />
+                    <GameCard key={game.id} game={game} mainImage={game.mainImage} logoImage={game.logoImage} priority={index < 4} headingLevel={headingLevel === 'h1' ? 'h2' : 'h3'} />
                   ))}
                 </div>
               </div>
